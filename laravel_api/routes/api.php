@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\API\StudentController;
 use App\Http\Controllers\API\CourseController;
+use App\Http\Controllers\API\LessonController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +36,12 @@ Route::get('/edit-course/{id}', [CourseController::class, 'edit']);
 Route::put('/update-course/{id}', [CourseController::class, 'update']);
 
 Route::delete('/delete-course/{id}', [CourseController::class, 'destroy']);
+
+// Lesson
+Route::get('/lessons/{id}', [LessonController::class, 'index']);
+Route::post('/add-lesson', [LessonController::class, 'store']);
+
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
