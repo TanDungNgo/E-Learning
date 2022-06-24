@@ -36,11 +36,11 @@ class LessonController extends Controller
         else
         {
             $lesson = new Lesson;
-            if ($request->File('video'))
+            $file= $request->file('video');
+            if ($file)
             {
-                $file= $request->file('video');
                 $filename= date('YmdHi').$file->getClientOriginalName();
-                $file-> move(public_path('Video'), $filename);
+                $file->move(public_path('videos'), $filename);
                 $lesson->video_link = $filename;
             }
             else

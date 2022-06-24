@@ -61,7 +61,10 @@ class Editcourse extends Component
                         <td>{item.description}</td>
                         <td>{item.course_id}</td>
                         <td>
-                            <ReactPlayer url='https://www.youtube.com/watch?v=oUFJJNQGwhk' width="400px" height="200px"/>
+                            {/* <ReactPlayer url={"http://localhost:8000/videos/"+item.link_video} controls={true} /> */}
+                            <video width="400px" height="200px" controls>
+                                <source src={"http://localhost:8000/videos/"+item.link_video} type="video/mp4"/>
+                                </video>
                         </td>
                     </tr>
                 );

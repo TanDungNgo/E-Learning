@@ -9,7 +9,7 @@ class Addcourse extends Component
         description: '',
         error_list: [],
     }
-
+    
     handleInput = (e) => {
         this.setState({
             [e.target.name]: e.target.value

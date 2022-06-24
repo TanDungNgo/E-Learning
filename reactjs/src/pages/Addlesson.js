@@ -2,25 +2,36 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import swal from 'sweetalert';
+
 class Addlesson extends Component
 {
     state = {
         name: '',
         description: '',
         course_id: this.props.match.params.id,
-        link_video: '',
         error_list: [],
     }
-
+    file = {
+        link_video: null,
+    }
     handleInput = (e) => {
         this.setState({
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
         });
     }
+    onFileChange = (e) => {
+        this.file.link_video = e.target.files[0];
+    }
+
     saveLesson = async (e) => {
         e.preventDefault();
+        const formData = new FormData();
+        formData.append('name', this.state.name);
+        formData.append('description', this.state.description);
+        formData.append('course_id', this.state.course_id);
+        formData.append('video', this.file.link_video);
 
-        const res = await axios.post('http://127.0.0.1:8000/api/add-lesson', this.state);
+        const res = await axios.post('http://127.0.0.1:8000/api/add-lesson', formData);
         if(res.data.status === 200)
         {
             // console.log(res.data.message);
@@ -101,7 +112,7 @@ class Addlesson extends Component
                                     </div>
 
                                     <div className='form-group mb-3'>
-                                        <input type='file' name='video' onChange={this.handleInput} className='form-control'/>
+                                        <input accept='video/*' type='file' name='video' onChange={this.onFileChange} className='form-control'/>
                                     </div>
                                     <div className='form-group mb-3'>
                                         <button type='submit' className='btn btn-primary'>Save Lesson</button>
@@ -113,6 +124,6 @@ class Addlesson extends Component
                 </div>
             </div>
         )
-    }
+    };
 }
 export default Addlesson;
