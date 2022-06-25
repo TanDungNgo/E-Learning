@@ -9,6 +9,13 @@ use Validator;
 
 class CourseController extends Controller
 {
+    public function onLogin(Request $request)
+    {
+        return response()->json([
+            'status' => 200,
+            'message' => $request->input('email'),
+        ]);
+    }
     public function index()
     {
         $courses = Course::all();
