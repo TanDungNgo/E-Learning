@@ -34,7 +34,7 @@ class Editcourse extends Component
                 icon: "warning",
                 buttons: "OK!"
             });
-            this.props.history.push('/');
+            this.props.history.push('/course');
         }
     }
 
@@ -53,7 +53,7 @@ class Editcourse extends Component
                 icon: "success",
                 buttons: "OK!"
             })
-            this.props.history.push('/');
+            this.props.history.push('/course');
             // document.getElementById('updatebtn').disabled = false;
             // document.getElementById('updatebtn').innerText = "Update Student";
         }
@@ -65,7 +65,7 @@ class Editcourse extends Component
                 icon: "warning",
                 buttons: "OK!"
             });
-            this.props.history.push('/');
+            this.props.history.push('/course');
         }
         else
         {
@@ -82,7 +82,7 @@ class Editcourse extends Component
                         <div className="card">
                             <div className="card-header">
                                 <h4>Edit Course
-                                    <Link to={"/"} className="btn btn-primary btn-sm float-end"> Back</Link>
+                                    <Link to={"/course"} className="btn btn-primary btn-sm float-end"> Back</Link>
                                 </h4>
                             </div>
                             <div className="card-body">
