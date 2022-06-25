@@ -30,15 +30,15 @@ export const Login = (props) => {
     }),
     onSubmit: (values) => {
       var body = new FormData();
-      // const useLogin = {
-      //   username: values.username,
-      //   role: "customer",
-      // };
+      const useLogin = {
+        username: values.username,
+        role: "customer",
+      };
       body.append("username", values.username);
       body.append("password", values.password);
       dispatch(loginAction(body));
 
-      // localStorage.setItem(USER_LOGIN, JSON.stringify(useLogin));
+      localStorage.setItem(USER_LOGIN, JSON.stringify(useLogin));
       history.push(location.state ? location.state.from : "/");
     },
   });

@@ -39,4 +39,17 @@ Route::delete('/delete-course/{id}', [CourseController::class, 'destroy']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+// Lesson
+Route::get('/lessons/{id}', [LessonController::class, 'index']);
+Route::post('/add-lesson', [LessonController::class, 'store']);
+Route::delete('/delete-lesson/{id}', [LessonController::class, 'destroy']);
+Route::get('/edit-lesson/{id}', [LessonController::class, 'edit']);
+Route::put('/update-lesson/{id}', [LessonController::class, 'update']);
+Route::put('/update-video/{id}', [LessonController::class, 'updatevideo']);
+
+// User
 Route::post('/users/login', [UserController::class, 'onLogin']);
+
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
