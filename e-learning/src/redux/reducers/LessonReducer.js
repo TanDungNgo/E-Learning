@@ -1,4 +1,4 @@
-import { SET_AUDIO } from "../types/LessonType";
+import { SET_AUDIO } from "../types/LessonTypes";
 
 const stateDefault = {
   listAudio: [],

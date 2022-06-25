@@ -10,7 +10,7 @@ import { HomeTemplate } from "./templates/HomeTemplate/HomeTemplate";
 export const history = createBrowserHistory();
 function App() {
   return (
-    <Switch history={history}>
+    <Switch>
       <Route path="/lesson" exact component={Lesson} />
       <HomeTemplate path="/" exact Component={Home} />
       <Route path="/login" exact component={Login} />

@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./VideoPlayer.css";
-import { v4 as uuidv4 } from "uuid";
 import { useReactMediaRecorder } from "react-media-recorder";
 import "./VideoPlayer.css";
 import { useDispatch } from "react-redux";
-import { setAudioActions } from "../../redux/actions/LessonAction";
+import { setAudioActions } from "../../redux/actions/LessonActions";
 const arrTimePause = [
   {
     minute: 0,

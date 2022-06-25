@@ -10,11 +10,11 @@ export const HomeTemplate = (props) => {
       {...restProps}
       render={(propsRoute) => {
         return (
-          <Fragment>
+          <>
             <Header {...propsRoute} />
             <Component {...propsRoute} />
             <Footer {...propsRoute} />
-          </Fragment>
+          </>
         );
       }}
     />
