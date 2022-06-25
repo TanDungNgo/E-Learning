@@ -5,15 +5,21 @@ import Addcourse from './pages/Addcourse';
 import Editcourse from './pages/Editcourse';
 import Showcourse from './pages/Showcourse';
 import Addlesson from './pages/Addlesson';
+import Editlesson from './pages/Editlesson';
+import Editvideo from './pages/Editvideo';
+import Login from "./pages/Login";
 function App() {
   return (
       <Router>
 
-            <Route exact path="/" component={Course} />
+            <Route path="/course" component={Course} />
             <Route path="/add-course" component={Addcourse} />
             <Route path="/edit-course/:id" component={Editcourse} />
             <Route path="/show-course/:id" component={Showcourse} />
             <Route path="/add-lesson/:id" component={Addlesson} />
+            <Route path="/edit-lesson/:id" component={Editlesson} />
+            <Route path="/edit-video/:id" component={Editvideo} />
+            <Route exact path="/" component={Login} />
       </Router>
   );
 }
