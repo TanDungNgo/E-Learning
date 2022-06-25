@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.line {
+  width: 100%;
+}
+
+.each-line {
+  width: 20%;
+  height: 1px;
+  background-color: black;
+}
+
+.line-text {
+  padding: 0 10px;
+}
