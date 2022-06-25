@@ -76,7 +76,7 @@ export const MultipleCourses = (props) => {
             textContent="View detail"
             className="w-full !rounded-none"
             onClick={() => {
-              alert(item.teacherName + " || " + item.courseName);
+              history.push(`/course/${item.id}`);
             }}
           />
         </div>

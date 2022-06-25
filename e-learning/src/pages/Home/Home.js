@@ -7,6 +7,7 @@ import { HomeCarousel } from "../../templates/HomeTemplate/HomeCarousel/HomeCaro
 
 const mockDataCourses = [
   {
+    id: 1,
     image:
       "https://dungmori.com/cdn/course/default/1642045699_61725_b14e1f.png",
     teacherName: "Ngũ Duy Vinh",
@@ -15,6 +16,7 @@ const mockDataCourses = [
     voting: 4.7,
   },
   {
+    id: 2,
     image:
       "https://bloganh.net/wp-content/uploads/2021/03/chup-anh-dep-anh-sang-min.jpg",
     teacherName: "Duy Vinh",
@@ -23,6 +25,7 @@ const mockDataCourses = [
     voting: 4.7,
   },
   {
+    id: 3,
     image:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRszZuaV_1IEGyYWERDbVnEYyS1RR-sHw-3Lg&usqp=CAU",
     teacherName: "Ngũ Duy Vinh",
@@ -31,6 +34,7 @@ const mockDataCourses = [
     voting: 4.7,
   },
   {
+    id: 4,
     image:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9pAIIBaFOCM5JVVg6D__yqwtZ4cJjeKTV3Z0Cef92bZwH2ZZNZ4ahqVckaoOO0HIcCBE&usqp=CAU",
     teacherName: "Ngũ Duy Vinh",
@@ -39,6 +43,7 @@ const mockDataCourses = [
     voting: 4.7,
   },
   {
+    id: 10,
     image:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52GUnI2Yewt1EMXa62-REIE7Y2XoBl7bSbQ&usqp=CAU",
     teacherName: "Ngũ Duy Vinh",
@@ -47,6 +52,7 @@ const mockDataCourses = [
     voting: 4.7,
   },
   {
+    id: 6,
     image:
       "https://dep365.com/wp-content/uploads/2021/07/bi-kip-tao-dang-chup-anh-dep-voi-goc-ben-trai-scaled.jpg",
     teacherName: "Ngũ Duy Vinh",

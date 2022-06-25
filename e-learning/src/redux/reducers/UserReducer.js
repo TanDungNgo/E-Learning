@@ -1,8 +1,9 @@
 import { USER_LOGIN } from "../../utils/settings/config";
-import { LOGIN } from "../types/UserTypes";
+import { GET_ALL_STUDENTS, LOGIN } from "../types/UserTypes";
 
 const stateDefault = {
   userLogin: {},
+  listStudents: []
 };
 
 export const UserReducer = (state = stateDefault, action) => {
@@ -13,7 +14,11 @@ export const UserReducer = (state = stateDefault, action) => {
       localStorage.setItem(USER_LOGIN, JSON.stringify(state.userLogin));
       // localStorage.setItem(TOKEN, action.value.accessToken);
       return { ...state };
-
+      //  Cập nhật kho chứa (redux)
+    case GET_ALL_STUDENTS:
+      state.listStudents = action.value;
+      console.log("student Redux",state.listStudents);
+      return { ...state };
     default:
       return { ...state };
   }
