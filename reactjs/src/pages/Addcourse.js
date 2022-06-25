@@ -7,6 +7,7 @@ class Addcourse extends Component
     state = {
         name: '',
         description: '',
+        banner: '',
         error_list: [],
     }
 
@@ -15,10 +16,18 @@ class Addcourse extends Component
             [e.target.name]: e.target.value
         });
     }
+    handleImage = (e) => {
+        this.setState({
+            banner: e.target.files[0]
+        })
+    }
     saveCourse = async (e) => {
         e.preventDefault();
-
-        const res = await axios.post('http://127.0.0.1:8000/api/add-course', this.state);
+        const data = new FormData()
+        data.append('name', this.state.name)
+        data.append('description', this.state.description)
+        data.append('banner', this.state.banner)
+        const res = await axios.post('http://127.0.0.1:8000/api/add-course', data);
         if(res.data.status === 200)
         {
             // console.log(res.data.message);
@@ -65,6 +74,11 @@ class Addcourse extends Component
                                         {/* <input type='text' name='description' onChange={this.handleInput} value={this.state.description} className='form-control'/> */}
                                         <textarea name='description' onChange={this.handleInput} value={this.state.description} className='form-control'></textarea>
                                         <span className='text-danger'>{this.state.error_list.description}</span>
+                                    </div>
+                                    <div className='form-group mb-3'>
+                                        <input type='file' name='banner'
+                                         onChange={this.handleImage} 
+                                            className='form-control'/>
                                     </div>
                                     <div className='form-group mb-3'>
                                         <button type='submit' className='btn btn-primary'>Save Course</button>

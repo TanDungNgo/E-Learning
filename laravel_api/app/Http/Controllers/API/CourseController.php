@@ -37,7 +37,10 @@ class CourseController extends Controller
             $course = new Course;
             $course->name = $request->input('name');
             $course->description = $request->input('description');
-            // $course->banner = '1';
+            $file= $request->file('banner');
+            $filename= date('YmdHi').$file->getClientOriginalName();
+            $file-> move(public_path('Image'), $filename);
+            $course->banner = $filename;
             $course->teacher_id = '1';
             $course->save();
 
@@ -50,15 +53,12 @@ class CourseController extends Controller
     public function edit($id)
     {
         $course = Course::find($id);
-        if($course)
-        {
+        if ($course) {
             return response()->json([
                 'status' => 200,
                 'course' => $course,
             ]);
-        }
-        else
-        {
+        } else {
             return response()->json([
                 'status' => 404,
                 'message' => 'No Course ID Found',
@@ -77,12 +77,9 @@ class CourseController extends Controller
             return response()->json([
                 'validate_err' => $validator->messages(),
             ]);
-        }
-        else
-        {
+        } else {
             $course = Course::find($id);
-            if($course)
-            {
+            if ($course) {
                 $course->name = $request->input('name');
                 $course->description = $request->input('description');
                 $course->update();
@@ -91,9 +88,7 @@ class CourseController extends Controller
                     'status' => 200,
                     'message' => 'Course Updated Successfully',
                 ]);
-            }
-            else
-            {
+            } else {
                 return response()->json([
                     'status' => 404,
                     'message' => 'No Course ID Found',
@@ -116,6 +111,5 @@ class CourseController extends Controller
     //not complete
     public function famousTeacher()
     {
-
     }
 }

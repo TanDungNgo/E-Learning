@@ -56,6 +56,9 @@ class Course extends Component
                         </td>
                         <td>{item.description}</td>
                         <td>
+                            <img width="400px" height="200px" src={"http://127.0.0.1:8000/Image/"+item.banner} />
+                        </td>
+                        <td>
                             <Link to={`edit-course/${item.id}`} className="btn btn-success btn-sm ">Edit</Link>
                         </td>
                         <td>
@@ -84,6 +87,7 @@ class Course extends Component
                                             <th>ID</th>
                                             <th>Course name</th>
                                             <th>Description</th>
+                                            <th>Banner</th>
                                             <th>Edit</th>
                                             <th>Delete</th>
                                         </tr>
