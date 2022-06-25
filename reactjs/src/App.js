@@ -8,6 +8,7 @@ import Addlesson from './pages/Addlesson';
 import Editlesson from './pages/Editlesson';
 import Editvideo from './pages/Editvideo';
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 function App() {
   return (
       <Router>
@@ -20,6 +21,7 @@ function App() {
             <Route path="/edit-lesson/:id" component={Editlesson} />
             <Route path="/edit-video/:id" component={Editvideo} />
             <Route exact path="/" component={Login} />
+            <Route path="/register" component={Register} />
       </Router>
   );
 }

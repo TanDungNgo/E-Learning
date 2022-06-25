@@ -62,6 +62,7 @@ class Login extends Component
                         <div className="card">
                             <div className="card-header">
                                 <h4>Login
+                                <Link to={"register"} className="btn btn-primary btn-sm float-end"> Register</Link>
                                 </h4>
                             </div>
                             <div className="card-body">

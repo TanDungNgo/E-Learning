@@ -103,7 +103,7 @@ class Editcourse extends Component
                         <div className="card">
                             <div className="card-header">
                                 <h4>Show Course
-                                    <Link to={"/"} className="btn btn-primary btn-sm float-end"> Back</Link>
+                                    <Link to={"/course"} className="btn btn-primary btn-sm float-end"> Back</Link>
                                 </h4>
                             </div>
                             <div className="card-body">

@@ -13,7 +13,7 @@ class CourseController extends Controller
 {
     public function index()
     {
-        
+
         $courses = Course::all();
         return response()->json([
             'status' => 200,
@@ -37,6 +37,8 @@ class CourseController extends Controller
             $course = new Course;
             $course->name = $request->input('name');
             $course->description = $request->input('description');
+            // $course->banner = '1';
+            $course->teacher_id = '1';
             $course->save();
 
             return response()->json([

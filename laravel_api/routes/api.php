@@ -48,6 +48,7 @@ Route::put('/update-video/{id}', [LessonController::class, 'updatevideo']);
 
 // User
 Route::post('/users/login', [UserController::class, 'onLogin']);
+Route::post('/users/register', [UserController::class, 'register']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
