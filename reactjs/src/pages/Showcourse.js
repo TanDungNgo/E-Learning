@@ -13,12 +13,22 @@ class Editcourse extends Component
         loading: true,
     }
 
-    handleInput = (e) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        });
+    deleteLesson = async (e, id) => {
+        const thidClickedFunda = e.currentTarget;
+        thidClickedFunda.innerText = "Deleting"
+        const res = await axios.delete(`http://127.0.0.1:8000/api/delete-lesson/${id}`);
+        if(res.data.status === 200)
+        {
+            thidClickedFunda.closest("tr").remove();
+            // console.log(res.data.message);
+            swal({
+                title: "Deleted!",
+                text: res.data.message,
+                icon: "success",
+                buttons: "OK!"
+              })
+        }
     }
-
     async componentDidMount() {
         const course_id = this.props.match.params.id;
         const res = await axios.get(`http://127.0.0.1:8000/api/lessons/${course_id}`);
@@ -42,6 +52,10 @@ class Editcourse extends Component
             this.props.history.push('/');
         }
     }
+    // openInNewTab = async(e, url) => {
+    //     const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
+    //     if (newWindow) newWindow.opener = null
+    // }
 
     render() {
         const course_id = this.props.match.params.id;
@@ -61,10 +75,22 @@ class Editcourse extends Component
                         <td>{item.description}</td>
                         <td>{item.course_id}</td>
                         <td>
-                            {/* <ReactPlayer url={"http://localhost:8000/videos/"+item.link_video} controls={true} /> */}
+                            {/* <ReactPlayer url={"http://127.0.0.1:8000/Video/"+item.video_link} width="400px" height="200px"/> */}
+                            {/* <video style={{width:200}} src={"http://127.0.0.1:8000/Video/"+item.video_link}/> */}
+                            {/* <Link to={"http://127.0.0.1:8000/Video/"+item.video_link} className=""> */}
+                                {/* <ReactPlayer url={"http://127.0.0.1:8000/Video/"+item.video_link} width="400px" height="200px"
+                                    onClick={(e) => this.openInNewTab(e, "http://127.0.0.1:8000/Video/"+item.video_link)}
+                                /> */}
+                            {/* </Link> */}
                             <video width="400px" height="200px" controls>
-                                <source src={"http://localhost:8000/videos/"+item.link_video} type="video/mp4"/>
-                                </video>
+                                <source src={"http://127.0.0.1:8000/Video/"+item.video_link} type="video/mp4"/>
+                            </video>
+                        </td>
+                        <td>
+                            <Link to={`/edit-lesson/${item.id}`} className="btn btn-success btn-sm ">Edit</Link>
+                        </td>
+                        <td>
+                            <button type='button' onClick={(e) => this.deleteLesson(e, item.id)} className='btn btn-danger btn-sm'>Delete</button>
                         </td>
                     </tr>
                 );
@@ -103,6 +129,8 @@ class Editcourse extends Component
                                             <th>Description</th>
                                             <th>ID Course</th>
                                             <th>Video_link</th>
+                                            <th>Edit</th>
+                                            <th>Delete</th>
                                         </tr>
                                     </thead>
                                     <tbody>

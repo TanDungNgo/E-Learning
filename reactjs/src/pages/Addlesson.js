@@ -2,36 +2,35 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import swal from 'sweetalert';
-
 class Addlesson extends Component
 {
     state = {
         name: '',
         description: '',
         course_id: this.props.match.params.id,
+        video: '',
         error_list: [],
     }
-    file = {
-        link_video: null,
-    }
+
+    
     handleInput = (e) => {
         this.setState({
-            [e.target.name]: e.target.value,
+            [e.target.name]: e.target.value
         });
     }
-    onFileChange = (e) => {
-        this.file.link_video = e.target.files[0];
+    handleVideo = (e) => {
+        this.setState({
+            video: e.target.files[0]
+        })
     }
-
     saveLesson = async (e) => {
         e.preventDefault();
-        const formData = new FormData();
-        formData.append('name', this.state.name);
-        formData.append('description', this.state.description);
-        formData.append('course_id', this.state.course_id);
-        formData.append('video', this.file.link_video);
-
-        const res = await axios.post('http://127.0.0.1:8000/api/add-lesson', formData);
+        const data = new FormData()
+        data.append('name', this.state.name)
+        data.append('description', this.state.description)
+        data.append('course_id', this.state.course_id)
+        data.append('video', this.state.video)
+        const res = await axios.post('http://127.0.0.1:8000/api/add-lesson', data);
         if(res.data.status === 200)
         {
             // console.log(res.data.message);
@@ -54,37 +53,6 @@ class Addlesson extends Component
                 error_list: res.data.validate_err,
             });
         }
-        // e.preventDefault();
-        // const url = "http://127.0.0.1:8000/api/add-lesson";
-        // const data = new FormData();
-        // data.append('video', this.state.link_video);
-        // data.append('name', this.state.name);
-        // data.append('description', this.state.description);
-        // data.append('course_id', this.state.course_id);
-        // axios.post(url, data).then(res => {
-        //     if(res.data.status === 200)
-        //     {
-        //         // console.log(res.data.message);
-        //         swal({
-        //             title: "Success!",
-        //             text: res.data.message,
-        //             icon: "success",
-        //             buttons: "OK!"
-        //         });
-                
-        //         this.props.history.push(`/show-course/${this.state.course_id}`);
-        //         this.setState({
-        //             name: '',
-        //             description: '',
-        //         });
-        //     }
-        //     else
-        //     {
-        //         this.setState({
-        //             error_list: res.data.validate_err,
-        //         });
-        //     }
-        // })
     }
     render() {
         return (
@@ -112,7 +80,9 @@ class Addlesson extends Component
                                     </div>
 
                                     <div className='form-group mb-3'>
-                                        <input accept='video/*' type='file' name='video' onChange={this.onFileChange} className='form-control'/>
+                                        <input type='file' name='video'
+                                         onChange={this.handleVideo} 
+                                            className='form-control'/>
                                     </div>
                                     <div className='form-group mb-3'>
                                         <button type='submit' className='btn btn-primary'>Save Lesson</button>
@@ -124,6 +94,6 @@ class Addlesson extends Component
                 </div>
             </div>
         )
-    };
+    }
 }
 export default Addlesson;

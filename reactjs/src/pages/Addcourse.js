@@ -9,7 +9,7 @@ class Addcourse extends Component
         description: '',
         error_list: [],
     }
-    
+
     handleInput = (e) => {
         this.setState({
             [e.target.name]: e.target.value
@@ -29,7 +29,7 @@ class Addcourse extends Component
                 buttons: "OK!"
               });
             
-            this.props.history.push('/');
+            this.props.history.push('/course');
             this.setState({
                 name: '',
                 description: '',
@@ -50,7 +50,7 @@ class Addcourse extends Component
                         <div className="card">
                             <div className="card-header">
                                 <h4>Add Course
-                                    <Link to={"/"} className="btn btn-primary btn-sm float-end"> Back</Link>
+                                    <Link to={"/course"} className="btn btn-primary btn-sm float-end"> Back</Link>
                                 </h4>
                             </div>
                             <div className="card-body">

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Course;
 use Illuminate\Http\Request;
 use Validator;
+
+use App\Models\Student;
+use App\Models\Course;
 
 class CourseController extends Controller
 {
@@ -107,5 +109,11 @@ class CourseController extends Controller
             'status' => 200,
             'message' => 'Course Deleted Successfully',
         ]);
+    }
+    //teacher noi tieng nhat
+    //not complete
+    public function famousTeacher()
+    {
+
     }
 }
