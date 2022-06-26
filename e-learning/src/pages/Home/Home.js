@@ -105,18 +105,19 @@ export const Home = (props) => {
           <Input
             allowClear
             placeholder="Input course name"
-            className="col-span-1 !text-black"
+            className="col-span-1 !text-black !border-gray-800"
           />
           <Input
             allowClear
             placeholder="Input teacher name"
-            className="col-span-1 !text-black"
+            className="col-span-1 !text-black !border-gray-800"
           />
           <Search
             placeholder="Input lesson name"
             allowClear
             enterButton="Search"
-            className="col-span-1 !text-black"
+            className="col-span-1 !text-black "
+            style={{ borderColor: "black" }}
             // onSearch={onSearch}
           />
         </div>

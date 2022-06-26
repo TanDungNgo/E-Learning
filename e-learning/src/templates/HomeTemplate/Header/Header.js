@@ -84,7 +84,7 @@ export const Header = (props) => {
               className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent dark:text-violet-400 dark:border-violet-400
               text-black"
             >
-              Trang Chủ
+              Home
             </NavLink>
           </li>
           <li className="flex">

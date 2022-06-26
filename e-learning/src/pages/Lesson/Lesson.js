@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import VideoPlayer from "../../components/VideoPlayer/VideoPlayer";
 
-export const Lesson = () => {
+export const Lesson = (props) => {
   const [videoSrc, setVideoSrc] = useState("");
   const { listAudio } = useSelector((state) => state.LessonReducer);
   useEffect(() => {}, [listAudio]);
@@ -30,10 +30,7 @@ export const Lesson = () => {
     let reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = (e) => {
-      console.log(e.target.result);
-      setVideoSrc(e.target.result); //Hình base 64
-
-      console.log(videoSrc);
+      setVideoSrc(e.target.result);
     };
   };
 
