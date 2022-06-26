@@ -56,7 +56,7 @@ class Course extends Component
                         </td>
                         <td>{item.description}</td>
                         <td>
-                            <img width="400px" height="200px" src={"http://127.0.0.1:8000/Image/"+item.banner} />
+                            <img width="400px" height="200px" src={item.banner} />
                         </td>
                         <td>
                             <Link to={`edit-course/${item.id}`} className="btn btn-success btn-sm ">Edit</Link>

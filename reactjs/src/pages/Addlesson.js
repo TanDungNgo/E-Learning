@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import swal from 'sweetalert';
+import {default as storage} from "./firebaseConfig";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 class Addlesson extends Component
 {
     state = {
@@ -9,6 +11,7 @@ class Addlesson extends Component
         description: '',
         course_id: this.props.match.params.id,
         video: '',
+        url: '',
         error_list: [],
     }
 
@@ -23,13 +26,42 @@ class Addlesson extends Component
             video: e.target.files[0]
         })
     }
+    handleUpload = () => {
+ 
+        const storageRef = ref(storage, `/files/${this.state.video.name}`);
+        const uploadTask = uploadBytesResumable(storageRef, this.state.video);
+ 
+        uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+                const percent = Math.round(
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                );
+ 
+                // update progress
+                this.setState({
+                    percent: percent
+                })
+            },
+            (err) => console.log(err),
+            () => {
+                getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+                    this.setState({
+                        url: url
+                    });
+                    console.log(this.state.url);
+                });
+            }
+        );
+    };
     saveLesson = async (e) => {
         e.preventDefault();
         const data = new FormData()
         data.append('name', this.state.name)
         data.append('description', this.state.description)
         data.append('course_id', this.state.course_id)
-        data.append('video', this.state.video)
+        // data.append('video', this.state.video)
+        data.append('url', this.state.url)
         const res = await axios.post('http://127.0.0.1:8000/api/add-lesson', data);
         if(res.data.status === 200)
         {
@@ -66,6 +98,8 @@ class Addlesson extends Component
                                 </h4>
                             </div>
                             <div className="card-body">
+                                    <p>{this.state.percent} "% done"</p>
+                                    <button onClick={this.handleUpload}>Upload to Firebase</button>
                                 <form onSubmit={this.saveLesson}>
                                 <input type='hidden' name='course_id' onChange={this.handleInput} value={this.state.course_id} className='form-control'/>
                                     <div className='form-group mb-3'>

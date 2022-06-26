@@ -83,7 +83,7 @@ class Editcourse extends Component
                                 /> */}
                             {/* </Link> */}
                             <video width="400px" height="200px" controls>
-                                <source src={"http://127.0.0.1:8000/Video/"+item.video_link} type="video/mp4"/>
+                                <source src={item.video_link} type="video/mp4"/>
                             </video>
                         </td>
                         <td>

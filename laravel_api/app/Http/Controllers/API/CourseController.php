@@ -37,10 +37,11 @@ class CourseController extends Controller
             $course = new Course;
             $course->name = $request->input('name');
             $course->description = $request->input('description');
-            $file= $request->file('banner');
-            $filename= date('YmdHi').$file->getClientOriginalName();
-            $file-> move(public_path('Image'), $filename);
-            $course->banner = $filename;
+            // $file= $request->file('banner');
+            // $filename= date('YmdHi').$file->getClientOriginalName();
+            // $file-> move(public_path('Image'), $filename);
+            // $course->banner = $filename;
+            $course->banner = $request->input('url');
             $course->teacher_id = '1';
             $course->save();
 

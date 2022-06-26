@@ -2,13 +2,17 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import swal from 'sweetalert';
+import {default as storage} from "./firebaseConfig";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 class Addcourse extends Component
 {
     state = {
         name: '',
         description: '',
         banner: '',
+        url: '',
         error_list: [],
+        percent: 0,
     }
 
     handleInput = (e) => {
@@ -19,18 +23,47 @@ class Addcourse extends Component
     handleImage = (e) => {
         this.setState({
             banner: e.target.files[0]
-        })
+        });
     }
+    handleUpload = () => {
+ 
+        const storageRef = ref(storage, `/files/${this.state.banner.name}`);
+        const uploadTask = uploadBytesResumable(storageRef, this.state.banner);
+ 
+        uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+                const percent = Math.round(
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                );
+ 
+                // update progress
+                this.setState({
+                    percent: percent
+                })
+            },
+            (err) => console.log(err),
+            () => {
+                getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+                    this.setState({
+                        url: url
+                    });
+                    console.log(this.state.url);
+                });
+            }
+        );
+    };
     saveCourse = async (e) => {
         e.preventDefault();
         const data = new FormData()
         data.append('name', this.state.name)
         data.append('description', this.state.description)
         data.append('banner', this.state.banner)
+        data.append('url', this.state.url)
         const res = await axios.post('http://127.0.0.1:8000/api/add-course', data);
         if(res.data.status === 200)
         {
-            // console.log(res.data.message);
+            console.log(res.data.message);
             swal({
                 title: "Success!",
                 text: res.data.message,
@@ -63,6 +96,8 @@ class Addcourse extends Component
                                 </h4>
                             </div>
                             <div className="card-body">
+                                    <p>{this.state.percent} "% done"</p>
+                                    <button onClick={this.handleUpload}>Upload to Firebase</button>
                                 <form onSubmit={this.saveCourse}>
                                     <div className='form-group mb-3'>
                                         <label> Course Name</label>
