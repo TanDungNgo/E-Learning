@@ -113,4 +113,21 @@ class CourseController extends Controller
     public function famousTeacher()
     {
     }
+
+    public function popular_courses()
+    {
+        $courses = Course::all();
+        $popular_course = [];
+        foreach($courses as $course)
+        {
+            $popular_course[] = $course->students();
+        }
+        $max = max($popular_course);
+        $index = array_search($max, $popular_course);
+        $popular_course = $courses[$index];
+        return response()->json([
+            'status' => 200,
+            'popular_course' => $popular_course,
+        ]);
+    }
 }
