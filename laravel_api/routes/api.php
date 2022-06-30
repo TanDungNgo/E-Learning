@@ -5,6 +5,7 @@ use App\Http\Controllers\API\LessonController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\RecordController;
 use App\Http\Controllers\API\FeedbackController;
+use App\Http\Controllers\API\UpgradeTeacherController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -52,14 +53,18 @@ Route::post('/update-video/{id}', [LessonController::class, 'updatevideo']);
 Route::post('/users/login', [UserController::class, 'onLogin']);
 Route::post('/users/register', [UserController::class, 'register']);
 
-// Record
-Route::post('/save-record', [RecordController::class, 'save_record']);
-Route::get('/records/{id}', [RecordController::class, 'index']);
 
 // Feedback
 Route::get('/feedback/{id}', [FeedbackController::class, 'index']);
 Route::post('/save-feedback', [FeedbackController::class, 'save_feedback']);
 
+
+// Upgrade Teacher
+Route::post('/request-to-become-teacher', [UpgradeTeacherController::class, 'RequestBecomeTeacher']);
+//accept request
+Route::put('/upgrade-teacher', [UpgradeTeacherController::class, 'upgrade_to_teacher']);
+
+Route::get('/popular-courses', [CourseController::class, 'popular_courses']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
