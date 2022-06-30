@@ -60,7 +60,6 @@ class Addlesson extends Component
         data.append('name', this.state.name)
         data.append('description', this.state.description)
         data.append('course_id', this.state.course_id)
-        // data.append('video', this.state.video)
         data.append('url', this.state.url)
         const res = await axios.post('http://127.0.0.1:8000/api/add-lesson', data);
         if(res.data.status === 200)
@@ -101,7 +100,6 @@ class Addlesson extends Component
                                     <p>{this.state.percent} "% done"</p>
                                     <button onClick={this.handleUpload}>Upload to Firebase</button>
                                 <form onSubmit={this.saveLesson}>
-                                <input type='hidden' name='course_id' onChange={this.handleInput} value={this.state.course_id} className='form-control'/>
                                     <div className='form-group mb-3'>
                                         <label> Lesson Name</label>
                                         <input type='text' name='name' onChange={this.handleInput} value={this.state.name} className='form-control'/>
@@ -112,7 +110,6 @@ class Addlesson extends Component
                                         <textarea name='description' onChange={this.handleInput} value={this.state.description} className='form-control'></textarea>
                                         <span className='text-danger'>{this.state.error_list.description}</span>
                                     </div>
-
                                     <div className='form-group mb-3'>
                                         <input type='file' name='video'
                                          onChange={this.handleVideo} 
