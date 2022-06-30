@@ -4,10 +4,16 @@ import React, { useEffect, useState } from "react";
 import {initializeApp} from 'firebase/app';
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 
+import { ReactDOM } from "react";
+
 const firebaseConfig = {
   // ...
   storageBucket: 'gs://kaiwa-project-728e7.appspot.com'
 };
+
+const uploadFile = React.createElement('button',{
+
+},'UPload');
 
 const app = initializeApp(firebaseConfig);
 
@@ -57,12 +63,24 @@ const RecordView = (props) => {
     audio: true,
     echoCancellation: true,
     onStop: (blobUrl, blob) => {
-      const storageRef = ref(storage, 'audio/recordings.wav');
-
+        // const storageRef = ref(storage, 'audio/recordings.wav');
+      // 'file' comes from the Blob or File API
+      // uploadBytes(storageRef, blob).then((snapshot) => 
+      // { 
+      //   console.log('Uploaded a blob or file!');
+      // });
+      const uploadFile = document.createElement('button');
+      uploadFile.innerHTML = 'Upload';
+      uploadFile.addEventListener('click', () => {
+        const storageRef = ref(storage, 'audio/recordings.wav');
         // 'file' comes from the Blob or File API
-        uploadBytes(storageRef, blob).then((snapshot) => {
-        console.log('Uploaded a blob or file!');
+        uploadBytes(storageRef, blob).then((snapshot) => 
+        { 
+          console.log('Uploaded a blob or file!');
         });
+      }
+      );
+      document.body.appendChild(uploadFile);
     }
   });
 
@@ -75,7 +93,8 @@ const RecordView = (props) => {
       <button onClick={stopRecording} className="text-green-500">
         Stop Recording
       </button>
-      <video src={mediaBlobUrl} controls />
+      <div id="uploadFile"></div>
+      <audio src={mediaBlobUrl} controls />
     </div>
   );
 };
