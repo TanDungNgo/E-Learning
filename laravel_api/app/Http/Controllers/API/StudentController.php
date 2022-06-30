@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Student;
+use App\Models\Course;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -115,4 +116,5 @@ class StudentController extends Controller
             'message' => 'Student Deleted Successfully',
         ]);
     }
+    
 }

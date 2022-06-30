@@ -17,7 +17,7 @@ class CreateLessonsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
-            $table->integer('course_id');
+            $table->foregin('course_id')->references('id')->on('courses');
             $table->string('video_link');
             $table->timestamps();
         });

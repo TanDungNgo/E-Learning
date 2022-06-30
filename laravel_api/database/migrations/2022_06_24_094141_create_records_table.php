@@ -15,8 +15,8 @@ class CreateRecordsTable extends Migration
     {
         Schema::create('records', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->integer('lesson_id');
+            $table->foregin('user_id')->references('id')->on('users');
+            $table->foregin('lesson_id')->references('id')->on('lessons');
             $table->string('path');
             $table->timestamps();
         });

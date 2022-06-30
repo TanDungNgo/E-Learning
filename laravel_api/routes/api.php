@@ -3,6 +3,7 @@ use App\Http\Controllers\API\StudentController;
 use App\Http\Controllers\API\CourseController;
 use App\Http\Controllers\API\LessonController;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\UpgradeTeacherController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -49,6 +50,15 @@ Route::put('/update-video/{id}', [LessonController::class, 'updatevideo']);
 // User
 Route::post('/users/login', [UserController::class, 'onLogin']);
 
+/// check role
+Route::get('/users/check-role', [UserController::class, 'Role']);
+
+// Upgrade Teacher
+Route::post('/request-to-become-teacher', [UpgradeTeacherController::class, 'RequestBecomeTeacher']);
+//accept request
+Route::put('/upgrade-teacher', [UpgradeTeacherController::class, 'upgrade_to_teacher']);
+
+Route::get('/popular-courses', [CourseController::class, 'popular_courses']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
