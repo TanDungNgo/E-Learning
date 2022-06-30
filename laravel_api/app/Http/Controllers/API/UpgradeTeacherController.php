@@ -45,7 +45,6 @@ class UpgradeTeacherController extends Controller
             ]);
         }
     }
-    // hàm xét duyệt sẽ viết sau khi cập nhật lại hàm check admin của user
     public function upgrade_to_teacher(Request $request)
     {
         if(true) // điều chỉnh lại sau
@@ -55,7 +54,7 @@ class UpgradeTeacherController extends Controller
             {
                 $re = Upgradeteacher::find($request->input('id'));
                 $user = User::find($re->user_id);
-                $user->role = 2;
+                $user->role = 'teacher';
                 $user->save();
                 
                 $re->status = 'accepted';

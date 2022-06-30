@@ -19,6 +19,7 @@ class CreateStudentsTable extends Migration
             $table->id();
             $table->foregin('course_id')->references('id')->on('courses');
             $table->foregin('user_id')->references('id')->on('users');
+            $table->date('join_date');
             $table->timestamps();
         });
     }

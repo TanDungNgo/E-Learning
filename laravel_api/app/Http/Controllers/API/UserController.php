@@ -36,40 +36,4 @@ class UserController extends Controller
             'message' => "Login không thành công!",
         ]);
     }
-    // dùng cho việc call api để check role
-    public function Role()
-    {
-        $user = Auth::user();
-        if($user->role == 1)
-        {
-            return response()->json([
-                'status' => 200,
-                'message' => "Admin",
-                'role' => 'admin',
-            ]);
-        }
-        else if($user->role == 2)
-        {
-            return response()->json([
-                'status' => 200,
-                'message' => "Teacher",
-                'role' => 'teacher',
-            ]);
-        }
-        else if($user->role == 3)
-        {
-            return response()->json([
-                'status' => 200,
-                'message' => "Student",
-                'role' => "Student",
-            ]);
-        }
-        else {
-            return response()->json([
-                'status' => 401,
-                'message' => "Không xác định",
-                'role' => "guest",
-            ]);
-        }
-    }
 }

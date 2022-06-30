@@ -17,7 +17,7 @@ class CreateRecordsTable extends Migration
             $table->id();
             $table->foregin('user_id')->references('id')->on('users');
             $table->foregin('lesson_id')->references('id')->on('lessons');
-            $table->string('path');
+            $table->text('record_file');
             $table->timestamps();
         });
     }
