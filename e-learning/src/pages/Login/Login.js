@@ -12,12 +12,12 @@ export const Login = (props) => {
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
-      username: "",
+      email: "",
       password: "",
     },
 
     validationSchema: Yup.object({
-      username: Yup.string()
+      email: Yup.string()
         .max(50, "Must be between 6 to 50 characters")
         .min(6, "Must be between 6 to 50 characters")
         .required("Required!!!"),
@@ -29,15 +29,14 @@ export const Login = (props) => {
     onSubmit: (values) => {
       var body = new FormData();
       const useLogin = {
-        username: values.username,
-        role: "customer",
+        email: values.email,
+        role: values.email.length > 15 ? "ADMIN" : "CUSTOMER",
       };
-      body.append("username", values.username);
+      body.append("email", values.email);
       body.append("password", values.password);
-      dispatch(loginAction(body));
 
-      localStorage.setItem(USER_LOGIN, JSON.stringify(useLogin));
-      history.push(location.state ? location.state.from : "/");
+      dispatch(loginAction(useLogin, props));
+      // dispatch(loginAction(body, props));
     },
   });
 
@@ -59,17 +58,17 @@ export const Login = (props) => {
               </h1>
               <div className="mb-6 form-group">
                 <label className="form-check-label inline-block text-xl  text-black">
-                  Username
+                  Email
                 </label>
                 <input
                   type="text"
-                  name="username"
+                  name="email"
                   className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                  placeholder="Nhập Username"
+                  placeholder="Nhập email"
                   onChange={formik.handleChange}
                 />
-                {formik.errors.username && formik.touched.username && (
-                  <p className="text-red-600">{formik.errors.username}</p>
+                {formik.errors.email && formik.touched.email && (
+                  <p className="text-red-600">{formik.errors.email}</p>
                 )}
               </div>
               <div className="mb-6">

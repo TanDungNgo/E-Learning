@@ -1,5 +1,5 @@
-import { Button, Checkbox, Col, Form, Input, Row, Select } from "antd";
-import { useState } from "react";
+import { Checkbox, Form, Input, Select } from "antd";
+import { useFormik } from "formik";
 import { Footer } from "./../../templates/HomeTemplate/Footer/Footer";
 // import { number } from "yup";
 // import { useState } from "react",
@@ -16,8 +16,23 @@ const btnRegister = {
   marginLeft: 220,
   padding: 3,
 };
+
 const Register = (props) => {
-  const { history, location } = props;
+  const formik = useFormik({
+    initialValues: {
+      firstName: "",
+      lastName: "",
+      username: "",
+      email: "",
+      numberPhone: "",
+      gender: "",
+    },
+    onSubmit: (values) => {
+      console.log("values", values);
+      alert("hello");
+      // dispatch(registerAction(values));
+    },
+  });
 
   return (
     <>
@@ -32,19 +47,16 @@ const Register = (props) => {
             span: 14,
           }}
           layout="horizontal"
-          onFinish={
-            () => history.push(location.state ? location.state.from : "/")
-            // history.goBack()
-          }
+          onSubmitCapture={formik.handleSubmit}
         >
           <div style={{ border: "1px solid" }} className="p-10">
             <Form.Item label="Fullname" required>
               <Form.Item
-                name="firstname"
+                name="firstName"
                 rules={[
                   {
                     required: true,
-                    message: "Please input your firstname!",
+                    message: "Please input your first name!",
                     whitespace: true,
                   },
                   {
@@ -54,14 +66,17 @@ const Register = (props) => {
                 ]}
                 style={{ display: "inline-block", width: "calc(50% - 8px)" }}
               >
-                <Input placeholder="Input first name" />
+                <Input
+                  placeholder="Input first name"
+                  onChange={formik.handleChange}
+                />
               </Form.Item>
               <Form.Item
-                name="lastname"
+                name="lastName"
                 rules={[
                   {
                     required: true,
-                    message: "Please input your lastname!",
+                    message: "Please input your last name!",
                     whitespace: true,
                   },
                   {
@@ -75,7 +90,10 @@ const Register = (props) => {
                   margin: "0 0 0 16px",
                 }}
               >
-                <Input placeholder="Input last name" />
+                <Input
+                  placeholder="Input last name"
+                  onChange={formik.handleChange}
+                />
               </Form.Item>
             </Form.Item>
             <Form.Item
@@ -97,6 +115,7 @@ const Register = (props) => {
                   message: "Must be between 6 to 50 characters!",
                 },
               ]}
+              onChange={formik.handleChange}
             >
               <Input />
             </Form.Item>
@@ -119,6 +138,7 @@ const Register = (props) => {
                 },
               ]}
               hasFeedback
+              onChange={formik.handleChange}
             >
               <Input.Password />
             </Form.Item>
@@ -155,6 +175,7 @@ const Register = (props) => {
                   },
                 }),
               ]}
+              onChange={formik.handleChange}
             >
               <Input.Password />
             </Form.Item>
@@ -184,6 +205,7 @@ const Register = (props) => {
                   message: "Please input your phone number!",
                 },
               ]}
+              onChange={formik.handleChange}
             >
               <Input
                 style={{
@@ -201,6 +223,7 @@ const Register = (props) => {
                   message: "Please select gender!",
                 },
               ]}
+              onChange={formik.handleChange}
             >
               <Select placeholder="Select your gender">
                 <Option value="male">Male</Option>
@@ -208,19 +231,6 @@ const Register = (props) => {
                 <Option value="other">Other</Option>
               </Select>
             </Form.Item>
-
-            {/* <Form.Item>
-            <Input.TextArea
-              showCount
-              value=" Dân Trí là một tờ báo điện tử trực thuộc Bộ Lao đông - Thương binh và
-          Xã hội. Theo thống kê của Google, đến nay, mỗi tháng có bình quân Dân
-          trí có 900 triệu pageviews; mỗi ngày có bình quân trên 10 triệu lượt
-          người truy cập vào báo Dân trí tiếng Việt và tiếng Anh, trong đó 20%
-          người truy cập từ nước ngoài."
-              disabled
-            />
-          </Form.Item> */}
-
             <Form.Item
               name="agreement"
               valuePropName="checked"

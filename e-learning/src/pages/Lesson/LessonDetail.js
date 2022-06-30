@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import VideoPlayer from "../../components/VideoPlayer/VideoPlayer";
 
-export const Lesson = (props) => {
+export const LessonDetail = (props) => {
   const [videoSrc, setVideoSrc] = useState("");
   const { listAudio } = useSelector((state) => state.LessonReducer);
   useEffect(() => {}, [listAudio]);
