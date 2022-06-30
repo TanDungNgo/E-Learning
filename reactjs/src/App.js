@@ -9,10 +9,13 @@ import Editlesson from './pages/Editlesson';
 import Editvideo from './pages/Editvideo';
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Showlesson from "./pages/Showlesson";
+import Feedback from "./pages/Feedback";
 function App() {
   return (
       <Router>
-
+            <Route path="/feedback/:id" component={Feedback} />
+            <Route path="/show-lesson/:id" component={Showlesson} />
             <Route path="/course" component={Course} />
             <Route path="/add-course" component={Addcourse} />
             <Route path="/edit-course/:id" component={Editcourse} />

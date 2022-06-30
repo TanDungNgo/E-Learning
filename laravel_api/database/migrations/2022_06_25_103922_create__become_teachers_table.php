@@ -19,7 +19,7 @@ class CreateBecomeTeachersTable extends Migration
         Schema::create('_become_teachers', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->string('video_path'); // dùng để giới thiệu bản thân
+            $table->text('video_path'); // dùng để giới thiệu bản thân
             $table->timestamps();
         });
     }

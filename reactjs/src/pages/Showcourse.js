@@ -71,17 +71,10 @@ class Editcourse extends Component
                 return (
                     <tr key={item.id}>
                         <td>{item.id}</td>
-                        <td> {item.name}</td>
+                        <td> <Link to={`/show-lesson/${item.id}`}>{item.name}</Link></td>
                         <td>{item.description}</td>
                         <td>{item.course_id}</td>
                         <td>
-                            {/* <ReactPlayer url={"http://127.0.0.1:8000/Video/"+item.video_link} width="400px" height="200px"/> */}
-                            {/* <video style={{width:200}} src={"http://127.0.0.1:8000/Video/"+item.video_link}/> */}
-                            {/* <Link to={"http://127.0.0.1:8000/Video/"+item.video_link} className=""> */}
-                                {/* <ReactPlayer url={"http://127.0.0.1:8000/Video/"+item.video_link} width="400px" height="200px"
-                                    onClick={(e) => this.openInNewTab(e, "http://127.0.0.1:8000/Video/"+item.video_link)}
-                                /> */}
-                            {/* </Link> */}
                             <video width="400px" height="200px" controls>
                                 <source src={item.video_link} type="video/mp4"/>
                             </video>
