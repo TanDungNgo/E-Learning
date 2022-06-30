@@ -44,16 +44,19 @@ class Editvideo extends Component
     Updatevideo = async (e) => {
         e.preventDefault();
         const lesson_id = this.props.match.params.id;
-        const res = await axios.put(`http://127.0.0.1:8000/api/update-video/${lesson_id}`, this.state);
+        const data = new FormData()
+        data.append('lesson_id', lesson_id)
+        data.append('video', this.state.video)
+        const res = await axios.post(`http://127.0.0.1:8000/api/update-video/${lesson_id}`, data);
         if(res.data.status === 200)
         {
-            console.log(res.data.message);
-            // swal({
-            //     title: "Success!",
-            //     text: res.data.message,
-            //     icon: "success",
-            //     buttons: "OK!"
-            //   });
+            // console.log(res.data.message);
+            swal({
+                title: "Success!",
+                text: res.data.message,
+                icon: "success",
+                buttons: "OK!"
+              });
             
             this.props.history.push(`/show-course/${this.state.course_id}`);
             this.setState({
@@ -81,7 +84,6 @@ class Editvideo extends Component
                             </div>
                             <div className="card-body">
                                 <form onSubmit={this.Updatevideo}>
-                                <input type='hidden' name='course_id' onChange={this.handleInput} value={this.state.course_id} className='form-control'/>
                                     <div className='form-group mb-3'>
                                         <input type='file' name='video'
                                          onChange={this.handleVideo} 

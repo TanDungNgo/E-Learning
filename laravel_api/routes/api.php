@@ -45,10 +45,11 @@ Route::post('/add-lesson', [LessonController::class, 'store']);
 Route::delete('/delete-lesson/{id}', [LessonController::class, 'destroy']);
 Route::get('/edit-lesson/{id}', [LessonController::class, 'edit']);
 Route::put('/update-lesson/{id}', [LessonController::class, 'update']);
-Route::put('/update-video/{id}', [LessonController::class, 'updatevideo']);
+Route::post('/update-video/{id}', [LessonController::class, 'updatevideo']);
 
 // User
 Route::post('/users/login', [UserController::class, 'onLogin']);
+Route::post('/users/register', [UserController::class, 'register']);
 
 /// check role
 Route::get('/users/check-role', [UserController::class, 'Role']);

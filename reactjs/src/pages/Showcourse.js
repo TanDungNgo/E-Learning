@@ -83,7 +83,7 @@ class Editcourse extends Component
                                 /> */}
                             {/* </Link> */}
                             <video width="400px" height="200px" controls>
-                                <source src={"http://127.0.0.1:8000/Video/"+item.video_link} type="video/mp4"/>
+                                <source src={item.video_link} type="video/mp4"/>
                             </video>
                         </td>
                         <td>
@@ -103,7 +103,7 @@ class Editcourse extends Component
                         <div className="card">
                             <div className="card-header">
                                 <h4>Show Course
-                                    <Link to={"/"} className="btn btn-primary btn-sm float-end"> Back</Link>
+                                    <Link to={"/course"} className="btn btn-primary btn-sm float-end"> Back</Link>
                                 </h4>
                             </div>
                             <div className="card-body">

@@ -35,13 +35,14 @@ class LessonController extends Controller
         else
         {
             $lesson = new Lesson;
-            $file= $request->file('video');
-            $filename= date('YmdHi').$file->getClientOriginalName();
-            $file-> move(public_path('Video'), $filename);
-            $lesson->video_link = $filename;
+            // $file= $request->file('video');
+            // $filename= date('YmdHi').$file->getClientOriginalName();
+            // $file-> move(public_path('Video'), $filename);
+            // $lesson->video_link = $filename;
             $lesson->name = $request->input('name');
             $lesson->description = $request->input('description');
             $lesson->course_id = $request->input('course_id');
+            $lesson->video_link = $request->input('url');
             $lesson->save();
 
             return response()->json([
@@ -127,7 +128,7 @@ class LessonController extends Controller
                 $lesson->update();
                 return response()->json([
                     'status' => 200,
-                    'message' => 'Lesson Updated Successfully',
+                    'message' => 'Video Updated Successfully',
                 ]);
             }
         }
