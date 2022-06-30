@@ -63,16 +63,11 @@ const RecordView = (props) => {
     audio: true,
     echoCancellation: true,
     onStop: (blobUrl, blob) => {
-        // const storageRef = ref(storage, 'audio/recordings.wav');
-      // 'file' comes from the Blob or File API
-      // uploadBytes(storageRef, blob).then((snapshot) => 
-      // { 
-      //   console.log('Uploaded a blob or file!');
-      // });
+      const filename = `${new Date().getTime()}.wav`;
       const uploadFile = document.createElement('button');
       uploadFile.innerHTML = 'Upload';
       uploadFile.addEventListener('click', () => {
-        const storageRef = ref(storage, 'audio/recordings.wav');
+        const storageRef = ref(storage, 'audio/' + filename);
         // 'file' comes from the Blob or File API
         uploadBytes(storageRef, blob).then((snapshot) => 
         { 
