@@ -3,14 +3,17 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Course;
 use Illuminate\Http\Request;
 use Validator;
+
+use App\Models\Student;
+use App\Models\Course;
 
 class CourseController extends Controller
 {
     public function index()
     {
+
         $courses = Course::all();
         return response()->json([
             'status' => 200,
@@ -34,6 +37,13 @@ class CourseController extends Controller
             $course = new Course;
             $course->name = $request->input('name');
             $course->description = $request->input('description');
+            // $file= $request->file('banner');
+            // $filename= date('YmdHi').$file->getClientOriginalName();
+            // $file-> move(public_path('Image'), $filename);
+            // $course->banner = $filename;
+            $course->banner = $request->input('url');
+            $course->teacher_id = '1';
+            $course->price = 1000;
             $course->save();
 
             return response()->json([
@@ -45,15 +55,12 @@ class CourseController extends Controller
     public function edit($id)
     {
         $course = Course::find($id);
-        if($course)
-        {
+        if ($course) {
             return response()->json([
                 'status' => 200,
                 'course' => $course,
             ]);
-        }
-        else
-        {
+        } else {
             return response()->json([
                 'status' => 404,
                 'message' => 'No Course ID Found',
@@ -72,12 +79,9 @@ class CourseController extends Controller
             return response()->json([
                 'validate_err' => $validator->messages(),
             ]);
-        }
-        else
-        {
+        } else {
             $course = Course::find($id);
-            if($course)
-            {
+            if ($course) {
                 $course->name = $request->input('name');
                 $course->description = $request->input('description');
                 $course->update();
@@ -86,9 +90,7 @@ class CourseController extends Controller
                     'status' => 200,
                     'message' => 'Course Updated Successfully',
                 ]);
-            }
-            else
-            {
+            } else {
                 return response()->json([
                     'status' => 404,
                     'message' => 'No Course ID Found',
@@ -105,6 +107,28 @@ class CourseController extends Controller
         return response()->json([
             'status' => 200,
             'message' => 'Course Deleted Successfully',
+        ]);
+    }
+    //teacher noi tieng nhat
+    //not complete
+    public function famousTeacher()
+    {
+    }
+
+    public function popular_courses()
+    {
+        $courses = Course::all();
+        $popular_course = [];
+        foreach($courses as $course)
+        {
+            $popular_course[] = $course->students();
+        }
+        $max = max($popular_course);
+        $index = array_search($max, $popular_course);
+        $popular_course = $courses[$index];
+        return response()->json([
+            'status' => 200,
+            'popular_course' => $popular_course,
         ]);
     }
 }
