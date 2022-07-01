@@ -43,6 +43,7 @@ class CourseController extends Controller
             // $course->banner = $filename;
             $course->banner = $request->input('url');
             $course->teacher_id = '1';
+            $course->price = 1000;
             $course->save();
 
             return response()->json([

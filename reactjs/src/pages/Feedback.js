@@ -21,7 +21,7 @@ class Feedback extends Component
         if(res.data.status === 200)
         {
             this.setState({
-                path: res.data.record.path,
+                path: res.data.record.record_file,
             })
         }
     }

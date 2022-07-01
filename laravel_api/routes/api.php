@@ -68,3 +68,7 @@ Route::get('/popular-courses', [CourseController::class, 'popular_courses']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+// save audio-record
+Route::post('/save-audio-record', [RecordController::class, 'save_audio_record']);

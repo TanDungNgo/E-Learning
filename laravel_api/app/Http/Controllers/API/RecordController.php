@@ -12,6 +12,7 @@ class RecordController extends Controller
     public function index($id)
     {
         $lesson = Lesson::find($id);
+        $record = Lesson::latest()->all();
         $records = DB::table('records')->where('lesson_id',$id)->get();
         return response()->json([
             'status' => 200,
@@ -19,11 +20,12 @@ class RecordController extends Controller
             'records' => $records,
         ]);
     }
-    public function save_record(Request $request){
+    public function save_audio_record(Request $request){
         $record = new Record;
         $record->user_id = 1;
-        $record->lesson_id = $request->input('lesson_id');
-        $record->path = $request->input('url');
+        $record->lesson_id = 1;
+        $record->record_file = $request->input('url');
+        // $record->create_at = date('Y-m-d H:i:s');
         $record->save();
         return response()->json([
             'status' => 200,

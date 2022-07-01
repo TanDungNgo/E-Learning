@@ -7,6 +7,9 @@ import { getStorage, ref, uploadBytes, getDownloadURL, connectStorageEmulator } 
 import {default as storage} from "../firebaseConfig";
 
 import { ReactDOM } from "react";
+import { AxiosError } from "axios";
+
+import axios from 'axios';
 
 
 const RecordView = (props) => {
@@ -62,8 +65,20 @@ const RecordView = (props) => {
         uploadBytes(storageRef, blob).then((snapshot) => 
         { 
           console.log('Uploaded a blob or file!');
-          getDownloadURL(storageRef).then((url) => {
-            console.log(url);
+          getDownloadURL(storageRef).then(async(url) => {
+            //save url to database
+            const data = new FormData();
+            data.append('lesson_id', props.match.params.id);
+            data.append('url', url);
+            const res = await axios.post('http://localhost:8000/api/save-audio-record', data)
+            if(res.status === 200)
+            {
+              console.log('Saved to database');
+            }
+            else
+            {
+              console.log('Error saving to database');
+            }
           });
         });
       }

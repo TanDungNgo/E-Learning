@@ -40,8 +40,9 @@ class UserController extends Controller
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|min:3',
-            'display_name' => 'required|min:3',
+            'username' => 'required|min:3',
+            'firstname' => 'required|min:3',
+            'lastname' => 'required|min:3',
             'email' => 'required|string|email|unique:users,email',
             'password' => 'required|string|min:3|max:32',
             'passwordAgain' => 'required|same:password'
@@ -52,9 +53,11 @@ class UserController extends Controller
             ]);
         }
         $user = new User;
-        $user->name = $request->name;
-        $user->display_name = $request->display_name;
+        $user->username = $request->username;
+        $user->firstname = $request->firstname;
+        $user->lastname = $request->lastname;
         $user->email = $request->email;
+        //$user->phone_number = $request->phone_number;
         $user->password = bcrypt($request->password);
         $user->save();
         return response()->json([
