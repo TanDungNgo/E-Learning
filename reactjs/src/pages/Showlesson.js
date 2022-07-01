@@ -5,6 +5,7 @@ import swal from 'sweetalert';
 import ReactPlayer from 'react-player';
 import {default as storage} from "./firebaseConfig";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { RecordView } from "./Course/RecordView";
 class Showlesson extends Component
 {
     state = {

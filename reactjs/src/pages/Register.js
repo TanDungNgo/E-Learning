@@ -6,8 +6,9 @@ import ReactPlayer from 'react-player';
 class Register extends Component
 {
     state = {
-        name: '',
-        display_name: '',
+        username: '',
+        firstname: '',
+        lastname: '',
         email: '',
         password: '',
         passwordAgain: '',
@@ -71,14 +72,19 @@ class Register extends Component
                             <div className="card-body">
                                 <form onSubmit={this.Register}>
                                     <div className='form-group mb-3'>
-                                        <label> Name</label>
-                                        <input type='text' name='name' onChange={this.handleInput} value={this.state.name} className='form-control'/>
-                                        <span className='text-danger'>{this.state.error_list.name}</span>
+                                        <label> Username</label>
+                                        <input type='text' name='username' onChange={this.handleInput} value={this.state.username} className='form-control'/>
+                                        <span className='text-danger'>{this.state.error_list.username}</span>
                                     </div>
                                     <div className='form-group mb-3'>
-                                        <label> Displayname</label>
-                                        <input type='text' name='display_name' onChange={this.handleInput} value={this.state.display_name} className='form-control'/>
-                                        <span className='text-danger'>{this.state.error_list.display_name}</span>
+                                        <label> firstname</label>
+                                        <input type='text' name='firstname' onChange={this.handleInput} value={this.state.firstname} className='form-control'/>
+                                        <span className='text-danger'>{this.state.error_list.firstname}</span>
+                                    </div>
+                                    <div className='form-group mb-3'>
+                                        <label>lastname</label>
+                                        <input type='text' name='lastname' onChange={this.handleInput} value={this.state.lastname} className='form-control'/>
+                                        <span className='text-danger'>{this.state.error_list.lastname}</span>
                                     </div>
                                     <div className='form-group mb-3'>
                                         <label> Email</label>

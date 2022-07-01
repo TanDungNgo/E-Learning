@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 use App\Models\Record;
 use App\Http\Controllers\Controller;
+
 use App\Models\Feedback;
 use Illuminate\Http\Request;
 
@@ -22,7 +23,7 @@ class FeedbackController extends Controller
         $feedback->student_id = 1;
         $feedback->teacher_id = 1;
         $feedback->body = $request->input('body');
-        $feedback->record_id = $request->input('record_id');
+        $feedback->record_id = 1;
         $feedback->save();
         return response()->json([
             'status' => 200,
