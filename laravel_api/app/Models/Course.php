@@ -14,6 +14,7 @@ class Course extends Model
     protected $filltable = [
         'name',
         'description',
+        'price',
     ];
     public function teacher_id()
     {
