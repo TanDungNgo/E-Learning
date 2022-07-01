@@ -64,19 +64,19 @@ class Addlesson extends Component
         const res = await axios.post('http://127.0.0.1:8000/api/add-lesson', data);
         if(res.data.status === 200)
         {
-            console.log(res.data.message);
-            // swal({
-            //     title: "Success!",
-            //     text: res.data.message,
-            //     icon: "success",
-            //     buttons: "OK!"
-            //   });
+            // console.log(res.data.message);
+            swal({
+                title: "Success!",
+                text: res.data.message,
+                icon: "success",
+                buttons: "OK!"
+              });
             
-            // this.props.history.push(`/show-course/${this.state.course_id}`);
-            // this.setState({
-            //     name: '',
-            //     description: '',
-            // });
+            this.props.history.push(`/show-course/${this.state.course_id}`);
+            this.setState({
+                name: '',
+                description: '',
+            });
         }
         else
         {
