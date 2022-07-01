@@ -5,7 +5,6 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Lesson;
 use App\Models\Course;
-use App\Models\Record;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Validator;
@@ -40,6 +39,7 @@ class LessonController extends Controller
             // $filename= date('YmdHi').$file->getClientOriginalName();
             // $file-> move(public_path('Video'), $filename);
             // $lesson->video_link = $filename;
+
             $lesson->name = $request->input('name');
             $lesson->description = $request->input('description');
             $lesson->course_id = $request->input('course_id');
