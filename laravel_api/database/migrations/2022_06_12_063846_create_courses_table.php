@@ -18,7 +18,7 @@ class CreateCoursesTable extends Migration
             $table->string('name');
             $table->string('description');
             $table->string('banner')->default('course_banner');
-            $table->foregin('teacher_id')->references('id')->on('users');
+            $table->foreign('teacher_id')->references('id')->on('users');
             $table->integer('price');
             $table->timestamps();
         });

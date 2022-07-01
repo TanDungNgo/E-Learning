@@ -15,7 +15,7 @@ class CreateUpgradeTeachersTable extends Migration
     {
         Schema::create('upgrade_teachers', function (Blueprint $table) {
             $table->id();
-            $table->foregin('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('video_link');
             $table->string('status')->default('pending');
             $table->timestamps();
