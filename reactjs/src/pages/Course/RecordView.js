@@ -2,22 +2,12 @@ import { useReactMediaRecorder } from "react-media-recorder";
 import React, { useEffect, useState } from "react";
 
 import {initializeApp} from 'firebase/app';
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { getStorage, ref, uploadBytes, getDownloadURL, connectStorageEmulator } from "firebase/storage";
+
+import {default as storage} from "../firebaseConfig";
 
 import { ReactDOM } from "react";
 
-const firebaseConfig = {
-  // ...
-  storageBucket: 'gs://kaiwa-project-728e7.appspot.com'
-};
-
-const uploadFile = React.createElement('button',{
-
-},'UPload');
-
-const app = initializeApp(firebaseConfig);
-
-const storage = getStorage(app);
 
 const RecordView = (props) => {
   const [second, setSecond] = useState("00");
@@ -72,10 +62,19 @@ const RecordView = (props) => {
         uploadBytes(storageRef, blob).then((snapshot) => 
         { 
           console.log('Uploaded a blob or file!');
+          getDownloadURL(storageRef).then((url) => {
+            console.log(url);
+          });
         });
       }
       );
       document.body.appendChild(uploadFile);
+
+      const audio = document.createElement('audio');
+      audio.src = blobUrl;
+      audio.controls = true;
+      document.body.appendChild(audio);
+
     }
   });
 
@@ -88,8 +87,6 @@ const RecordView = (props) => {
       <button onClick={stopRecording} className="text-green-500">
         Stop Recording
       </button>
-      <div id="uploadFile"></div>
-      <audio src={mediaBlobUrl} controls />
     </div>
   );
 };

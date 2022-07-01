@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Record extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id', 'lesson_id', 'path'];
+    protected $fillable = ['user_id', 'lesson_id', 'record_file'];
 }
