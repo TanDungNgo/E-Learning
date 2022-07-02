@@ -57,6 +57,7 @@ Route::post('/users/register', [UserController::class, 'register']);
 // Feedback
 Route::get('/feedback/{id}', [FeedbackController::class, 'index']);
 Route::post('/save-feedback', [FeedbackController::class, 'save_feedback']);
+Route::get('/see-feedback/{id}', [FeedbackController::class, 'see_feedback']);
 
 
 // Upgrade Teacher
@@ -72,3 +73,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // save audio-record
 Route::post('/save-audio-record', [RecordController::class, 'save_audio_record']);
+Route::get('/records/{id}', [RecordController::class, 'index']);

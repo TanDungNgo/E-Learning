@@ -11,11 +11,11 @@ class Showlesson extends Component
     state = {
         lesson: '',
         record: '',
-        lesson_id: this.props.match.params.id,
         path: '',
         records: [],
         url: '',
         loading: true,
+
     }
     handleRecord = (e) => {
         this.setState({
@@ -70,7 +70,7 @@ class Showlesson extends Component
         const data = new FormData()
         data.append('lesson_id', this.state.lesson_id)
         data.append('url', this.state.url)
-        const res = await axios.post('http://127.0.0.1:8000/api/save-record', data);
+        const res = await axios.post('http://127.0.0.1:8000/api/save-audio-record', data);
         if(res.data.status === 200)
         {
             // console.log(res.data.message);
@@ -89,7 +89,28 @@ class Showlesson extends Component
             });
         }
     }
-    render() {
+    seeFeedback = async (e,id) => {
+        const thidClickedFunda = e.currentTarget;
+        console.log(id);
+        const res = await axios.get(`http://127.0.0.1:8000/api/see-feedback/${id}`);
+        if(res.data.status === 200)
+        {
+            console.log( res.data);
+            // swal({
+            //     text: res.data.feedback.body,
+            //     buttons: "OK!"
+            //   });
+        }
+        else if (res.data.status === 404)
+        {
+            swal({
+                text: "404",
+                buttons: "OK!"
+              });
+        }
+    }
+    
+    render() {      
         var record_HTMLTABLE = "";
         if(this.state.loading)
         {
@@ -102,12 +123,15 @@ class Showlesson extends Component
                 return (
                     <tr key={item.id}>
                         <td>
-                        <audio controls>
-                            <source src={item.path} type="audio/mpeg"/>
-                        </audio>
+                            <audio controls>
+                                <source src={item.record_file} type="audio/mpeg"/>
+                            </audio>
                         </td>
                         <td>
                             <Link to={`/feedback/${item.id}`} className="btn btn-success btn-sm ">Feedback</Link>
+                        </td>
+                        <td>
+                            <button type='button' onClick={(e) => this.seeFeedback(e, item.id)}  className='btn btn-info btn-sm'>See Feedback</button>
                         </td>
                     </tr>
                 );
@@ -119,8 +143,11 @@ class Showlesson extends Component
                     <div className="col-md-12">
                         <div className="card">
                             <div className="card-header">
-                                <h4>Record
+                                <h4>Lesson
                                 <Link  className="btn btn-primary btn-sm float-end"> Back</Link>
+                                </h4>
+                                <h4>
+                                <Link to={`/record/${this.props.match.params.id}`} className="btn btn-secondary btn-sm "> Record</Link>
                                 </h4>
                             </div>
                             <div className="card-body">

@@ -34,13 +34,13 @@ class Feedback extends Component
         const res = await axios.post('http://127.0.0.1:8000/api/save-feedback', data);
         if(res.data.status === 200)
         {
-            console.log(res.data.message);
-            // swal({
-            //     title: "Success!",
-            //     text: res.data.message,
-            //     icon: "success",
-            //     buttons: "OK!"
-            //   });
+            // console.log(res.data.message);
+            swal({
+                title: "Success!",
+                text: res.data.message,
+                icon: "success",
+                buttons: "OK!"
+              });
         }
         else
         {

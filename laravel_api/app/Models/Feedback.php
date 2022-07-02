@@ -12,5 +12,5 @@ use App\Models\Lesson;
 class Feedback extends Model
 {
     use HasFactory;
-    protected $fillable = ['body'];
+    protected $fillable = ['record_id','body'];
 }

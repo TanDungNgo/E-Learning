@@ -1,9 +1,10 @@
 import { useReactMediaRecorder } from "react-media-recorder";
 import React, { useEffect, useState } from "react";
-
+import {Component} from 'react';
+import {Link} from 'react-router-dom';
 import {initializeApp} from 'firebase/app';
 import { getStorage, ref, uploadBytes, getDownloadURL, connectStorageEmulator } from "firebase/storage";
-
+import swal from 'sweetalert';
 import {default as storage} from "../firebaseConfig";
 
 import { ReactDOM } from "react";
@@ -13,11 +14,11 @@ import axios from 'axios';
 
 
 const RecordView = (props) => {
+  const [lesson_id, setLesson_id] = useState(props.match.params.id);
   const [second, setSecond] = useState("00");
   const [minute, setMinute] = useState("00");
   const [isActive, setIsActive] = useState(false);
   const [counter, setCounter] = useState(0);
-
   useEffect(() => {
     let intervalId;
 
@@ -68,12 +69,19 @@ const RecordView = (props) => {
           getDownloadURL(storageRef).then(async(url) => {
             //save url to database
             const data = new FormData();
-            data.append('lesson_id', props.match.params.id);
+            data.append('lesson_id', lesson_id);
             data.append('url', url);
             const res = await axios.post('http://localhost:8000/api/save-audio-record', data)
             if(res.status === 200)
             {
               console.log('Saved to database');
+              swal({
+                title: "Success!",
+                text: res.data.message,
+                icon: "success",
+                buttons: "OK!"
+              });
+              props.history.push(`/show-lesson/${lesson_id}`);
             }
             else
             {
@@ -92,6 +100,7 @@ const RecordView = (props) => {
 
     }
   });
+
 
   return (
     <div className="absolute">
