@@ -6,6 +6,7 @@ import Course from "./pages/Admin/Courses/Course";
 import Dashboard from "./pages/Admin/Dashboard/Dashboard";
 import { CourseDetail } from "./pages/Courses/CourseDetail";
 import { Home } from "./pages/Home/Home";
+import { AddLesson } from "./pages/Lesson/AddLesson";
 import { LessonDetail } from "./pages/Lesson/LessonDetail";
 import { Login } from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
@@ -19,6 +20,7 @@ function App() {
       <HomeTemplate path="/" exact Component={Home} />
       <Route path="/login" exact component={Login} />
       <Route path="/register" exact component={Register} />
+      <Route path="/lesson" exact component={AddLesson} />
       <HomeTemplate path="/courses/:id" exact Component={CourseDetail} />
       <AdminTemplate path="/admin" exact Component={Dashboard} />
       <AdminTemplate

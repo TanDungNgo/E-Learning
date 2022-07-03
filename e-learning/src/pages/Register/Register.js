@@ -20,12 +20,13 @@ const btnRegister = {
 const Register = (props) => {
   const formik = useFormik({
     initialValues: {
-      firstName: "",
-      lastName: "",
+      firstname: "",
+      lastname: "",
       username: "",
       email: "",
-      numberPhone: "",
-      gender: "",
+      phone_number: "",
+      password: "",
+      passwordAgain: "",
     },
     onSubmit: (values) => {
       console.log("values", values);
@@ -52,7 +53,7 @@ const Register = (props) => {
           <div style={{ border: "1px solid" }} className="p-10">
             <Form.Item label="Fullname" required>
               <Form.Item
-                name="firstName"
+                name="firstname"
                 rules={[
                   {
                     required: true,
@@ -72,7 +73,7 @@ const Register = (props) => {
                 />
               </Form.Item>
               <Form.Item
-                name="lastName"
+                name="lastname"
                 rules={[
                   {
                     required: true,
@@ -144,7 +145,7 @@ const Register = (props) => {
             </Form.Item>
 
             <Form.Item
-              name="confirm"
+              name="passwordAgain"
               label="Confirm Password"
               dependencies={["password"]}
               hasFeedback
@@ -180,7 +181,6 @@ const Register = (props) => {
               <Input.Password />
             </Form.Item>
             <Form.Item
-              name="email"
               label="Email"
               rules={[
                 {
@@ -193,11 +193,11 @@ const Register = (props) => {
                 },
               ]}
             >
-              <Input />
+              <Input name="email" onChange={formik.handleChange} />
             </Form.Item>
 
             <Form.Item
-              name="numberPhone"
+              name="phone_number"
               label="Phone Number"
               rules={[
                 {
@@ -214,23 +214,6 @@ const Register = (props) => {
               />
             </Form.Item>
 
-            <Form.Item
-              name="gender"
-              label="Gender"
-              rules={[
-                {
-                  required: true,
-                  message: "Please select gender!",
-                },
-              ]}
-              onChange={formik.handleChange}
-            >
-              <Select placeholder="Select your gender">
-                <Option value="male">Male</Option>
-                <Option value="female">Female</Option>
-                <Option value="other">Other</Option>
-              </Select>
-            </Form.Item>
             <Form.Item
               name="agreement"
               valuePropName="checked"

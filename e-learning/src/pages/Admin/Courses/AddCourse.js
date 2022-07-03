@@ -1,33 +1,59 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
-import { Form, Input, InputNumber } from "antd";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import storageFirebase from "../../../utils/settings/firebaseConfig";
+import { Form, Input, InputNumber, Progress } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { GET_COURSE_URL } from "../../../redux/types/CourseTypes";
+
 export const AddCourse = () => {
   const [imgSrc, setImgSrc] = useState("");
 
+  const { courseUrl } = useSelector((state) => state.CourseReducer);
+  const [urlFirebase, setUrlFirebase] = useState("");
+  const dispatch = useDispatch();
+  // progress
+  const [percent, setPercent] = useState(0);
+
+  // Handle file upload event and update state
+
   const formik = useFormik({
     initialValues: {
-      movieName: "",
-      movieTrailer: "",
-      movieDescription: "",
-      movieRelease: "",
-      movieLength: 0,
-      movieStatus: false,
-      movieEvaluate: 0,
-      moviePrice: 0,
-      imageForm: {},
+      name: "",
+      description: "",
+      url: "",
+      teacher_id: "",
+      price: 0,
     },
-    onSubmit: (values) => {
-      //Tạo đối tượng formdata => Đưa giá trị values từ formik vào formdata
-      // let formData = new FormData();
-      // for (let key in values) {
-      //   if (key !== "imageForm") {
-      //     formData.append(key, values[key]);
-      //   } else {
-      //     formData.append("imageForm", values.imageForm, values.imageForm.name);
-      //   }
-      // }
-      // //Gọi api gửi các giá trị formdata về backend xử lý
-      // dispatch(createMovieAction(formData));
+    onSubmit: async (values) => {
+      const storageRef = ref(storageFirebase, `/files/${urlFirebase.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, urlFirebase);
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const percent = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+
+          // update progress
+          setPercent(percent);
+        },
+        (err) => console.log(err)
+      );
+      const url = await getDownloadURL(uploadTask.snapshot.ref);
+      await dispatch({
+        type: GET_COURSE_URL,
+        value: url,
+      });
+      const body = {
+        link: courseUrl,
+      };
+      // setLink(courseUrl);
+      // formik.setFieldValue("url", courseUrl);
+      // console.log(values);
+      // console.log("courseUrl", courseUrl);
+      console.log("body", body);
     },
   });
 
@@ -37,9 +63,9 @@ export const AddCourse = () => {
     };
   };
 
-  const handleChangeFile = (e) => {
-    //Lấy file ra từ e
+  const handleFileAndUpload = async (e) => {
     let file = e.target.files[0];
+    setUrlFirebase(file);
     if (
       file.type === "image/jpeg" ||
       file.type === "image/jpg" ||
@@ -49,14 +75,16 @@ export const AddCourse = () => {
       let reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = (e) => {
-        // console.log(e.target.result);
         setImgSrc(e.target.result); //Hình base 64
       };
-      //Đem dữ liệu file lưu vào formik
-      formik.setFieldValue("imageForm", file);
     }
+
+    // link = url;
   };
 
+  useEffect(() => {
+    // window.scroll(0, 0);
+  }, []);
   return (
     <div>
       <>
@@ -73,67 +101,45 @@ export const AddCourse = () => {
           }}
           size="default"
         >
-          <h1>Thêm mới phim </h1>
+          <h1>Thêm khóa học mới </h1>
 
-          <Form.Item label="Tên phim">
+          <Form.Item label="Tên khóa học">
             <Input
-              name="movieName"
+              name="name"
               onChange={formik.handleChange}
-              placeholder="Nhập tên phim"
+              placeholder="Nhập tên khóa học"
             />
           </Form.Item>
-          <Form.Item label="Trailer">
+          <Form.Item label="Mô tả khóa học">
             <Input
-              name="movieTrailer"
+              name="description"
               onChange={formik.handleChange}
-              placeholder="Nhập trailer"
+              placeholder="Nhập mô tả khóa học"
             />
           </Form.Item>
-          <Form.Item label="Mô tả">
-            <Input
-              name="movieDescription"
-              onChange={formik.handleChange}
-              placeholder="Nhập mô tả"
-            />
-          </Form.Item>
-          {/* <Form.Item label="Ngày khởi chiếu">
-            <DatePicker
-              format={"YYYY-MM-DD"}
-              onChange={handleChangeDatePicker}
-            />
-          </Form.Item> */}
-          {/* <Form.Item label="Sắp chiếu">
-            <Switch onChange={handleChangeSwitch("movieStatus")} />
+
+          <Form.Item label="Giáo viên dạy">
+            <InputNumber onChange={handleChangeInputNumber("teacher_id")} />
           </Form.Item>
 
-          <Form.Item label="Số sao">
-            <InputNumber
-              onChange={handleChangeInputNumber("movieEvaluate")}
-              min={1}
-              max={10}
-            />
-          </Form.Item> */}
-
-          <Form.Item label="Giá phim">
-            <InputNumber onChange={handleChangeInputNumber("moviePrice")} />
+          <Form.Item label="Giá khóa học">
+            <InputNumber onChange={handleChangeInputNumber("price")} />
           </Form.Item>
 
-          <Form.Item label="Thời lượng phim">
-            <InputNumber onChange={handleChangeInputNumber("movieLength")} />
-          </Form.Item>
-
-          <Form.Item label="Poster">
+          <Form.Item label="Banner khóa học">
             <input
               type="file"
-              onChange={handleChangeFile}
-              accept="image/png, image/jpeg,image/gif,image/png"
+              onChange={handleFileAndUpload}
+              accept="/image/*"
+              name="url"
             />
             <br />
-            <img style={{ width: 150, height: 200 }} src={imgSrc} alt="..." />
+            <img style={{ width: 250, height: 200 }} src={imgSrc} alt="..." />
           </Form.Item>
+          <Progress percent={percent} style={{ marginLeft: 205, width: 600 }} />
           <Form.Item label="Tác vụ">
             <button type="submit" className="bg-blue-300 text-white p-2">
-              Thêm phim
+              Thêm khóa học
             </button>
           </Form.Item>
         </Form>

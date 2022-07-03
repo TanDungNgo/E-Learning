@@ -1,0 +1,1 @@
+export const GET_COURSE_URL = "GET_COURSE_URL";

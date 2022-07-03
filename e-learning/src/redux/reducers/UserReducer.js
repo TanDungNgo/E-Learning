@@ -8,6 +8,7 @@ if (localStorage.getItem(USER_LOGIN)) {
 
 const stateDefault = {
   userLogin: user,
+  abc: "",
 };
 
 export const UserReducer = (state = stateDefault, action) => {
@@ -21,6 +22,13 @@ export const UserReducer = (state = stateDefault, action) => {
       localStorage.removeItem(USER_LOGIN);
       // localStorage.removeItem(TOKEN);
       state.userLogin = action.value;
+      return { ...state };
+    }
+
+    case "ABC": {
+      // localStorage.removeItem(TOKEN);
+      state.abc = action.value;
+      console.log(action.value);
       return { ...state };
     }
     default:
