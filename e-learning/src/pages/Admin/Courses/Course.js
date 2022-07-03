@@ -267,7 +267,10 @@ export default function Course(props) {
             <NavLink
               key={1}
               className=" mr-2  text-2xl"
-              to={`/admin/courses/edit/${course.id}`}
+              to={`/admin/courses/${course.id}/add-new`}
+              onClick={() => {
+                localStorage.setItem("courseParams", JSON.stringify(course));
+              }}
             >
               <EditOutlined style={{ color: "blue" }} />
             </NavLink>
@@ -291,7 +294,7 @@ export default function Course(props) {
             <NavLink
               key={3}
               className=" mr-2 text-2xl"
-              to={`/admin/courses/showtime/${course.id}/${course.name}`}
+              to={`/admin/courses/${course.id}/lessons`}
               onClick={() => {
                 localStorage.setItem("courseParams", JSON.stringify(course));
               }}

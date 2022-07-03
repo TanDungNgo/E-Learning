@@ -6,7 +6,7 @@ export const LessonDetail = (props) => {
   const [videoSrc, setVideoSrc] = useState("");
   const { listAudio } = useSelector((state) => state.LessonReducer);
   useEffect(() => {
-    console.log("hello");
+    window.scrollTo(0, 0);
   }, []);
   let listAudioTemp = listAudio;
 
