@@ -25,10 +25,11 @@ class UserController extends Controller
             'email' => $request->input('email'),
             'password' => $request->input('password')
         ])) {
-
+            $user = User::whree('email', $request->input('email'))->first();
             return response()->json([
                 'status' => 200,
                 'message' => "Login thành công!",
+                'user' => $user,
             ]);
         }
         return response()->json([
