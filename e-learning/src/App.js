@@ -1,7 +1,7 @@
 // import RecordView from "./components/RecordView";
 import { createBrowserHistory } from "history";
 import { Route, Switch } from "react-router-dom";
-import { AddCourse } from "./pages/Admin/Courses/AddCourse";
+import AddCourse from "./pages/Admin/Courses/AddCourse";
 import Course from "./pages/Admin/Courses/Course";
 import Dashboard from "./pages/Admin/Dashboard/Dashboard";
 import { CourseDetail } from "./pages/Courses/CourseDetail";
