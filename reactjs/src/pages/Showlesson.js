@@ -95,16 +95,19 @@ class Showlesson extends Component
         const res = await axios.get(`http://127.0.0.1:8000/api/see-feedback/${id}`);
         if(res.data.status === 200)
         {
-            console.log( res.data);
-            // swal({
-            //     text: res.data.feedback.body,
-            //     buttons: "OK!"
-            //   });
+            var feedback = [];
+            for(feedback in res.data.feedback)
+            {
+                swal({
+                    text: res.data.feedback[feedback].body,
+                    buttons: "OK!"
+                  });
+            }
         }
         else if (res.data.status === 404)
         {
             swal({
-                text: "404",
+                text: res.data.message,
                 buttons: "OK!"
               });
         }
