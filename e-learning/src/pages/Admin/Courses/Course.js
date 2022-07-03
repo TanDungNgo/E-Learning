@@ -200,12 +200,6 @@ export default function Course(props) {
     onReset: (values) => {},
   });
 
-  const handleChangeInputNumber = (name) => {
-    return (value) => {
-      formik.setFieldValue(name, value);
-    };
-  };
-
   const columns = [
     {
       title: "Mã khóa học",
@@ -287,7 +281,7 @@ export default function Course(props) {
                   window.confirm("Bạn có chắc muốn xoá phim " + course.name)
                 ) {
                   //Gọi action
-                  // dispatch(deletecourseByIdAction(course.id));
+                  // dispatch(deleteCourseByIdAction(course.id));
                 }
               }}
             >
@@ -320,7 +314,7 @@ export default function Course(props) {
         <Button
           className="mb-5"
           onClick={() => {
-            props.history.push("/admin/course/add-new");
+            props.history.push("/admin/courses/add-new");
           }}
         >
           Thêm khóa học
@@ -328,7 +322,7 @@ export default function Course(props) {
         <Button
           className="mb-5"
           onClick={() => {
-            // dispatch(getAllcourseAction());
+            // dispatch(getAllCourseAction());
           }}
         >
           Reset
@@ -336,26 +330,17 @@ export default function Course(props) {
       </div>
 
       <Form onSubmitCapture={formik.handleSubmit}>
-        <InputNumber
-          style={{ width: "20%" }}
-          min={1}
-          max={10}
-          onChange={handleChangeInputNumber("mincourseEvaluate")}
-          placeholder="Nhập đánh giá khóa học thấp nhất"
-        />
-        <InputNumber
-          style={{ width: "20%" }}
-          min={1}
-          max={10}
-          onChange={handleChangeInputNumber("maxcourseEvaluate")}
-          placeholder="Nhập đánh giá khóa học cao nhất nhất"
+        <Input
+          style={{ width: "45%" }}
+          onChange={formik.handleChange}
+          placeholder="Nhập tên giáo viên"
         />
         <Input
           name="name"
           onChange={formik.handleChange}
           placeholder="Nhập tên khóa học "
           style={{
-            width: "50%",
+            width: "45%",
           }}
         />
         <button
@@ -369,7 +354,12 @@ export default function Course(props) {
         </button>
       </Form>
 
-      <Table columns={columns} dataSource={data} rowKey={"id"} />
+      <Table
+        columns={columns}
+        dataSource={data}
+        rowKey={"id"}
+        style={{ marginTop: 20 }}
+      />
     </div>
   );
 }

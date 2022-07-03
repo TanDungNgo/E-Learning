@@ -5,13 +5,16 @@ import VideoPlayer from "../../components/VideoPlayer/VideoPlayer";
 export const LessonDetail = (props) => {
   const [videoSrc, setVideoSrc] = useState("");
   const { listAudio } = useSelector((state) => state.LessonReducer);
-  useEffect(() => {}, [listAudio]);
+  useEffect(() => {
+    console.log("hello");
+  }, []);
   let listAudioTemp = listAudio;
 
   const renderAudio = () => {
     return listAudioTemp.map((item, index) => {
       let testAudioRecord = URL.createObjectURL(item);
 
+      console.log("testAudioRecord", testAudioRecord);
       return (
         <audio
           src={testAudioRecord}
@@ -32,10 +35,11 @@ export const LessonDetail = (props) => {
     reader.onload = (e) => {
       setVideoSrc(e.target.result);
     };
+    // console.log();
   };
 
   return (
-    <div className="grid grid-cols-3 gap-3 container mt-40">
+    <div className="grid grid-cols-3 gap-3 container mt-10">
       <div className="col-span-2">
         <VideoPlayer />
       </div>

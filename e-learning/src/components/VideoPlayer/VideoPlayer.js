@@ -110,7 +110,7 @@ const VideoPlayer = () => {
         className="w-full"
       >
         <source
-          src="http://minhbh194619.tk/WIN_20220529_00_16_43_Pro.mp4?fbclid=IwAR1gZRcF5893B6nRTAwhUuxncrgWjtGYxFc9OJWAOL1ftHDKrUJBJaKmX-8"
+          src="http://media.w3.org/2010/05/bunny/movie.mp4"
           type="video/mp4"
         />
       </video>

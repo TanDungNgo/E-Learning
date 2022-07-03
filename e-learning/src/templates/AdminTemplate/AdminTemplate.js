@@ -5,7 +5,6 @@ import { Layout, Menu, Breadcrumb, Dropdown, Space } from "antd";
 import { FileOutlined, UserOutlined } from "@ant-design/icons";
 import { NavLink } from "react-router-dom";
 import { USER_LOGIN } from "../../utils/settings/config";
-import { history } from "../../App";
 import { logoutAction } from "../../redux/actions/UserActions";
 // import _ from "lodash";
 
@@ -37,52 +36,51 @@ const AdminTemplate = (props) => {
     return <Redirect to="/" />;
   }
 
-  const menuItems = [
-    {
-      key: "1",
-      label: (
-        <NavLink to="/profile" className=" text-black">
-          Profile
-        </NavLink>
-      ),
-    },
-    {
-      key: "2",
-      label: (
-        <NavLink to="/my-courses" className=" text-black">
-          My Courses
-        </NavLink>
-      ),
-    },
-    {
-      key: "3",
-      label: (
-        <NavLink to="/settings" className=" text-black">
-          Settings
-        </NavLink>
-      ),
-    },
-    {
-      key: "4",
-      danger: true,
-      label: (
-        <NavLink
-          className="font-bold"
-          to="/login"
-          onClick={() => {
-            dispatch(logoutAction());
-          }}
-        >
-          LOGOUT
-        </NavLink>
-      ),
-    },
+  function getItem(label, key, icon, children) {
+    return {
+      key,
+      icon,
+      children,
+      label,
+    };
+  }
+  const items = [
+    getItem(
+      <NavLink to="/profile" className=" text-black">
+        Profile
+      </NavLink>,
+      1
+    ),
+    getItem(
+      <NavLink to="/my-courses" className=" text-black">
+        My Courses
+      </NavLink>,
+      2
+    ),
+    getItem(
+      <NavLink to="/settings" className=" text-black">
+        Settings
+      </NavLink>,
+      3
+    ),
+    getItem(
+      <NavLink
+        className="font-bold hover:!text-red-600 duration-500"
+        to="/login"
+        onClick={() => {
+          dispatch(logoutAction());
+        }}
+      >
+        LOGOUT
+      </NavLink>,
+      4
+    ),
   ];
 
-  const menuDropdown = <Menu items={menuItems} />;
-
   const dropdownHeader = () => (
-    <Dropdown overlay={menuDropdown}>
+    <Dropdown
+      overlay={<Menu theme="light" defaultSelectedKeys={["1"]} items={items} />}
+    >
       <Space>
         <span
           style={{
@@ -157,3 +155,98 @@ const AdminTemplate = (props) => {
 };
 
 export default AdminTemplate;
+
+// import { Breadcrumb, Layout, Menu } from "antd";
+// import { useState } from "react";
+// const { Header, Content, Footer, Sider } = Layout;
+
+// function getItem(label, key, icon, children) {
+//   return {
+//     key,
+//     icon,
+//     children,
+//     label,
+//   };
+// }
+
+// const items = [
+//   getItem("Option 1", "1", <PieChartOutlined />),
+//   getItem("Option 2", "2", <DesktopOutlined />),
+//   getItem("User", "sub1", <UserOutlined />, [
+//     getItem("Tom", "3"),
+//     getItem("Bill", "4"),
+//     getItem("Alex", "5"),
+//   ]),
+//   getItem("Team", "sub2", <TeamOutlined />, [
+//     getItem("Team 1", "6"),
+//     getItem("Team 2", "8"),
+//   ]),
+//   getItem("Files", "9", <FileOutlined />),
+// ];
+
+// const App = () => {
+//   const [collapsed, setCollapsed] = useState(false);
+//   return (
+//     <Layout
+//       style={{
+//         minHeight: "100vh",
+//       }}
+//     >
+//       <Sider
+//         collapsible
+//         collapsed={collapsed}
+//         onCollapse={(value) => setCollapsed(value)}
+//       >
+//         <div className="logo">
+//           <img src="https://jwchat.org/kaiwa/images/logo-big.png" alt="logo" />
+//         </div>
+// <Menu
+//   theme="dark"
+//   defaultSelectedKeys={["1"]}
+//   mode="inline"
+//   items={items}
+// />
+//       </Sider>
+//       <Layout className="site-layout">
+//         <Header
+//           className="site-layout-background"
+//           style={{
+//             padding: 0,
+//           }}
+//         />
+//         <Content
+//           style={{
+//             margin: "0 16px",
+//           }}
+//         >
+//           <Breadcrumb
+//             style={{
+//               margin: "16px 0",
+//             }}
+//           >
+//             <Breadcrumb.Item>User</Breadcrumb.Item>
+//             <Breadcrumb.Item>Bill</Breadcrumb.Item>
+//           </Breadcrumb>
+//           <div
+//             className="site-layout-background"
+//             style={{
+//               padding: 24,
+//               minHeight: 360,
+//             }}
+//           >
+//             Bill is a cat.
+//           </div>
+//         </Content>
+//         <Footer
+//           style={{
+//             textAlign: "center",
+//           }}
+//         >
+//           Ant Design ©2018 Created by Ant UED
+//         </Footer>
+//       </Layout>
+//     </Layout>
+//   );
+// };
+
+// export default App;

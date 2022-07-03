@@ -18,7 +18,6 @@ export const UserReducer = (state = stateDefault, action) => {
       // localStorage.setItem(TOKEN, action.value.accessToken);
       return { ...state };
     case LOGOUT: {
-      console.log("abc");
       localStorage.removeItem(USER_LOGIN);
       // localStorage.removeItem(TOKEN);
       state.userLogin = action.value;

@@ -64,7 +64,7 @@ export const Header = (props) => {
   );
 
   return (
-    <header className="bg-white fixed w-full z-20">
+    <header className="bg-white sticky w-full z-20">
       <div className="container flex justify-between h-16 mx-auto text-black">
         <NavLink
           to="/"
