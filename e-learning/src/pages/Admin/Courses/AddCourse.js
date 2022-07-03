@@ -1,10 +1,8 @@
-import React, { Component, useEffect, useState } from "react";
-import { useFormik } from "formik";
+import React, { Component } from "react";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import storageFirebase from "../../../utils/settings/firebaseConfig";
 import { Form, Input, Progress } from "antd";
-import { useDispatch, useSelector } from "react-redux";
-import { GET_COURSE_URL } from "../../../redux/types/CourseTypes";
+import { CourseService } from "../../../services/CourseService";
 
 class AddCourse extends Component {
   state = {
@@ -64,48 +62,24 @@ class AddCourse extends Component {
         });
       },
       (err) => console.log(err),
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-          this.setState({
-            url: url,
-          });
-          console.log(this.state.url);
-          const body = {
-            teacher_id: this.state.teacher_id,
-            banner: this.state.url,
-            price: this.state.price,
-            description: this.state.description,
-            name: this.state.name,
-          };
-
-          
-          // await Cour.post("http://127.0.0.1:8000/api/add-lesson", data);
-
-          
-    // const data = new FormData();
-    // data.append("name", this.state.name);
-    // data.append("description", this.state.description);
-    // data.append("course_id", this.state.course_id);
-    // data.append("url", this.state.url);
-    // const res = await axios.post("http://127.0.0.1:8000/api/add-lesson", data);
-    // if (res.data.status === 200) {
-    //   this.props.history.push(`/show-course/${this.state.course_id}`);
-    //   this.setState({
-    //     name: "",
-    //     description: "",
-    //   });
-    // } else {
-    //   this.setState({
-    //     error_list: res.data.validate_err,
-    //   });
-    // }
-
-
+      async () => {
+        const url = await getDownloadURL(uploadTask.snapshot.ref);
+        this.setState({
+          banner: url,
         });
+        console.log(this.state.url);
+        const data = {
+          teacher_id: this.state.teacher_id,
+          url: this.state.url,
+          price: this.state.price,
+          description: this.state.description,
+          name: this.state.name,
+        };
+
+        const result = await CourseService.createCourse(data);
+        console.log("result", result);
       }
     );
-
-
   };
   render() {
     return (

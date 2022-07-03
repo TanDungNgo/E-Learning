@@ -1,5 +1,7 @@
 import { Checkbox, Form, Input, Select } from "antd";
 import { useFormik } from "formik";
+import { useDispatch } from "react-redux";
+import { registerAction } from "../../redux/actions/UserActions";
 import { Footer } from "./../../templates/HomeTemplate/Footer/Footer";
 // import { number } from "yup";
 // import { useState } from "react",
@@ -18,6 +20,7 @@ const btnRegister = {
 };
 
 const Register = (props) => {
+  const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
       firstname: "",
@@ -31,7 +34,7 @@ const Register = (props) => {
     onSubmit: (values) => {
       console.log("values", values);
       alert("hello");
-      // dispatch(registerAction(values));
+      dispatch(registerAction(values));
     },
   });
 

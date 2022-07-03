@@ -9,6 +9,7 @@ import {
 } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { getAllCoursesAction } from "../../../redux/actions/CourseAction";
 
 const courseDefault = [
   {
@@ -176,11 +177,11 @@ const courseDefault = [
 export default function Course(props) {
   // const { coursesDefault } = useSelector((state) => state.courseReducer);
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(getAllcourseAction());
-  // }, []);
+  useEffect(() => {
+    dispatch(getAllCoursesAction());
+  }, []);
 
   const formik = useFormik({
     initialValues: {

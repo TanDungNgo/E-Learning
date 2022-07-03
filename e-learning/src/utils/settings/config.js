@@ -6,4 +6,4 @@ export const ERROR = "ERROR";
 
 export const ROLE = "role";
 
-export const BASE_URL = "http://localhost:8080/api/v1";
+export const BASE_URL = "http://localhost:8080/api";

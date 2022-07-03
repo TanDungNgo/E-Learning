@@ -1,4 +1,5 @@
-import { SET_AUDIO } from "../types/LessonTypes";
+import { LessonService } from "../../services/LessonService";
+import { GET_LESSON_DETAILS, SET_AUDIO } from "../types/LessonTypes";
 
 export const setAudioActions = (recordFile) => {
   return async (dispatch) => {
@@ -16,7 +17,20 @@ export const setAudioActions = (recordFile) => {
     }
   };
 };
-
+export const getLessonByIdAction = (id) => {
+  return async (dispatch) => {
+    try {
+      const result = await LessonService.getLessonById(id);
+      console.log("abc",result);
+      dispatch ({
+        type : GET_LESSON_DETAILS,
+        value: result.lessons,
+      });
+    } catch(error) {
+      console.log("error>>", error);
+    }
+  };
+};
 // export const getAudioActions = (value) => {
 //   return async (dispatch) => {
 //     try {

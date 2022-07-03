@@ -27,16 +27,21 @@ export const Login = (props) => {
         .required("Required!!!"),
     }),
     onSubmit: (values) => {
-      var body = new FormData();
-      const useLogin = {
+      // var body = new FormData();
+       const useLogin = {
         email: values.email,
         role: values.email.length > 15 ? "ADMIN" : "CUSTOMER",
       };
-      body.append("email", values.email);
-      body.append("password", values.password);
+      // body.append("email", values.email);
+      // body.append("password", values.password);
+
+      // const body = {
+      //   email: values.email,
+      //   password: values.password,
+      // };
 
       dispatch(loginAction(useLogin, props));
-      // dispatch(loginAction(body, props));
+      //dispatch(loginAction(body, props));
     },
   });
 
