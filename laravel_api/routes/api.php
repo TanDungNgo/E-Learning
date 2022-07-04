@@ -61,7 +61,7 @@ Route::get('/see-feedback/{id}', [FeedbackController::class, 'see_feedback']);
 
 
 // Upgrade Teacher
-Route::get('/all-request-become-teacher', [UpgradeTeacherController::class, 'index']);
+Route::get('/admin/all-request-become-teacher', [UpgradeTeacherController::class, 'index']);
 Route::post('/request-to-become-teacher', [UpgradeTeacherController::class, 'RequestBecomeTeacher']);
 //accept request
 Route::put('/upgrade-teacher', [UpgradeTeacherController::class, 'upgrade_to_teacher']);

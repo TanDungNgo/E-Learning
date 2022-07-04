@@ -36,8 +36,8 @@ class UpgradeTeacherController extends Controller
         else
         {
             $become_teacher = new UpgradeTeacher;
-            $become_teacher->user_id = 3;
-            $become_teacher->video_link = 1;
+            $become_teacher->user_id = $request->user_id;
+            $become_teacher->video_link = $request->video_link;
             $become_teacher->save();
             return response()->json([
                 'status' => 200,

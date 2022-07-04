@@ -8,28 +8,15 @@ class PendingRequset extends PureComponent{
     state = {
         request : [],
     }
-    acceptRequest = async (e) => {
-        e.preventDefault();
-        const request_id = e.target.id;
-        const res = await axios.put(`http://localhost:8000/api/accept-request/${request_id}`);
-        if(res.data.status === 200)
-        {
-            console.log(res.data.message);
-            swal({
-                title: "Success!",
-                text: res.data.message,
-                icon: "success",
-                buttons: "Accepted!"
-            });
+    allRequest = () => {
+        axios.get('http://localhost:8000/admin/all-request-become-teacher')
+        .then(res => {
+            this.setState({
+                request : res.data
+            })
+        }).catch(err => {
+            console.log(err);
         }
-        else if (res.data.status === 404)
-        {
-            swal({
-                title: "Warning!",
-                text: res.data.message,
-                icon: "warning",
-                buttons: "OK!"
-            });
-        }
+        )
     }
 }
