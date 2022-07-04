@@ -34,7 +34,8 @@ class FeedbackController extends Controller
     {
         // $feedback = DB::table('feedback')->where('record_id',$id)->get();
         $feedback = Feedback::where('record_id',$id)->get();
-        if($feedback != [])
+        $count = count($feedback);
+        if($count > 0)
         {
             return response()->json([
                 'status' => 200,
