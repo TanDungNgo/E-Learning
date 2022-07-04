@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { Form, Input, Progress } from "antd";
 import storageFirebase from "../../../utils/settings/firebaseConfig";
+import { CourseService } from "../../../services/CourseService";
+import axios from "axios";
 
 class AddCourse extends Component {
   state = {
@@ -61,24 +63,23 @@ class AddCourse extends Component {
         });
       },
       (err) => console.log(err),
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-          this.setState({
-            url: url,
-          });
-          console.log(this.state.url);
-          const body = {
-            teacher_id: this.state.teacher_id,
-            banner: this.state.url,
-            price: this.state.price,
-            description: this.state.description,
-            name: this.state.name,
-          };
 
-          console.log(body);
-
-          // await CourseService.createCourse("/add-course", body);
+      async () => {
+        const url = await getDownloadURL(uploadTask.snapshot.ref);
+        this.setState({
+          url: url,
         });
+
+        const data = new FormData();
+        data.append("name", this.state.name);
+        data.append("description", this.state.description);
+        data.append("url", this.state.url);
+        data.append("teacher_id", this.state.teacher_id);
+        data.append("price", this.state.price);
+        // const res = await axios.post("/courses", data);
+
+        const result = await CourseService.createCourse(data);
+        console.log("result", result);
       }
     );
   };

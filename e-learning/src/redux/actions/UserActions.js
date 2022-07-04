@@ -1,20 +1,33 @@
 import { openNotificationWithIcon } from "../../components/Notification/Notification";
+import { UserService } from "../../services/UserService";
 import { ERROR, SUCCESS } from "../../utils/settings/config";
 import { LOGIN, LOGOUT } from "../types/UserTypes";
 
 export const loginAction = (userLogin, propsRoute) => {
   return async (dispatch) => {
     try {
+      const result = await UserService.login(userLogin);
+
+      const userLogin1 = {
+        email: userLogin.email,
+        role: userLogin.email.length > 15 ? "ADMIN" : "CUSTOMER",
+      };
       dispatch({
         type: LOGIN,
-        value: userLogin,
+        value: userLogin1,
       });
-      userLogin.role === "ADMIN"
-        ? propsRoute.history.push("/admin")
-        : propsRoute.history.push(
-            propsRoute.location.state ? propsRoute.location.state.from : "/"
-          );
-      openNotificationWithIcon(SUCCESS, "Login thành công", "success");
+      if (result.status === 200) {
+        propsRoute.history.push("/");
+        openNotificationWithIcon(SUCCESS, "Login thành công", "success");
+      } else {
+        openNotificationWithIcon(ERROR, "Login thất bại", "error");
+      }
+      // result.data.s;
+      // userLogin.role === "ADMIN"
+
+      //   : propsRoute.history.push(
+      //       propsRoute.location.state ? propsRoute.location.state.from : "/"
+      //     );
     } catch (error) {
       openNotificationWithIcon(ERROR, "Login thất bại", "error");
       console.log("error>>", error);
@@ -37,7 +50,30 @@ export const loginAction = (userLogin, propsRoute) => {
     // }
   };
 };
-
+export const registerAction = (userRegister, propsRoute) => {
+  return async (dispatch) => {
+    try {
+      const result = await UserService.register(userRegister);
+      console.log("Register", result);
+      //   dispatch({
+      //     type: LOGIN,
+      //     value: result,
+      //   });
+      if (result.status === 200) {
+        propsRoute.history.push("/login");
+        openNotificationWithIcon(
+          SUCCESS,
+          "Tạo tài khoản thành công",
+          "success"
+        );
+      } else {
+        openNotificationWithIcon(ERROR, "Tạo tài khoản thất bại", "error");
+      }
+    } catch (error) {
+      console.log("error>>", error);
+    }
+  };
+};
 export const logoutAction = () => {
   return (dispatch) => {
     dispatch({

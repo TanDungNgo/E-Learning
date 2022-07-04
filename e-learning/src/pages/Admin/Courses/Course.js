@@ -9,8 +9,12 @@ import {
 } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import {
+  deleteCourseByIdAction,
+  getAllCoursesAction,
+} from "../../../redux/actions/CourseAction";
 
-const courseDefault = [
+const courseDefault1 = [
   {
     id: 1,
     name: "Làm chủ tiếng nhật trong 1 ngày",
@@ -18,7 +22,7 @@ const courseDefault = [
       "Khóa học tạo ra nhằm giúp các bạn học sinh, sinh viên có thêm môi trường rèn luyện tiếng nhật. Học viên sẽ được học hỏi kinh nghiệm từ các sensei hàng đầu Việt Nam. Kết thúc khóa học sẽ đạt kết quả cao blabla...",
     banner:
       "https://riki.edu.vn/library-n3-online/images/hoc-tieng-nhat-n3-online-2.png",
-    teacher_name: 1,
+    teacher_id: 1,
     price: "1.000.000",
   },
   {
@@ -28,7 +32,7 @@ const courseDefault = [
       "Khóa học tạo ra nhằm giúp các bạn học sinh, sinh viên có thêm môi trường rèn luyện tiếng nhật. Học viên sẽ được học hỏi kinh nghiệm từ các sensei hàng đầu Việt Nam. Kết thúc khóa học sẽ đạt kết quả cao blabla...",
     banner:
       "https://riki.edu.vn/library-n3-online/images/hoc-tieng-nhat-n3-online-2.png",
-    teacher_name: 2,
+    teacher_id: 2,
     price: "2.000.000",
   },
   {
@@ -38,7 +42,7 @@ const courseDefault = [
       "Khóa học tạo ra nhằm giúp các bạn học sinh, sinh viên có thêm môi trường rèn luyện tiếng nhật. Học viên sẽ được học hỏi kinh nghiệm từ các sensei hàng đầu Việt Nam. Kết thúc khóa học sẽ đạt kết quả cao blabla...",
     banner:
       "https://riki.edu.vn/library-n3-online/images/hoc-tieng-nhat-n3-online-2.png",
-    teacher_name: 3,
+    teacher_id: 3,
     price: "3.000.000",
   },
   {
@@ -48,7 +52,7 @@ const courseDefault = [
       "Khóa học tạo ra nhằm giúp các bạn học sinh, sinh viên có thêm môi trường rèn luyện tiếng nhật. Học viên sẽ được học hỏi kinh nghiệm từ các sensei hàng đầu Việt Nam. Kết thúc khóa học sẽ đạt kết quả cao blabla...",
     banner:
       "https://riki.edu.vn/library-n3-online/images/hoc-tieng-nhat-n3-online-2.png",
-    teacher_name: 4,
+    teacher_id: 4,
     price: "4.000.000",
   },
   {
@@ -58,7 +62,7 @@ const courseDefault = [
       "Khóa học tạo ra nhằm giúp các bạn học sinh, sinh viên có thêm môi trường rèn luyện tiếng nhật. Học viên sẽ được học hỏi kinh nghiệm từ các sensei hàng đầu Việt Nam. Kết thúc khóa học sẽ đạt kết quả cao blabla...",
     banner:
       "https://riki.edu.vn/library-n3-online/images/hoc-tieng-nhat-n3-online-2.png",
-    teacher_name: 5,
+    teacher_id: 5,
     price: "1.000.000",
   },
   {
@@ -68,7 +72,7 @@ const courseDefault = [
       "Khóa học tạo ra nhằm giúp các bạn học sinh, sinh viên có thêm môi trường rèn luyện tiếng nhật. Học viên sẽ được học hỏi kinh nghiệm từ các sensei hàng đầu Việt Nam. Kết thúc khóa học sẽ đạt kết quả cao blabla...",
     banner:
       "https://riki.edu.vn/library-n3-online/images/hoc-tieng-nhat-n3-online-2.png",
-    teacher_name: 2,
+    teacher_id: 2,
     price: "1.000.000",
   },
   {
@@ -78,7 +82,7 @@ const courseDefault = [
       "Khóa học tạo ra nhằm giúp các bạn học sinh, sinh viên có thêm môi trường rèn luyện tiếng nhật. Học viên sẽ được học hỏi kinh nghiệm từ các sensei hàng đầu Việt Nam. Kết thúc khóa học sẽ đạt kết quả cao blabla...",
     banner:
       "https://riki.edu.vn/library-n3-online/images/hoc-tieng-nhat-n3-online-2.png",
-    teacher_name: 1,
+    teacher_id: 1,
     price: "1.000.000",
   },
   {
@@ -88,7 +92,7 @@ const courseDefault = [
       "Khóa học tạo ra nhằm giúp các bạn học sinh, sinh viên có thêm môi trường rèn luyện tiếng nhật. Học viên sẽ được học hỏi kinh nghiệm từ các sensei hàng đầu Việt Nam. Kết thúc khóa học sẽ đạt kết quả cao blabla...",
     banner:
       "https://riki.edu.vn/library-n3-online/images/hoc-tieng-nhat-n3-online-2.png",
-    teacher_name: 1,
+    teacher_id: 1,
     price: "1.000.000",
   },
   {
@@ -98,7 +102,7 @@ const courseDefault = [
       "Khóa học tạo ra nhằm giúp các bạn học sinh, sinh viên có thêm môi trường rèn luyện tiếng nhật. Học viên sẽ được học hỏi kinh nghiệm từ các sensei hàng đầu Việt Nam. Kết thúc khóa học sẽ đạt kết quả cao blabla...",
     banner:
       "https://riki.edu.vn/library-n3-online/images/hoc-tieng-nhat-n3-online-2.png",
-    teacher_name: 1,
+    teacher_id: 1,
     price: "1.000.000",
   },
   {
@@ -108,7 +112,7 @@ const courseDefault = [
       "Khóa học tạo ra nhằm giúp các bạn học sinh, sinh viên có thêm môi trường rèn luyện tiếng nhật. Học viên sẽ được học hỏi kinh nghiệm từ các sensei hàng đầu Việt Nam. Kết thúc khóa học sẽ đạt kết quả cao blabla...",
     banner:
       "https://riki.edu.vn/library-n3-online/images/hoc-tieng-nhat-n3-online-2.png",
-    teacher_name: 2,
+    teacher_id: 2,
     price: "2.000.000",
   },
   {
@@ -118,7 +122,7 @@ const courseDefault = [
       "Khóa học tạo ra nhằm giúp các bạn học sinh, sinh viên có thêm môi trường rèn luyện tiếng nhật. Học viên sẽ được học hỏi kinh nghiệm từ các sensei hàng đầu Việt Nam. Kết thúc khóa học sẽ đạt kết quả cao blabla...",
     banner:
       "https://riki.edu.vn/library-n3-online/images/hoc-tieng-nhat-n3-online-2.png",
-    teacher_name: 3,
+    teacher_id: 3,
     price: "3.000.000",
   },
   {
@@ -128,7 +132,7 @@ const courseDefault = [
       "Khóa học tạo ra nhằm giúp các bạn học sinh, sinh viên có thêm môi trường rèn luyện tiếng nhật. Học viên sẽ được học hỏi kinh nghiệm từ các sensei hàng đầu Việt Nam. Kết thúc khóa học sẽ đạt kết quả cao blabla...",
     banner:
       "https://riki.edu.vn/library-n3-online/images/hoc-tieng-nhat-n3-online-2.png",
-    teacher_name: 4,
+    teacher_id: 4,
     price: "4.000.000",
   },
   {
@@ -138,7 +142,7 @@ const courseDefault = [
       "Khóa học tạo ra nhằm giúp các bạn học sinh, sinh viên có thêm môi trường rèn luyện tiếng nhật. Học viên sẽ được học hỏi kinh nghiệm từ các sensei hàng đầu Việt Nam. Kết thúc khóa học sẽ đạt kết quả cao blabla...",
     banner:
       "https://riki.edu.vn/library-n3-online/images/hoc-tieng-nhat-n3-online-2.png",
-    teacher_name: 5,
+    teacher_id: 5,
     price: "1.000.000",
   },
   {
@@ -148,7 +152,7 @@ const courseDefault = [
       "Khóa học tạo ra nhằm giúp các bạn học sinh, sinh viên có thêm môi trường rèn luyện tiếng nhật. Học viên sẽ được học hỏi kinh nghiệm từ các sensei hàng đầu Việt Nam. Kết thúc khóa học sẽ đạt kết quả cao blabla...",
     banner:
       "https://riki.edu.vn/library-n3-online/images/hoc-tieng-nhat-n3-online-2.png",
-    teacher_name: 2,
+    teacher_id: 2,
     price: "1.000.000",
   },
   {
@@ -158,7 +162,7 @@ const courseDefault = [
       "Khóa học tạo ra nhằm giúp các bạn học sinh, sinh viên có thêm môi trường rèn luyện tiếng nhật. Học viên sẽ được học hỏi kinh nghiệm từ các sensei hàng đầu Việt Nam. Kết thúc khóa học sẽ đạt kết quả cao blabla...",
     banner:
       "https://riki.edu.vn/library-n3-online/images/hoc-tieng-nhat-n3-online-2.png",
-    teacher_name: 1,
+    teacher_id: 1,
     price: "1.000.000",
   },
   {
@@ -168,19 +172,20 @@ const courseDefault = [
       "Khóa học tạo ra nhằm giúp các bạn học sinh, sinh viên có thêm môi trường rèn luyện tiếng nhật. Học viên sẽ được học hỏi kinh nghiệm từ các sensei hàng đầu Việt Nam. Kết thúc khóa học sẽ đạt kết quả cao blabla...",
     banner:
       "https://riki.edu.vn/library-n3-online/images/hoc-tieng-nhat-n3-online-2.png",
-    teacher_name: 1,
+    teacher_id: 1,
     price: "1.000.000",
   },
 ];
 
 export default function Course(props) {
-  // const { coursesDefault } = useSelector((state) => state.courseReducer);
+  const { coursesDefault } = useSelector((state) => state.CourseReducer);
 
-  // const dispatch = useDispatch();
+  console.log("coursesDefault", coursesDefault);
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(getAllcourseAction());
-  // }, []);
+  useEffect(() => {
+    dispatch(getAllCoursesAction());
+  }, []);
 
   const formik = useFormik({
     initialValues: {
@@ -284,7 +289,7 @@ export default function Course(props) {
                   window.confirm("Bạn có chắc muốn xoá phim " + course.name)
                 ) {
                   //Gọi action
-                  // dispatch(deleteCourseByIdAction(course.id));
+                  dispatch(deleteCourseByIdAction(course.id));
                 }
               }}
             >
@@ -308,7 +313,7 @@ export default function Course(props) {
       width: "25%",
     },
   ];
-  const data = courseDefault;
+  const data = coursesDefault;
 
   return (
     <div>

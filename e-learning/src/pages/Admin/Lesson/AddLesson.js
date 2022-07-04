@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { Form, Input, Progress } from "antd";
 import storageFirebase from "../../../utils/settings/firebaseConfig";
+import { LessonService } from "../../../services/LessonService";
 
 class AddLesson extends Component {
   state = {
@@ -47,8 +48,8 @@ class AddLesson extends Component {
         });
       },
       (err) => console.log(err),
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+      async () => {
+        await getDownloadURL(uploadTask.snapshot.ref).then((url) => {
           this.setState({
             url: url,
           });
@@ -60,15 +61,14 @@ class AddLesson extends Component {
           // };
 
           // console.log("body", body);
-
-          const data = new FormData();
-          data.append("name", this.state.name);
-          data.append("description", this.state.description);
-          data.append("course_id", this.state.course_id);
-          data.append("url", this.state.url);
-          // const res = await LessonService.createLesson("/add-lesson", data);
-          // console.log("res", res);
         });
+        const data = new FormData();
+        data.append("name", this.state.name);
+        data.append("description", this.state.description);
+        data.append("course_id", this.state.course_id);
+        data.append("url", this.state.url);
+        const res = await LessonService.createLesson(data);
+        console.log("res", res);
       }
     );
   };

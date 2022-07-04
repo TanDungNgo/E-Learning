@@ -5,8 +5,12 @@ import { Input } from "antd";
 import { EditOutlined, DeleteOutlined, EyeOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import {
+  deleteLessonByIdAction,
+  getAllLessonsAction,
+} from "../../../redux/actions/LessonActions";
 
-const lessonsDefault = [
+const lessonsDefault1 = [
   {
     id: 1,
     name: "testing lesson 1",
@@ -41,13 +45,14 @@ const lessonsDefault = [
 
 export default function Lessons(props) {
   const courseParams = JSON.parse(localStorage.getItem("courseParams"));
-  // const { lessonsDefault } = useSelector((state) => state.LessonReducer);
+  const { lessonsDefault } = useSelector((state) => state.LessonReducer);
 
-  // const dispatch = useDispatch();
+  console.log("lessonsDefault", lessonsDefault);
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(getAllLessonAction());
-  // }, []);
+  useEffect(() => {
+    dispatch(getAllLessonsAction(courseParams.id));
+  }, []);
 
   const formik = useFormik({
     initialValues: {
@@ -176,7 +181,7 @@ export default function Lessons(props) {
                   window.confirm("Bạn có chắc muốn xoá bài học " + lesson.name)
                 ) {
                   //Gọi action
-                  // dispatch(deleteLessonByIdAction(course.id));
+                  dispatch(deleteLessonByIdAction(lesson.id, courseParams.id));
                 }
               }}
             >

@@ -10,7 +10,7 @@ baseApi.interceptors.request.use(async (config) => {
   // attach TOKEN to header if exists
   const token = localStorage.getItem(TOKEN);
   if (token !== null && token !== undefined) {
-    config.headers.Authorization = `Bearer ${token}`;
+    config.headers.Authorization =`Bearer ${token}`;
   }
   return config;
 });
