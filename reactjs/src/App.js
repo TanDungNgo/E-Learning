@@ -15,6 +15,7 @@ import Register from "./pages/Register";
 import Showlesson from "./pages/Showlesson";
 import Feedback from "./pages/Feedback";
 
+import PendingRequset from './pages/Admin/PendingRequest';
 function App() {
   return (
       <Router>
@@ -33,7 +34,8 @@ function App() {
             <Route path="/record/:id" component={RecordView} />
 
             <Route path="/register" component={Register} />
-
+            
+            <Route path="/admin/pending-request" component={PendingRequset} />
       </Router>
   );
 }

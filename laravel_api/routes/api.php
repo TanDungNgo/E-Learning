@@ -65,7 +65,9 @@ Route::get('/admin/all-request-become-teacher', [UpgradeTeacherController::class
 Route::post('/request-to-become-teacher', [UpgradeTeacherController::class, 'RequestBecomeTeacher']);
 //accept request
 Route::put('/upgrade-teacher', [UpgradeTeacherController::class, 'upgrade_to_teacher']);
-
+Route::put('admin/approve-request-become-teacher/{id}', [UpgradeTeacherController::class, 'approve_request_become_teacher']);
+//reject request
+Route::put('admin/reject-request-become-teacher/{id}', [UpgradeTeacherController::class, 'reject_request_become_teacher']);
 Route::get('/popular-courses', [CourseController::class, 'popular_courses']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
