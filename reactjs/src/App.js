@@ -14,6 +14,7 @@ import RecordView from './pages/Course/RecordView';
 import Register from "./pages/Register";
 import Showlesson from "./pages/Showlesson";
 import Feedback from "./pages/Feedback";
+import AddTimedata from './pages/User/AddTimedata';
 
 import PendingRequset from './pages/Admin/PendingRequest';
 function App() {
@@ -36,6 +37,8 @@ function App() {
             <Route path="/register" component={Register} />
             
             <Route path="/admin/pending-request" component={PendingRequset} />
+
+            <Route path="/add-timedata" component={AddTimedata} />
       </Router>
   );
 }
