@@ -1,20 +1,16 @@
-// import RecordView from "./components/RecordView";
 import { createBrowserHistory } from "history";
 import { Route, Switch } from "react-router-dom";
-import { Home } from "./pages/Home/Home";
 import { Lesson } from "./pages/Lesson/Lesson";
-import { Login } from "./pages/Login/Login";
-import Register from "./pages/Register/Register";
-import { HomeTemplate } from "./templates/HomeTemplate/HomeTemplate";
+import Addtimedata from "./pages/Lesson/Addtimedata";
+import Edittimedata from "./pages/Lesson/Edittimedata";
 
 export const history = createBrowserHistory();
 function App() {
   return (
     <Switch>
-      <Route path="/lesson" exact component={Lesson} />
-      <HomeTemplate path="/" exact Component={Home} />
-      <Route path="/login" exact component={Login} />
-      <Route path="/register" exact component={Register} />
+      <Route path="/" exact component={Lesson} />
+      <Route path="/addtimedata/:id"  component={Addtimedata}/>
+      <Route path="/edittimedata/:id"  component={Edittimedata}/>
     </Switch>
   );
 }

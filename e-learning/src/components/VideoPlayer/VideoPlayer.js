@@ -4,29 +4,39 @@ import { useReactMediaRecorder } from "react-media-recorder";
 import "./VideoPlayer.css";
 import { useDispatch } from "react-redux";
 import { setAudioActions } from "../../redux/actions/LessonActions";
+import {Link} from 'react-router-dom';
+import Button from "../../components/Button/Button";
+
 const arrTimePause = [
-  {
-    minute: 0,
-    seconds: 20,
-  },
-  {
-    minute: 0,
-    seconds: 40,
-  },
-  {
-    minute: 0,
-    seconds: 55,
-  },
-  {
-    minute: 1,
-    seconds: 15,
-  },
 ];
 let stt = 0;
 const username = "nguduyvinh";
 const lessonNumber = "1";
 const courseName = "test";
-const VideoPlayer = () => {
+const VideoPlayer = (props) => {
+
+  const [lesson_id, setLesson_id] = useState(lessonNumber);
+  // console.log(lesson_id)
+  const [lesson, setLesson] = useState([]);
+  useEffect( async ()=>{
+    let result = await fetch(`http://127.0.0.1:8000/api/timedata/${lesson_id}`);
+    result = await result.json();
+    if(result.status === 200)
+    {
+      setLesson(result.lesson)
+      var time = [];
+      for(time in result.time)
+      {
+        const obj = {minute: result.time[time].minute, seconds: result.time[time].second};
+        arrTimePause.push(obj);
+      }
+    }
+  },[])
+
+  // console.log("arrTimePause", arrTimePause);
+  // console.log("link", lesson.video_link)
+
+
   const videoElement = useRef(null);
 
   const [isStart, setIsStart] = useState(false);
@@ -103,16 +113,7 @@ const VideoPlayer = () => {
   return (
     <div className="relative">
       <div className=""></div>
-      <video
-        controls
-        ref={videoElement}
-        poster="https://meta.vn/Data/image/2022/01/13/anh-dep-thien-nhien-3.jpg"
-        className="w-full"
-      >
-        <source
-          src="http://minhbh194619.tk/WIN_20220529_00_16_43_Pro.mp4?fbclid=IwAR1gZRcF5893B6nRTAwhUuxncrgWjtGYxFc9OJWAOL1ftHDKrUJBJaKmX-8"
-          type="video/mp4"
-        />
+      <video controls ref={videoElement} src={lesson.video_link} type="video/mp4">
       </video>
       <div className={`video-audio__overlay  ${displayHidden} `}></div>
       <div className={`audio-record  ${displayHidden} text-center`}>
@@ -189,6 +190,16 @@ const VideoPlayer = () => {
             </div>
           </div>
         )}
+      </div>
+      <div  className="items-center flex-shrink-0 grid grid-cols-2 gap-2">
+      <Link to={`/addtimedata/${lesson_id}`}
+        className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-500 ease-in-out hover:scale-95">
+        Add timedata
+      </Link>
+      <Link to={`/edittimedata/${lesson_id}`} 
+        className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-500 ease-in-out hover:scale-95">
+        Edit timedata
+      </Link>
       </div>
     </div>
   );
