@@ -7,10 +7,11 @@ export const Footer = () => {
       <div className="container grid grid-cols-5 py-10 mx-auto space-y-8 lg:flex-row lg:space-y-0">
         <div className="col-span-2">
           <NavLink to="/" className="flex space-x-3 ">
+          {/* logohv: https://i.ibb.co/HzmfGHk/e-learninglogovuong.png */}
             <img
-              src="https://jwchat.org/kaiwa/images/logo-big.png"
+              src="https://i.ibb.co/xzv4QsC/e-learningkaiwalogo.png"
               alt="logo"
-              style={{ width: 200, height: 80 }}
+              style={{height: 120}}
             />
           </NavLink>
         </div>
@@ -38,7 +39,7 @@ export const Footer = () => {
                       display: "flex",
                     }}
                   ></i>
-                  <span className="text-black font-bold">Facebook</span>
+                  <span className="text-zinc-400	">Facebook</span>
                 </a>
               </li>
               <li>
@@ -59,7 +60,7 @@ export const Footer = () => {
                       display: "flex",
                     }}
                   ></i>
-                  <span className="text-black font-bold">LinkedIn</span>
+                  <span className="text-zinc-400	">LinkedIn</span>
                 </a>
               </li>
               <li>
@@ -80,7 +81,7 @@ export const Footer = () => {
                       display: "flex",
                     }}
                   ></i>
-                  <span className="text-black font-bold">Gmail</span>
+                  <span className="text-zinc-400	">Gmail</span>
                 </a>
               </li>
             </ul>
@@ -96,11 +97,11 @@ export const Footer = () => {
                   href="https://dungmori.com/ "
                 >
                   <img
-                    src="https://scontent.fhan2-2.fna.fbcdn.net/v/t39.30808-1/271242604_3107832482877713_5590365699455324961_n.png?stp=cp0_dst-png_p80x80&amp;_nc_cat=1&amp;ccb=1-7&amp;_nc_sid=dbb9e7&amp;_nc_ohc=1GZnDH87jHAAX-8XWGC&amp;_nc_ht=scontent.fhan2-2.fna&amp;oh=00_AT96a2DxlqEW0k9AQuTbbCcxLAEGqEkBR4ycEvJe0uClvQ&amp;oe=62BCB122"
+                    src="https://dungmori.com/assets/img/dmr-square-logo.png"
                     alt="Dũng Mori"
                     style={{ width: 30, height: 30 }}
                   />
-                  <span className="text-black font-bold"> Dũng Mori</span>
+                  <span className="text-zinc-400	"> Dũng Mori</span>
                 </a>
               </li>
               <li>
@@ -113,7 +114,7 @@ export const Footer = () => {
                     alt="Đại học Bách Khoa Hà Nội"
                     style={{ width: 30, height: 30 }}
                   />
-                  <span className="text-black font-bold"> HUST</span>
+                  <span className="text-zinc-400	"> HUST</span>
                 </a>
               </li>
               <li>
@@ -126,7 +127,7 @@ export const Footer = () => {
                     alt="Sun "
                     style={{ width: 30, height: 30 }}
                   />
-                  <span className="text-red-600 font-bold"> Sun *</span>
+                  <span className="text-zinc-400	"> Sun *</span>
                 </a>
               </li>
             </ul>
@@ -141,7 +142,7 @@ export const Footer = () => {
                   style={{ height: 30 }}
                 >
                   <i className="fa fa-paper-plane"></i>
-                  <span className="text-black  font-bold">Privacy Policy</span>
+                  <span className="text-zinc-400	">Privacy Policy</span>
                 </a>
               </li>
               <li>
@@ -151,7 +152,7 @@ export const Footer = () => {
                   style={{ height: 30 }}
                 >
                   <i className="fa fa-minus-circle text-red-600"></i>
-                  <span className="text-black  font-bold">Complain</span>
+                  <span className="text-zinc-400	">Complain</span>
                 </a>
               </li>
               <li>
@@ -161,14 +162,14 @@ export const Footer = () => {
                   style={{ height: 30 }}
                 >
                   <i className="fa fa-question text-yellow-500"></i>
-                  <span className="text-black  font-bold ">Contact help</span>
+                  <span className="text-zinc-400	 ">Contact help</span>
                 </a>
               </li>
             </ul>
           </div>
         </div>
       </div>
-      <div className="py-6 text-sm text-center dark:text-gray-400">
+      <div className="py-3 text-sm text-center dark:text-gray-400">
         © 500 Server Error
       </div>
     </footer>

@@ -50,13 +50,16 @@ export const Home = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllCoursesAction());
-  });
+  }, [getAllCoursesAction]);
   const { Search } = Input;
+  const test = () => {
+    console.log(coursesDefault);
+  }
   return (
     <>
       <HomeCarousel />
-
       <div className="container mt-10 ">
+      <button onClick={test}> a</button>
         <div className="grid grid-cols-3 gap-5 ">
           <Input
             allowClear
