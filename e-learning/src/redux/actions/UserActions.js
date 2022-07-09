@@ -7,25 +7,32 @@ export const loginAction = (userLogin, propsRoute) => {
   return async (dispatch) => {
     try {
       const result = await UserService.login(userLogin);
-
+      console.log(result);
       const userLogin1 = {
+        id: 1,
         email: userLogin.email,
         role: userLogin.email.length > 15 ? "ADMIN" : "CUSTOMER",
       };
+      // dispatch({
+      //   type: LOGIN,
+      //   value: result.user,
+      // });
       dispatch({
         type: LOGIN,
         value: userLogin1,
       });
-      if (result.status === 200) {
-        userLogin1.role === "ADMIN"
-          ? propsRoute.history.push("/admin")
-          : propsRoute.history.push(
-              propsRoute.location.state ? propsRoute.location.state.from : "/"
-            );
-        openNotificationWithIcon(SUCCESS, "Login thành công", "success");
-      } else {
-        openNotificationWithIcon(ERROR, "Login thất bại", "error");
-      }
+
+      // // if (result.status === 200) {
+      userLogin1.role === "ADMIN"
+        ? propsRoute.history.push("/admin")
+        : propsRoute.history.push(
+            propsRoute.location.state ? propsRoute.location.state.from : "/"
+          );
+      // propsRoute.history.push("/");
+      openNotificationWithIcon(SUCCESS, "Login thành công", "success");
+      // } else {
+      //   openNotificationWithIcon(ERROR, "Login thất bại", "error");
+      // }
     } catch (error) {
       openNotificationWithIcon(ERROR, "Login thất bại", "error");
       console.log("error>>", error);

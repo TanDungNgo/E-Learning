@@ -7,7 +7,7 @@ const getLessonById = (id) => {
   return Api.get(`/edit-lesson/${id}`);
 };
 const editLessonById = (id, data) => {
-  return Api.put(`/lessons/${id}`, data);
+  return Api.put(`/update-lesson/${id}`, data);
 };
 const deleteLessonById = (id) => {
   return Api.delete(`/lessons/${id}`);

@@ -20,6 +20,25 @@ export const getCourseByIdAction = (id) => {
   };
 };
 
+export const getCourseDetailAction = (id) => {
+  return async (dispatch) => {
+    try {
+      const result = await CourseService.getCourseDetail(id);
+      // Gọi api lấy thông tin từ /students
+      console.log("alo", result);
+
+      // const result = await UserService.login(userLogin);
+      // Đưa lên kho chứa (redux)
+      dispatch({
+        type: GET_COURSE_DETAILS,
+        value: result.course,
+      });
+    } catch (error) {
+      console.log("error>>", error);
+    }
+  };
+};
+
 export const createCourseAction = (data) => {
   return async (dispatch) => {
     try {
@@ -29,10 +48,7 @@ export const createCourseAction = (data) => {
 
       // const result = await UserService.login(userLogin);
       // Đưa lên kho chứa (redux)
-      // dispatch({
-      //   type: GET_COURSE_DETAILS,
-      //   value: result.course,
-      // });
+      
       dispatch(getAllCoursesAction());
     } catch (error) {
       console.log("error>>", error);
@@ -40,6 +56,21 @@ export const createCourseAction = (data) => {
   };
 };
 
+export const updateCourseAction = (data, id) => {
+  return async (dispatch) => {
+    try {
+      const result = await CourseService.updateCourseById(id, data);
+      // Gọi api lấy thông tin từ /students
+      console.log("alo", result);
+
+      // const result = await UserService.login(userLogin);
+     
+      dispatch(getAllCoursesAction());
+    } catch (error) {
+      console.log("error>>", error);
+    }
+  };
+};
 export const deleteCourseByIdAction = (id) => {
   return async (dispatch) => {
     try {
@@ -49,10 +80,10 @@ export const deleteCourseByIdAction = (id) => {
 
       // const result = await UserService.login(userLogin);
       // Đưa lên kho chứa (redux)
-      // dispatch({
-      //   type: GET_COURSE_DETAILS,
-      //   value: result.course,
-      // });
+      dispatch({
+        type: GET_COURSE_DETAILS,
+        value: result.course,
+      });
       dispatch(getAllCoursesAction());
     } catch (error) {
       console.log("error>>", error);
@@ -64,9 +95,7 @@ export const getAllCoursesAction = () => {
   return async (dispatch) => {
     try {
       const result = await CourseService.getAllCourses();
-      // Gọi api lấy thông tin từ /students
 
-      // const result = await UserService.login(userLogin);
       // Đưa lên kho chứax)
       dispatch({
         type: GET_ALL_COURSES,

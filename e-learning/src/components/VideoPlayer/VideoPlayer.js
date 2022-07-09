@@ -1,9 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
-import "./VideoPlayer.css";
 import { useReactMediaRecorder } from "react-media-recorder";
 import "./VideoPlayer.css";
 import { useDispatch } from "react-redux";
-import { setAudioActions } from "../../redux/actions/LessonActions";
+import {
+  getLessonByIdAction,
+  setAudioActions,
+} from "../../redux/actions/LessonActions";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import storageFirebase from "../../utils/settings/firebaseConfig";
+import { saveRecordAction } from "../../redux/actions/RecordActions";
 const arrTimePause = [
   {
     minute: 0,
@@ -26,7 +31,8 @@ let stt = 0;
 const username = "nguduyvinh";
 const lessonNumber = "1";
 const courseName = "test";
-const VideoPlayer = () => {
+const VideoPlayer = (props) => {
+  let { lesson } = props;
   const videoElement = useRef(null);
 
   const [isStart, setIsStart] = useState(false);
@@ -65,9 +71,6 @@ const VideoPlayer = () => {
     {
       video: false,
       audio: true,
-      blobPropertyBag: {
-        type: "audio/wav",
-      },
     }
   );
 
@@ -88,31 +91,32 @@ const VideoPlayer = () => {
       stt
     );
     const audioBlob = await fetch(mediaBlobUrl).then((r) => r.blob());
-    const audioFile = new File([audioBlob], `${fileName}.wav`, {
-      type: "audio/wav",
+
+    const storageRef = ref(storageFirebase, "audio/" + fileName);
+    // 'file' comes from the Blob or File API
+    uploadBytes(storageRef, audioBlob).then((snapshot) => {
+      getDownloadURL(storageRef).then(async (url) => {
+        console.log("url record", url);
+        console.log("Uploaded a blob or file!");
+        //save url to database
+        // const data = new FormData();
+        // data.append("lesson_id", lesson_id);
+        // data.append("url", url);
+
+        // dispatch(saveRecordAction(data))
+      });
     });
-
-    // const formData = new FormData(); // preparing to send to the server
-
-    // formData.append('file', audioFile);  // preparing to send to the server
-
-    dispatch(setAudioActions(audioFile));
-    // onSaveAudio(formData); // sending to the server
   };
 
   return (
     <div className="relative">
-      <div className=""></div>
       <video
         controls
         ref={videoElement}
         poster="https://meta.vn/Data/image/2022/01/13/anh-dep-thien-nhien-3.jpg"
         className="w-full"
       >
-        <source
-          src="http://media.w3.org/2010/05/bunny/movie.mp4"
-          type="video/mp4"
-        />
+        <source src={lesson.video_link} type="video/mp4" />
       </video>
       <div className={`video-audio__overlay  ${displayHidden} `}></div>
       <div className={`audio-record  ${displayHidden} text-center`}>

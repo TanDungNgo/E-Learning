@@ -180,7 +180,7 @@ const courseDefault1 = [
 export default function Course(props) {
   const { coursesDefault } = useSelector((state) => state.CourseReducer);
 
-  console.log("coursesDefault", coursesDefault);
+  // console.log("coursesDefault", coursesDefault);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -272,7 +272,7 @@ export default function Course(props) {
             <NavLink
               key={1}
               className=" mr-2  text-2xl"
-              to={`/admin/courses/${course.id}/add-new`}
+              to={`/admin/courses/${course.id}`}
               onClick={() => {
                 localStorage.setItem("courseParams", JSON.stringify(course));
               }}
@@ -330,7 +330,7 @@ export default function Course(props) {
         <Button
           className="mb-5"
           onClick={() => {
-            // dispatch(getAllCourseAction());
+            dispatch(getAllCoursesAction());
           }}
         >
           Reset

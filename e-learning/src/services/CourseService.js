@@ -3,8 +3,12 @@ import Api from "./baseApi";
 const getCourseById = (id) => {
   return Api.get(`/edit-course/${id}`);
 };
+
+const getCourseDetail = (id) => {
+  return Api.get(`/lessons/${id}`);
+};
 const updateCourseById = (id, data) => {
-  return Api.get(`/update-course/${id}`, data);
+  return Api.put(`/update-course/${id}`, data);
 };
 
 const createCourse = (data) => {
@@ -24,4 +28,5 @@ export const CourseService = {
   getAllCourses,
   deleteCourseById,
   updateCourseById,
+  getCourseDetail,
 };

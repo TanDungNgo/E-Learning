@@ -1,6 +1,9 @@
-import React from "react";
+import useSelection from "antd/lib/table/hooks/useSelection";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import Button from "../../components/Button/Button";
+import { getCourseDetailAction } from "../../redux/actions/CourseAction";
 
 const courseDetail = {
   id: 1,
@@ -64,6 +67,13 @@ const courseDetail = {
 };
 
 export const CourseDetail = (props) => {
+  // const { courseDetail } = useSelector((state) => state.CourseReducer);
+  const dispatch = useDispatch();
+  // let { id } = props.match.params;
+  // useEffect(() => {
+  //   dispatch(getCourseDetailAction(id));
+  // }, []);
+
   const renderLessons = () => {
     return courseDetail.listLessons.splice(0, 5).map((item, index) => {
       return (
