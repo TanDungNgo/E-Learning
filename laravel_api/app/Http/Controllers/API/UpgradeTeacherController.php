@@ -24,16 +24,18 @@ class UpgradeTeacherController extends Controller
     }
     public function RequestBecomeTeacher(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'user_id' => 'required|max:191',
-            'video_link' => 'required|max:191',
-        ]);
-        if ($validator->fails()) {
+        // $validator = Validator::make($request->all(), [
+        //     'user_id' => 'required|max:191',
+        //     'video_link' => 'required|max:191',
+        // ]);
+        $user = User::find($request->input('user_id'));
+        if($user->role == 'teacher'){
             return response()->json([
-                'validate_err' => $validator->messages(),
+                'status' => 400,
+                'message' => 'User is already a teacher',
             ]);
         }
-        else
+        else 
         {
             $become_teacher = new UpgradeTeacher;
             $become_teacher->user_id = $request->user_id;
