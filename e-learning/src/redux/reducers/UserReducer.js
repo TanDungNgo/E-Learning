@@ -25,12 +25,6 @@ export const UserReducer = (state = stateDefault, action) => {
       return { ...state };
     }
 
-    case "ABC": {
-      // localStorage.removeItem(TOKEN);
-      state.abc = action.value;
-      console.log(action.value);
-      return { ...state };
-    }
     default:
       return { ...state };
   }

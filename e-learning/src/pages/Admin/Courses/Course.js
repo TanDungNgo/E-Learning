@@ -178,13 +178,13 @@ const courseDefault1 = [
 ];
 
 export default function Course(props) {
-  const { coursesDefault } = useSelector((state) => state.CourseReducer);
+  // const { coursesDefault } = useSelector((state) => state.CourseReducer);
 
-  console.log("coursesDefault", coursesDefault);
+  // console.log("coursesDefault", coursesDefault);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllCoursesAction());
+    // dispatch(getAllCoursesAction());
   }, []);
 
   const formik = useFormik({
@@ -272,7 +272,7 @@ export default function Course(props) {
             <NavLink
               key={1}
               className=" mr-2  text-2xl"
-              to={`/admin/courses/${course.id}/add-new`}
+              to={`/admin/courses/${course.id}`}
               onClick={() => {
                 localStorage.setItem("courseParams", JSON.stringify(course));
               }}
@@ -313,7 +313,7 @@ export default function Course(props) {
       width: "25%",
     },
   ];
-  const data = coursesDefault;
+  const data = courseDefault1;
 
   return (
     <div>

@@ -3,6 +3,7 @@ import { createBrowserHistory } from "history";
 import { Route, Switch } from "react-router-dom";
 import AddCourse from "./pages/Admin/Courses/AddCourse";
 import Course from "./pages/Admin/Courses/Course";
+import EditCourse from "./pages/Admin/Courses/EditCourse";
 import Dashboard from "./pages/Admin/Dashboard/Dashboard";
 import AddLesson from "./pages/Admin/Lesson/AddLesson";
 import Lessons from "./pages/Admin/Lesson/Lesson";
@@ -38,8 +39,9 @@ function App() {
         exact
         Component={AddCourse}
       />
+      <AdminTemplate path="/admin/courses/:id" exact Component={EditCourse} />
       <HomeTemplate
-        path="/courses/:coursesId/lessons/:lessonId"
+        path="/courses/:courseId/lessons/:lessonId"
         exact
         Component={LessonDetail}
       />

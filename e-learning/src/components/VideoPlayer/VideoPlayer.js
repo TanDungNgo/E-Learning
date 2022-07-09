@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import "./VideoPlayer.css";
 import { useReactMediaRecorder } from "react-media-recorder";
 import "./VideoPlayer.css";
 import { useDispatch } from "react-redux";
-import { setAudioActions } from "../../redux/actions/LessonActions";
+import {
+  getLessonByIdAction,
+  setAudioActions,
+} from "../../redux/actions/LessonActions";
 const arrTimePause = [
   {
     minute: 0,
@@ -26,7 +28,8 @@ let stt = 0;
 const username = "nguduyvinh";
 const lessonNumber = "1";
 const courseName = "test";
-const VideoPlayer = () => {
+const VideoPlayer = (props) => {
+  let { lesson } = props;
   const videoElement = useRef(null);
 
   const [isStart, setIsStart] = useState(false);
@@ -36,6 +39,7 @@ const VideoPlayer = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(getLessonByIdAction());
     const interval = setInterval(async () => {
       const elapsed_sec = await videoElement.current.currentTime;
 
@@ -92,17 +96,12 @@ const VideoPlayer = () => {
       type: "audio/wav",
     });
 
-    // const formData = new FormData(); // preparing to send to the server
-
-    // formData.append('file', audioFile);  // preparing to send to the server
-
     dispatch(setAudioActions(audioFile));
     // onSaveAudio(formData); // sending to the server
   };
 
   return (
     <div className="relative">
-      <div className=""></div>
       <video
         controls
         ref={videoElement}
@@ -110,7 +109,8 @@ const VideoPlayer = () => {
         className="w-full"
       >
         <source
-          src="http://media.w3.org/2010/05/bunny/movie.mp4"
+          // src="http://media.w3.org/2010/05/bunny/movie.mp4"
+          src={lesson.video_link}
           type="video/mp4"
         />
       </video>

@@ -3,7 +3,7 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { Form, Input, Progress } from "antd";
 import storageFirebase from "../../../utils/settings/firebaseConfig";
 import { CourseService } from "../../../services/CourseService";
-import axios from "axios";
+// import axios from "axios";
 
 class AddCourse extends Component {
   state = {
@@ -78,8 +78,8 @@ class AddCourse extends Component {
         data.append("price", this.state.price);
         // const res = await axios.post("/courses", data);
 
-        const result = await CourseService.createCourse(data);
-        console.log("result", result);
+        // const result = await CourseService.createCourse(data);
+        // console.log("result", result);
       }
     );
   };

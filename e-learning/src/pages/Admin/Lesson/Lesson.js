@@ -45,13 +45,12 @@ const lessonsDefault1 = [
 
 export default function Lessons(props) {
   const courseParams = JSON.parse(localStorage.getItem("courseParams"));
-  const { lessonsDefault } = useSelector((state) => state.LessonReducer);
+  // const { lessonsDefault } = useSelector((state) => state.LessonReducer);
 
-  console.log("lessonsDefault", lessonsDefault);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllLessonsAction(courseParams.id));
+    // dispatch(getAllLessonsAction(courseParams.id));
   }, []);
 
   const formik = useFormik({
@@ -162,7 +161,7 @@ export default function Lessons(props) {
               <EditOutlined style={{ color: "blue" }} />
             </NavLink>
             <NavLink
-              key={1}
+              key={2}
               className=" mr-2  text-2xl"
               to={`/courses/${courseParams.id}/lessons/${lesson.id}`}
               onClick={() => {
@@ -173,7 +172,7 @@ export default function Lessons(props) {
             </NavLink>
             <span
               style={{ cursor: "pointer" }}
-              key={2}
+              key={3}
               className="text-2xl"
               onClick={() => {
                 //Gọi action xoá
@@ -194,7 +193,7 @@ export default function Lessons(props) {
       width: "15%",
     },
   ];
-  const data = lessonsDefault;
+  const data = lessonsDefault1;
 
   return (
     <div>
