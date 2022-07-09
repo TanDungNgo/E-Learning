@@ -52,7 +52,7 @@ export const MultipleCourses = (props) => {
           className={`${styleSlick["width-item"]} px-5  `}
         >
           <img
-            src={`${item.image}`}
+            src={`${item.banner}`}
             alt="abc"
             className="w-full"
             style={{ height: 200 }}
@@ -62,11 +62,11 @@ export const MultipleCourses = (props) => {
             style={{ height: 70 }}
           >
             <div className="col-span-3">
-              <h1 className="font-bold mb-0 text-base">{item.courseName}</h1>
+              <h1 className="font-bold mb-0 text-base">{item.name}</h1>
               <p className="mb-0">{item.description}</p>
             </div>
             <div className="col-span-1 text-right">
-              <p className="m-0">{item.teacherName}</p>
+              <p className="m-0">{item.teacher_id}</p>
               <i className="fa fa-star text-yellow-500 p-1">
                 <span className="text-black px-1">{item.voting}</span>
               </i>
@@ -76,9 +76,7 @@ export const MultipleCourses = (props) => {
             textContent="View detail"
             className="w-full !rounded-none"
             onClick={() => {
-              // alert(item.teacherName + " || " + item.courseName);
-              // history.props.
-              props.history.push("/courses/1");
+              props.history.push(`/courses/${item.id}`);
             }}
           />
         </div>

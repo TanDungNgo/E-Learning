@@ -31,7 +31,7 @@ const AdminTemplate = (props) => {
     return <Redirect to="/" />;
   }
 
-  if (userLogin.role !== "ADMIN") {
+  if (userLogin.role !== "admin") {
     alert("Bạn không có quyền truy cập vào trang này !");
     return <Redirect to="/" />;
   }

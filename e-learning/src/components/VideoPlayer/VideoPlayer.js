@@ -33,6 +33,8 @@ const lessonNumber = "1";
 const courseName = "test";
 const VideoPlayer = (props) => {
   let { lesson } = props;
+
+  console.log(lesson);
   const videoElement = useRef(null);
 
   const [isStart, setIsStart] = useState(false);
@@ -99,11 +101,11 @@ const VideoPlayer = (props) => {
         console.log("url record", url);
         console.log("Uploaded a blob or file!");
         //save url to database
-        // const data = new FormData();
-        // data.append("lesson_id", lesson_id);
-        // data.append("url", url);
+        const data = new FormData();
+        data.append("lesson_id", lesson.id);
+        data.append("url", url);
 
-        // dispatch(saveRecordAction(data))
+        dispatch(saveRecordAction(data));
       });
     });
   };

@@ -1,28 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { Form, Input, InputNumber } from "antd";
+import React, { useEffect } from "react";
+import { Form, Input } from "antd";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
+
 import {
-  getCourseByIdAction,
-  updateCourseAction,
-} from "../../../redux/actions/CourseAction";
-import { updateLessonAction } from "../../../redux/actions/LessonActions";
+  getLessonByIdAction,
+  updateLessonAction,
+} from "../../../redux/actions/LessonActions";
 
 const EditLesson = (props) => {
   const { lesson } = useSelector((state) => state.LessonReducer);
   const dispatch = useDispatch();
   let { lessonId, courseId } = props.match.params;
   useEffect(() => {
-    dispatch(getCourseByIdAction(lessonId));
+    dispatch(getLessonByIdAction(lessonId));
   }, []);
-  console.log(lesson);
 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
       name: lesson.name,
       description: lesson.description,
-      video_link: lesson.video_link,
       course_id: courseId,
     },
 
@@ -30,10 +28,11 @@ const EditLesson = (props) => {
       const body = {
         name: values.name,
         description: values.description,
+        course_id: courseId,
       };
       console.log("body", body);
       console.log("values", values);
-      dispatch(updateLessonAction(body, lessonId));
+      dispatch(updateLessonAction(body, lessonId, courseId));
     },
   });
 

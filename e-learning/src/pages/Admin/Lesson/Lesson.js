@@ -45,12 +45,12 @@ const lessonsDefault1 = [
 
 export default function Lessons(props) {
   const courseParams = JSON.parse(localStorage.getItem("courseParams"));
-  // const { lessonsDefault } = useSelector((state) => state.LessonReducer);
+  const { lessonsDefault } = useSelector((state) => state.LessonReducer);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // dispatch(getAllLessonsAction(courseParams.id));
+    dispatch(getAllLessonsAction(courseParams.id));
   }, []);
 
   const formik = useFormik({
@@ -193,7 +193,7 @@ export default function Lessons(props) {
       width: "15%",
     },
   ];
-  const data = lessonsDefault1;
+  const data = lessonsDefault;
 
   return (
     <div>

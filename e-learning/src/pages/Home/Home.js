@@ -1,60 +1,11 @@
 import { Input, Search } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { MultipleCourses } from "../../components/MultipleItems/MultipleICourses";
 import { MultipleTeachers } from "../../components/MultipleItems/MultipleTeachers";
+import { getAllCoursesAction } from "../../redux/actions/CourseAction";
 
 import { HomeCarousel } from "../../templates/HomeTemplate/HomeCarousel/HomeCarousel";
-
-const mockDataCourses = [
-  {
-    image:
-      "https://dungmori.com/cdn/course/default/1642045699_61725_b14e1f.png",
-    teacherName: "Ngũ Duy Vinh",
-    description: "Quá tuyệt con mẹ nó vời luôn. tuyệt cú mèo. abc xyz...",
-    courseName: "Làm chủ tiếng nhật trong 1 đêm duy nhất",
-    voting: 4.7,
-  },
-  {
-    image:
-      "https://bloganh.net/wp-content/uploads/2021/03/chup-anh-dep-anh-sang-min.jpg",
-    teacherName: "Duy Vinh",
-    description: "Quá tuyệt con mẹ nó vời luôn. tuyệt cú mèo. abc xyz... hii ",
-    courseName: "Kaiwa cùng người bản xứ",
-    voting: 4.7,
-  },
-  {
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRszZuaV_1IEGyYWERDbVnEYyS1RR-sHw-3Lg&usqp=CAU",
-    teacherName: "Ngũ Duy Vinh",
-    description: "Quá tuyệt con mẹ nó vời luôn. tuyệt cú mèo. abc xyz...",
-    courseName: "Làm giàu không khó",
-    voting: 4.7,
-  },
-  {
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9pAIIBaFOCM5JVVg6D__yqwtZ4cJjeKTV3Z0Cef92bZwH2ZZNZ4ahqVckaoOO0HIcCBE&usqp=CAU",
-    teacherName: "Ngũ Duy Vinh",
-    description: "Quá tuyệt con mẹ nó vời luôn. tuyệt cú mèo. abc xyz...",
-    courseName: "Làm chủ tiếng nhật trong 1 đêm duy nhất",
-    voting: 4.7,
-  },
-  {
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52GUnI2Yewt1EMXa62-REIE7Y2XoBl7bSbQ&usqp=CAU",
-    teacherName: "Ngũ Duy Vinh",
-    description: "Quá tuyệt con mẹ nó vời luôn. tuyệt cú mèo. abc xyz...",
-    courseName: "Làm chủ tiếng nhật trong 1 đêm duy nhất",
-    voting: 4.7,
-  },
-  {
-    image:
-      "https://dep365.com/wp-content/uploads/2021/07/bi-kip-tao-dang-chup-anh-dep-voi-goc-ben-trai-scaled.jpg",
-    teacherName: "Ngũ Duy Vinh",
-    description: "Quá tuyệt con mẹ nó vời luôn. tuyệt cú mèo. abc xyz...",
-    courseName: "Làm chủ tiếng nhật trong 1 đêm duy nhất",
-    voting: 4.7,
-  },
-];
 
 const mockDataTeachers = [
   {
@@ -95,6 +46,11 @@ const mockDataTeachers = [
 ];
 
 export const Home = (props) => {
+  const { coursesDefault } = useSelector((state) => state.CourseReducer);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllCoursesAction());
+  });
   const { Search } = Input;
   return (
     <>
@@ -118,7 +74,6 @@ export const Home = (props) => {
             enterButton="Search"
             className="col-span-1 !text-black "
             style={{ borderColor: "black" }}
-            // onSearch={onSearch}
           />
         </div>
       </div>
@@ -128,7 +83,7 @@ export const Home = (props) => {
         <div className="each-line"></div>
       </div>
       <MultipleCourses
-        listCourses={mockDataCourses}
+        listCourses={coursesDefault}
         history={props.history}
         localtion={props.localtion}
       />
@@ -140,7 +95,7 @@ export const Home = (props) => {
         <div className="each-line"></div>
       </div>
       <MultipleCourses
-        listCourses={mockDataCourses}
+        listCourses={coursesDefault}
         history={props.history}
         localtion={props.localtion}
       />

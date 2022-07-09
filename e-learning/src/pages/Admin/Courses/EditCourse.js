@@ -135,7 +135,7 @@ const EditCourse = (props) => {
 
         <Form.Item label="Banner">
           <img
-            style={{ width: 150, height: 200 }}
+            style={{ width: 300, height: 200 }}
             src={courseDetail.banner}
             alt={courseDetail.name}
           />

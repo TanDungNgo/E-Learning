@@ -5,12 +5,7 @@ import {
 } from "../types/LessonTypes";
 
 const stateDefault = {
-  lesson: {
-    id: 1,
-    name: "Bài 1 là đây",
-    description: "Bài 1 là bài 1. Sau khi học xong bài 1 sẽ sang bài 2.",
-    video_link: "http://media.w3.org/2010/05/bunny/movie.mp4",
-  },
+  lesson: {},
   listAudio: [],
   audio: {},
   lessonsDefault: [],
