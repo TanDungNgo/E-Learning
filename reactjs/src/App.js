@@ -14,6 +14,7 @@ import RecordView from './pages/Course/RecordView';
 import Register from "./pages/Register";
 import Showlesson from "./pages/Showlesson";
 import Feedback from "./pages/Feedback";
+import Addtimedata from "./pages/Addtimedata";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             <Route path="/become-teacher" component={Becometeacher} />
             <Route path="/record/:id" component={RecordView} />
 
+            <Route path="/Addtimedata" component={Addtimedata} />
             <Route path="/register" component={Register} />
 
       </Router>

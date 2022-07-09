@@ -99,7 +99,7 @@ class LessonController extends Controller
             {
                 $lesson->name = $request->input('name');
                 $lesson->description = $request->input('description');
-                $lesson->course_id = $request->input('course_id');
+                // $lesson->course_id = $request->input('course_id');
                 $lesson->update();
                 return response()->json([
                     'status' => 200,

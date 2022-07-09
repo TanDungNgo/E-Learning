@@ -5,6 +5,7 @@ use App\Http\Controllers\API\LessonController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\RecordController;
 use App\Http\Controllers\API\FeedbackController;
+use App\Http\Controllers\API\TimedataController;
 use App\Http\Controllers\API\UpgradeTeacherController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -74,3 +75,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // save audio-record
 Route::post('/save-audio-record', [RecordController::class, 'save_audio_record']);
 Route::get('/records/{id}', [RecordController::class, 'index']);
+
+// save timedata
+Route::post('/save-timedata', [TimedataController::class, 'save_timedata']);
+Route::get('/timedata/{id}', [TimedataController::class, 'index']);
+Route::put('/update-timedata/{id}', [TimedataController::class, 'update']);

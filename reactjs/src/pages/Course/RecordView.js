@@ -58,6 +58,7 @@ const RecordView = (props) => {
     echoCancellation: true,
     onStop: (blobUrl, blob) => {
       const filename = `${new Date().getTime()}.wav`;
+      console.log(filename)
       const uploadFile = document.createElement('button');
       uploadFile.innerHTML = 'Upload';
       uploadFile.addEventListener('click', () => {
