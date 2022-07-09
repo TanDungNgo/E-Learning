@@ -66,4 +66,12 @@ class UserController extends Controller
             'message' => "Đăng kí thành công!",
         ]);
     }
+    public function teacherList()
+    {
+        $teachers = User::where('role', 'teacher')->get();
+        return response()->json([
+            'status' => 200,
+            'teachers' => $teachers,
+        ]);
+    }
 }
