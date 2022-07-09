@@ -9,15 +9,19 @@ export const loginAction = (userLogin, propsRoute) => {
       // const result = await UserService.login(userLogin);
 
       const userLogin1 = {
+        id: 1,
         email: userLogin.email,
         role: userLogin.email.length > 15 ? "ADMIN" : "CUSTOMER",
       };
+      // dispatch({
+      //   type: LOGIN,
+      //   value: result.user,
+      // });
       dispatch({
         type: LOGIN,
         value: userLogin1,
       });
       // if (result.status === 200) {
-      console.log(userLogin1);
       userLogin1.role === "ADMIN"
         ? propsRoute.history.push("/admin")
         : propsRoute.history.push(

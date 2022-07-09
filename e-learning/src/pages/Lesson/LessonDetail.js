@@ -59,33 +59,37 @@ export const LessonDetail = (props) => {
   let { lessonId, courseId } = props.match.params;
 
   const [indexOfLesson, setIndexOfLesson] = useState(
-    lessons.findIndex((item) => item.id == lessonId)
+    lessons.findIndex((item) => item.id === parseInt(lessonId))
   );
 
-  const { lesson, listAudio } = useSelector((state) => state.LessonReducer);
+  const { userLogin } = useSelector((state) => state.UserReducer);
+
+  console.log("user", userLogin);
+  const { lesson } = useSelector((state) => state.LessonReducer);
+  // const { recordsDefault } = useSelector((state) => state.RecordReducer);
   const dispatch = useDispatch();
 
   useEffect(() => {
     window.scrollTo(0, 0);
     dispatch(getLessonByIdAction(parseInt(lessonId)));
   }, []);
-  let listAudioTemp = listAudio;
+  // let listAudioTemp = recordsDefault.filter((item) => item.id === userLogin.id);
 
-  const renderAudio = () => {
-    return listAudioTemp.map((item, index) => {
-      let testAudioRecord = URL.createObjectURL(item);
+  // const renderAudio = () => {
+  //   return listAudioTemp.map((item, index) => {
+  //     let testAudioRecord = URL.createObjectURL(item);
 
-      console.log("testAudioRecord", testAudioRecord);
-      return (
-        <audio
-          src={testAudioRecord}
-          controls
-          className="inline-block"
-          key={index}
-        />
-      );
-    });
-  };
+  //     console.log("testAudioRecord", testAudioRecord);
+  //     return (
+  //       <audio
+  //         src={testAudioRecord}
+  //         controls
+  //         className="inline-block"
+  //         key={index}
+  //       />
+  //     );
+  //   });
+  // };
 
   return (
     <>
@@ -118,7 +122,7 @@ export const LessonDetail = (props) => {
             ></Button>
           </div>
         </div>
-        <div className="col-span-1 bg-green-400">{renderAudio()}</div>
+        <div className="col-span-1 bg-green-400">{/* {renderAudio()} */}</div>
       </div>
     </>
   );

@@ -8,7 +8,6 @@ if (localStorage.getItem(USER_LOGIN)) {
 
 const stateDefault = {
   userLogin: user,
-  abc: "",
 };
 
 export const UserReducer = (state = stateDefault, action) => {
