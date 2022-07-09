@@ -17,17 +17,15 @@ export const loginAction = (userLogin, propsRoute) => {
         value: userLogin1,
       });
       if (result.status === 200) {
-        propsRoute.history.push("/");
+        userLogin1.role === "ADMIN"
+          ? propsRoute.history.push("/admin")
+          : propsRoute.history.push(
+              propsRoute.location.state ? propsRoute.location.state.from : "/"
+            );
         openNotificationWithIcon(SUCCESS, "Login thành công", "success");
       } else {
         openNotificationWithIcon(ERROR, "Login thất bại", "error");
       }
-      // result.data.s;
-      // userLogin.role === "ADMIN"
-
-      //   : propsRoute.history.push(
-      //       propsRoute.location.state ? propsRoute.location.state.from : "/"
-      //     );
     } catch (error) {
       openNotificationWithIcon(ERROR, "Login thất bại", "error");
       console.log("error>>", error);
