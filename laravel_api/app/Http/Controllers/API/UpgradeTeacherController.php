@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Models\User;
-use App\Models\Upgradeteacher;
+use App\Models\UpgradeTeacher;
 
 use Validator;
 
@@ -16,28 +16,30 @@ class UpgradeTeacherController extends Controller
     public function index()
     {
         //dùng riêng cho role admin
-        $become_teachers = UpgradeTeacher::all();
+        $requests = UpgradeTeacher::all();
         return response()->json([
             'status' => 200,
-            'become_teachers' => $requests,
+            'requests' => $requests,
         ]);
     }
     public function RequestBecomeTeacher(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'user_id' => 'required|max:191',
-            'video_link' => 'required|max:191',
-        ]);
-        if ($validator->fails()) {
+        // $validator = Validator::make($request->all(), [
+        //     'user_id' => 'required|max:191',
+        //     'video_link' => 'required|max:191',
+        // ]);
+        $user = User::find($request->input('user_id'));
+        if($user->role == 'teacher'){
             return response()->json([
-                'validate_err' => $validator->messages(),
+                'status' => 400,
+                'message' => 'User is already a teacher',
             ]);
         }
-        else
+        else 
         {
             $become_teacher = new UpgradeTeacher;
-            $become_teacher->user_id = 3;
-            $become_teacher->video_link = 1;
+            $become_teacher->user_id = $request->user_id;
+            $become_teacher->video_link = $request->video_link;
             $become_teacher->save();
             return response()->json([
                 'status' => 200,
@@ -45,41 +47,29 @@ class UpgradeTeacherController extends Controller
             ]);
         }
     }
-    public function upgrade_to_teacher(Request $request)
+    public function approve_request_become_teacher(Request $request)
     {
-        if(true) // điều chỉnh lại sau
-        {
-            $status = $request->input('status');
-            if($status == 'accept')
-            {
-                $re = Upgradeteacher::find($request->input('id'));
+                $re = UpgradeTeacher::find($request->id);
+                $re->status = 'accepted';
+                $re->save();
+        
                 $user = User::find($re->user_id);
                 $user->role = 'teacher';
                 $user->save();
-                
-                $re->status = 'accepted';
-                $re->save();
+
                 return response()->json([
                     'status' => 200,
                     'message' => 'User upgraded to teacher successfully',
                 ]);
-            }
-            else
-            {
-                $reject = UpgradeTeacher::find($request->input('id'));
-                $reject->status = 'rejected';
+    }
+    public function reject_request_become_teacher(Request $request)
+    {
+                $re = UpgradeTeacher::find($request->id);
+                $re->status = 'rejected';
+                $re->save();
                 return response()->json([
                     'status' => 200,
-                    'message' => 'Request deleted successfully',
+                    'message' => 'User rejected to upgrade to teacher successfully',
                 ]);
-            }
-        }
-        else
-        {
-            return response()->json([
-                'status' => 400,
-                'message' => 'You are not admin',
-            ]);
-        }
     }
 }

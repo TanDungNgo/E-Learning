@@ -17,6 +17,9 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
     }
+    protected $middleware = [
+        \Fruitcake\Cors\HandleCors::class,
+    ];
 
     /**
      * Register the commands for the application.
