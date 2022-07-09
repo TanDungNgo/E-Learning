@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+use App\Models\UpgradeTeacher;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -26,7 +28,10 @@ class User extends Authenticatable
         'password',
         'avatar',
     ];
-
+    public function user()
+    {
+        return $this->hasOne(UpgradeTeacher::class, 'user_id');
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

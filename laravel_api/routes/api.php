@@ -54,6 +54,9 @@ Route::post('/update-video/{id}', [LessonController::class, 'updatevideo']);
 Route::post('/users/login', [UserController::class, 'onLogin']);
 Route::post('/users/register', [UserController::class, 'register']);
 
+/// Teacher List
+Route::get('/teacher-list', [UserController::class, 'teacherList']);
+
 
 // Feedback
 Route::get('/feedback/{id}', [FeedbackController::class, 'index']);
@@ -62,11 +65,13 @@ Route::get('/see-feedback/{id}', [FeedbackController::class, 'see_feedback']);
 
 
 // Upgrade Teacher
-Route::get('/all-request-become-teacher', [UpgradeTeacherController::class, 'index']);
+Route::get('/admin/all-request-become-teacher', [UpgradeTeacherController::class, 'index']);
 Route::post('/request-to-become-teacher', [UpgradeTeacherController::class, 'RequestBecomeTeacher']);
 //accept request
 Route::put('/upgrade-teacher', [UpgradeTeacherController::class, 'upgrade_to_teacher']);
-
+Route::put('admin/approve-request-become-teacher/{id}', [UpgradeTeacherController::class, 'approve_request_become_teacher']);
+//reject request
+Route::put('admin/reject-request-become-teacher/{id}', [UpgradeTeacherController::class, 'reject_request_become_teacher']);
 Route::get('/popular-courses', [CourseController::class, 'popular_courses']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
