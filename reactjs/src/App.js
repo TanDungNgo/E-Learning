@@ -16,6 +16,7 @@ import Showlesson from "./pages/Showlesson";
 import Feedback from "./pages/Feedback";
 import Addtimedata from "./pages/Addtimedata";
 
+import PendingRequset from './pages/Admin/PendingRequest';
 function App() {
   return (
       <Router>
@@ -35,7 +36,10 @@ function App() {
 
             <Route path="/Addtimedata" component={Addtimedata} />
             <Route path="/register" component={Register} />
+            
+            <Route path="/admin/pending-request" component={PendingRequset} />
 
+            <Route path="/add-timedata" component={AddTimedata} />
       </Router>
   );
 }

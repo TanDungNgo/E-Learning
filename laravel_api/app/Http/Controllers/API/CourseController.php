@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator;
+use App\Models\User;
+use DB;
 
 use App\Models\Student;
 use App\Models\Course;
@@ -14,7 +16,7 @@ class CourseController extends Controller
     public function index()
     {
 
-        $courses = Course::all();
+        $courses = DB::table('courses')->join('users', 'users.id', '=', 'courses.teacher_id')->select(DB::raw("concat (users.firstname,' ',users.lastname) as teacher_name"),'courses.*')->get();
         return response()->json([
             'status' => 200,
             'courses' => $courses,
