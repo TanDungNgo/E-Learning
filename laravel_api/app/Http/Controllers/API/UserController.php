@@ -70,7 +70,6 @@ class UserController extends Controller
     {
         $teachers = User::where('role', 'teacher')->get();
         return response()->json([
-            'status' => 200,
             'teachers' => $teachers,
         ]);
     }
