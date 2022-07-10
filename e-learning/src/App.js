@@ -13,6 +13,7 @@ import { CourseDetail } from "./pages/Courses/CourseDetail";
 import { Home } from "./pages/Home/Home";
 import { LessonDetail } from "./pages/Lesson/LessonDetail";
 import { Login } from "./pages/Login/Login";
+import Profile from "./pages/Profile/Profile";
 import Register from "./pages/Register/Register";
 import AdminTemplate from "./templates/AdminTemplate/AdminTemplate";
 import { HomeTemplate } from "./templates/HomeTemplate/HomeTemplate";
@@ -25,6 +26,7 @@ function App() {
       {/* <HomeTemplate path="/" exact Component={VideoPlayer} /> */}
       <Route path="/login" exact component={Login} />
       <Route path="/register" exact component={Register} />
+      <Route path="/profile" exact component={Profile} />
       <AdminTemplate
         path="/admin/courses/:id/add-new"
         exact

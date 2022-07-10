@@ -60,6 +60,28 @@ export const logoutAction = () => {
   };
 };
 
+export const updateUserAction = (userEdit, propsRoute) => {
+  return async (dispatch) => {
+    try {
+      const result = await UserService.updateUser(userEdit.id, userEdit);
+      console.log("updateUser", result);
+
+      if (result.status === 200) {
+        propsRoute.history.push("/profile");
+        openNotificationWithIcon(
+          SUCCESS,
+          "Cập nhật thành công",
+          "success"
+        );
+      } else {
+        openNotificationWithIcon(ERROR, "Cập nhật thất bại", "error");
+      }
+    } catch (error) {
+      console.log("error>>", error);
+    }
+  };
+};
+
 export const getAllTeachersAction = () => {
   return async (dispatch) => {
     try {
