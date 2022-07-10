@@ -7,6 +7,19 @@ import { setAudioActions } from "../../redux/actions/LessonActions";
 import {Link} from 'react-router-dom';
 import Button from "../../components/Button/Button";
 
+import { initializeApp } from '@firebase/app'
+import { getStorage, ref, uploadBytes, getDownloadURL } from '@firebase/storage';
+
+import swal from 'sweetalert';
+import axios from 'axios';
+
+
+const firebaseConfig = {
+  storageBucket: 'fir-react-upload-bad49.appspot.com' // <- Your storage bucket {sẽ chính sửa thành bucket chung sau}
+};
+const app = initializeApp(firebaseConfig);
+const storage = getStorage(app);
+
 const arrTimePause = [
 ];
 let stt = 0;
@@ -102,9 +115,29 @@ const VideoPlayer = (props) => {
       type: "audio/wav",
     });
 
-    // const formData = new FormData(); // preparing to send to the server
-
-    // formData.append('file', audioFile);  // preparing to send to the server
+    const storageRef = ref(storage, 'audio/' + fileName + '.wav');
+    uploadBytes(storageRef, audioBlob).then((snapshot) => 
+    { 
+      console.log('Uploaded Successfully');
+      getDownloadURL(storageRef).then(async(url) => {
+        // save url to database
+        const data = new FormData();
+        data.append('lesson_id', 1); // lesson_id for call api
+        data.append('url', url); // url_file_audio for call api
+        const res = await axios.post('http://localhost:8000/api/save-audio-record', data)
+        if(res.status === 200)
+        {
+          console.log('Saved to database');
+          // swal({
+          //   title: "Success!",
+          //   text: res.data.message,
+          //   icon: "success",
+          //   buttons: "OK!"
+          // });
+          // props.history.push(`/show-lesson/${lesson_id}`);
+        }
+      });
+    });
 
     dispatch(setAudioActions(audioFile));
     // onSaveAudio(formData); // sending to the server
