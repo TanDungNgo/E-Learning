@@ -1,6 +1,7 @@
 // import RecordView from "./components/RecordView";
 import { createBrowserHistory } from "history";
 import { Route, Switch } from "react-router-dom";
+import VideoPlayer from "./components/VideoPlayer/VideoPlayer";
 import AddCourse from "./pages/Admin/Courses/AddCourse";
 import Course from "./pages/Admin/Courses/Course";
 import EditCourse from "./pages/Admin/Courses/EditCourse";
@@ -20,7 +21,8 @@ export const history = createBrowserHistory();
 function App() {
   return (
     <Switch>
-      <HomeTemplate path="/" exact Component={Home} />
+      {/* <HomeTemplate path="/" exact Component={Home} /> */}
+      <HomeTemplate path="/" exact Component={VideoPlayer} />
       <Route path="/login" exact component={Login} />
       <Route path="/register" exact component={Register} />
       <AdminTemplate

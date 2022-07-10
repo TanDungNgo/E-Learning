@@ -29,18 +29,16 @@ export const LessonDetail = (props) => {
     window.scrollTo(0, 0);
     dispatch(getLessonByIdAction(lessonId));
   }, []);
-  // let listAudioTemp = recordsDefault.filter((item) => item.id === userLogin.id);
+  // let recordsUser = recordsDefault.filter((item) => item.user.user_id === userLogin.id);
 
   // const renderAudio = () => {
-  //   return listAudioTemp.map((item, index) => {
-  //     let testAudioRecord = URL.createObjectURL(item);
-
-  //     console.log("testAudioRecord", testAudioRecord);
+  //   return recordsUser.record.map((item, index) => {
+  //     console.log("item", item);
   //     return (
-  //       <audio
-  //         src={testAudioRecord}
+  //       <audio 
+  //         src={item}
   //         controls
-  //         className="inline-block"
+  //         className="inline-block py-4 px-2"
   //         key={index}
   //       />
   //     );

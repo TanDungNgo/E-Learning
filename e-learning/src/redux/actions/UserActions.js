@@ -1,7 +1,8 @@
 import { openNotificationWithIcon } from "../../components/Notification/Notification";
+import { TeacherService } from "../../services/TeacherService";
 import { UserService } from "../../services/UserService";
 import { ERROR, SUCCESS } from "../../utils/settings/config";
-import { LOGIN, LOGOUT } from "../types/UserTypes";
+import { GET_ALL_TEACHERS, LOGIN, LOGOUT } from "../types/UserTypes";
 
 export const loginAction = (userLogin, propsRoute) => {
   return async (dispatch) => {
@@ -54,6 +55,17 @@ export const logoutAction = () => {
     dispatch({
       type: LOGOUT,
       value: {},
+    });
+    openNotificationWithIcon(SUCCESS, "Logout thành công", "success");
+  };
+};
+
+export const getAllTeachersAction = () => {
+  return async (dispatch) => {
+    const result = await TeacherService.getAllTeachers();
+    dispatch({
+      type: GET_ALL_TEACHERS,
+      value: result.teachers,
     });
     openNotificationWithIcon(SUCCESS, "Logout thành công", "success");
   };

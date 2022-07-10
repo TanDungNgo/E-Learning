@@ -12,7 +12,13 @@ const contentStyle = {
 export const HomeCarousel = () => (
   <Carousel autoplay>
     <div>
-      <SpecialHomeCarousel/>
+      <SpecialHomeCarousel />
+    </div>
+    <div>
+      <SpecialHomeCarousel />
+    </div>
+    <div>
+      <SpecialHomeCarousel />
     </div>
   </Carousel>
 );

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { MultipleCourses } from "../../components/MultipleItems/MultipleICourses";
 import { MultipleTeachers } from "../../components/MultipleItems/MultipleTeachers";
 import { getAllCoursesAction } from "../../redux/actions/CourseAction";
+import { getAllTeachersAction } from "../../redux/actions/UserActions";
 
 import { HomeCarousel } from "../../templates/HomeTemplate/HomeCarousel/HomeCarousel";
 
@@ -47,19 +48,18 @@ const mockDataTeachers = [
 
 export const Home = (props) => {
   const { coursesDefault } = useSelector((state) => state.CourseReducer);
+  const { teachersDefault } = useSelector((state) => state.UserReducer);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllCoursesAction());
+    dispatch(getAllTeachersAction());
   }, [getAllCoursesAction]);
   const { Search } = Input;
-  const test = () => {
-    console.log(coursesDefault);
-  }
+
   return (
     <>
       <HomeCarousel />
       <div className="container mt-10 ">
-      <button onClick={test}> a</button>
         <div className="grid grid-cols-3 gap-5 ">
           <Input
             allowClear
@@ -108,7 +108,8 @@ export const Home = (props) => {
         <div className="each-line"></div>
       </div>
       <MultipleTeachers
-        listTeachers={mockDataTeachers}
+        // listTeachers={mockDataTeachers}
+        listTeachers={teachersDefault}
         history={props.history}
         localtion={props.localtion}
       />

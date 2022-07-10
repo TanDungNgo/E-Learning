@@ -1,0 +1,4 @@
+export const GET_ALL_TIMEDATA = "GET_ALL_TIMEDATA";
+export const SAVE_TIMEDATA = "SAVE_TIMEDATA";
+
+

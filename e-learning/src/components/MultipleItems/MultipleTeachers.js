@@ -29,6 +29,9 @@ function SamplePrevArrow(props) {
   );
 }
 
+const description =
+  "Giảng viên dạy tốt, nhiệt tình, được rất nhiều học sinh yêu mến. Có kinh nghiệm giảng dạy lâu năm, trình độ học vấn cao.";
+
 export const MultipleTeachers = (props) => {
   var settings = {
     infinite: true,
@@ -59,19 +62,25 @@ export const MultipleTeachers = (props) => {
           />
           <div className="border-x border-gray-400">
             <h1 className="text-lg font-bold text-center">
-              {item.teacherName}
+              {/* let fileName = username.concat( "_", courseName, "_",
+              lessonNumber, "_", stt ); */}
+              {item.firstname.concat(" ", item.lastname)}
             </h1>
             <p className="mb-0 px-1">
-              {item.description.length > 50
-                ? item.description.substr() + "..."
-                : item.description}
+              {description.length > 50
+                ? description.substr() + "..."
+                : description}
             </p>
           </div>
           <ButtonBase
             textContent="View detail"
             className="w-full !rounded-none"
             onClick={() => {
-              alert(item.teacherName + "  ||  " + item.description);
+              alert(
+                item.firstname.concat(" ", item.lastname) +
+                  "  ||  " +
+                  description
+              );
             }}
           />
         </div>

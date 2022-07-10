@@ -1,17 +1,13 @@
 import { RecordService } from "../../services/RecordService";
 import { GET_ALL_RECORDS, SAVE_RECORD } from "../types/RecordTypes";
 
-export const saveRecordAction = (formData) => {
+export const saveRecordAction = (formData,lessonId) => {
   return async (dispatch) => {
     try {
       const result = await RecordService.saveRecord(formData);
       console.log("alo", result);
-      // Đưa lên kho chứa (redux)
-      // dispatch({
-      //   type: SAVE_RECORD,
-      //   value: result,
-      // });
-      // dispatch(getAllRecordsByLessonIdAction());
+
+      // dispatch(getAllRecordsByLessonIdAction(lessonId));
     } catch (error) {
       console.log("error>>", error);
     }

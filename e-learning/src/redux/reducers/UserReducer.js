@@ -1,5 +1,5 @@
 import { USER_LOGIN } from "../../utils/settings/config";
-import { LOGIN, LOGOUT } from "../types/UserTypes";
+import { GET_ALL_TEACHERS, LOGIN, LOGOUT } from "../types/UserTypes";
 
 let user = {};
 if (localStorage.getItem(USER_LOGIN)) {
@@ -8,6 +8,7 @@ if (localStorage.getItem(USER_LOGIN)) {
 
 const stateDefault = {
   userLogin: user,
+  teacherDefault: [],
 };
 
 export const UserReducer = (state = stateDefault, action) => {
@@ -21,6 +22,10 @@ export const UserReducer = (state = stateDefault, action) => {
       localStorage.removeItem(USER_LOGIN);
       // localStorage.removeItem(TOKEN);
       state.userLogin = action.value;
+      return { ...state };
+    }
+    case GET_ALL_TEACHERS: {
+      state.teacherDefault = action.value;
       return { ...state };
     }
 

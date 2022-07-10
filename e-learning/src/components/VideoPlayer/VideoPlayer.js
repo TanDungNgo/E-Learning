@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useReactMediaRecorder } from "react-media-recorder";
 import "./VideoPlayer.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getLessonByIdAction,
   setAudioActions,
@@ -9,6 +9,7 @@ import {
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import storageFirebase from "../../utils/settings/firebaseConfig";
 import { saveRecordAction } from "../../redux/actions/RecordActions";
+import { getTimedatasByLessonIdAction } from "../../redux/actions/TimedataActions";
 const arrTimePause = [
   {
     minute: 0,
@@ -32,17 +33,21 @@ const username = "nguduyvinh";
 const lessonNumber = "1";
 const courseName = "test";
 const VideoPlayer = (props) => {
-  let { lesson } = props;
+  // let { lesson } = props;
 
-  console.log(lesson);
+  // console.log(lesson);
   const videoElement = useRef(null);
 
+  // const { timedataDefaults } = useSelector((state) => state.TimedataReducer);
   const [isStart, setIsStart] = useState(false);
   const [isStop, setIsStop] = useState(false);
   const [displayHidden, setDisplayHidden] = useState("hidden");
   const [disable, setDisable] = useState(false);
   const dispatch = useDispatch();
 
+  // useEffect(() => {
+  //   dispatch(getTimedatasByLessonIdAction(lesson.id));
+  // }, []);
   useEffect(() => {
     const interval = setInterval(async () => {
       const elapsed_sec = await videoElement.current.currentTime;
@@ -101,11 +106,11 @@ const VideoPlayer = (props) => {
         console.log("url record", url);
         console.log("Uploaded a blob or file!");
         //save url to database
-        const data = new FormData();
-        data.append("lesson_id", lesson.id);
-        data.append("url", url);
+        // const data = new FormData();
+        // data.append("lesson_id", lesson.id);
+        // data.append("url", url);
 
-        dispatch(saveRecordAction(data));
+        // dispatch(saveRecordAction(data, lesson.id));
       });
     });
   };
@@ -118,7 +123,11 @@ const VideoPlayer = (props) => {
         poster="https://meta.vn/Data/image/2022/01/13/anh-dep-thien-nhien-3.jpg"
         className="w-full"
       >
-        <source src={lesson.video_link} type="video/mp4" />
+        {/* <source src={lesson.video_link} type="video/mp4" /> */}
+        <source
+          src="https://media.w3.org/2010/05/bunny/movie.mp4"
+          type="video/mp4"
+        />
       </video>
       <div className={`video-audio__overlay  ${displayHidden} `}></div>
       <div className={`audio-record  ${displayHidden} text-center`}>
