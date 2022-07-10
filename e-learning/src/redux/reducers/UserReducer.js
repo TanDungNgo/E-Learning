@@ -8,7 +8,7 @@ if (localStorage.getItem(USER_LOGIN)) {
 
 const stateDefault = {
   userLogin: user,
-  teacherDefault: [],
+  teachersDefault: [],
 };
 
 export const UserReducer = (state = stateDefault, action) => {
@@ -25,7 +25,7 @@ export const UserReducer = (state = stateDefault, action) => {
       return { ...state };
     }
     case GET_ALL_TEACHERS: {
-      state.teacherDefault = action.value;
+      state.teachersDefault = action.value;
       return { ...state };
     }
 

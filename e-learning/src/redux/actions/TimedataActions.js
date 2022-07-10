@@ -1,4 +1,5 @@
 import { RecordService } from "../../services/RecordService";
+import { TimedataService } from "../../services/TimedataService";
 import { GET_ALL_TIMEDATA } from "../types/TimedataTypes";
 
 // export const saveTimeAction = (formData,lessonId) => {
@@ -17,7 +18,7 @@ import { GET_ALL_TIMEDATA } from "../types/TimedataTypes";
 export const getTimedatasByLessonIdAction = (lessonId) => {
   return async (dispatch) => {
     try {
-      const result = await RecordService.getRecordsByLessonId();
+      const result = await TimedataService.getTimeDatasByLessonId(lessonId);
       console.log("alo", result);
       // Đưa lên kho chứa
       dispatch({

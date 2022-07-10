@@ -10,61 +10,58 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import storageFirebase from "../../utils/settings/firebaseConfig";
 import { saveRecordAction } from "../../redux/actions/RecordActions";
 import { getTimedatasByLessonIdAction } from "../../redux/actions/TimedataActions";
-const arrTimePause = [
-  {
-    minute: 0,
-    seconds: 20,
-  },
-  {
-    minute: 0,
-    seconds: 40,
-  },
-  {
-    minute: 0,
-    seconds: 55,
-  },
-  {
-    minute: 1,
-    seconds: 15,
-  },
-];
-let stt = 0;
-const username = "nguduyvinh";
-const lessonNumber = "1";
-const courseName = "test";
+// const timedatasDefault = [
+//   {
+//     minute: 0,
+//     seconds: 20,
+//   },
+//   {
+//     minute: 0,
+//     seconds: 40,
+//   },
+//   {
+//     minute: 0,
+//     seconds: 55,
+//   },
+//   {
+//     minute: 1,
+//     seconds: 15,
+//   },
+// ];
+
 const VideoPlayer = (props) => {
-  // let { lesson } = props;
+  let { lesson } = props;
 
   // console.log(lesson);
   const videoElement = useRef(null);
 
-  // const { timedataDefaults } = useSelector((state) => state.TimedataReducer);
+  const { timedatasDefault } = useSelector((state) => state.TimedataReducer);
   const [isStart, setIsStart] = useState(false);
   const [isStop, setIsStop] = useState(false);
   const [displayHidden, setDisplayHidden] = useState("hidden");
   const [disable, setDisable] = useState(false);
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(getTimedatasByLessonIdAction(lesson.id));
-  // }, []);
+  useEffect(() => {
+    dispatch(getTimedatasByLessonIdAction(lesson.id));
+  }, []);
   useEffect(() => {
     const interval = setInterval(async () => {
       const elapsed_sec = await videoElement.current.currentTime;
 
+      const timeData = timedatasDefault;
       // calculations
       let elapsed_ms = Math.floor(elapsed_sec * 1000);
       let ms = elapsed_ms % 1000;
       let min = Math.floor(elapsed_ms / 60000);
       let seconds = Math.floor((elapsed_ms - min * 60000) / 1000);
 
-      arrTimePause.forEach((item) => {
-        if (min === item.minute && seconds === item.seconds && ms < 100) {
+      timeData?.forEach((item) => {
+        if (min === item.minute && seconds === item.second && ms < 100) {
           videoElement.current.pause();
           setDisplayHidden("");
           setIsStop(false);
-          arrTimePause.shift();
-          stt++;
+          timeData.shift();
         }
       });
     }, 100);
@@ -89,14 +86,7 @@ const VideoPlayer = (props) => {
   };
 
   const handleSave = async () => {
-    let fileName = username.concat(
-      "_",
-      courseName,
-      "_",
-      lessonNumber,
-      "_",
-      stt
-    );
+    const fileName = `${new Date().getTime()}.wav`;
     const audioBlob = await fetch(mediaBlobUrl).then((r) => r.blob());
 
     const storageRef = ref(storageFirebase, "audio/" + fileName);
@@ -106,11 +96,11 @@ const VideoPlayer = (props) => {
         console.log("url record", url);
         console.log("Uploaded a blob or file!");
         //save url to database
-        // const data = new FormData();
-        // data.append("lesson_id", lesson.id);
-        // data.append("url", url);
+        const data = new FormData();
+        data.append("lesson_id", lesson.id);
+        data.append("url", url);
 
-        // dispatch(saveRecordAction(data, lesson.id));
+        dispatch(saveRecordAction(data, lesson.id));
       });
     });
   };
@@ -123,11 +113,11 @@ const VideoPlayer = (props) => {
         poster="https://meta.vn/Data/image/2022/01/13/anh-dep-thien-nhien-3.jpg"
         className="w-full"
       >
-        {/* <source src={lesson.video_link} type="video/mp4" /> */}
-        <source
-          src="https://media.w3.org/2010/05/bunny/movie.mp4"
+        <source src={lesson.video_link} type="video/mp4" />
+        {/* <source
+          // src="https://media.w3.org/2010/05/bunny/movie.mp4"
           type="video/mp4"
-        />
+        /> */}
       </video>
       <div className={`video-audio__overlay  ${displayHidden} `}></div>
       <div className={`audio-record  ${displayHidden} text-center`}>

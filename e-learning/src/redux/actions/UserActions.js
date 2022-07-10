@@ -62,11 +62,14 @@ export const logoutAction = () => {
 
 export const getAllTeachersAction = () => {
   return async (dispatch) => {
-    const result = await TeacherService.getAllTeachers();
-    dispatch({
-      type: GET_ALL_TEACHERS,
-      value: result.teachers,
-    });
-    openNotificationWithIcon(SUCCESS, "Logout thành công", "success");
+    try {
+      const result = await TeacherService.getAllTeachers();
+      dispatch({
+        type: GET_ALL_TEACHERS,
+        value: result.teachers,
+      });
+    } catch (error) {
+      console.log("error>>", error);
+    }
   };
 };

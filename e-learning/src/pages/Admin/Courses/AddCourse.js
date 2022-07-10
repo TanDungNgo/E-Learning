@@ -78,7 +78,7 @@ class AddCourse extends Component {
         data.append("price", this.state.price);
         // const res = await axios.post("/courses", data);
 
-        // const result = await CourseService.createCourse(data);
+        const result = await CourseService.createCourse(data);
         // console.log("result", result);
       }
     );

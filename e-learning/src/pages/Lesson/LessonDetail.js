@@ -6,6 +6,7 @@ import {
   getAllLessonsAction,
   getLessonByIdAction,
 } from "../../redux/actions/LessonActions";
+import { getAllRecordsByLessonIdAction } from "../../redux/actions/RecordActions";
 
 export const LessonDetail = (props) => {
   let { lessonId, courseId } = props.match.params;
@@ -22,32 +23,36 @@ export const LessonDetail = (props) => {
 
   const { lesson } = useSelector((state) => state.LessonReducer);
   console.log(lesson);
-  // const { recordsDefault } = useSelector((state) => state.RecordReducer);
+  const { recordsDefault } = useSelector((state) => state.RecordReducer);
+  console.log(recordsDefault);
   const dispatch = useDispatch();
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    dispatch(getAllRecordsByLessonIdAction(lessonId));
     dispatch(getLessonByIdAction(lessonId));
   }, []);
-  // let recordsUser = recordsDefault.filter((item) => item.user.user_id === userLogin.id);
-
-  // const renderAudio = () => {
-  //   return recordsUser.record.map((item, index) => {
-  //     console.log("item", item);
-  //     return (
-  //       <audio 
-  //         src={item}
-  //         controls
-  //         className="inline-block py-4 px-2"
-  //         key={index}
-  //       />
-  //     );
-  //   });
-  // };
+  let recordsUser = recordsDefault?.filter(
+    (item) => item.user_id === userLogin.id
+  );
+  console.log(recordsUser);
+  const renderAudio = () => {
+    return recordsUser?.map((item, index) => {
+      console.log("item", item);
+      return (
+        <audio
+          src={item.record_file}
+          controls
+          className="inline-block p-1"
+          key={index}
+        />
+      );
+    });
+  };
 
   return (
     <>
-      <div className=" container my-10 text-3xl font-bold">{lesson.name}</div>
+      <div className=" container my-20 text-3xl font-bold ">{lesson.name}</div>
       <div className="grid grid-cols-3 gap-3 container mt-10">
         <div className="col-span-2">
           <VideoPlayer lesson={lesson} />
@@ -79,7 +84,7 @@ export const LessonDetail = (props) => {
             ></Button>
           </div>
         </div>
-        <div className="col-span-1 bg-green-400">{/* {renderAudio()} */}</div>
+        <div className="col-span-1 bg-green-400 mt-10">{renderAudio()}</div>
       </div>
     </>
   );

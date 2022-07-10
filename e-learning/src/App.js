@@ -21,8 +21,8 @@ export const history = createBrowserHistory();
 function App() {
   return (
     <Switch>
-      {/* <HomeTemplate path="/" exact Component={Home} /> */}
-      <HomeTemplate path="/" exact Component={VideoPlayer} />
+      <HomeTemplate path="/" exact Component={Home} />
+      {/* <HomeTemplate path="/" exact Component={VideoPlayer} /> */}
       <Route path="/login" exact component={Login} />
       <Route path="/register" exact component={Register} />
       <AdminTemplate
@@ -35,7 +35,7 @@ function App() {
         exact
         Component={Lessons}
       />
-       <AdminTemplate
+      <AdminTemplate
         path="/admin/courses/:courseId/lessons/:lessonId/edit"
         exact
         Component={EditLesson}

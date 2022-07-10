@@ -1,7 +1,7 @@
 import Api from "./baseApi";
 
 const getTimeDatasByLessonId = (lessonId) => {
-  return Api.get(`/edit-lesson/${lessonId}`);
+  return Api.get(`/timedata/${lessonId}`);
 };
 
 const createTimedata = (data) => {

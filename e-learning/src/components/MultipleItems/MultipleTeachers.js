@@ -46,8 +46,9 @@ export const MultipleTeachers = (props) => {
   };
 
   const { listTeachers, history, localtion } = props;
+  console.log("listTeachers", listTeachers);
   const renderTeachers = (listTeachers) => {
-    return listTeachers.map((item, index) => {
+    return listTeachers?.map((item, index) => {
       return (
         <div
           key={index}

@@ -53,7 +53,7 @@ export const Home = (props) => {
   useEffect(() => {
     dispatch(getAllCoursesAction());
     dispatch(getAllTeachersAction());
-  }, [getAllCoursesAction]);
+  }, []);
   const { Search } = Input;
 
   return (
