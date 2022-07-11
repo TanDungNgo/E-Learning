@@ -29,14 +29,6 @@ const Profile = (props) => {
 
   return (
     <>
-        <Header/>
-
-
-<div class="grid overflow-hidden grid-cols-4 grid-rows-1 gap-5 pt-40 pb-12 px-24">
-    <div class="">
-        <SideBar/>
-    </div>
-    <div class="col-span-3">
         <div class="inline-block px-40 w-full">
             <Form
             labelCol={{
@@ -77,7 +69,7 @@ const Profile = (props) => {
                     </> 
                     :
                     <>
-                    <p class="text-gray-600 text-xs italic">Want to be a teacher? <NavLink to="/request">Request now!</NavLink></p>
+                    <p class="text-gray-600 text-xs italic">Want to be a teacher? <NavLink to="/upgrade">Request now!</NavLink></p>
                     </>
                 }
                 <Form.Item
@@ -237,13 +229,6 @@ const Profile = (props) => {
             </div>
             </Form>
         </div>
-    </div>
-
-</div>
-
-
-
-        <Footer/>
     </>
   )
 }

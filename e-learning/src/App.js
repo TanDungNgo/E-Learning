@@ -14,9 +14,11 @@ import { Home } from "./pages/Home/Home";
 import { LessonDetail } from "./pages/Lesson/LessonDetail";
 import { Login } from "./pages/Login/Login";
 import Profile from "./pages/Profile/Profile";
+import Upgrade from "./pages/Profile/Upgrade";
 import Register from "./pages/Register/Register";
 import AdminTemplate from "./templates/AdminTemplate/AdminTemplate";
 import { HomeTemplate } from "./templates/HomeTemplate/HomeTemplate";
+import { ProfileTemplate } from "./templates/ProfileTemplate/SideBar/ProfileTemplate";
 
 export const history = createBrowserHistory();
 function App() {
@@ -26,7 +28,8 @@ function App() {
       {/* <HomeTemplate path="/" exact Component={VideoPlayer} /> */}
       <Route path="/login" exact component={Login} />
       <Route path="/register" exact component={Register} />
-      <Route path="/profile" exact component={Profile} />
+        <ProfileTemplate path="/profile" exact Component={Profile} />
+        <ProfileTemplate path="/upgrade" exact Component={Upgrade} />
       <AdminTemplate
         path="/admin/courses/:id/add-new"
         exact

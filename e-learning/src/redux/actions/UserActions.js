@@ -82,6 +82,28 @@ export const updateUserAction = (userEdit, propsRoute) => {
   };
 };
 
+export const requestToBecomeTeacher = (userEdit, propsRoute) => {
+  return async (dispatch) => {
+    try {
+      const result = await UserService.requestToBecomeTeacher(userEdit);
+      console.log("updateUser", result);
+
+      if (result.status === 200) {
+        propsRoute.history.push("/profile");
+        openNotificationWithIcon(
+          SUCCESS,
+          "Nâng cấp thành công",
+          "success"
+        );
+      } else {
+        openNotificationWithIcon(ERROR, "Nâng cấp thất bại", "error");
+      }
+    } catch (error) {
+      console.log("error>>", error);
+    }
+  };
+}
+
 export const getAllTeachersAction = () => {
   return async (dispatch) => {
     try {
