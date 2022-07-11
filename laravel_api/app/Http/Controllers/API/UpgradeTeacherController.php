@@ -28,7 +28,9 @@ class UpgradeTeacherController extends Controller
         //     'user_id' => 'required|max:191',
         //     'video_link' => 'required|max:191',
         // ]);
+        
         $user = User::find($request->input('user_id'));
+
         if($user->role == 'teacher'){
             return response()->json([
                 'status' => 400,
@@ -38,8 +40,8 @@ class UpgradeTeacherController extends Controller
         else 
         {
             $become_teacher = new UpgradeTeacher;
-            $become_teacher->user_id = $request->user_id;
-            $become_teacher->video_link = $request->video_link;
+            $become_teacher->user_id = $request->input('user_id');
+            $become_teacher->video_link = $request->input('video_link');
             $become_teacher->save();
             return response()->json([
                 'status' => 200,
