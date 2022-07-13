@@ -1,15 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Noto+Sans:wght@600;700&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap');
 .line {
   width: 100%;
 }
 
 .each-line {
-  width: 20%;
-  height: 1px;
-  background-color: black;
+  height: 1.5px;
+  background-color: gray;
+  width: 100%;
 }
 
 .line-text {
@@ -19,4 +19,12 @@
 .ant-input-affix-wrapper {
   border-color: black !important;
   border-radius: 1px !important;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif!important;
+}
+
+.bg-F9F6E8 {
+  background: #f4f4f6!important;
 }

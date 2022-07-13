@@ -10,9 +10,11 @@ import AddLesson from "./pages/Admin/Lesson/AddLesson";
 import EditLesson from "./pages/Admin/Lesson/EditLesson";
 import Lessons from "./pages/Admin/Lesson/Lesson";
 import { CourseDetail } from "./pages/Courses/CourseDetail";
+import { CourseDetailUser } from "./pages/Courses/CourseDetailUser";
 import { Home } from "./pages/Home/Home";
 import { LessonDetail } from "./pages/Lesson/LessonDetail";
 import { Login } from "./pages/Login/Login";
+import MyAssignedCourse from "./pages/Profile/MyAssignedCourse";
 import Profile from "./pages/Profile/Profile";
 import Upgrade from "./pages/Profile/Upgrade";
 import Register from "./pages/Register/Register";
@@ -24,12 +26,13 @@ export const history = createBrowserHistory();
 function App() {
   return (
     <Switch>
-      <HomeTemplate path="/" exact Component={Home} />
+      <HomeTemplate absoluteheader={true} path="/" exact Component={Home} />
       {/* <HomeTemplate path="/" exact Component={VideoPlayer} /> */}
       <Route path="/login" exact component={Login} />
       <Route path="/register" exact component={Register} />
         <ProfileTemplate path="/profile" exact Component={Profile} />
         <ProfileTemplate path="/upgrade" exact Component={Upgrade} />
+        <ProfileTemplate path="/my-assigned-courses" exact Component={MyAssignedCourse} />
       <AdminTemplate
         path="/admin/courses/:id/add-new"
         exact
@@ -45,7 +48,7 @@ function App() {
         exact
         Component={EditLesson}
       />
-      <HomeTemplate path="/courses/:id" exact Component={CourseDetail} />
+      <HomeTemplate path="/courses/:id" exact Component={CourseDetailUser} />
       <AdminTemplate path="/admin" exact Component={Dashboard} />
       <AdminTemplate
         path="/admin/courses/add-new"

@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import Button from "../../components/Button/Button";
+import TeacherCard from "../../components/MultipleItems/TeacherCard";
 import { getCourseDetailAction } from "../../redux/actions/CourseAction";
 
 const courseDetail = {
@@ -66,7 +67,7 @@ const courseDetail = {
   ],
 };
 
-export const CourseDetail = (props) => {
+export const CourseDetailUser = (props) => {
   // const { courseDetail } = useSelector((state) => state.CourseReducer);
   const dispatch = useDispatch();
   // let { id } = props.match.params;
@@ -99,58 +100,79 @@ export const CourseDetail = (props) => {
   };
   return (
     <>
-      <div className="border border-black ">
-        <div className=" container py-6">
-          <div className="flex justify-between gap-10 items-center leading-10">
-            <div className="">
-              <img
-                src={courseDetail.banner}
-                alt={courseDetail.name}
-                className="rounded-lg"
-              />
-            </div>
-            <div className="">
-              <h1 className="grid grid-cols-3 gap-2">
-                <span className="col-span-1 font-bold text-lg ">
-                  Course name:
-                </span>
-                <span className="col-span-2">{courseDetail.name}</span>
-              </h1>
-              <h1 className="grid grid-cols-3 gap-2">
-                <span className="col-span-1 font-bold text-lg">Teacher:</span>
-                <span className="col-span-2">{courseDetail.teacher_name}</span>
-              </h1>
-              <h1 className="grid grid-cols-3 gap-2">
-                <span className="col-span-1 font-bold text-lg">
-                  Description:
-                </span>
-                <span className="col-span-2">{courseDetail.description}</span>
-              </h1>
-              <h1 className="grid grid-cols-3 gap-2">
-                <span className="col-span-1 font-bold text-lg">
-                  Study subjects:
-                </span>
-                <span className="col-span-2">{courseDetail.name}</span>
-              </h1>
-              <hr />
-              <div className="text-right py-2">
-                <i
-                  className="fa fa-shopping-cart text-red-600"
-                  style={{ fontSize: 40 }}
-                ></i>
-                <span className="text-2xl p-2">Price: </span>
-                <span className="text-2xl">{courseDetail.price}</span>
+      <div class="grid overflow-hidden grid-cols-2 grid-rows-5 gap-px">
+        <div 
+          class="col-start-1"
+        >
+          <span 
+            className="text-4xl font-bold"
+          >
+              The complete 2022 Web Development Bootcamp
+          </span>
+        </div>
+        <div 
+          class="col-start-1"
+        >
+          <TeacherCard />
+        </div>
+        <div 
+          class="col-start-1"
+        >
+          <div className="flex justify-between">
+              <div className="flex">
+                  <div>
+                      <span className="text-3xl font-bold">
+                          4.7
+                      </span>
+                      <span className="text-lg font-bold">
+                          205K ratings
+                      </span>
+                  </div>
+                  <div>
+                      <span className="text-3xl font-bold">
+                          695K
+                      </span>
+                      <span className="text-lg font-bold">
+                          students
+                      </span>
+                  </div>
+                  <div>
+                      <span className="text-3xl font-bold">
+                          12
+                      </span>
+                      <span className="text-lg font-bold">
+                          lessons
+                      </span>
+                  </div>
               </div>
-              <Button
-                textContent="Join Course"
-                className="w-full !rounded-none col-span-1"
-                onClick={() => {
-                  // props.history.push("/login");
-                  alert("Thanh toán thành công");
-                }}
-              ></Button>
-            </div>
+              <div>
+                      <span className="text-3xl font-bold">
+                          Share
+                      </span>
+                      <span className="text-3xl font-bold">
+                          Bookmark
+                      </span>
+              </div>
           </div>
+        </div>
+        <div 
+          class="col-start-1"
+        >
+          <span className="">
+            The The Arctic Is White Color Scheme palette has 6 colors which are Water (#D4EFF2), Alice Blue (#F2F7FA), White (#FFFFFF), Water (#DCEFFC), Blizzard Blue (#B4DBF6) and Powder Blue (#B9E8E8).
+          </span>
+        </div>
+        <div 
+          class="col-start-1 flex justify-end"
+        >
+          <button>Enroll</button>
+        </div>
+        <div 
+          class="row-start-1 row-span-5 col-start-2"
+        >
+          <img
+            src="https://s.udemycdn.com/premium-clp/1565838/CourseImage-2x.jpg"
+          />
         </div>
       </div>
       <div className="mt-5 border border-black ">
@@ -182,3 +204,58 @@ export const CourseDetail = (props) => {
     </>
   );
 };
+
+{/* <div className="border border-black ">
+<div className=" container py-6">
+  <div className="flex justify-between gap-10 items-center leading-10">
+    <div className="">
+      <img
+        src={courseDetail.banner}
+        alt={courseDetail.name}
+        className="rounded-lg"
+      />
+    </div>
+    <div className="">
+      <h1 className="grid grid-cols-3 gap-2">
+        <span className="col-span-1 font-bold text-lg ">
+          Course name:
+        </span>
+        <span className="col-span-2">{courseDetail.name}</span>
+      </h1>
+      <h1 className="grid grid-cols-3 gap-2">
+        <span className="col-span-1 font-bold text-lg">Teacher:</span>
+        <span className="col-span-2">{courseDetail.teacher_name}</span>
+      </h1>
+      <h1 className="grid grid-cols-3 gap-2">
+        <span className="col-span-1 font-bold text-lg">
+          Description:
+        </span>
+        <span className="col-span-2">{courseDetail.description}</span>
+      </h1>
+      <h1 className="grid grid-cols-3 gap-2">
+        <span className="col-span-1 font-bold text-lg">
+          Study subjects:
+        </span>
+        <span className="col-span-2">{courseDetail.name}</span>
+      </h1>
+      <hr />
+      <div className="text-right py-2">
+        <i
+          className="fa fa-shopping-cart text-red-600"
+          style={{ fontSize: 40 }}
+        ></i>
+        <span className="text-2xl p-2">Price: </span>
+        <span className="text-2xl">{courseDetail.price}</span>
+      </div>
+      <Button
+        textContent="Join Course"
+        className="w-full !rounded-none col-span-1"
+        onClick={() => {
+          // props.history.push("/login");
+          alert("Thanh toán thành công");
+        }}
+      ></Button>
+    </div>
+  </div>
+</div>
+</div> */}

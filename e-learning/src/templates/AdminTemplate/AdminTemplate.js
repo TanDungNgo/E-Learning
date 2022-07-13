@@ -52,7 +52,7 @@ const AdminTemplate = (props) => {
       1
     ),
     getItem(
-      <NavLink to="/my-courses" className=" text-black">
+      <NavLink to="/my-assigned-courses" className=" text-black">
         My Courses
       </NavLink>,
       2

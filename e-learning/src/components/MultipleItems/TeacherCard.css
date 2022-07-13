@@ -1,0 +1,14 @@
+.avatar-img {
+    height: 4rem;
+    width: 4rem;
+    object-fit: cover;
+}
+.description-text {
+    text-justify: inter-word;
+}
+.line {
+    border-top: 1.5px solid #d5d5d5;
+}
+.folder-icon {
+    color: #f29b4e;
+}

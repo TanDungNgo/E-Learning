@@ -1,7 +1,7 @@
 import { openNotificationWithIcon } from "../../components/Notification/Notification";
 import { TeacherService } from "../../services/TeacherService";
 import { UserService } from "../../services/UserService";
-import { ERROR, SUCCESS } from "../../utils/settings/config";
+import { ERROR, SUCCESS, USER_LOGIN } from "../../utils/settings/config";
 import { GET_ALL_TEACHERS, LOGIN, LOGOUT } from "../types/UserTypes";
 
 export const loginAction = (userLogin, propsRoute) => {
@@ -67,6 +67,9 @@ export const updateUserAction = (userEdit, propsRoute) => {
       console.log("updateUser", result);
 
       if (result.status === 200) {
+        const oldData = JSON.parse(localStorage.getItem(USER_LOGIN));
+        const newData = JSON.stringify({...oldData,...userEdit});
+        localStorage.setItem(USER_LOGIN, newData);
         propsRoute.history.push("/profile");
         openNotificationWithIcon(
           SUCCESS,
