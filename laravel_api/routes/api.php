@@ -86,3 +86,4 @@ Route::get('/records/{id}', [RecordController::class, 'index']);
 Route::post('/save-timedata', [TimedataController::class, 'save_timedata']);
 Route::get('/timedata/{id}', [TimedataController::class, 'index']);
 Route::put('/update-timedata/{id}', [TimedataController::class, 'update']);
+Route::delete('/delete-timedata/{id}', [TimedataController::class, 'destroy']);

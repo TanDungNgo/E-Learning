@@ -52,5 +52,15 @@ class TimedataController extends Controller
             ]);
         }
     }
+    public function destroy($id)
+    {
+        $time = Timedata::find($id);
+        $time->delete();
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Deleted Successfully',
+        ]);
+    }
 
 }
