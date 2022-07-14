@@ -53,6 +53,7 @@ Route::post('/update-video/{id}', [LessonController::class, 'updatevideo']);
 // User
 Route::post('/users/login', [UserController::class, 'onLogin']);
 Route::post('/users/register', [UserController::class, 'register']);
+Route::post('/users/update/{id}', [UserController::class, 'update']);
 
 /// Teacher List
 Route::get('/teacher-list', [UserController::class, 'teacherList']);
