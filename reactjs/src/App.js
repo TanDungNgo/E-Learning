@@ -39,7 +39,7 @@ function App() {
             
             <Route path="/admin/pending-request" component={PendingRequset} />
 
-            <Route path="/add-timedata" component={AddTimedata} />
+            <Route path="/add-timedata" component={Addtimedata} />
       </Router>
   );
 }

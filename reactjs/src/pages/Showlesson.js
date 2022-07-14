@@ -13,6 +13,7 @@ class Showlesson extends Component
         record: '',
         path: '',
         records: [],
+        users: [],
         url: '',
         loading: true,
 
@@ -57,7 +58,7 @@ class Showlesson extends Component
         {
             this.setState({
                 path: res.data.lesson.video_link,
-                records: res.data.records,
+                users: res.data.users,
                 loading: false,
             })
         }
@@ -122,7 +123,7 @@ class Showlesson extends Component
         else
         {
             record_HTMLTABLE = 
-            this.state.records.map( (item) =>{
+            this.state.users.map( (item) =>{
                 return (
                     <tr key={item.id}>
                         <td>
