@@ -96,6 +96,7 @@ class UserController extends Controller
                 $User->phone_number = $request->input('phone_number');
                 $User->firstname = $request->input('firstname');
                 $User->lastname = $request->input('lastname');
+                $User->avatar = $request->input('avatar');
                 $User->update();
 
                 return response()->json([
