@@ -5,6 +5,11 @@ import { NavLink } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import TeacherCard from "../../components/MultipleItems/TeacherCard";
 import { getCourseDetailAction } from "../../redux/actions/CourseAction";
+import { FolderOpenOutlined, UserOutlined, ShareAltOutlined, HeartOutlined } from "@ant-design/icons";
+
+import './CoursesDetailUser.css';
+import CourseOverView from "./CourseOverView";
+import LessonSlider from "./LessonSlider";
 
 const courseDetail = {
   id: 1,
@@ -100,107 +105,104 @@ export const CourseDetailUser = (props) => {
   };
   return (
     <>
-      <div class="grid overflow-hidden grid-cols-2 grid-rows-5 gap-px">
-        <div 
-          class="col-start-1"
-        >
-          <span 
-            className="text-4xl font-bold"
-          >
-              The complete 2022 Web Development Bootcamp
-          </span>
-        </div>
-        <div 
-          class="col-start-1"
-        >
-          <TeacherCard />
-        </div>
-        <div 
-          class="col-start-1"
-        >
-          <div className="flex justify-between">
-              <div className="flex">
-                  <div>
-                      <span className="text-3xl font-bold">
-                          4.7
-                      </span>
-                      <span className="text-lg font-bold">
-                          205K ratings
+      <div class="grid overflow-hidden grid-cols-2 grid-rows-none gap-px bg-white drop-shadow-xl m-4 rounded-lg">
+          <div class="pl-16 pr-10 pt-10">
+              <div class="course-info grid overflow-hidden grid-cols-1 grid-rows-7 gap-px">
+                  <div class="row-span-1">
+                      <span className="text-4xl font-bold">
+                          The Complete 2022 Web Development Bootcamp
                       </span>
                   </div>
-                  <div>
-                      <span className="text-3xl font-bold">
-                          695K
-                      </span>
-                      <span className="text-lg font-bold">
-                          students
-                      </span>
+                  <div class="row-span-1 pb-1 border-b-2 border-gray-600">
+                      <TeacherCard/>
                   </div>
-                  <div>
-                      <span className="text-3xl font-bold">
-                          12
-                      </span>
-                      <span className="text-lg font-bold">
-                          lessons
-                      </span>
+                  <div class="row-span-1">
+                      <div className="border-b-2 border-gray-600 py-3 flex justify-between">
+                          <div className="flex space-x-8">
+                              <div>
+                                  <span className="block text-3xl font-bold">
+                                      4.7
+                                  </span>
+                                  <span className="border-b-2 border-gray-600 text-lg font-bold tracking-tighter">
+                                      205K ratings
+                                  </span>
+                              </div>
+                              <div>
+                                  <span className="block text-3xl font-bold">
+                                      695K
+                                  </span>
+                                  <span className="text-lg font-bold tracking-tighter">
+                                      students
+                                  </span>
+                              </div>
+                              <div>
+                                  <span className="block text-3xl font-bold">
+                                      12
+                                  </span>
+                                  <span className="text-lg font-bold tracking-tighter">
+                                      lessons
+                                  </span>
+                              </div>
+                          </div>
+                          <div className="relative w-2/5">
+                            <div className="space-x-4 absolute top-3   right-0">
+                              <button type="button" class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800">
+                                <ShareAltOutlined className="icon"/>
+                              </button>
+                              <button type="button" class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800">
+                                <HeartOutlined className="icon"/>
+                              </button>
+                            </div>
+                          </div>
+                      </div>
                   </div>
-              </div>
-              <div>
-                      <span className="text-3xl font-bold">
-                          Share
-                      </span>
-                      <span className="text-3xl font-bold">
-                          Bookmark
-                      </span>
+                  <div class="row-span-2 pt-2">
+                      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Course overview</h5>
+                      <CourseOverView/>
+                  </div>
+                  <div class="row-span-1 flex justify-end h-20">
+                      <div className="w-full h-full relative">
+                        <NavLink
+                          to="/"
+                          className="py-2 px-7 enroll-button absolute right-1 top-2">
+                          Enroll
+                        </NavLink>
+                      </div>
+                  </div>
               </div>
           </div>
-        </div>
-        <div 
-          class="col-start-1"
-        >
-          <span className="">
-            The The Arctic Is White Color Scheme palette has 6 colors which are Water (#D4EFF2), Alice Blue (#F2F7FA), White (#FFFFFF), Water (#DCEFFC), Blizzard Blue (#B4DBF6) and Powder Blue (#B9E8E8).
-          </span>
-        </div>
-        <div 
-          class="col-start-1 flex justify-end"
-        >
-          <button>Enroll</button>
-        </div>
-        <div 
-          class="row-start-1 row-span-5 col-start-2"
-        >
-          <img
-            src="https://s.udemycdn.com/premium-clp/1565838/CourseImage-2x.jpg"
-          />
-        </div>
-      </div>
-      <div className="mt-5 border border-black ">
-        <div className="container py-6">
-          <div className="grid grid-cols-7 gap-10">
-            <div className="col-span-3 ">
-              <h1 className="text-center text-4xl">Feedback</h1>
-              <div className="flex-col flex ">
-                <div className="">
-                  <i className="fa fa-user-circle mr-5"></i>
-                  <span>Very good</span>
-                </div>
-                <div>
-                  <i className="fa fa-user-circle mr-5"></i>
-                  <span>Very good</span>
-                </div>
-                <div>
-                  <i className="fa fa-user-circle mr-5"></i>
-                  <span>Very good</span>
-                </div>
-              </div>
-            </div>
-            <div className="col-span-4 ">
-              <div className="flex-col flex ">{renderLessons()}</div>
-            </div>
+          <div class="">
+              <img className="w-full h-full" src="https://s.udemycdn.com/premium-clp/1565838/CourseImage-2x.jpg"/>
           </div>
-        </div>
       </div>
+
+      <div
+        class="mt-10 mb-4 ml-4 text-base inline-flex items-center font-bold leading-sm uppercase px-3 py-1 rounded bg-white text-gray-700 border drop-shadow-lg"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="feather feather-hard-drive mr-2"
+        >
+          <line x1="22" y1="12" x2="2" y2="12"></line>
+          <path
+            d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"
+          ></path>
+          <line x1="6" y1="16" x2="6.01" y2="16"></line>
+          <line x1="10" y1="16" x2="10.01" y2="16"></line>
+        </svg>
+        Lessons in this course
+      </div>
+
+      <LessonSlider />
+
     </>
   );
 };

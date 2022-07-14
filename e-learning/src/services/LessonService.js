@@ -14,7 +14,7 @@ const deleteLessonById = (id) => {
 };
 
 const createLesson = (data) => {
-  return Api.post("/lessons", data);
+  return Api.post("/add-lesson", data);
 };
 
 export const LessonService = {

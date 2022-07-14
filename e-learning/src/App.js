@@ -13,6 +13,7 @@ import { CourseDetail } from "./pages/Courses/CourseDetail";
 import { CourseDetailUser } from "./pages/Courses/CourseDetailUser";
 import { Home } from "./pages/Home/Home";
 import { LessonDetail } from "./pages/Lesson/LessonDetail";
+import { LessonDetailUser } from "./pages/Lesson/LessonDetailUser";
 import { Login } from "./pages/Login/Login";
 import MyAssignedCourse from "./pages/Profile/MyAssignedCourse";
 import Profile from "./pages/Profile/Profile";
@@ -48,7 +49,8 @@ function App() {
         exact
         Component={EditLesson}
       />
-      <HomeTemplate path="/courses/:id" exact Component={CourseDetailUser} />
+      <HomeTemplate path="/course/:id" exact Component={CourseDetailUser} />
+      <HomeTemplate path="/lesson/:lessonId" exact Component={LessonDetailUser} />
       <AdminTemplate path="/admin" exact Component={Dashboard} />
       <AdminTemplate
         path="/admin/courses/add-new"

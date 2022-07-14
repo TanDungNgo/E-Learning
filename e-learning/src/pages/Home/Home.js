@@ -59,7 +59,7 @@ export const Home = (props) => {
   return (
     <>
       <HomeCarousel />
-      <div className="bg-F9F6E8 pt-10 pb-20">
+      <div className="bg-xoan-cham bg-F9F6E8 pt-10 pb-20">
         <div className="flex items-center justify-center pt-20 mb-20">
           <span className="line-text text-4xl font-bold">Our lastest courses</span>
         </div>

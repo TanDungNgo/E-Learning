@@ -111,7 +111,7 @@ const VideoPlayer = (props) => {
         controls
         ref={videoElement}
         poster="https://meta.vn/Data/image/2022/01/13/anh-dep-thien-nhien-3.jpg"
-        className="w-full"
+        className="w-full drop-shadow-lg"
       >
         <source src={lesson.video_link} type="video/mp4" />
         {/* <source
