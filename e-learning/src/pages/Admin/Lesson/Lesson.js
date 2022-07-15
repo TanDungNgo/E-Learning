@@ -180,6 +180,7 @@ export default function Lessons(props) {
                   window.confirm("Bạn có chắc muốn xoá bài học " + lesson.name)
                 ) {
                   //Gọi action
+                  console.log(lesson.id);
                   dispatch(deleteLessonByIdAction(lesson.id, courseParams.id));
                 }
               }}

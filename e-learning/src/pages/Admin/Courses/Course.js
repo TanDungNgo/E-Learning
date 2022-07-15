@@ -286,7 +286,7 @@ export default function Course(props) {
               onClick={() => {
                 //Gọi action xoá
                 if (
-                  window.confirm("Bạn có chắc muốn xoá phim " + course.name)
+                  window.confirm("Bạn có chắc muốn xoá khoa hoc " + course.name)
                 ) {
                   //Gọi action
                   dispatch(deleteCourseByIdAction(course.id));
