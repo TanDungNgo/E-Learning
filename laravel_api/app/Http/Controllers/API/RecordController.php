@@ -33,6 +33,8 @@ class RecordController extends Controller
         $record->user_id = 1;
         $record->lesson_id = $request->input('lesson_id');
         $record->record_file = $request->input('url');
+        $record->minute = $request->input('minute');
+        $record->second = $request->input('second');
         // $record->create_at = date('Y-m-d H:i:s');
         $record->save();
         return response()->json([
