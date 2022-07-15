@@ -9,6 +9,9 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\UpgradeTeacher;
 
+use App\Http\Requests\SendNotificationRequest;
+use App\Notifications\SendNotification;
+
 use Validator;
 
 class UpgradeTeacherController extends Controller
@@ -51,27 +54,46 @@ class UpgradeTeacherController extends Controller
     }
     public function approve_request_become_teacher(Request $request)
     {
-                $re = UpgradeTeacher::find($request->id);
-                $re->status = 'accepted';
-                $re->save();
+        $req->status = 'accepted';
+        $req->save();
         
-                $user = User::find($re->user_id);
-                $user->role = 'teacher';
-                $user->save();
-
-                return response()->json([
-                    'status' => 200,
-                    'message' => 'User upgraded to teacher successfully',
-                ]);
+        $user = User::find($req->user_id);
+        $user->role = 'teacher';
+        $user->save();
+        
+        //send notification to user
+        $data = [
+            'user_id' => $user->id,
+            'name' => 'Upgrade To Teacher',
+            'status' => 'accepted',
+            'description' => 'Xin chúc mừng, Bạn đã trở thành giáo viên',
+        ];
+        $user->notify(new SendNotification ($data));
+        
+        return response()->json([
+            'status' => 200,
+            'message' => 'User upgraded to teacher successfully',
+        ]);
+        $req = UpgradeTeacher::find($request->id);
     }
     public function reject_request_become_teacher(Request $request)
     {
-                $re = UpgradeTeacher::find($request->id);
-                $re->status = 'rejected';
-                $re->save();
-                return response()->json([
-                    'status' => 200,
-                    'message' => 'User rejected to upgrade to teacher successfully',
-                ]);
+        $req->status = 'rejected';
+        $req->save();
+        $req = UpgradeTeacher::find($request->id);
+        //send notification to user
+        $data = [
+            'user_id' => $req->user_id,
+            'name' => 'Upgrade To Teacher',
+            'status' => 'rejected',
+            'description' => 'Thật đáng tiếc, bạn không đủ điều kiện để trở thành giáo viên',
+        ];
+        $user = User::find($req->user_id);
+        $user->notify(new SendNotification ($data));
+        return response()->json([
+            'status' => 200,
+            'message' => 'User rejected to upgrade to teacher successfully',
+        ]);
+        
     }
 }

@@ -9,7 +9,7 @@ use App\Http\Controllers\API\TimedataController;
 use App\Http\Controllers\API\UpgradeTeacherController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\API\SendNotificationController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -42,6 +42,10 @@ Route::put('/update-course/{id}', [CourseController::class, 'update']);
 
 Route::delete('/delete-course/{id}', [CourseController::class, 'destroy']);
 
+//phê duyệt khóa học (role==admin)
+Route::get('/pending-course', [CourseController::class, 'PendingCourse']);
+Route::put('/approve-pending-course/{id}', [CourseController::class, 'ApprovePendingCourse']);
+
 // Lesson
 Route::get('/lessons/{id}', [LessonController::class, 'index']);
 Route::post('/add-lesson', [LessonController::class, 'store']);
@@ -49,6 +53,10 @@ Route::delete('/delete-lesson/{id}', [LessonController::class, 'destroy']);
 Route::get('/edit-lesson/{id}', [LessonController::class, 'edit']);
 Route::put('/update-lesson/{id}', [LessonController::class, 'update']);
 Route::post('/update-video/{id}', [LessonController::class, 'updatevideo']);
+
+//phê duyệt bài học (role==admin)
+Route::get('/pending-lesson', [LessonController::class, 'PendingLesson']);
+Route::put('/approve-pending-lesson/{id}', [LessonController::class, 'ApprovePendingLesson']);
 
 // User
 Route::post('/users/login', [UserController::class, 'onLogin']);
@@ -68,8 +76,9 @@ Route::get('/see-feedback/{id}', [FeedbackController::class, 'see_feedback']);
 // Upgrade Teacher
 Route::get('/admin/all-request-become-teacher', [UpgradeTeacherController::class, 'index']);
 Route::post('/request-to-become-teacher', [UpgradeTeacherController::class, 'RequestBecomeTeacher']);
+    //See Notification
+Route::get('/see-notification', [SendNotificationController::class, 'NotifyUpgrateToTeacher']);
 //accept request
-Route::put('/upgrade-teacher', [UpgradeTeacherController::class, 'upgrade_to_teacher']);
 Route::put('admin/approve-request-become-teacher/{id}', [UpgradeTeacherController::class, 'approve_request_become_teacher']);
 //reject request
 Route::put('admin/reject-request-become-teacher/{id}', [UpgradeTeacherController::class, 'reject_request_become_teacher']);

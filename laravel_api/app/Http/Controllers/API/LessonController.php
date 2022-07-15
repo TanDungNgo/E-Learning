@@ -21,6 +21,48 @@ class LessonController extends Controller
             'lessons' => $lessons,
         ]);
     }
+    //pending lesson for admin approve
+    public function PendingLesson(Request $request){
+        //dùng cho role admin
+        $lesson = Lesson::join('courses', 'courses.id', '=', 'lessons.course_id')
+        ->join('users', 'users.id', '=', 'courses.teacher_id')
+        ->select('courses.name','lessons.*', DB::raw("concat (users.firstname,' ',users.lastname) as teacher_name"))
+        ->where('lessons.status', 'pending')->get();
+        return response()->json([
+            'lesson' => $lesson,
+        ]);
+    }
+    public function ApprovePendingLesson(Request $request){
+        $status = $request->status;
+        $lesson = Lesson::find($request->id);
+        $user = User::find($lesson->course_id->teacher_id);
+        if($status == 'accepted'){
+            $lesson->status = 'accepted';
+            $lesson->save();
+            $data = [
+                'lesson_name' => $lesson->name,
+                'description' => 'Bài học của bạn đã được chấp nhận',
+            ];
+            $user->notify(new SendNotification($data));
+            return response()->json([
+                'status' => 200,
+                'message' => 'Lesson Approved Successfully',
+            ]);
+        }
+        else{
+            $lesson->status = 'rejected';
+            $lesson->save();
+            $data = [
+                'lesson_name' => $lesson->name,
+                'description' => 'Bài học của bạn đã bị từ chối',
+            ];
+            $user->notify(new SendNotification($data));
+            return response()->json([
+                'status' => 200,
+                'message' => 'Lesson Rejected Successfully',
+            ]);
+        }
+    }
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
