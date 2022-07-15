@@ -46,7 +46,8 @@ class UserController extends Controller
             'lastname' => 'required|min:3',
             'email' => 'required|string|email|unique:users,email',
             'password' => 'required|string|min:3|max:32',
-            'passwordAgain' => 'required|same:password'
+            'passwordAgain' => 'required|same:password',
+            'phone_number' => 'required|min:10|max:11',
         ]);
         if ($validator->fails()) {
             return response()->json([
@@ -58,7 +59,7 @@ class UserController extends Controller
         $user->firstname = $request->firstname;
         $user->lastname = $request->lastname;
         $user->email = $request->email;
-        //$user->phone_number = $request->phone_number;
+        $user->phone_number = $request->phone_number;
         $user->password = bcrypt($request->password);
         $user->save();
         return response()->json([

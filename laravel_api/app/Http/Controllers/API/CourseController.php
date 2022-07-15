@@ -38,7 +38,7 @@ class CourseController extends Controller
         ]);
     }
     public function ApprovePendingCourse(Request $request){
-        $status = $request->status;
+        $status = $request->input('status');
         $course = Course::find($request->id);
         if($status == 'accepted'){
             $course->status = 'accepted';
