@@ -13,16 +13,17 @@ class RecordController extends Controller
 {
     public function index($id)
     {
-        $users = Record::where('lesson_id',$id)->groupBy('user_id')->get('user_id');
+        $lesson = Lesson::find($id);
+        $users = Record::where('lesson_id', $id)->groupBy('user_id')->get('user_id');
         $data = [];
         foreach ($users as $user) {
             $all_record = Record::where([
                 'lesson_id' => $id,
                 'user_id' => $user->user_id,
             ])
-            ->select('id', 'record_file', 'created_at')
-            ->get();
-            if(count($all_record) > 0){
+                ->select('id', 'record_file','minute','second', 'created_at')
+                ->get();
+            if (count($all_record) > 0) {
                 $data[] = [
                     'user_id' => $user->user_id,
                     'record' => $all_record,
@@ -30,7 +31,9 @@ class RecordController extends Controller
             }
         }
         return response()->json([
-            'data' => $data,
+            'status' => 200,
+            'lesson' => $lesson,
+            'users' => $data,
         ]);
     }
     public function save_audio_record(Request $request)
