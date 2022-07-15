@@ -8,7 +8,6 @@ class Addtimedata extends Component {
     minute: "",
     second: "",
     time: [],
-    error_list: [],
   };
   handleInput = (e) => {
     this.setState({
@@ -113,13 +112,10 @@ class Addtimedata extends Component {
       );
       if (res.data.status === 200) {
         console.log(res.data.message);
-        // this.props.history.push(`/`);
-      } else {
-        this.setState({
-          error_list: res.data.validate_err,
-        });
       }
     }
+    alert("Added Successfully");
+    this.props.history.push(`/`);
   };
   render() {
     const table = {

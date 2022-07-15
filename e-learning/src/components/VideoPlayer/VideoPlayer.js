@@ -4,51 +4,54 @@ import { useReactMediaRecorder } from "react-media-recorder";
 import "./VideoPlayer.css";
 import { useDispatch } from "react-redux";
 import { setAudioActions } from "../../redux/actions/LessonActions";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 import Button from "../../components/Button/Button";
 
-import { initializeApp } from '@firebase/app'
-import { getStorage, ref, uploadBytes, getDownloadURL } from '@firebase/storage';
+import { initializeApp } from "@firebase/app";
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+} from "@firebase/storage";
 
-import swal from 'sweetalert';
-import axios from 'axios';
-
+import swal from "sweetalert";
+import axios from "axios";
 
 const firebaseConfig = {
-  storageBucket: 'fir-react-upload-bad49.appspot.com' // <- Your storage bucket {sẽ chính sửa thành bucket chung sau}
+  storageBucket: "fir-react-upload-bad49.appspot.com", // <- Your storage bucket {sẽ chính sửa thành bucket chung sau}
 };
 const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
 
-const arrTimePause = [
-];
+const arrTimePause = [];
 let stt = 0;
-const username = "nguduyvinh";
-const lessonNumber = "3";
-const courseName = "test";
+const username = "ngotandung";
+const lessonNumber = "1";
+const courseName = "Course1";
 const VideoPlayer = (props) => {
-
   const [lesson_id, setLesson_id] = useState(lessonNumber);
   // console.log(lesson_id)
   const [lesson, setLesson] = useState([]);
-  useEffect( async ()=>{
+  useEffect(async () => {
     let result = await fetch(`http://127.0.0.1:8000/api/timedata/${lesson_id}`);
     result = await result.json();
-    if(result.status === 200)
-    {
-      setLesson(result.lesson)
+    if (result.status === 200) {
+      setLesson(result.lesson);
       var time = [];
-      for(time in result.time)
-      {
-        const obj = {minute: result.time[time].minute, seconds: result.time[time].second};
+      console.log("arrTimePause", result.time);
+      for (time in result.time) {
+        const obj = {
+          minute: result.time[time].minute,
+          second: result.time[time].second,
+        };
         arrTimePause.push(obj);
       }
     }
-  },[])
+  }, []);
 
   // console.log("arrTimePause", arrTimePause);
   // console.log("link", lesson.video_link)
-
 
   const videoElement = useRef(null);
 
@@ -57,6 +60,8 @@ const VideoPlayer = (props) => {
   const [displayHidden, setDisplayHidden] = useState("hidden");
   const [disable, setDisable] = useState(false);
   const dispatch = useDispatch();
+  const [minute, setMinute] = useState("0");
+  const [second, setSecond] = useState("0");
 
   useEffect(() => {
     const interval = setInterval(async () => {
@@ -69,7 +74,9 @@ const VideoPlayer = (props) => {
       let seconds = Math.floor((elapsed_ms - min * 60000) / 1000);
 
       arrTimePause.forEach((item) => {
-        if (min === item.minute && seconds === item.seconds && ms < 100) {
+        if (min === item.minute && seconds === item.second && ms < 100) {
+          setMinute(item.minute);
+          setSecond(item.second);
           videoElement.current.pause();
           setDisplayHidden("");
           setIsStop(false);
@@ -115,26 +122,22 @@ const VideoPlayer = (props) => {
       type: "audio/wav",
     });
 
-    const storageRef = ref(storage, 'audio/' + fileName + '.wav');
-    uploadBytes(storageRef, audioBlob).then((snapshot) => 
-    { 
-      console.log('Uploaded Successfully');
-      getDownloadURL(storageRef).then(async(url) => {
+    const storageRef = ref(storage, "audios/" + fileName + ".wav");
+    uploadBytes(storageRef, audioBlob).then((snapshot) => {
+      console.log("Uploaded Successfully");
+      getDownloadURL(storageRef).then(async (url) => {
         // save url to database
         const data = new FormData();
-        data.append('lesson_id', 1); // lesson_id for call api
-        data.append('url', url); // url_file_audio for call api
-        const res = await axios.post('http://localhost:8000/api/save-audio-record', data)
-        if(res.status === 200)
-        {
-          console.log('Saved to database');
-          // swal({
-          //   title: "Success!",
-          //   text: res.data.message,
-          //   icon: "success",
-          //   buttons: "OK!"
-          // });
-          // props.history.push(`/show-lesson/${lesson_id}`);
+        data.append("lesson_id", lesson_id); // lesson_id for call api
+        data.append("url", url); // url_file_audio for call api
+        data.append("minute", minute);
+        data.append("second", second);
+        const res = await axios.post(
+          "http://localhost:8000/api/save-audio-record",
+          data
+        );
+        if (res.status === 200) {
+          console.log("Saved to database");
         }
       });
     });
@@ -146,13 +149,18 @@ const VideoPlayer = (props) => {
   return (
     <div className="relative">
       <div className=""></div>
-      <video controls ref={videoElement} src={lesson.video_link} type="video/mp4">
+      <video
+        controls
+        ref={videoElement}
+        src={lesson.video_link}
+        type="video/mp4"
+      >
       </video>
       <div className={`video-audio__overlay  ${displayHidden} `}></div>
       <div className={`audio-record  ${displayHidden} text-center`}>
         {!isStop ? (
           <>
-            <p className="m-2 text-white font-bold"> Nhấn để thu âm</p>
+            <p className="m-2 text-black font-bold"> Nhấn để thu âm</p>
             <button
               onClick={() => {
                 if (!isStart) {
@@ -164,7 +172,7 @@ const VideoPlayer = (props) => {
               disabled={disable}
             >
               <i
-                className="fa fa-microphone  text-white "
+                className="fa fa-microphone  text-black "
                 style={{ fontSize: 40 }}
               ></i>
             </button>
@@ -224,15 +232,19 @@ const VideoPlayer = (props) => {
           </div>
         )}
       </div>
-      <div  className="items-center flex-shrink-0 grid grid-cols-2 gap-2">
-      <Link to={`/addtimedata/${lesson_id}`}
-        className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-500 ease-in-out hover:scale-95">
-        Add timedata
-      </Link>
-      <Link to={`/edittimedata/${lesson_id}`} 
-        className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-500 ease-in-out hover:scale-95">
-        Edit timedata
-      </Link>
+      <div className="items-center flex-shrink-0 grid grid-cols-2 gap-2">
+        <Link
+          to={`/addtimedata/${lesson_id}`}
+          className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-500 ease-in-out hover:scale-95"
+        >
+          Add timedata
+        </Link>
+        <Link
+          to={`/edittimedata/${lesson_id}`}
+          className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-500 ease-in-out hover:scale-95"
+        >
+          Edit timedata
+        </Link>
       </div>
     </div>
   );
