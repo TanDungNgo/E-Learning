@@ -1,50 +1,52 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../../components/Button/Button";
+import AudioComponent from "../../components/AudioPlayer/AudioPlayer";
 import VideoPlayer from "../../components/VideoPlayer/VideoPlayer";
+import VideoPlayerUser from "../../components/VideoPlayer/VideoPlayerUser";
 import {
   getAllLessonsAction,
   getLessonByIdAction,
+  getOneLessonByIdAction,
 } from "../../redux/actions/LessonActions";
 import { getAllRecordsByLessonIdAction } from "../../redux/actions/RecordActions";
 
 export const LessonDetailUser = (props) => {
+  const dispatch = useDispatch();
   let { lessonId, courseId } = props.match.params;
+  console.log('lessonId & courseId get from params',lessonId,courseId);
 
-  const { lessonsDefault } = useSelector((state) => state.LessonReducer);
-
-  const [indexOfLesson, setIndexOfLesson] = useState(
-    lessonsDefault.findIndex((item) => item.id === parseInt(lessonId))
-  );
-
-  console.log("i", indexOfLesson);
 
   const { userLogin } = useSelector((state) => state.UserReducer);
 
   const { lesson } = useSelector((state) => state.LessonReducer);
   const { recordsDefault } = useSelector((state) => state.RecordReducer);
-  console.log(recordsDefault);
-  const dispatch = useDispatch();
+  
+  
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    dispatch(getLessonByIdAction(lessonId));
-    console.log("lesson", lessonId, lesson);
+    dispatch(getOneLessonByIdAction(courseId, lessonId));
+    dispatch(getAllRecordsByLessonIdAction(lessonId));
+    
+    console.log("lesson", lesson);
   }, []);
   let recordsUser = recordsDefault?.filter(
-    (item) => item.user_id === userLogin.id
+    (item) => {
+      console.log(item);
+      return (item.user_id === userLogin.id) && item
+    }
   );
-  console.log(recordsUser);
+  console.log("recordGetFromState",recordsDefault);
+  console.log("userLogin",userLogin);
+  console.log("recordsUser",recordsUser);
   const renderAudio = () => {
     return recordsUser?.map((item, index) => {
-      console.log("item", item);
+      console.log("recordsUser-item", item);
       return (
-        <audio
-          src={item.record_file}
-          controls
-          className="inline-block p-1"
-          key={index}
-        />
+        <>
+          <AudioComponent record={item}/>
+        </>
       );
     });
   };
@@ -54,31 +56,22 @@ export const LessonDetailUser = (props) => {
       <div className="container my-20 text-3xl font-bold ">{lesson.name}</div>
       <div className="grid grid-cols-3 gap-3 container mt-10">
         <div className="col-span-2">
-          <VideoPlayer lesson={lesson} />
+          <VideoPlayerUser lesson={lesson} />
           <div className="flex justify-between my-10">
             <Button
               textContent="Prev Lesson"
               className=" !rounded-none col-span-1"
               onClick={() => {
-                let { id } = lessonsDefault[indexOfLesson - 1];
-                props.history.push(`/courses/${courseId}/lessons/${id}`);
-                dispatch(getLessonByIdAction(id));
-                setIndexOfLesson(indexOfLesson - 1);
               }}
-              disabled={indexOfLesson === 0 ? true : false}
+              disabled={true}
             ></Button>
             <Button
               textContent="Next Lesson"
               className=" !rounded-none col-span-1"
               onClick={() => {
-                console.log("indexOfLesson", indexOfLesson);
-                let { id } = lessonsDefault[indexOfLesson + 1];
-                props.history.push(`/courses/${courseId}/lessons/${id}`);
-                dispatch(getLessonByIdAction(id));
-                setIndexOfLesson(indexOfLesson + 1);
               }}
               disabled={
-                indexOfLesson === lessonsDefault.length - 1 ? true : false
+                true
               }
             ></Button>
           </div>

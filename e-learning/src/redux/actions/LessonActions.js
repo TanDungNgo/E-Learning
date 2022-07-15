@@ -32,6 +32,20 @@ export const getLessonByIdAction = (id) => {
   };
 };
 
+export const getOneLessonByIdAction = (lessonId, courseId) => {
+  return async (dispatch) => {
+    try {
+      const result = await LessonService.getOneLessonById(lessonId, courseId);
+      dispatch({
+        type: GET_LESSON_DETAILS,
+        value: result.lesson,
+      });
+    } catch (error) {
+      console.log("error>>", error);
+    }
+  };
+};
+
 export const getAllLessonsAction = (id) => {
   return async (dispatch) => {
     try {

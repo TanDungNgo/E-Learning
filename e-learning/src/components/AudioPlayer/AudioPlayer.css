@@ -1,0 +1,28 @@
+.rhap_container {
+    background-color: blanchedalmond;
+    padding: 3px 5px;
+}
+
+.rhap_container svg {
+    color: rgba(241, 84, 84, 0.2);
+}
+.rhap_time {
+    color: white;
+}
+
+.rhap_progress-section {
+    flex: 5 1 auto;
+    padding-right: 12px;
+}
+
+.rhap_horizontal-reverse .rhap_controls-section {
+    margin-right: 0px;  
+}
+/* nut */
+.rhap_progress-indicator { 
+    background: #868686;
+} 
+
+.rhap_progress-bar {
+    background-color: #dddddd;
+}

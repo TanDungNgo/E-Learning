@@ -19,6 +19,7 @@ import MyAssignedCourse from "./pages/Profile/MyAssignedCourse";
 import Profile from "./pages/Profile/Profile";
 import Upgrade from "./pages/Profile/Upgrade";
 import Register from "./pages/Register/Register";
+import Test from "./pages/test/Test";
 import AdminTemplate from "./templates/AdminTemplate/AdminTemplate";
 import { HomeTemplate } from "./templates/HomeTemplate/HomeTemplate";
 import { ProfileTemplate } from "./templates/ProfileTemplate/SideBar/ProfileTemplate";
@@ -50,7 +51,7 @@ function App() {
         Component={EditLesson}
       />
       <HomeTemplate path="/course/:id" exact Component={CourseDetailUser} />
-      <HomeTemplate path="/lesson/:lessonId" exact Component={LessonDetailUser} />
+      <HomeTemplate path="/course/:courseId/lesson/:lessonId" exact Component={LessonDetailUser} />
       <AdminTemplate path="/admin" exact Component={Dashboard} />
       <AdminTemplate
         path="/admin/courses/add-new"
@@ -64,6 +65,7 @@ function App() {
         Component={LessonDetail}
       />
       <AdminTemplate path="/admin/courses" exact Component={Course} />
+      <HomeTemplate path="/test" exact Component = {Test} />
     </Switch>
   );
 }

@@ -6,7 +6,7 @@ import { FolderOpenOutlined, UserOutlined } from "@ant-design/icons";
 const CourseCard = (props) => {
   return (
     <>
-        <NavLink to="/">
+        <NavLink to="/course/1">
             <div class="max-w-sm bg-white rounded-lg border-8 border-white shadow-md dark:bg-gray-800 dark:border-gray-700">
                 <img class="banned-img rounded-t-lg" src={props.course.banner} alt="" />
                 <div class="p-3">

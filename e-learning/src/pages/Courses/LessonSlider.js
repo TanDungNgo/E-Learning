@@ -13,7 +13,7 @@ const renderLessons = (() => {
         return ( 
         <>
             <NavLink
-                to="/lesson/1" 
+                to="/course/1/lesson/1" 
                 class="flex items-center justify-center bg-inherit media-element py-3">
                 <div class="lesson-card-content relative max-w-sm overflow-hidden rounded-xl bg-white shadow-md duration-200 hover:scale-105 hover:shadow-xl">
                     <img src="https://i.imgur.com/5dmBrx6.jpg" alt="plant" class="w-full" />
