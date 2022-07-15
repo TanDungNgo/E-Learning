@@ -1,10 +1,14 @@
 .rhap_container {
-    background-color: blanchedalmond;
+    background-color: rgb(245, 148, 38);
     padding: 3px 5px;
 }
 
+.rhap_main {
+    min-width: 200px;
+}
+
 .rhap_container svg {
-    color: rgba(241, 84, 84, 0.2);
+    color: rgb(255, 255, 255);
 }
 .rhap_time {
     color: white;
@@ -20,9 +24,13 @@
 }
 /* nut */
 .rhap_progress-indicator { 
-    background: #868686;
+    background: #ffffff;
 } 
 
 .rhap_progress-bar {
-    background-color: #dddddd;
+    background-color: #e4e4e4;
+}
+
+.audio-player {
+    min-width: 100px;
 }

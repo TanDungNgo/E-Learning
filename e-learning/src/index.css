@@ -32,3 +32,16 @@ body {
 .bg-xoan-cham {
   background-image: url('https://img.freepik.com/free-photo/gray-abstract-wireframe-technology-background_53876-101941.jpg?w=2000')!important;
 }
+
+a {
+  color:black;
+  text-decoration: none;
+}
+
+:where(a):visited {
+  color: initial!important;
+}
+
+.must-have-pointer {
+  cursor: pointer;
+}

@@ -12,8 +12,8 @@ export const ProfileTemplate = (props) => {
       render={(propsRoute) => {
         return (
           <>
-        <Header {...propsRoute}/>
-        <div class="grid overflow-hidden grid-cols-4 grid-rows-1 gap-5 pt-40 pb-12 px-24">
+        <Header {...propsRoute} absolute/>
+        <div class="bg-white grid overflow-hidden grid-cols-4 grid-rows-1 gap-5 pt-40 pb-12 px-24">
             <div class="">
                 <SideBar {...propsRoute}/>
             </div>

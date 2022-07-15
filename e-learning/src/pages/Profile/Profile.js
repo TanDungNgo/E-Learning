@@ -30,7 +30,7 @@ const Profile = (props) => {
 
   return (
     <>
-        <div class="inline-block px-40 w-full">
+        <div class="inline-block px-20 w-full bg-white bg-profile border-2 border-gray-300 rounded-lg">
             <Form
             labelCol={{
                 span: 2,
@@ -41,11 +41,11 @@ const Profile = (props) => {
             layout="horizontal"
             onSubmitCapture={formik.handleSubmit}
             >
-            <div style={{ border: "" }} className="w-full">
+            <div style={{ border: "" }} className="w-full drop-shadow">
                 <div className='flex justify-center'>
-                        <div className='inline-block border-2 border-sky-500 rounded-full mb-12 relative'>
+                        <div className='mt-2 inline-block border-2 border-sky-500 rounded-full mb-12 relative'>
                             <img 
-                                class="rounded-full w-32 h-32"
+                                class="rounded-full w-28 h-28"
                                 src={userLogin.avatar || 'https://nhathauxaydung24h.com/wp-content/uploads/2022/01/avatar-ngau-loi.jpg'}
                             />
                             <EditFilled className='absolute drop-shadow-lg'  style={{
@@ -107,11 +107,11 @@ const Profile = (props) => {
                     userLogin.role == "teacher" 
                     ? 
                     <>
-                        <div className='flex my-4'>
+                        <div className='flex my-4 rounded-full'>
                             <ContactsTwoTone style={{
-                                                                fontSize: '2rem',                                                            
-                                                                }}/>
-                            <p class="mx-2 pt-2 uppercase text-gray-700 font-black font-mono">TEACHER</p>
+                                                                fontSize: '2rem',
+                                                                }} twoToneColor="#FF9D34"/>
+                            <p class="mx-2 pt-2 uppercase text-gray-700 font-black font-mono">teacher</p>
                         </div>
                     </> 
                     :

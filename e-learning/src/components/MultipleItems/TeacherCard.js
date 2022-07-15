@@ -3,10 +3,17 @@ import { NavLink } from 'react-router-dom'
 import './TeacherCard.css'
 import { FolderOpenOutlined, UserOutlined } from "@ant-design/icons";
 
+
 const TeacherCard = (props) => {
+    const disableClick = (e) => {
+        if(props.fixedData) e.preventDefault()
+    }
   return (
     <>
-        <NavLink to="/">
+        <NavLink
+            to="/"
+            onClick={disableClick}
+            className={ props.fixedData && "pointer-events-none"}>
             <div className='flex bg-white items-center rounded-lg px-5'>
                 <img class="avatar-img object-cover rounded-lg md:h-auto md:w-48" src="https://v1.tailwindcss.com/img/jonathan.jpg" alt=""/>
                 <div class="flex flex-col justify-between p-4 leading-normal">

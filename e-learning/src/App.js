@@ -11,6 +11,7 @@ import EditLesson from "./pages/Admin/Lesson/EditLesson";
 import Lessons from "./pages/Admin/Lesson/Lesson";
 import { CourseDetail } from "./pages/Courses/CourseDetail";
 import { CourseDetailUser } from "./pages/Courses/CourseDetailUser";
+import CreateCoure from "./pages/CreateCourse/CreateCoure";
 import { Home } from "./pages/Home/Home";
 import { LessonDetail } from "./pages/Lesson/LessonDetail";
 import { LessonDetailUser } from "./pages/Lesson/LessonDetailUser";
@@ -53,6 +54,11 @@ function App() {
       <HomeTemplate path="/course/:id" exact Component={CourseDetailUser} />
       <HomeTemplate path="/course/:courseId/lesson/:lessonId" exact Component={LessonDetailUser} />
       <AdminTemplate path="/admin" exact Component={Dashboard} />
+      <ProfileTemplate
+        path="/add-new/course"
+        exact
+        Component={CreateCoure}
+      />      
       <AdminTemplate
         path="/admin/courses/add-new"
         exact

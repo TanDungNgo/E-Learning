@@ -50,7 +50,7 @@ const renderLessons = (() => {
 const LessonSlider = () => {
   return (
     <>
-        <div class="media-scroller snaps-inline">
+        <div class="media-scroller snaps-inline scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
             {renderLessons()}
         </div>
     </>

@@ -4,3 +4,10 @@ body {
 img {
     object-fit: cover;
 }
+
+.bg-profile {
+    background-image: url('https://img.freepik.com/free-vector/elegant-white-wallpaper-with-golden-details_23-2149095007.jpg?w=2000');
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
+}

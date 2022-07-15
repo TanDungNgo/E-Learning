@@ -14,14 +14,14 @@ export default function AudioComponent(props) {
   const [trackIndex, setTrackIndex] = useState(0);
 
   return (
-    <div className="">
+    <div className="audio-player w-full">
       <AudioPlayer
         // style={{ width: "300px" }}
         style={{ borderRadius: "1rem" }}
         autoPlay={false}
         layout="horizontal-reverse"
         customAdditionalControls={[]}
-        src={props.record.record_file}
+        src={props.record ? props.record.record_file : 'https://firebasestorage.googleapis.com/v0/b/fir-react-upload-bad49.appspot.com/o/audio%2F1657856651324.wav?alt=media&token=7a08ca58-4e8b-4c52-aa38-d5b310cc081f'}
         customVolumeControls={[]}
         onPlay={(e) => console.log("onPlay")}
         showSkipControls={false}

@@ -115,7 +115,7 @@ const VideoPlayerUser = (props) => {
         ref={videoElement}
         poster="https://i.ytimg.com/vi/2Gg6Seob5Mg/maxresdefault.jpg  "
         src={lesson.video_link}
-        className="w-full drop-shadow-lg"
+        className="w-full drop-shadow-lg rounded-lg"
       >
         {/* <source src={lesson.video_link} type="video/mp4" /> */}
          {/* <source
