@@ -20,6 +20,8 @@ class CreateRecordsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('lesson_id')->references('id')->on('lessons');
             $table->text('record_file');
+            $table->integer('minute');
+            $table->integer('second');
             $table->timestamps();
         });
     }

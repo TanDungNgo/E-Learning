@@ -77,6 +77,7 @@ class Editcourse extends Component
                         <td>
                             <video width="400px" height="200px" controls>
                                 <source src={item.video_link} type="video/mp4"/>
+                                <track src="../file/phude_vi.vtt" default/>
                             </video>
                         </td>
                         <td>
