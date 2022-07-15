@@ -1,0 +1,20 @@
+{
+  "name": "E-Learning",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yamisora-sys/E-Learning.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yamisora-sys/E-Learning/issues"
+  },
+  "homepage": "https://github.com/yamisora-sys/E-Learning#readme"
+}
