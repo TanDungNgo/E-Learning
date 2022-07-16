@@ -11,6 +11,13 @@ use Validator;
 
 class LessonController extends Controller
 {
+    public function getOne($courseId,$lessonId) {
+        $lesson = Lesson::find($lessonId);
+        return response()->json([
+            'status' => 200,
+            'lesson' => $lesson,
+        ]);        
+    }
     public function index($id)
     {
         $course = Course::find($id);
@@ -27,7 +34,7 @@ class LessonController extends Controller
             'name' => 'required|max:191',
             'description' => 'required|max:191',
         ]);
-        if ($validator->fails()) {
+        if ($validator->fails()) {  
             return response()->json([
                 'validate_err' => $validator->messages(),
             ]);
