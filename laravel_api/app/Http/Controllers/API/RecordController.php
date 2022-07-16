@@ -39,7 +39,7 @@ class RecordController extends Controller
     public function save_audio_record(Request $request)
     {
         $record = new Record;
-        $record->user_id = 1;
+        $record->user_id = $request->input('user_id');
         $record->lesson_id = $request->input('lesson_id');
         $record->record_file = $request->input('url');
         $record->minute = $request->input('minute');
@@ -49,6 +49,15 @@ class RecordController extends Controller
         return response()->json([
             'status' => 200,
             'message' => 'Record Saved Successfully',
+        ]);
+    }
+    public function destroy($id)
+    {
+        $record = Record::find($id);
+        $record->delete();
+        return response()->json([
+            'status' => 200,
+            'message' => 'Record Deleted Successfully',
         ]);
     }
 }

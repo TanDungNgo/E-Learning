@@ -92,6 +92,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // save audio-record
 Route::post('/save-audio-record', [RecordController::class, 'save_audio_record']);
 Route::get('/records/{id}', [RecordController::class, 'index']);
+Route::delete('/delete-record/{id}', [RecordController::class, 'destroy']);
 
 // save timedata
 Route::post('/save-timedata', [TimedataController::class, 'save_timedata']);

@@ -20,8 +20,8 @@ class FeedbackController extends Controller
     public function save_feedback(Request $request)
     {
         $feedback = new Feedback;
-        $feedback->student_id = 1;
-        $feedback->teacher_id = 1;
+        $feedback->student_id = $request->input('student_id');
+        $feedback->teacher_id = $request->input('teacher_id');
         $feedback->body = $request->input('body');
         $feedback->record_id = $request->input('record_id');
         $feedback->save();

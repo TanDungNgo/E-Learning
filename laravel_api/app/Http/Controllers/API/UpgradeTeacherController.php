@@ -54,6 +54,7 @@ class UpgradeTeacherController extends Controller
     }
     public function approve_request_become_teacher(Request $request)
     {
+        $req = UpgradeTeacher::find($request->id);
         $req->status = 'accepted';
         $req->save();
         
@@ -74,13 +75,12 @@ class UpgradeTeacherController extends Controller
             'status' => 200,
             'message' => 'User upgraded to teacher successfully',
         ]);
-        $req = UpgradeTeacher::find($request->id);
     }
     public function reject_request_become_teacher(Request $request)
     {
+        $req = UpgradeTeacher::find($request->id);
         $req->status = 'rejected';
         $req->save();
-        $req = UpgradeTeacher::find($request->id);
         //send notification to user
         $data = [
             'user_id' => $req->user_id,
