@@ -184,8 +184,6 @@ export const CourseDetailUser = (props) => {
           width="16"
           height="16"
           viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
           strokeWidth="2"
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -200,6 +198,30 @@ export const CourseDetailUser = (props) => {
         </svg>
         Lessons in this course
       </div>
+
+      {/* neu la giao vien */
+        true
+        ?
+        <>
+        <NavLink
+        to="/"
+        class="mt-10 mb-4 ml-4 text-base inline-flex items-center font-bold leading-sm uppercase px-3 py-1 rounded bg-orange-200 hover:bg-orange-300 hover:text-white text-white border drop-shadow-lg"
+      >
+        <svg className="mr-1 w-4 h-4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+        EDIT COURSE
+      </NavLink>
+        <NavLink
+        to="/course/1/add-new/lesson"
+        class="mt-10 mb-4 ml-4 text-base inline-flex items-center font-bold leading-sm uppercase px-3 py-1 rounded bg-orange-200 hover:bg-orange-300 hover:text-white text-white border drop-shadow-lg"
+      >
+        <svg className="mr-1 w-4 h-4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        Add
+      </NavLink>
+        </>
+        :
+        <></>
+      }
+
 
       <LessonSlider />
 

@@ -16,7 +16,7 @@ const DemoCourseDetailUser = (props) => {
 <>
 
 <div 
-    class={"grid overflow-hidden grid-cols-2 grid-rows-none gap-px bg-white drop-shadow-xl rounded-lg z-10 scale-50 w-screen absolute"}
+    class={"grid overflow-hidden grid-cols-2 grid-rows-none gap-px bg-white drop-shadow-xl border-2 border-gray-300 rounded-lg z-10 scale-50 w-screen absolute"}
     style={demoCourse}
     >
 <span 

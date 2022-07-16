@@ -7,6 +7,7 @@ import { getAllCoursesAction } from "../../redux/actions/CourseAction";
 import { getAllTeachersAction } from "../../redux/actions/UserActions";
 
 import { HomeCarousel } from "../../templates/HomeTemplate/HomeCarousel/HomeCarousel";
+import RecordListAll from "../RecordList/RecordListAll";
 
 const mockDataTeachers = [
   {
@@ -78,7 +79,7 @@ export const Home = (props) => {
           </button>
         </div>
       </div>
-      <div className="my-10">
+      <div className="py-10 background-teacher">
         <div className="flex items-left justify-left py-8 pl-24">
           <span className="text-3xl font-semibold">Meet our teachers</span>
         </div>
@@ -97,6 +98,14 @@ export const Home = (props) => {
             View All
           </button>
         </div>
+      </div>
+      <div>
+      <div className="background-record pb-20">
+      <div className="flex items-center justify-center pt-20 mb-20">
+          <span className="line-text text-4xl font-bold">Student Records</span>
+        </div>
+      <RecordListAll />
+      </div>
       </div>
     </>
   );

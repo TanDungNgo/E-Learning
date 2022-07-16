@@ -39,7 +39,7 @@ a {
 }
 
 :where(a):visited {
-  color: initial!important;
+  color: currentColor!important;
 }
 
 .must-have-pointer {

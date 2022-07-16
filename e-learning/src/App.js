@@ -12,13 +12,17 @@ import Lessons from "./pages/Admin/Lesson/Lesson";
 import { CourseDetail } from "./pages/Courses/CourseDetail";
 import { CourseDetailUser } from "./pages/Courses/CourseDetailUser";
 import CreateCoure from "./pages/CreateCourse/CreateCoure";
+import CreateLesson from "./pages/CreateLesson/CreateLesson";
 import { Home } from "./pages/Home/Home";
 import { LessonDetail } from "./pages/Lesson/LessonDetail";
 import { LessonDetailUser } from "./pages/Lesson/LessonDetailUser";
+import ListCourse from "./pages/ListCourse/ListCourse";
+import ListCreatedCourse from "./pages/ListCreatedCourse/ListCreatedCourse";
 import { Login } from "./pages/Login/Login";
 import MyAssignedCourse from "./pages/Profile/MyAssignedCourse";
 import Profile from "./pages/Profile/Profile";
 import Upgrade from "./pages/Profile/Upgrade";
+import RecordList from "./pages/RecordList/RecordList";
 import Register from "./pages/Register/Register";
 import Test from "./pages/test/Test";
 import AdminTemplate from "./templates/AdminTemplate/AdminTemplate";
@@ -58,6 +62,26 @@ function App() {
         path="/add-new/course"
         exact
         Component={CreateCoure}
+      />   
+      <ProfileTemplate
+        path="/enrolled-course"
+        exact
+        Component={ListCourse}
+      />
+      <ProfileTemplate
+        path="/created-course"
+        exact
+        Component={ListCreatedCourse}
+      />
+      <ProfileTemplate
+        path="/course/:id/add-new/lesson"
+        exact
+        Component={CreateLesson}
+      />  
+      <ProfileTemplate
+        path="/my-record"
+        exact
+        Component={RecordList}
       />      
       <AdminTemplate
         path="/admin/courses/add-new"
