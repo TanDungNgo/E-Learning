@@ -28,7 +28,7 @@ class Addlesson extends Component
     }
     handleUpload = () => {
  
-        const storageRef = ref(storage, `/files/${this.state.video.name}`);
+        const storageRef = ref(storage, `/videos/${this.state.video.name}`);
         const uploadTask = uploadBytesResumable(storageRef, this.state.video);
  
         uploadTask.on(

@@ -6,22 +6,70 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator;
 use App\Models\User;
-use DB;
-
+// use DB;
+use Illuminate\Support\Facades\DB;
 use App\Models\Student;
 use App\Models\Course;
+use App\Http\Requests\SendNotificationRequest;
+use App\Notifications\SendNotification;
+
 
 class CourseController extends Controller
 {
     public function index()
     {
-
-        $courses = DB::table('courses')->join('users', 'users.id', '=', 'courses.teacher_id')->select(DB::raw("concat (users.firstname,' ',users.lastname) as teacher_name"),'courses.*')->get();
+        $courses = DB::table('courses')->join('users', 'users.id', '=', 'courses.teacher_id')
+        ->select(DB::raw("concat (users.firstname,' ',users.lastname) as teacher_name"),'courses.*')
+        ->where('status', 'accepted')
+        ->get();
         return response()->json([
             'status' => 200,
             'courses' => $courses,
         ]);
     }
+    //pending course for admin approve
+    public function PendingCourse(Request $request){
+        //dùng cho role admin
+        $course = Course::join('courses', 'users.id', '=', 'courses.teacher_id')
+        ->select(DB::raw("concat (users.firstname,' ',users.lastname) as teacher_name"),'courses.*')
+        ->where('status', 'pending')->get();
+        return response()->json([
+            'course' => $course,
+        ]);
+    }
+    public function ApprovePendingCourse(Request $request){
+        $status = $request->input('status');
+        $course = Course::find($request->id);
+        if($status == 'accepted'){
+            $course->status = 'accepted';
+            $course->save();
+            $teacher = User::find($course->teacher_id);
+            $data = [
+                'course_name' => $course->name,
+                'description' => 'Khóa học của bạn đã được chấp nhận',
+            ];
+            $teacher->notify(new SendNotification($data));
+            return response()->json([
+                'status' => 200,
+                'message' => 'Course Approved Successfully',
+            ]);
+        }
+        else{
+            $course->status = 'rejected';
+            $course->save();
+            $teacher = User::find($course->teacher_id);
+            $data = [
+                'course_name' => $course->name,
+                'description' => 'Khóa học của bạn đã bị từ chối',
+            ];
+            $teacher->notify(new SendNotification($data));
+            return response()->json([
+                'status' => 200,
+                'message' => 'Course Rejected Successfully',
+            ]);
+        }
+    }
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [

@@ -27,7 +27,7 @@ class Addcourse extends Component
     }
     handleUpload = () => {
  
-        const storageRef = ref(storage, `/files/${this.state.banner.name}`);
+        const storageRef = ref(storage, `/images/${this.state.banner.name}`);
         const uploadTask = uploadBytesResumable(storageRef, this.state.banner);
  
         uploadTask.on(
