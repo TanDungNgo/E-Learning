@@ -11,10 +11,18 @@ use Validator;
 
 class LessonController extends Controller
 {
+    public function getOne($courseId, $lessonId)
+    {
+        $lesson = Lesson::find($lessonId);
+        return response()->json([
+            'status' => 200,
+            'lesson' => $lesson,
+        ]);
+    }
     public function index($id)
     {
         $course = Course::find($id);
-        $lessons = DB::table('lessons')->where('course_id',$id)->get();
+        $lessons = DB::table('lessons')->where('course_id', $id)->get();
         return response()->json([
             'status' => 200,
             'course' => $course,
@@ -22,21 +30,23 @@ class LessonController extends Controller
         ]);
     }
     //pending lesson for admin approve
-    public function PendingLesson(Request $request){
+    public function PendingLesson(Request $request)
+    {
         //dùng cho role admin
         $lesson = Lesson::join('courses', 'courses.id', '=', 'lessons.course_id')
-        ->join('users', 'users.id', '=', 'courses.teacher_id')
-        ->select('courses.name','lessons.*', DB::raw("concat (users.firstname,' ',users.lastname) as teacher_name"))
-        ->where('lessons.status', 'pending')->get();
+            ->join('users', 'users.id', '=', 'courses.teacher_id')
+            ->select('courses.name', 'lessons.*', DB::raw("concat (users.firstname,' ',users.lastname) as teacher_name"))
+            ->where('lessons.status', 'pending')->get();
         return response()->json([
             'lesson' => $lesson,
         ]);
     }
-    public function ApprovePendingLesson(Request $request){
+    public function ApprovePendingLesson(Request $request)
+    {
         $status = $request->status;
         $lesson = Lesson::find($request->id);
         $user = User::find($lesson->course_id->teacher_id);
-        if($status == 'accepted'){
+        if ($status == 'accepted') {
             $lesson->status = 'accepted';
             $lesson->save();
             $data = [
@@ -48,8 +58,7 @@ class LessonController extends Controller
                 'status' => 200,
                 'message' => 'Lesson Approved Successfully',
             ]);
-        }
-        else{
+        } else {
             $lesson->status = 'rejected';
             $lesson->save();
             $data = [
@@ -73,9 +82,7 @@ class LessonController extends Controller
             return response()->json([
                 'validate_err' => $validator->messages(),
             ]);
-        }
-        else
-        {
+        } else {
             $lesson = new Lesson;
             // $file= $request->file('video');
             // $filename= date('YmdHi').$file->getClientOriginalName();
@@ -107,15 +114,12 @@ class LessonController extends Controller
     public function edit($id)
     {
         $lesson = Lesson::find($id);
-        if($lesson)
-        {
+        if ($lesson) {
             return response()->json([
                 'status' => 200,
                 'lesson' => $lesson,
             ]);
-        }
-        else
-        {
+        } else {
             return response()->json([
                 'status' => 404,
                 'message' => 'No Course ID Found',
@@ -133,12 +137,9 @@ class LessonController extends Controller
             return response()->json([
                 'validate_err' => $validator->messages(),
             ]);
-        }
-        else
-        {
+        } else {
             $lesson = Lesson::find($id);
-            if($lesson)
-            {
+            if ($lesson) {
                 $lesson->name = $request->input('name');
                 $lesson->description = $request->input('description');
                 // $lesson->course_id = $request->input('course_id');
@@ -147,9 +148,7 @@ class LessonController extends Controller
                     'status' => 200,
                     'message' => 'Lesson Updated Successfully',
                 ]);
-            }
-            else
-            {
+            } else {
                 return response()->json([
                     'status' => 404,
                     'message' => 'No Course ID Found',
@@ -160,13 +159,11 @@ class LessonController extends Controller
     public function updatevideo(Request $request, $id)
     {
         $lesson = Lesson::find($id);
-        if($lesson)
-        {
-            if ($request->file('video'))
-            {
-                $file= $request->file('video');
-                $filename= date('YmdHi').$file->getClientOriginalName();
-                $file-> move(public_path('Video'), $filename);
+        if ($lesson) {
+            if ($request->file('video')) {
+                $file = $request->file('video');
+                $filename = date('YmdHi') . $file->getClientOriginalName();
+                $file->move(public_path('Video'), $filename);
                 $lesson->video_link = $filename;
                 $lesson->update();
                 return response()->json([
@@ -174,14 +171,11 @@ class LessonController extends Controller
                     'message' => 'Video Updated Successfully',
                 ]);
             }
-        }
-        else
-        {
+        } else {
             return response()->json([
                 'status' => 404,
                 'message' => 'No Course ID Found',
             ]);
         }
     }
-
 }

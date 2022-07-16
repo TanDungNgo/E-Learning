@@ -20,7 +20,7 @@ class CourseController extends Controller
     {
         $courses = DB::table('courses')->join('users', 'users.id', '=', 'courses.teacher_id')
         ->select(DB::raw("concat (users.firstname,' ',users.lastname) as teacher_name"),'courses.*')
-        ->where('status', 'accepted')
+        // ->where('status', 'accepted')
         ->get();
         return response()->json([
             'status' => 200,
