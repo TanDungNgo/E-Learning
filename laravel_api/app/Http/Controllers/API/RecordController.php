@@ -51,4 +51,13 @@ class RecordController extends Controller
             'message' => 'Record Saved Successfully',
         ]);
     }
+    public function destroy($id)
+    {
+        $record = Record::find($id);
+        $record->delete();
+        return response()->json([
+            'status' => 200,
+            'message' => 'Record Deleted Successfully',
+        ]);
+    }
 }

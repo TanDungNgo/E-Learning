@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator;
 use App\Models\User;
-use DB;
-
+// use DB;
+use Illuminate\Support\Facades\DB;
 use App\Models\Student;
 use App\Models\Course;
 use App\Http\Requests\SendNotificationRequest;
