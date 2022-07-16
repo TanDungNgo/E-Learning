@@ -33,7 +33,7 @@ class LessonController extends Controller
         ]);
     }
     public function ApprovePendingLesson(Request $request){
-        $status = $request->status;
+        $status = $request->input('status');
         $lesson = Lesson::find($request->id);
         $user = User::find($lesson->course_id->teacher_id);
         if($status == 'accepted'){
