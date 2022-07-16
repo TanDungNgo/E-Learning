@@ -57,7 +57,7 @@ export const Header = (props) => {
       <Space>
         Hello,
         <NavLink to="/profile" className="!text-black !font-bold">
-          {userLogin.email}
+          {userLogin.username}
         </NavLink>
       </Space>
     </Dropdown>
