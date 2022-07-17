@@ -4,21 +4,25 @@ import "./CourseCard.css";
 import { FolderOpenOutlined } from "@ant-design/icons";
 
 const CourseCard = (props) => {
+  const { course } = props;
   return (
     <>
-      <NavLink to={`/course/${props.course.id}`}>
+      <NavLink to={`/course/${course.id}`}>
         <div className="max-w-sm bg-white rounded-lg border-8 border-white shadow-md dark:bg-gray-800 dark:border-gray-700">
           <img
             className="banned-img rounded-t-lg"
-            src="{props.course.banner}"
-            alt="abc"
+            src={course.banner}
+            alt={course.name}
           />
           <div className="p-3">
             <h6 className="mb-2 text-base font-bold tracking-tight text-gray-800 dark:text-white">
-              {props.course.name}
+              {course.name}
             </h6>
-            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 description-text">
-              {props.course.description}
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 w-full">
+              {course.description}
+              {course.description.length > 30
+                ? course.description.substr(0, 30) + " ..."
+                : course.description}
             </p>
             <div className="flex justify-between">
               <div className="flex">
@@ -47,13 +51,13 @@ const CourseCard = (props) => {
                 />
                 <div className="text-sm">
                   <span className="text-gray-800 font-bold leading-none flex items-center">
-                    {props.course.teacher_name}
+                    {course.teacher_name}
                   </span>
                 </div>
               </div>
               <div className="text-lg flex item-center">
                 <span className="text-pink-500 font-bold leading-none flex items-center">
-                  $500
+                  {course.price}
                 </span>
               </div>
             </div>

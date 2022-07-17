@@ -1,4 +1,3 @@
-import { Input, Search } from "antd";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MultipleCourses } from "../../components/MultipleItems/MultipleICourses";
@@ -55,57 +54,56 @@ export const Home = (props) => {
     dispatch(getAllCoursesAction());
     dispatch(getAllTeachersAction());
   }, []);
-  const { Search } = Input;
 
   return (
     <>
       <HomeCarousel />
       <div className="bg-xoan-cham bg-F9F6E8 pt-10 pb-20">
         <div className="flex items-center justify-center pt-20 mb-20">
-          <span className="line-text text-4xl font-bold">Our lastest courses</span>
+          <span className="line-text text-4xl font-bold">
+            Our lastest courses
+          </span>
         </div>
-        <MultipleCourses
-          listCourses={coursesDefault}
-          history={props.history}
-          localtion={props.localtion}
-        />
+        <MultipleCourses listCourses={coursesDefault} />
         <div className="flex items-center w-full justify-center pt-12">
           <button
             className="text-lg col-span-1 bg-orange-100 hover:bg-orange-300 text-orange-500 font-semibold hover:text-white py-2 px-8 border  border-orange-300 hover:border-transparent rounded-xl"
-            onClick={() => {
-            }}
+            onClick={() => {}}
           >
             View All
           </button>
         </div>
       </div>
       <div className="py-10 background-teacher">
-        <div className="flex items-left justify-left py-8 pl-24">
-          <span className="text-3xl font-semibold">Meet our teachers</span>
+        <div className="flex items-center justify-center pt-20 mb-20">
+          <span className="line-text text-4xl font-bold">
+            Meet our teachers
+          </span>
         </div>
         <MultipleTeachers
           // listTeachers={mockDataTeachers}
           listTeachers={teachersDefault}
           history={props.history}
-          localtion={props.localtion}
+          location={props.location}
         />
         <div className="flex items-center w-full justify-center pt-12">
           <button
             className="text-lg col-span-1 bg-orange-100 hover:bg-orange-300 text-orange-500 font-semibold hover:text-white py-2 px-8 border  border-orange-300 hover:border-transparent rounded-xl"
-            onClick={() => {
-            }}
+            onClick={() => {}}
           >
             View All
           </button>
         </div>
       </div>
       <div>
-      <div className="background-record pb-20">
-      <div className="flex items-center justify-center pt-20 mb-20">
-          <span className="line-text text-4xl font-bold">Student Records</span>
+        <div className="background-record pb-20">
+          <div className="flex items-center justify-center pt-20 mb-20">
+            <span className="line-text text-4xl font-bold">
+              Student Records
+            </span>
+          </div>
+          <RecordListAll />
         </div>
-      <RecordListAll />
-      </div>
       </div>
     </>
   );

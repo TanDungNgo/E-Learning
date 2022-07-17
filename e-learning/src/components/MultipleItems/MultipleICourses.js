@@ -1,11 +1,7 @@
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-
 import React from "react";
 import Slider from "react-slick";
 import styleSlick from "./MultipleItems.module.css";
 
-import ButtonBase from "../Button/Button";
 import CourseCard from "./CourseCard";
 
 function SampleNextArrow(props) {
@@ -43,17 +39,16 @@ export const MultipleCourses = (props) => {
     prevArrow: <SamplePrevArrow />,
   };
 
-  const { listCourses, history, localtion } = props;
+  const { listCourses } = props;
   const renderCourse = (listCourses) => {
     return listCourses.map((item, index) => {
-      console.log('course',item);
       return (
         <div
           key={index}
           style={{ height: 300, width: 400 }}
           className={`${styleSlick["width-item"]} ${styleSlick["height-item"]} px-5  `}
         >
-          <CourseCard course={item}/>
+          <CourseCard course={item} />
         </div>
       );
     });
