@@ -69,12 +69,12 @@ const courseDetail = {
 };
 
 const EditCourse = (props) => {
-  const { courseDetail } = useSelector((state) => state.CourseReducer);
-  const dispatch = useDispatch();
-  let { id } = props.match.params;
-  useEffect(() => {
-    dispatch(getCourseByIdAction(id));
-  }, []);
+  // const { courseDetail } = useSelector((state) => state.CourseReducer);
+  // const dispatch = useDispatch();
+  // let { id } = props.match.params;
+  // useEffect(() => {
+  //   dispatch(getCourseByIdAction(id));
+  // }, []);
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -85,14 +85,20 @@ const EditCourse = (props) => {
       price: courseDetail.price,
     },
 
+    // initialValues: {
+    //   name: courseDetail.name,
+    //   description: courseDetail.description,
+    //   banner: courseDetail.banner,
+    //   price: courseDetail.price,
+    // },
+
     onSubmit: (values) => {
       const body = {
         name: values.name,
         description: values.description,
       };
-      console.log("body", body);
-      console.log("values", values);
-      dispatch(updateCourseAction(body, id));
+      alert(body.name);
+      // dispatch(updateCourseAction(body, id));
     },
   });
 

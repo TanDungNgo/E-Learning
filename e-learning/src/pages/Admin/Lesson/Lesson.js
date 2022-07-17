@@ -45,13 +45,13 @@ const lessonsDefault1 = [
 
 export default function Lessons(props) {
   const courseParams = JSON.parse(localStorage.getItem("courseParams"));
-  const { lessonsDefault } = useSelector((state) => state.LessonReducer);
+  // const { lessonsDefault } = useSelector((state) => state.LessonReducer);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getAllLessonsAction(courseParams.id));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getAllLessonsAction(courseParams.id));
+  // }, []);
 
   const formik = useFormik({
     initialValues: {
@@ -180,7 +180,7 @@ export default function Lessons(props) {
                   window.confirm("Bạn có chắc muốn xoá bài học " + lesson.name)
                 ) {
                   //Gọi action
-                  dispatch(deleteLessonByIdAction(lesson.id, courseParams.id));
+                  // dispatch(deleteLessonByIdAction(lesson.id, courseParams.id));
                 }
               }}
             >
@@ -193,7 +193,7 @@ export default function Lessons(props) {
       width: "15%",
     },
   ];
-  const data = lessonsDefault;
+  const data = lessonsDefault1;
 
   return (
     <div>

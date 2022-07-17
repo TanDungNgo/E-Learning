@@ -178,14 +178,14 @@ const courseDefault1 = [
 ];
 
 export default function Course(props) {
-  const { coursesDefault } = useSelector((state) => state.CourseReducer);
+  // const { coursesDefault } = useSelector((state) => state.CourseReducer);
 
   // console.log("coursesDefault", coursesDefault);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getAllCoursesAction());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getAllCoursesAction());
+  // }, []);
 
   const formik = useFormik({
     initialValues: {
@@ -289,7 +289,7 @@ export default function Course(props) {
                   window.confirm("Bạn có chắc muốn xoá phim " + course.name)
                 ) {
                   //Gọi action
-                  dispatch(deleteCourseByIdAction(course.id));
+                  // dispatch(deleteCourseByIdAction(course.id));
                 }
               }}
             >
@@ -313,7 +313,7 @@ export default function Course(props) {
       width: "25%",
     },
   ];
-  const data = coursesDefault;
+  const data = courseDefault1;
 
   return (
     <div>
@@ -330,7 +330,7 @@ export default function Course(props) {
         <Button
           className="mb-5"
           onClick={() => {
-            dispatch(getAllCoursesAction());
+            // dispatch(getAllCoursesAction());
           }}
         >
           Reset

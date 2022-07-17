@@ -22,14 +22,14 @@ export const LessonDetail = (props) => {
   const { userLogin } = useSelector((state) => state.UserReducer);
 
   const { lesson } = useSelector((state) => state.LessonReducer);
-  console.log(lesson);
+  // console.log(lesson);
   const { recordsDefault } = useSelector((state) => state.RecordReducer);
   console.log(recordsDefault);
   const dispatch = useDispatch();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    dispatch(getAllRecordsByLessonIdAction(lessonId));
+    // dispatch(getAllRecordsByLessonIdAction(lessonId));
     dispatch(getLessonByIdAction(lessonId));
   }, []);
   let recordsUser = recordsDefault?.filter(
@@ -52,7 +52,7 @@ export const LessonDetail = (props) => {
 
   return (
     <>
-      <div className=" container my-20 text-3xl font-bold ">{lesson.name}</div>
+      <div className=" container my-10 text-3xl font-bold ">{lesson.name}</div>
       <div className="grid grid-cols-3 gap-3 container mt-10">
         <div className="col-span-2">
           <VideoPlayer lesson={lesson} />

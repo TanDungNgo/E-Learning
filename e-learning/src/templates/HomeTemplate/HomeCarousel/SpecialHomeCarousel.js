@@ -53,7 +53,7 @@ export const SpecialHomeCarousel = () => (
           <div className="box">
             <form className="pr-12">
               <label
-                for="default-search"
+                htmlFor="default-search"
                 className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
               >
                 Search

@@ -34,7 +34,7 @@ const Register = (props) => {
     onSubmit: (values) => {
       console.log("values", values);
       // alert("hello");
-      dispatch(registerAction(values,props));
+      // dispatch(registerAction(values,props));
     },
   });
 

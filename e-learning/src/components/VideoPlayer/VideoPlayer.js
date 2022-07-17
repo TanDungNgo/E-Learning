@@ -10,24 +10,24 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import storageFirebase from "../../utils/settings/firebaseConfig";
 import { saveRecordAction } from "../../redux/actions/RecordActions";
 import { getTimedatasByLessonIdAction } from "../../redux/actions/TimedataActions";
-// const timedatasDefault = [
-//   {
-//     minute: 0,
-//     seconds: 20,
-//   },
-//   {
-//     minute: 0,
-//     seconds: 40,
-//   },
-//   {
-//     minute: 0,
-//     seconds: 55,
-//   },
-//   {
-//     minute: 1,
-//     seconds: 15,
-//   },
-// ];
+const timedatasDefault = [
+  {
+    minute: 0,
+    seconds: 20,
+  },
+  {
+    minute: 0,
+    seconds: 40,
+  },
+  {
+    minute: 0,
+    seconds: 55,
+  },
+  {
+    minute: 1,
+    seconds: 15,
+  },
+];
 
 const VideoPlayer = (props) => {
   let { lesson } = props;
@@ -35,33 +35,32 @@ const VideoPlayer = (props) => {
   // console.log(lesson);
   const videoElement = useRef(null);
 
-  const { timedatasDefault } = useSelector((state) => state.TimedataReducer);
+  // const { timedatasDefault } = useSelector((state) => state.TimedataReducer);
   const [isStart, setIsStart] = useState(false);
   const [isStop, setIsStop] = useState(false);
   const [displayHidden, setDisplayHidden] = useState("hidden");
   const [disable, setDisable] = useState(false);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getTimedatasByLessonIdAction(lesson.id));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getTimedatasByLessonIdAction(lesson.id));
+  // }, []);
   useEffect(() => {
     const interval = setInterval(async () => {
       const elapsed_sec = await videoElement.current.currentTime;
 
-      const timeData = timedatasDefault;
       // calculations
       let elapsed_ms = Math.floor(elapsed_sec * 1000);
       let ms = elapsed_ms % 1000;
       let min = Math.floor(elapsed_ms / 60000);
       let seconds = Math.floor((elapsed_ms - min * 60000) / 1000);
 
-      timeData?.forEach((item) => {
+      timedatasDefault.forEach((item) => {
         if (min === item.minute && seconds === item.second && ms < 100) {
           videoElement.current.pause();
           setDisplayHidden("");
           setIsStop(false);
-          timeData.shift();
+          timedatasDefault.shift();
         }
       });
     }, 100);

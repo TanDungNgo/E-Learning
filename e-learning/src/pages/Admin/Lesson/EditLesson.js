@@ -9,18 +9,25 @@ import {
 } from "../../../redux/actions/LessonActions";
 
 const EditLesson = (props) => {
-  const { lesson } = useSelector((state) => state.LessonReducer);
-  const dispatch = useDispatch();
+  const lessonParams = JSON.parse(localStorage.getItem("lessonParams"));
+  // const { lesson } = useSelector((state) => state.LessonReducer);
+  // const dispatch = useDispatch();
   let { lessonId, courseId } = props.match.params;
-  useEffect(() => {
-    dispatch(getLessonByIdAction(lessonId));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getLessonByIdAction(lessonId));
+  // }, []);
 
   const formik = useFormik({
     enableReinitialize: true,
+    // initialValues: {
+    //   name: lesson.name,
+    //   description: lesson.description,
+    //   course_id: courseId,
+    // },
+
     initialValues: {
-      name: lesson.name,
-      description: lesson.description,
+      name: lessonParams.name,
+      description: lessonParams.description,
       course_id: courseId,
     },
 
@@ -30,9 +37,9 @@ const EditLesson = (props) => {
         description: values.description,
         course_id: courseId,
       };
-      console.log("body", body);
-      console.log("values", values);
-      dispatch(updateLessonAction(body, lessonId, courseId));
+
+      alert("name : " + body.name);
+      // dispatch(updateLessonAction(body, lessonId, courseId));
     },
   });
 
