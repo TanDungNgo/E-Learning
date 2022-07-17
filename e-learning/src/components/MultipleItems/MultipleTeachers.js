@@ -1,11 +1,7 @@
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-
-import React, { useEffect } from "react";
+import React from "react";
 import Slider from "react-slick";
 import styleSlick from "./MultipleItems.module.css";
 
-import ButtonBase from "../Button/Button";
 import TeacherCard from "./TeacherCard";
 
 function SampleNextArrow(props) {
@@ -30,8 +26,8 @@ function SamplePrevArrow(props) {
   );
 }
 
-const description =
-  "Giảng viên dạy tốt, nhiệt tình, được rất nhiều học sinh yêu mến. Có kinh nghiệm giảng dạy lâu năm, trình độ học vấn cao.";
+// const description =
+//   "Giảng viên dạy tốt, nhiệt tình, được rất nhiều học sinh yêu mến. Có kinh nghiệm giảng dạy lâu năm, trình độ học vấn cao.";
 
 export const MultipleTeachers = (props) => {
   var settings = {
@@ -46,15 +42,9 @@ export const MultipleTeachers = (props) => {
     prevArrow: <SamplePrevArrow />,
   };
 
-  useEffect(()=> {
-
-  },[])
-  const { listTeachers, history, localtion } = props;
-  console.log("listTeachers", listTeachers);
-  console.log("props", props);
+  const { listTeachers } = props;
   const renderTeachers = (listTeachers) => {
     return listTeachers.map((item, index) => {
-      console.log("render", item)
       return (
         <div
           key={index}
