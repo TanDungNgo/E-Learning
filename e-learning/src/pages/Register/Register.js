@@ -1,23 +1,9 @@
-import { Checkbox, Form, Input, Select } from "antd";
+import { Checkbox, Form, Input } from "antd";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
+import { NavLink } from "react-router-dom";
 import { registerAction } from "../../redux/actions/UserActions";
 import { Footer } from "./../../templates/HomeTemplate/Footer/Footer";
-// import { number } from "yup";
-// import { useState } from "react",
-const { Option } = Select;
-
-const btnRegister = {
-  backgroundColor: "#0095ff",
-  border: "1px solid transparent",
-  borderRadius: "3px",
-  boxShadow: "rgba(255, 255, 255, .4) 0 1px 0 0 inset",
-  color: "#fff",
-  display: "inline-block",
-  touchAction: "manipulation",
-  marginLeft: 220,
-  padding: 3,
-};
 
 const Register = (props) => {
   const dispatch = useDispatch();
@@ -33,7 +19,6 @@ const Register = (props) => {
     },
     onSubmit: (values) => {
       console.log("values", values);
-      // alert("hello");
       // dispatch(registerAction(values,props));
     },
   });
@@ -41,8 +26,7 @@ const Register = (props) => {
   return (
     <>
       <div className="container mt-20">
-        <h1 className="text-center text-5xl">Thông tin đăng ký</h1>
-
+        <h1 className="mx-auto text-5xl text-center my-5">Thông tin đăng ký</h1>
         <Form
           labelCol={{
             span: 4,
@@ -54,7 +38,7 @@ const Register = (props) => {
           onSubmitCapture={formik.handleSubmit}
         >
           <div style={{ border: "1px solid" }} className="p-10">
-            <Form.Item label="Fullname" required>
+            <Form.Item label="Fullname" required style={{ marginBottom: 0 }}>
               <Form.Item
                 name="firstname"
                 rules={[
@@ -68,10 +52,15 @@ const Register = (props) => {
                     message: "Must be between 6 to 50 characters!",
                   },
                 ]}
-                style={{ display: "inline-block", width: "calc(50% - 8px)" }}
+                style={{
+                  display: "inline-block",
+                  width: "calc(50% - 8px)",
+                  marginBottom: 10,
+                }}
               >
                 <Input
-                  placeholder="Input first name"
+                  name="firstname"
+                  placeholder="Input your first name"
                   onChange={formik.handleChange}
                 />
               </Form.Item>
@@ -92,10 +81,12 @@ const Register = (props) => {
                   display: "inline-block",
                   width: "calc(50% - 8px)",
                   margin: "0 0 0 16px",
+                  marginBottom: 10,
                 }}
               >
                 <Input
-                  placeholder="Input last name"
+                  name="lastname"
+                  placeholder="Input your last name"
                   onChange={formik.handleChange}
                 />
               </Form.Item>
@@ -103,7 +94,6 @@ const Register = (props) => {
             <Form.Item
               name="username"
               label="Username"
-              tooltip="What do you want others to call you?"
               rules={[
                 {
                   required: true,
@@ -119,9 +109,13 @@ const Register = (props) => {
                   message: "Must be between 6 to 50 characters!",
                 },
               ]}
-              onChange={formik.handleChange}
+              style={{ marginBottom: 10 }}
             >
-              <Input />
+              <Input
+                name="username"
+                onChange={formik.handleChange}
+                placeholder="Input your username"
+              />
             </Form.Item>
 
             <Form.Item
@@ -144,7 +138,10 @@ const Register = (props) => {
               hasFeedback
               onChange={formik.handleChange}
             >
-              <Input.Password />
+              <Input.Password
+                placeholder="Input your password"
+                name="password"
+              />
             </Form.Item>
 
             <Form.Item
@@ -179,11 +176,16 @@ const Register = (props) => {
                   },
                 }),
               ]}
+              style={{ marginBottom: 10 }}
               onChange={formik.handleChange}
             >
-              <Input.Password />
+              <Input.Password
+                placeholder="Input your confirm password"
+                name="passwordAgain"
+              />
             </Form.Item>
             <Form.Item
+              name="email"
               label="Email"
               rules={[
                 {
@@ -195,8 +197,13 @@ const Register = (props) => {
                   message: "Please input your E-mail!",
                 },
               ]}
+              style={{ marginBottom: 10 }}
             >
-              <Input name="email" onChange={formik.handleChange} />
+              <Input
+                name="email"
+                onChange={formik.handleChange}
+                placeholder="Input your email"
+              />
             </Form.Item>
 
             <Form.Item
@@ -211,9 +218,8 @@ const Register = (props) => {
               onChange={formik.handleChange}
             >
               <Input
-                style={{
-                  width: "100%",
-                }}
+                name="phone_number"
+                placeholder="Input your number phone"
               />
             </Form.Item>
 
@@ -228,16 +234,22 @@ const Register = (props) => {
                       : Promise.reject(new Error("Should accept agreement")),
                 },
               ]}
-              style={{ marginLeft: 230 }}
+              style={{ marginLeft: 140 }}
             >
               <Checkbox>
                 I have read the <a href="abc">agreement</a>
               </Checkbox>
             </Form.Item>
-            <Form.Item>
-              <button type="submit" style={btnRegister}>
+            <Form.Item wrapperCol={{ offset: 4, span: 14 }}>
+              <button
+                type="submit"
+                className="bg-green-600 w-full rounded-none p-2 text-white font-bold border-none"
+              >
                 Register
               </button>
+              <NavLink to="/login" className="text-xs">
+                Bạn đã có tài khoản?
+              </NavLink>
             </Form.Item>
           </div>
         </Form>

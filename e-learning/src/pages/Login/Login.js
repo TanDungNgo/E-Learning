@@ -1,14 +1,13 @@
 import { useFormik } from "formik";
 import React from "react";
 import { useDispatch } from "react-redux";
+import { NavLink } from "react-router-dom";
 import * as Yup from "yup";
 import { loginAction } from "../../redux/actions/UserActions";
 import { USER_LOGIN } from "../../utils/settings/config";
-// import { USER_LOGIN } from "../../utils/settings/config";
 
 export const Login = (props) => {
   // const dispatch = useDispatch();
-  const { history, location } = props;
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
@@ -106,6 +105,7 @@ export const Login = (props) => {
               >
                 Login
               </button>
+              <NavLink to="/register">Bạn chưa có tài khoản?</NavLink>
               <div className="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
                 <p className="text-center font-semibold mx-4 mb-0">OR</p>
               </div>
