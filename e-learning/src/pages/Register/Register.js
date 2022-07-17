@@ -21,7 +21,6 @@ const Register = (props) => {
       passwordAgain: "",
     },
     onSubmit: (values) => {
-      console.log("values", values);
       dispatch(registerAction(values, props));
     },
   });

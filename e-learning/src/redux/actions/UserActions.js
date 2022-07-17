@@ -34,7 +34,6 @@ export const registerAction = (userRegister, propsRoute) => {
   return async (dispatch) => {
     try {
       const result = await UserService.register(userRegister);
-      console.log("Register", result);
 
       if (result.status === 200) {
         openNotificationWithIcon(
