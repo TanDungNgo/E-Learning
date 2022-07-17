@@ -208,7 +208,7 @@ export const LessonDetailUser = (props) => {
         </svg>
         Lessons in this course
       </div>
-        <LessonSlider />
+        {/* <LessonSlider /> */}
 </div>
 
     </>

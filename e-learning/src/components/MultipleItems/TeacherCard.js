@@ -17,7 +17,7 @@ const TeacherCard = (props) => {
             <div className='flex bg-white items-center rounded-lg px-5'>
                 <img class="avatar-img object-cover rounded-lg md:h-auto md:w-48" src="https://v1.tailwindcss.com/img/jonathan.jpg" alt=""/>
                 <div class="flex flex-col justify-between p-4 leading-normal">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy Jone</h5>
+                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{props.teacher_name}</h5>
                         <div className='flex justify-between'>
                             <div className='flex'>
                                 <FolderOpenOutlined className='folder-icon'/>

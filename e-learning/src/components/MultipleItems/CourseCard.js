@@ -10,7 +10,7 @@ const CourseCard = (props) => {
         <div className="max-w-sm bg-white rounded-lg border-8 border-white shadow-md dark:bg-gray-800 dark:border-gray-700">
           <img
             className="banned-img rounded-t-lg"
-            src="{props.course.banner}"
+            src={props.course.banner}
             alt="abc"
           />
           <div className="p-3">

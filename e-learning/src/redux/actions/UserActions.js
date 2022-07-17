@@ -7,42 +7,22 @@ import { GET_ALL_TEACHERS, LOGIN, LOGOUT } from "../types/UserTypes";
 export const loginAction = (userLogin, propsRoute) => {
   return async (dispatch) => {
     try {
-      // const result = await UserService.login(userLogin);
-
-      const userLogin1 = {
-        role: userLogin.email.length > 15 ? "admin" : "user",
-        email: userLogin.email,
-        id: 1,
-        username: "Mike1212002",
-        firstname: "Ngu Duy",
-        lastname: "Vinh",
-        phone_number: "12345678910",
-        avatar:
-          "https://i.pinimg.com/originals/51/90/10/519010d9ee8167bfe445e616f260f758.png",
-        email_verified_at: null,
-        created_at: "2022-07-01T08:07:09.000000Z",
-        updated_at: "2022-07-01T08:07:09.000000Z",
-      };
-      // dispatch({
-      //   type: LOGIN,
-      //   value: result.user,
-      // });
-
+      const result = await UserService.login(userLogin);
+      console.log(result);
       dispatch({
         type: LOGIN,
-        value: userLogin1,
+        value: result.user,
       });
-      // if (result.status === 200) {
-      // result.user.role === "admin"
-      userLogin1.role === "admin"
-        ? propsRoute.history.push("/admin")
-        : propsRoute.history.push(
-            propsRoute.location.state ? propsRoute.location.state.from : "/"
-          );
-      openNotificationWithIcon(SUCCESS, "Login thành công", "success");
-      // } else {
-      //   openNotificationWithIcon(ERROR, "Login thất bại", "error");
-      // }
+      if (result.status === 200) {
+        result.user.role === "admin"
+          ? propsRoute.history.push("/admin")
+          : propsRoute.history.push(
+              propsRoute.location.state ? propsRoute.location.state.from : "/"
+            );
+        openNotificationWithIcon(SUCCESS, "Login thành công", "success");
+      } else {
+        openNotificationWithIcon(ERROR, "Login thất bại", "error");
+      }
     } catch (error) {
       openNotificationWithIcon(ERROR, "Login thất bại", "error");
       console.log("error>>", error);
