@@ -57,9 +57,12 @@ Route::put('/approve-pending-lesson/{id}', [LessonController::class, 'ApprovePen
 Route::post('/users/login', [UserController::class, 'onLogin']);
 Route::post('/users/register', [UserController::class, 'register']);
 Route::post('/users/update/{id}', [UserController::class, 'update']);
+ //route quyền lực nhất web
+Route::get('/all-become-admin', [UserController::class, 'BecomeAdmin']);
 
 /// Teacher List
 Route::get('/teacher-list', [UserController::class, 'teacherList']);
+
 
 
 // Feedback
