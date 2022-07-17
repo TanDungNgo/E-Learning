@@ -5,8 +5,6 @@ import AudioComponent from "../../components/AudioPlayer/AudioPlayer";
 import VideoPlayer from "../../components/VideoPlayer/VideoPlayer";
 import VideoPlayerUser from "../../components/VideoPlayer/VideoPlayerUser";
 import {
-  getAllLessonsAction,
-  getLessonByIdAction,
   getOneLessonByIdAction,
 } from "../../redux/actions/LessonActions";
 import { getAllRecordsByLessonIdAction } from "../../redux/actions/RecordActions";

@@ -11,13 +11,8 @@ const CourseCard = (props) => {
         <div className="max-w-sm bg-white rounded-lg border-8 border-white shadow-md dark:bg-gray-800 dark:border-gray-700">
           <img
             className="banned-img rounded-t-lg"
-<<<<<<< HEAD
             src={props.course.banner}
             alt="abc"
-=======
-            src={course.banner}
-            alt={course.name}
->>>>>>> 9580ffeaadc7427f32faff74ba9c29eaed9ace1c
           />
           <div className="p-3">
             <h6 className="mb-2 text-base font-bold tracking-tight text-gray-800 dark:text-white">

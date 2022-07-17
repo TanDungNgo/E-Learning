@@ -1,20 +1,16 @@
-import React from "react";
+import useSelection from "antd/lib/table/hooks/useSelection";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import Button from "../../components/Button/Button";
 import TeacherCard from "../../components/MultipleItems/TeacherCard";
-<<<<<<< HEAD
-import {
-  getCourseDetailAction,
-} from "../../redux/actions/CourseAction";
+import { getCourseDetailAction } from "../../redux/actions/CourseAction";
 import {
   FolderOpenOutlined,
   UserOutlined,
   ShareAltOutlined,
   HeartOutlined,
 } from "@ant-design/icons";
-=======
-// import { getCourseDetailAction } from "../../redux/actions/CourseAction";
-import { ShareAltOutlined, HeartOutlined } from "@ant-design/icons";
->>>>>>> 9580ffeaadc7427f32faff74ba9c29eaed9ace1c
 
 import "./CoursesDetailUser.css";
 import CourseOverView from "./CourseOverView";
@@ -45,7 +41,6 @@ const courseDetail = {
 };
 
 export const CourseDetailUser = (props) => {
-<<<<<<< HEAD
   const dispatch = useDispatch();
   let { id } = props.match.params;
   const { coursesDefault } = useSelector((state) => state.CourseReducer);
@@ -53,15 +48,6 @@ export const CourseDetailUser = (props) => {
     dispatch(getCourseDetailAction(id));
     console.log(coursesDefault);
   }, []);
-=======
-  // const { courseDetail } = useSelector((state) => state.CourseReducer);
-  // const dispatch = useDispatch();
-  // let { id } = props.match.params;
-  // useEffect(() => {
-  //   dispatch(getCourseDetailAction(id));
-  // }, []);
-
->>>>>>> 9580ffeaadc7427f32faff74ba9c29eaed9ace1c
   const renderLessons = () => {
     return courseDetail.listLessons.splice(0, 5).map((item, index) => {
       return (
@@ -87,7 +73,6 @@ export const CourseDetailUser = (props) => {
   };
   return (
     <>
-<<<<<<< HEAD
       <div class="grid overflow-hidden grid-cols-2 grid-rows-none gap-px bg-white drop-shadow-xl m-4 rounded-lg">
         <div class="pl-16 pr-10 pt-10">
           <div class="course-info grid overflow-hidden grid-cols-1 grid-rows-7 gap-px">
@@ -101,20 +86,6 @@ export const CourseDetailUser = (props) => {
               <TeacherCard teacher_name={courseDetail.course[0].username} />
             </div>
             <div class="row-span-1">
-=======
-      <div className="grid overflow-hidden grid-cols-2 grid-rows-none gap-px bg-white drop-shadow-xl m-4 rounded-lg">
-        <div className="pl-16 pr-10 pt-10">
-          <div className="course-info grid overflow-hidden grid-cols-1 grid-rows-7 gap-px">
-            <div className="row-span-1">
-              <span className="text-4xl font-bold">
-                The Complete 2022 Web Development Bootcamp
-              </span>
-            </div>
-            <div className="row-span-1 pb-1 border-b-2 border-gray-600">
-              <TeacherCard />
-            </div>
-            <div className="row-span-1">
->>>>>>> 9580ffeaadc7427f32faff74ba9c29eaed9ace1c
               <div className="border-b-2 border-gray-600 py-3 flex justify-between">
                 <div className="flex space-x-8">
                   <div>
@@ -140,21 +111,13 @@ export const CourseDetailUser = (props) => {
                   <div className="space-x-4 absolute top-3   right-0">
                     <button
                       type="button"
-<<<<<<< HEAD
                       class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800"
-=======
-                      className="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800"
->>>>>>> 9580ffeaadc7427f32faff74ba9c29eaed9ace1c
                     >
                       <ShareAltOutlined className="icon" />
                     </button>
                     <button
                       type="button"
-<<<<<<< HEAD
                       class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800"
-=======
-                      className="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800"
->>>>>>> 9580ffeaadc7427f32faff74ba9c29eaed9ace1c
                     >
                       <HeartOutlined className="icon" />
                     </button>
@@ -162,23 +125,15 @@ export const CourseDetailUser = (props) => {
                 </div>
               </div>
             </div>
-<<<<<<< HEAD
             <div class="row-span-2 pt-2">
               <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                 Course overview
               </h5>
-              <CourseOverView description={courseDetail.course[0].description} />
+              <CourseOverView
+                description={courseDetail.course[0].description}
+              />
             </div>
             <div class="row-span-1 flex justify-end h-20">
-=======
-            <div className="row-span-2 pt-2">
-              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                Course overview
-              </h5>
-              <CourseOverView />
-            </div>
-            <div className="row-span-1 flex justify-end h-20">
->>>>>>> 9580ffeaadc7427f32faff74ba9c29eaed9ace1c
               <div className="w-full h-full relative">
                 <NavLink
                   to="/"
@@ -190,25 +145,12 @@ export const CourseDetailUser = (props) => {
             </div>
           </div>
         </div>
-<<<<<<< HEAD
         <div class="">
           <img className="w-full h-full" src={courseDetail.course[0].banner} />
         </div>
       </div>
 
       <div class="mt-10 mb-4 ml-4 text-base inline-flex items-center font-bold leading-sm uppercase px-3 py-1 rounded bg-white text-gray-700 border drop-shadow-lg">
-=======
-        <div className="">
-          <img
-            alt="abc"
-            className="w-full h-full"
-            src="https://s.udemycdn.com/premium-clp/1565838/CourseImage-2x.jpg"
-          />
-        </div>
-      </div>
-
-      <div className="mt-10 mb-4 ml-4 text-base inline-flex items-center font-bold leading-sm uppercase px-3 py-1 rounded bg-white text-gray-700 border drop-shadow-lg">
->>>>>>> 9580ffeaadc7427f32faff74ba9c29eaed9ace1c
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
@@ -233,11 +175,7 @@ export const CourseDetailUser = (props) => {
           <>
             <NavLink
               to="/"
-<<<<<<< HEAD
               class="mt-10 mb-4 ml-4 text-base inline-flex items-center font-bold leading-sm uppercase px-3 py-1 rounded bg-orange-200 hover:bg-orange-300 hover:text-white text-white border drop-shadow-lg"
-=======
-              className="mt-10 mb-4 ml-4 text-base inline-flex items-center font-bold leading-sm uppercase px-3 py-1 rounded bg-orange-200 hover:bg-orange-300 hover:text-white text-white border drop-shadow-lg"
->>>>>>> 9580ffeaadc7427f32faff74ba9c29eaed9ace1c
             >
               <svg
                 className="mr-1 w-4 h-4"
@@ -255,11 +193,7 @@ export const CourseDetailUser = (props) => {
             </NavLink>
             <NavLink
               to="/course/1/add-new/lesson"
-<<<<<<< HEAD
               class="mt-10 mb-4 ml-4 text-base inline-flex items-center font-bold leading-sm uppercase px-3 py-1 rounded bg-orange-200 hover:bg-orange-300 hover:text-white text-white border drop-shadow-lg"
-=======
-              className="mt-10 mb-4 ml-4 text-base inline-flex items-center font-bold leading-sm uppercase px-3 py-1 rounded bg-orange-200 hover:bg-orange-300 hover:text-white text-white border drop-shadow-lg"
->>>>>>> 9580ffeaadc7427f32faff74ba9c29eaed9ace1c
             >
               <svg
                 className="mr-1 w-4 h-4"
@@ -280,7 +214,6 @@ export const CourseDetailUser = (props) => {
           <></>
         )
       }
-<<<<<<< HEAD
 
       <LessonSlider listLessons={courseDetail.lessons} />
     </>
@@ -343,9 +276,3 @@ export const CourseDetailUser = (props) => {
 </div>
 </div> */
 }
-=======
-      <LessonSlider />
-    </>
-  );
-};
->>>>>>> 9580ffeaadc7427f32faff74ba9c29eaed9ace1c
