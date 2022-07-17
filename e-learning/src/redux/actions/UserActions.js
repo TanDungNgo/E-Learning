@@ -56,16 +56,18 @@ export const registerAction = (userRegister, propsRoute) => {
       console.log("Register", result);
 
       if (result.status === 200) {
-        propsRoute.history.push("/login");
         openNotificationWithIcon(
           SUCCESS,
           "Tạo tài khoản thành công",
           "success"
         );
+        // dispatch(getAllUsers())
+        propsRoute.history.push("/login");
       } else {
         openNotificationWithIcon(ERROR, "Tạo tài khoản thất bại", "error");
       }
     } catch (error) {
+      openNotificationWithIcon(ERROR, "Tạo tài khoản thất bại", "error");
       console.log("error>>", error);
     }
   };
@@ -88,7 +90,7 @@ export const updateUserAction = (userEdit, propsRoute) => {
 
       if (result.status === 200) {
         const oldData = JSON.parse(localStorage.getItem(USER_LOGIN));
-        const newData = JSON.stringify({...oldData,...userEdit});
+        const newData = JSON.stringify({ ...oldData, ...userEdit });
         localStorage.setItem(USER_LOGIN, newData);
         propsRoute.history.push("/profile");
         openNotificationWithIcon(SUCCESS, "Cập nhật thành công", "success");
@@ -109,11 +111,7 @@ export const requestToBecomeTeacher = (userEdit, propsRoute) => {
 
       if (result.status === 200) {
         propsRoute.history.push("/profile");
-        openNotificationWithIcon(
-          SUCCESS,
-          "Nâng cấp thành công",
-          "success"
-        );
+        openNotificationWithIcon(SUCCESS, "Nâng cấp thành công", "success");
       } else {
         openNotificationWithIcon(ERROR, "Nâng cấp thất bại", "error");
       }
@@ -121,7 +119,7 @@ export const requestToBecomeTeacher = (userEdit, propsRoute) => {
       console.log("error>>", error);
     }
   };
-}
+};
 
 export const getAllTeachersAction = () => {
   return async (dispatch) => {

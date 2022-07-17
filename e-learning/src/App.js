@@ -1,7 +1,5 @@
-// import RecordView from "./components/RecordView";
 import { createBrowserHistory } from "history";
 import { Route, Switch } from "react-router-dom";
-import VideoPlayer from "./components/VideoPlayer/VideoPlayer";
 import AddCourse from "./pages/Admin/Courses/AddCourse";
 import Course from "./pages/Admin/Courses/Course";
 import EditCourse from "./pages/Admin/Courses/EditCourse";
@@ -9,9 +7,8 @@ import Dashboard from "./pages/Admin/Dashboard/Dashboard";
 import AddLesson from "./pages/Admin/Lesson/AddLesson";
 import EditLesson from "./pages/Admin/Lesson/EditLesson";
 import Lessons from "./pages/Admin/Lesson/Lesson";
-import { CourseDetail } from "./pages/Courses/CourseDetail";
 import { CourseDetailUser } from "./pages/Courses/CourseDetailUser";
-import CreateCoure from "./pages/CreateCourse/CreateCoure";
+import CreateCourse from "./pages/CreateCourse/CreateCourse";
 import CreateLesson from "./pages/CreateLesson/CreateLesson";
 import { Home } from "./pages/Home/Home";
 import { LessonDetail } from "./pages/Lesson/LessonDetail";
@@ -33,13 +30,16 @@ export const history = createBrowserHistory();
 function App() {
   return (
     <Switch>
-      <HomeTemplate absoluteheader={true} path="/" exact Component={Home} />
-      {/* <HomeTemplate path="/" exact Component={VideoPlayer} /> */}
+      <HomeTemplate absoluteHeader={true} path="/" exact Component={Home} />
       <Route path="/login" exact component={Login} />
       <Route path="/register" exact component={Register} />
-        <ProfileTemplate path="/profile" exact Component={Profile} />
-        <ProfileTemplate path="/upgrade" exact Component={Upgrade} />
-        <ProfileTemplate path="/my-assigned-courses" exact Component={MyAssignedCourse} />
+      <ProfileTemplate path="/profile" exact Component={Profile} />
+      <ProfileTemplate path="/upgrade" exact Component={Upgrade} />
+      <ProfileTemplate
+        path="/my-assigned-courses"
+        exact
+        Component={MyAssignedCourse}
+      />
       <AdminTemplate
         path="/admin/courses/:id/add-new"
         exact
@@ -56,18 +56,14 @@ function App() {
         Component={EditLesson}
       />
       <HomeTemplate path="/course/:id" exact Component={CourseDetailUser} />
-      <HomeTemplate path="/course/:courseId/lesson/:lessonId" exact Component={LessonDetailUser} />
-      <AdminTemplate path="/admin" exact Component={Dashboard} />
-      <ProfileTemplate
-        path="/add-new/course"
+      <HomeTemplate
+        path="/course/:courseId/lesson/:lessonId"
         exact
-        Component={CreateCoure}
-      />   
-      <ProfileTemplate
-        path="/enrolled-course"
-        exact
-        Component={ListCourse}
+        Component={LessonDetailUser}
       />
+      <AdminTemplate path="/admin" exact Component={Dashboard} />
+      <ProfileTemplate path="/add-new/course" exact Component={CreateCourse} />
+      <ProfileTemplate path="/enrolled-course" exact Component={ListCourse} />
       <ProfileTemplate
         path="/created-course"
         exact
@@ -77,12 +73,8 @@ function App() {
         path="/course/:id/add-new/lesson"
         exact
         Component={CreateLesson}
-      />  
-      <ProfileTemplate
-        path="/my-record"
-        exact
-        Component={RecordList}
-      />      
+      />
+      <ProfileTemplate path="/my-record" exact Component={RecordList} />
       <AdminTemplate
         path="/admin/courses/add-new"
         exact
@@ -95,7 +87,7 @@ function App() {
         Component={LessonDetail}
       />
       <AdminTemplate path="/admin/courses" exact Component={Course} />
-      <HomeTemplate path="/test" exact Component = {Test} />
+      <HomeTemplate path="/test" exact Component={Test} />
     </Switch>
   );
 }

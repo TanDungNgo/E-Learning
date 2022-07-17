@@ -6,4 +6,4 @@ export const ERROR = "ERROR";
 
 export const ROLE = "role";
 
-export const BASE_URL = "http://localhost:8000/api";
+export const BASE_URL = "https://benefique-monsieur-33716.herokuapp.com/api";

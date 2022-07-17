@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { Route } from "react-router-dom";
 import { Footer } from "./Footer/Footer";
 import { Header } from "./Header/Header";
@@ -11,7 +11,7 @@ export const HomeTemplate = (props) => {
       render={(propsRoute) => {
         return (
           <>
-            <Header absolute={props.absoluteheader} {...propsRoute} />
+            <Header absolute={props.absoluteHeader} {...propsRoute} />
             <Component {...propsRoute} />
             <Footer {...propsRoute} />
           </>

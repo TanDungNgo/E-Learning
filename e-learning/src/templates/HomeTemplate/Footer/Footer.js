@@ -7,11 +7,10 @@ export const Footer = () => {
       <div className="container grid grid-cols-5 py-10 mx-auto space-y-8 lg:flex-row lg:space-y-0">
         <div className="col-span-2">
           <NavLink to="/" className="flex space-x-3 ">
-          {/* logohv: https://i.ibb.co/HzmfGHk/e-learninglogovuong.png */}
             <img
               src="https://i.ibb.co/xzv4QsC/e-learningkaiwalogo.png"
               alt="logo"
-              style={{height: 120}}
+              style={{ height: 120 }}
             />
           </NavLink>
         </div>
