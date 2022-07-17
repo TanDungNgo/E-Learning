@@ -20,15 +20,10 @@ use App\Http\Controllers\API\SendNotificationController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('/students', [StudentController::class, 'index']);
-
-Route::post('/add-student', [StudentController::class, 'store']);
-
-Route::get('/edit-student/{id}', [StudentController::class, 'edit']);
-
-Route::put('/update-student/{id}', [StudentController::class, 'update']);
-
-Route::delete('/delete-student/{id}', [StudentController::class, 'destroy']);
+Route::get('/studying-course', [StudentController::class, 'index']);
+Route::get('isStudent', [StudentController::class, 'isStudent']);
+Route::post('/students/enroll', [StudentController::class, 'EnrollCourse']);
+Route::delete('/students/unenroll', [StudentController::class, 'UnenrollCourse']);
 
 // Course
 
@@ -77,7 +72,7 @@ Route::get('/see-feedback/{id}', [FeedbackController::class, 'see_feedback']);
 Route::get('/admin/all-request-become-teacher', [UpgradeTeacherController::class, 'index']);
 Route::post('/request-to-become-teacher', [UpgradeTeacherController::class, 'RequestBecomeTeacher']);
     //See Notification
-Route::get('/see-notification', [SendNotificationController::class, 'NotifyUpgrateToTeacher']);
+Route::get('/user-notification/{user_id}', [SendNotificationController::class, 'NotifyUser']);
 //accept request
 Route::put('admin/approve-request-become-teacher/{id}', [UpgradeTeacherController::class, 'approve_request_become_teacher']);
 //reject request
