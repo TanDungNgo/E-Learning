@@ -11,7 +11,7 @@ class Course extends Component
 
     async componentDidMount() {
 
-        const res = await axios.get('http://127.0.0.1:8000/api/courses');
+        const res = await axios.get('https://benefique-monsieur-33716.herokuapp.com/api/courses');
         if(res.data.status === 200)
         {
             this.setState({
@@ -23,7 +23,7 @@ class Course extends Component
     deleteCourse = async (e, id) => {
         const thidClickedFunda = e.currentTarget;
         thidClickedFunda.innerText = "Deleting"
-        const res = await axios.delete(`http://127.0.0.1:8000/api/delete-course/${id}`);
+        const res = await axios.delete(`https://benefique-monsieur-33716.herokuapp.com/api/delete-course/${id}`);
         if(res.data.status === 200)
         {
             thidClickedFunda.closest("tr").remove();

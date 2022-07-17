@@ -23,7 +23,8 @@ class LessonController extends Controller
     }
     public function index($id)
     {
-        $course = Course::find($id);
+        $course = DB::table('courses')->join('users', 'users.id', '=', 'courses.teacher_id')
+        ->select('users.username', 'courses.*')->where('courses.id', $id)->get();
         $lessons = DB::table('lessons')->where('course_id', $id)->get();
         return response()->json([
             'status' => 200,
