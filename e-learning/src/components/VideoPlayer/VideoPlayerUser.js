@@ -10,57 +10,61 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import storageFirebase from "../../utils/settings/firebaseConfig";
 import { saveRecordAction } from "../../redux/actions/RecordActions";
 import { getTimedatasByLessonIdAction } from "../../redux/actions/TimedataActions";
+
 const timedatasDefault = [
   {
     minute: 0,
-    seconds: 20,
+    second: 5,
   },
   {
     minute: 0,
-    seconds: 40,
+    second: 40,
   },
   {
     minute: 0,
-    seconds: 55,
+    second: 55,
   },
   {
     minute: 1,
-    seconds: 15,
+    second: 15,
   },
 ];
 
-const VideoPlayer = (props) => {
+const VideoPlayerUser = (props) => {
   let { lesson } = props;
 
   // console.log(lesson);
   const videoElement = useRef(null);
 
-  // const { timedatasDefault } = useSelector((state) => state.TimedataReducer);
+//   const { timedatasDefault } = useSelector((state) => state.TimedataReducer);
   const [isStart, setIsStart] = useState(false);
   const [isStop, setIsStop] = useState(false);
   const [displayHidden, setDisplayHidden] = useState("hidden");
   const [disable, setDisable] = useState(false);
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(getTimedatasByLessonIdAction(lesson.id));
-  // }, []);
   useEffect(() => {
+    dispatch(getTimedatasByLessonIdAction(lesson.id));
+  }, []);
+  useEffect(() => {
+    const timeData = timedatasDefault;
+    console.log("timeData", timeData);
     const interval = setInterval(async () => {
       const elapsed_sec = await videoElement.current.currentTime;
-
       // calculations
       let elapsed_ms = Math.floor(elapsed_sec * 1000);
       let ms = elapsed_ms % 1000;
       let min = Math.floor(elapsed_ms / 60000);
-      let seconds = Math.floor((elapsed_ms - min * 60000) / 1000);
-
-      timedatasDefault.forEach((item) => {
-        if (min === item.minute && seconds === item.second && ms < 100) {
+      let second = Math.floor((elapsed_ms - min * 60000) / 1000);
+      timeData.forEach((item) => {
+        // console.log('min + sec:', min, second, 'compare with', item.minute, item.second);
+        if (min === item.minute && second === item.second && ms < 100) {
+            
           videoElement.current.pause();
           setDisplayHidden("");
           setIsStop(false);
-          timedatasDefault.shift();
+          timeData.shift();
+          console.log("Stop");
         }
       });
     }, 100);
@@ -109,10 +113,11 @@ const VideoPlayer = (props) => {
       <video
         controls
         ref={videoElement}
-        poster="https://i.ytimg.com/vi/2Gg6Seob5Mg/maxresdefault.jpg  "
-        className="w-full drop-shadow-lg"
+        poster={props.fixedBanner || "https://i.ytimg.com/vi/2Gg6Seob5Mg/maxresdefault.jpg"}
+        src={props.fixedUrl || lesson.video_link || "https://media.w3.org/2010/05/bunny/movie.mp4"}
+        className="w-full drop-shadow-lg rounded-lg"
       >
-        <source src={lesson.video_link} type="video/mp4" />
+        {/* <source src={lesson.video_link} type="video/mp4" /> */}
          {/* <source
           src="https://media.w3.org/2010/05/bunny/movie.mp4"
           type="video/mp4"
@@ -198,4 +203,4 @@ const VideoPlayer = (props) => {
   );
 };
 
-export default VideoPlayer;
+export default VideoPlayerUser;

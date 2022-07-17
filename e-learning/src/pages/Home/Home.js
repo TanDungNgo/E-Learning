@@ -7,6 +7,7 @@ import { getAllCoursesAction } from "../../redux/actions/CourseAction";
 import { getAllTeachersAction } from "../../redux/actions/UserActions";
 
 import { HomeCarousel } from "../../templates/HomeTemplate/HomeCarousel/HomeCarousel";
+import RecordListAll from "../RecordList/RecordListAll";
 
 const mockDataTeachers = [
   {
@@ -59,61 +60,53 @@ export const Home = (props) => {
   return (
     <>
       <HomeCarousel />
-      <div className="container mt-10 ">
-        <div className="grid grid-cols-3 gap-5 ">
-          <Input
-            allowClear
-            placeholder="Input course name"
-            className="col-span-1 !text-black !border-gray-800"
-          />
-          <Input
-            allowClear
-            placeholder="Input teacher name"
-            className="col-span-1 !text-black !border-gray-800"
-          />
-          <Search
-            placeholder="Input lesson name"
-            allowClear
-            enterButton="Search"
-            className="col-span-1 !text-black "
-            style={{ borderColor: "black" }}
-          />
+      <div className="bg-xoan-cham bg-F9F6E8 pt-10 pb-20">
+        <div className="flex items-center justify-center pt-20 mb-20">
+          <span className="line-text text-4xl font-bold">Our lastest courses</span>
+        </div>
+        <MultipleCourses
+          listCourses={coursesDefault}
+          history={props.history}
+          localtion={props.localtion}
+        />
+        <div className="flex items-center w-full justify-center pt-12">
+          <button
+            className="text-lg col-span-1 bg-orange-100 hover:bg-orange-300 text-orange-500 font-semibold hover:text-white py-2 px-8 border  border-orange-300 hover:border-transparent rounded-xl"
+            onClick={() => {
+            }}
+          >
+            View All
+          </button>
         </div>
       </div>
-      <div className="line flex items-center justify-center mb-20 mt-10">
-        <div className="each-line"></div>
-        <span className="line-text text-4xl font-bold">Latest Courses</span>
-        <div className="each-line"></div>
+      <div className="py-10 background-teacher">
+        <div className="flex items-left justify-left py-8 pl-24">
+          <span className="text-3xl font-semibold">Meet our teachers</span>
+        </div>
+        <MultipleTeachers
+          // listTeachers={mockDataTeachers}
+          listTeachers={teachersDefault}
+          history={props.history}
+          localtion={props.localtion}
+        />
+        <div className="flex items-center w-full justify-center pt-12">
+          <button
+            className="text-lg col-span-1 bg-orange-100 hover:bg-orange-300 text-orange-500 font-semibold hover:text-white py-2 px-8 border  border-orange-300 hover:border-transparent rounded-xl"
+            onClick={() => {
+            }}
+          >
+            View All
+          </button>
+        </div>
       </div>
-      <MultipleCourses
-        listCourses={coursesDefault}
-        history={props.history}
-        localtion={props.localtion}
-      />
-      <div className="line flex items-center justify-center my-20">
-        <div className="each-line"></div>
-        <span className="line-text text-4xl font-bold">
-          Most popular Courses
-        </span>
-        <div className="each-line"></div>
+      <div>
+      <div className="background-record pb-20">
+      <div className="flex items-center justify-center pt-20 mb-20">
+          <span className="line-text text-4xl font-bold">Student Records</span>
+        </div>
+      <RecordListAll />
       </div>
-      <MultipleCourses
-        listCourses={coursesDefault}
-        history={props.history}
-        localtion={props.localtion}
-      />
-      <div className="line flex items-center justify-center my-20">
-        <div className="each-line"></div>
-        <span className="line-text text-4xl font-bold">Famous Teachers</span>
-        <div className="each-line"></div>
       </div>
-      <MultipleTeachers
-        // listTeachers={mockDataTeachers}
-        listTeachers={teachersDefault}
-        history={props.history}
-        localtion={props.localtion}
-      />
-      <hr className="mt-10" />
     </>
   );
 };

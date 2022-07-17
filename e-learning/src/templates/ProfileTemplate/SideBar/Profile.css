@@ -1,0 +1,11 @@
+body {
+    background-color: #f7f7f7;
+}
+img {
+    object-fit: cover;
+}
+
+.background-laravel {
+    background-image: url('https://img.freepik.com/free-vector/realistic-white-golden-geometric-background_79603-2032.jpg?t=st=1657939796~exp=1657940396~hmac=8882477d91ed3d845a683e8602f94c3b444bf2e8945f120baaa0495fee707797&w=900');
+    background-size: cover;
+}

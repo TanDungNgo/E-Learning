@@ -1,11 +1,12 @@
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Slider from "react-slick";
 import styleSlick from "./MultipleItems.module.css";
 
 import ButtonBase from "../Button/Button";
+import TeacherCard from "./TeacherCard";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -34,10 +35,10 @@ const description =
 
 export const MultipleTeachers = (props) => {
   var settings = {
-    infinite: true,
+    infinite: false,
     slidesToShow: 3,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 3000,
     cssEase: "linear",
     pauseOnHover: true,
@@ -45,45 +46,22 @@ export const MultipleTeachers = (props) => {
     prevArrow: <SamplePrevArrow />,
   };
 
+  useEffect(()=> {
+
+  },[])
   const { listTeachers, history, localtion } = props;
   console.log("listTeachers", listTeachers);
+  console.log("props", props);
   const renderTeachers = (listTeachers) => {
-    return listTeachers?.map((item, index) => {
+    return listTeachers.map((item, index) => {
+      console.log("render", item)
       return (
         <div
           key={index}
-          style={{ height: 400, width: 300 }}
-          className={`${styleSlick["width-item"]} px-5  `}
+          style={{ height: 100, width: 300 }}
+          className={`${styleSlick["width-item"]} ${styleSlick["height-item"]} px-5  `}
         >
-          <img
-            src={`${item.avatar}`}
-            alt="abc"
-            className="w-full"
-            style={{ height: 200 }}
-          />
-          <div className="border-x border-gray-400">
-            <h1 className="text-lg font-bold text-center">
-              {/* let fileName = username.concat( "_", courseName, "_",
-              lessonNumber, "_", stt ); */}
-              {item.firstname.concat(" ", item.lastname)}
-            </h1>
-            <p className="mb-0 px-1">
-              {description.length > 50
-                ? description.substr() + "..."
-                : description}
-            </p>
-          </div>
-          <ButtonBase
-            textContent="View detail"
-            className="w-full !rounded-none"
-            onClick={() => {
-              alert(
-                item.firstname.concat(" ", item.lastname) +
-                  "  ||  " +
-                  description
-              );
-            }}
-          />
+          <TeacherCard />
         </div>
       );
     });

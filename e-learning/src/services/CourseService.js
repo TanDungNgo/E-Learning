@@ -12,7 +12,7 @@ const updateCourseById = (id, data) => {
 };
 
 const createCourse = (data) => {
-  return Api.post("/courses", data);
+  return Api.post("/add-course", data);
 };
 
 const deleteCourseById = (id) => {

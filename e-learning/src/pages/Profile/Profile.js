@@ -15,6 +15,7 @@ import SideBar from '../../templates/ProfileTemplate/SideBar/SideBar';
 
 const Profile = (props) => {
   const userLogin = JSON.parse(localStorage.getItem(USER_LOGIN));
+  const [showEditAvatar,setShowEditAvatar] = useState(false)
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
@@ -29,15 +30,7 @@ const Profile = (props) => {
 
   return (
     <>
-        <Header/>
-
-
-<div class="grid overflow-hidden grid-cols-4 grid-rows-1 gap-5 pt-40 pb-12 px-24">
-    <div class="">
-        <SideBar/>
-    </div>
-    <div class="col-span-3">
-        <div class="inline-block px-40 w-full">
+        <div class="inline-block px-20 w-full bg-white bg-profile border-2 border-gray-300 rounded-lg">
             <Form
             labelCol={{
                 span: 2,
@@ -48,12 +41,12 @@ const Profile = (props) => {
             layout="horizontal"
             onSubmitCapture={formik.handleSubmit}
             >
-            <div style={{ border: "" }} className="w-full">
+            <div style={{ border: "" }} className="w-full drop-shadow">
                 <div className='flex justify-center'>
-                        <div className='inline-block border-2 border-sky-500 rounded-full mb-12 relative'>
+                        <div className='mt-2 inline-block border-2 border-sky-500 rounded-full mb-12 relative'>
                             <img 
-                                class="rounded-full w-32 h-32"
-                                src='https://nhathauxaydung24h.com/wp-content/uploads/2022/01/avatar-ngau-loi.jpg'
+                                class="rounded-full w-28 h-28"
+                                src={userLogin.avatar || 'https://nhathauxaydung24h.com/wp-content/uploads/2022/01/avatar-ngau-loi.jpg'}
                             />
                             <EditFilled className='absolute drop-shadow-lg'  style={{
                                                                     color: 'white',
@@ -61,23 +54,69 @@ const Profile = (props) => {
                                                                     position: "absolute",
                                                                     top: "80%",
                                                                     
-                                                                    }}/>
+                                                                    }}
+                                                                    onClick={()=> {
+                                                                        setShowEditAvatar(!showEditAvatar);
+                                                                    }}
+                                                                    />
                         </div>
                 </div>
+                {
+                    showEditAvatar
+                    ?
+                    <Form.Item
+                rules={[
+                    {
+                    required: true,
+                    message: "Please input your password!",
+                    },
+                    {
+                    min: 8,
+                    message: "Must be between 8 to 50 characters!",
+                    },
+                    {
+                    max: 50,
+                    message: "Must be between 8 to 50 characters!",
+                    },
+                ]}
+                onChange={formik.handleChange}
+                >
+            <div class="flex flex-wrap -mx-3 mb-3">
+                <div class="w-full px-3">
+                    <label
+                        class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                        for="avatar">
+                        Link your new avatar
+                    </label>
+                    <input
+                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                        id="avatar"
+                        type="text"
+                        name='avatar'
+                        defaultValue={userLogin.avatar}
+                        placeholder="Joemama"/>
+                    {/* <p class="text-gray-600 text-xs italic">We don't required a confirm password so carefull with your new one</p> */}
+                </div>
+            </div>
+
+                </Form.Item>
+                    :
+                    <></>
+                }
                 {
                     userLogin.role == "teacher" 
                     ? 
                     <>
-                        <div className='flex my-4'>
+                        <div className='flex my-4 rounded-full'>
                             <ContactsTwoTone style={{
-                                                                fontSize: '2rem',                                                            
-                                                                }}/>
-                            <p class="mx-2 pt-2 uppercase text-gray-700 font-black font-mono">TEACHER</p>
+                                                                fontSize: '2rem',
+                                                                }} twoToneColor="#FF9D34"/>
+                            <p class="mx-2 pt-2 uppercase text-gray-700 font-black font-mono">teacher</p>
                         </div>
                     </> 
                     :
                     <>
-                    <p class="text-gray-600 text-xs italic">Want to be a teacher? <NavLink to="/request">Request now!</NavLink></p>
+                    <p class="text-gray-600 text-xs italic">Want to be a teacher? <NavLink to="/upgrade">Request now!</NavLink></p>
                     </>
                 }
                 <Form.Item
@@ -237,13 +276,6 @@ const Profile = (props) => {
             </div>
             </Form>
         </div>
-    </div>
-
-</div>
-
-
-
-        <Footer/>
     </>
   )
 }

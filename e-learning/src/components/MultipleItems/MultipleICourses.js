@@ -6,6 +6,7 @@ import Slider from "react-slick";
 import styleSlick from "./MultipleItems.module.css";
 
 import ButtonBase from "../Button/Button";
+import CourseCard from "./CourseCard";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -45,40 +46,14 @@ export const MultipleCourses = (props) => {
   const { listCourses, history, localtion } = props;
   const renderCourse = (listCourses) => {
     return listCourses.map((item, index) => {
+      console.log('course',item);
       return (
         <div
           key={index}
-          style={{ height: 400, width: 300 }}
-          className={`${styleSlick["width-item"]} px-5  `}
+          style={{ height: 300, width: 400 }}
+          className={`${styleSlick["width-item"]} ${styleSlick["height-item"]} px-5  `}
         >
-          <img
-            src={`${item.banner}`}
-            alt="abc"
-            className="w-full"
-            style={{ height: 200 }}
-          />
-          <div
-            className="grid grid-cols-4 px-1 border-x border-gray-400"
-            style={{ height: 70 }}
-          >
-            <div className="col-span-3">
-              <h1 className="font-bold mb-0 text-base">{item.name}</h1>
-              <p className="mb-0">{item.description}</p>
-            </div>
-            <div className="col-span-1 text-right">
-              <p className="m-0">{item.teacher_id}</p>
-              <i className="fa fa-star text-yellow-500 p-1">
-                <span className="text-black px-1">{item.voting}</span>
-              </i>
-            </div>
-          </div>
-          <ButtonBase
-            textContent="View detail"
-            className="w-full !rounded-none"
-            onClick={() => {
-              props.history.push(`/courses/${item.id}`);
-            }}
-          />
+          <CourseCard course={item}/>
         </div>
       );
     });

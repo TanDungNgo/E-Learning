@@ -99,7 +99,7 @@ export const CourseDetail = (props) => {
   };
   return (
     <>
-      <div className="mt-5 border border-black ">
+      <div className="border border-black ">
         <div className=" container py-6">
           <div className="flex justify-between gap-10 items-center leading-10">
             <div className="">

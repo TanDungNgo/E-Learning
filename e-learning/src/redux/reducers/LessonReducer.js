@@ -72,6 +72,7 @@ export const LessonReducer = (state = stateDefault, action) => {
       return { ...state };
     case GET_LESSON_DETAILS:
       state.lesson = action.value;
+      return {...state};
     default:
       return { ...state };
   }

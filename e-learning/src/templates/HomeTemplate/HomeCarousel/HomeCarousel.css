@@ -8,3 +8,14 @@
 .slick-dots li button:before{
   font-size: 0 !important;
 }
+
+.background-record {
+  background-image: url('https://img.freepik.com/free-photo/white-product-backdrop-wall_53876-128616.jpg?w=900&t=st=1657958382~exp=1657958982~hmac=5d7073de8aa0432dbf2431a95ba5a0960aa70593d329c31dbddff013fe770ee2');
+  background-size: cover;
+}
+
+.background-teacher {
+  /* background-image: url('https://img.freepik.com/free-vector/abstract-shiny-lines-white-gray-background_1017-25097.jpg?t=st=1657957068~exp=1657957668~hmac=6dd48da7503995ba69a0fa7329234ad0bb3e164c88e250942b322d49b43c116f&w=1060'); */
+  background: rgb(248,248,250);
+background: linear-gradient(180deg, rgba(248,248,250,1) 0%, rgba(227,227,225,1) 100%);
+}

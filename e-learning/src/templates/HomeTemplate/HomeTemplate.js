@@ -11,7 +11,7 @@ export const HomeTemplate = (props) => {
       render={(propsRoute) => {
         return (
           <>
-            <Header {...propsRoute} />
+            <Header absolute={props.absoluteheader} {...propsRoute} />
             <Component {...propsRoute} />
             <Footer {...propsRoute} />
           </>
