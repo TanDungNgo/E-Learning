@@ -25,9 +25,9 @@ class SendNotificationController extends Controller
         $user = User::find($data['user_id']);
         $user->notify(new SendNotification ($data));
     }
-    public function NotifyUpgrateToTeacher(Request $request)
+    public function NotifyUser(Request $request)
     {
-        $user = User::find($request->input('user_id'));
+        $user = User::find($request->$user_id);
         $notify = $user->notifications()->get();
         return response()->json([
             'notify' => $notify,
