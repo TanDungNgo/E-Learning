@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use Validator;
 use Illuminate\Support\Facades\Auth;
 
+use App\Http\Requests\SendNotificationRequest;
+use App\Notifications\SendNotification;
+
 class UserController extends Controller
 {
     
@@ -56,7 +59,7 @@ class UserController extends Controller
             'email' => 'required|string|email|unique:users,email',
             'password' => 'required|string|min:3|max:32',
             'passwordAgain' => 'required|same:password',
-            'phone_number' => 'required|min:10|max:11',
+            'phone_number' => 'required|min:3|max:11',
         ]);
         if ($validator->fails()) {
             return response()->json([
@@ -71,6 +74,11 @@ class UserController extends Controller
         $user->phone_number = $request->phone_number;
         $user->password = bcrypt($request->password);
         $user->save();
+        $data =[
+            'name' => "Chào mừng thành viên mới",
+            'description' => "Chúc bạn có những trải nghiệm tuyệt vời!",
+        ];
+        $user->notify(new SendNotification($data));
         return response()->json([
             'status' => 200,
             'message' => "Đăng kí thành công!",
