@@ -184,7 +184,7 @@ class CourseController extends Controller
     //search course by name and description
     public function search(Request $request)
     {
-        $search = $request->input('search');
+        $search = $request->input('searchTerm');    
         $courses = Course::where('name', 'like', '%'.$search.'%')
         ->orWhere('description', 'like', '%'.$search.'%')
         ->get();

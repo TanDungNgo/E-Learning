@@ -33,8 +33,14 @@ class UpgradeTeacherController extends Controller
         // ]);
         
         $user = User::find($request->input('user_id'));
-
-        if($user->role == 'teacher'){
+        $HasRequest = UpgradeTeacher::where('user_id', $request->input('user_id'));
+        if($HasRequest->count() > 0){
+            return response()->json([
+                'status' => 400,
+                'message' => 'You have already sent request',
+            ]);
+        }
+        else if($user->role == 'teacher'){
             return response()->json([
                 'status' => 400,
                 'message' => 'User is already a teacher',
@@ -65,9 +71,9 @@ class UpgradeTeacherController extends Controller
         //send notification to user
         $data = [
             'user_id' => $user->id,
-            'name' => 'Upgrade To Teacher',
+            'name' => 'Yêu cầu trở thành giáo viên được phê duyệt',
             'status' => 'accepted',
-            'description' => 'Xin chúc mừng, Bạn đã trở thành giáo viên',
+            'description' => 'Xin chúc mừng, Bạn đã trở thành giáo viên!',
         ];
         $user->notify(new SendNotification ($data));
         
@@ -84,9 +90,9 @@ class UpgradeTeacherController extends Controller
         //send notification to user
         $data = [
             'user_id' => $req->user_id,
-            'name' => 'Upgrade To Teacher',
+            'name' => 'Yêu cầu trở thành giáo viên đã bị từ chối',
             'status' => 'rejected',
-            'description' => 'Thật đáng tiếc, bạn không đủ điều kiện để trở thành giáo viên',
+            'description' => 'Thật đáng tiếc, bạn không đủ điều kiện để trở thành giáo viên!',
         ];
         $user = User::find($req->user_id);
         $user->notify(new SendNotification ($data));
