@@ -5,8 +5,12 @@ use App\Models\Record;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Models\Feedback;
+use App\Models\Lesson;
+use App\Models\Course;
+use App\Models\User;
+use App\Models\Student;
 use Illuminate\Http\Request;
-
+use App\Notifications\SendNotification;
 class FeedbackController extends Controller
 {
     public function index($id)
@@ -25,6 +29,16 @@ class FeedbackController extends Controller
         $feedback->body = $request->input('body');
         $feedback->record_id = $request->input('record_id');
         $feedback->save();
+        //notify student
+        $user = User::where('id', $request->input('student_id'))->first();
+        $lessonID = Record::where('id', $request->input('record_id'))->first()->lesson_id;
+        $lesson = Lesson::where('id', $lessonID)->get('name');
+        $lesson = $lesson[0]->name;
+        $data = [
+            'name' => "Feedback Record",
+            'description' => 'Ghi âm của bạn ở bài học: ' . $lesson . ' đã được giáo viên nhận xét!',
+        ];
+        $user->notify(new SendNotification($data));
         return response()->json([
             'status' => 200,
             'message' => 'Feedback Successfully',
