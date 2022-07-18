@@ -8,7 +8,6 @@ export const loginAction = (userLogin, propsRoute) => {
   return async (dispatch) => {
     try {
       const result = await UserService.login(userLogin);
-      console.log(result);
       dispatch({
         type: LOGIN,
         value: result.user,

@@ -7,7 +7,7 @@ import {
   updateCourseAction,
 } from "../../../redux/actions/CourseAction";
 
-const courseDetail = {
+const courseDetail1 = {
   id: 1,
   name: "Làm chủ tiếng nhật trong 1 ngày",
   description:
@@ -69,12 +69,14 @@ const courseDetail = {
 };
 
 const EditCourse = (props) => {
-  // const { courseDetail } = useSelector((state) => state.CourseReducer);
-  // const dispatch = useDispatch();
-  // let { id } = props.match.params;
-  // useEffect(() => {
-  //   dispatch(getCourseByIdAction(id));
-  // }, []);
+  const { courseDetail } = useSelector((state) => state.CourseReducer);
+
+  console.log("courseDetail", courseDetail);
+  const dispatch = useDispatch();
+  let { id } = props.match.params;
+  useEffect(() => {
+    dispatch(getCourseByIdAction(id));
+  }, []);
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -84,13 +86,6 @@ const EditCourse = (props) => {
       banner: courseDetail.banner,
       price: courseDetail.price,
     },
-
-    // initialValues: {
-    //   name: courseDetail.name,
-    //   description: courseDetail.description,
-    //   banner: courseDetail.banner,
-    //   price: courseDetail.price,
-    // },
 
     onSubmit: (values) => {
       const body = {

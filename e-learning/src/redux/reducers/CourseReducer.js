@@ -1,6 +1,5 @@
 import { GET_ALL_COURSES, GET_COURSE_DETAILS } from "../types/CourseTypes";
 
-
 // const courseDetail = {
 //   id: 1,
 //   name: "Làm chủ tiếng nhật trong 1 ngày",

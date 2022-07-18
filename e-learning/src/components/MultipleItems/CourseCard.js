@@ -5,6 +5,23 @@ import { FolderOpenOutlined } from "@ant-design/icons";
 
 const CourseCard = (props) => {
   const { course } = props;
+
+  const renderOverView = course.description?.split(";").map((item, index) => {
+    return (
+      <li className="my-1" style={{ maxInlineSize: "none" }} key={index}>
+        <div className="flex align-center relative">
+          <span className="dot absolute"></span>
+          <span
+            className="pl-8 text-medium font-medium tracking-tight"
+            title={item}
+          >
+            {item.length > 20 ? item.substr(0, 20) + " ..." : item}
+          </span>
+        </div>
+      </li>
+    );
+  });
+
   return (
     <>
       <NavLink to={`/course/${course.id}`}>
@@ -12,18 +29,19 @@ const CourseCard = (props) => {
           <img
             className="banned-img rounded-t-lg"
             src={props.course.banner}
-            alt="abc"
+            alt={course.name}
           />
           <div className="p-3">
             <h6 className="mb-2 text-base font-bold tracking-tight text-gray-800 dark:text-white">
-              {course.name}
+              <span title={course.name}>
+                {course.name.length > 25
+                  ? course.name.substr(0, 25) + " ..."
+                  : course.name}
+              </span>
             </h6>
-            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 w-full">
-              {course.description}
-              {course.description.length > 30
-                ? course.description.substr(0, 30) + " ..."
-                : course.description}
-            </p>
+            <ul className=" mb-2 text-base font-bold tracking-tight text-gray-800 dark:text-white">
+              {renderOverView}
+            </ul>
             <div className="flex justify-between">
               <div className="flex">
                 <FolderOpenOutlined className="folder-icon">

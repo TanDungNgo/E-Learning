@@ -46,7 +46,7 @@ function App() {
         Component={AddLesson}
       />
       <AdminTemplate
-        path="/admin/courses/:id/lessons"
+        path="/admin/courses/:courseId/lessons"
         exact
         Component={Lessons}
       />
@@ -84,7 +84,7 @@ function App() {
       <HomeTemplate
         path="/courses/:courseId/lessons/:lessonId"
         exact
-        Component={LessonDetail}
+        Component={LessonDetailUser}
       />
       <AdminTemplate path="/admin/courses" exact Component={Course} />
       <HomeTemplate path="/test" exact Component={Test} />

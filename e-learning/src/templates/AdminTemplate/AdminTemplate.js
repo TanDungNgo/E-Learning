@@ -4,7 +4,7 @@ import { Redirect, Route } from "react-router";
 import { Layout, Menu, Breadcrumb, Dropdown, Space } from "antd";
 import { FileOutlined, UserOutlined } from "@ant-design/icons";
 import { NavLink } from "react-router-dom";
-import { USER_LOGIN } from "../../utils/settings/config";
+import { logoE_Learning, USER_LOGIN } from "../../utils/settings/config";
 import { logoutAction } from "../../redux/actions/UserActions";
 // import _ from "lodash";
 
@@ -89,10 +89,10 @@ const AdminTemplate = (props) => {
           }}
           className="text-2xl ml-5 rounded-full bg-red-200 flex justify-center items-center"
         >
-          {userLogin.email.substr(0, 1).toUpperCase()}
+          {userLogin.username.substr(0, 1).toUpperCase()}
         </span>
-        <NavLink to="/profile" className="!text-white !font-bold">
-          {userLogin.email}
+        <NavLink to="/profile">
+          <span className="!text-white !font-bold"> {userLogin.username}</span>
         </NavLink>
       </Space>
     </Dropdown>
@@ -106,11 +106,13 @@ const AdminTemplate = (props) => {
           <Fragment>
             <Layout>
               <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
-                <div className="logo">
-                  <img
-                    src="https://jwchat.org/kaiwa/images/logo-big.png"
-                    alt="logo"
-                  />
+                <div
+                  className="logo cursor-pointer"
+                  onClick={() => {
+                    propsRoute.history.push("/");
+                  }}
+                >
+                  <img src={logoE_Learning} alt="logo" />
                 </div>
                 <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
                   <Menu.Item key="1" icon={<UserOutlined />}>
