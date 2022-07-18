@@ -33,7 +33,7 @@ class UpgradeTeacherController extends Controller
         // ]);
         
         $user = User::find($request->input('user_id'));
-        $HasRequest = UpgradeTeacher::where(['user_id', $request->input('user_id'), 'status', 'pending']);
+        $HasRequest = UpgradeTeacher::where(['user_id' => $request->input('user_id'), 'status'=> 'pending']);
         if($user->role == 'teacher'){
             return response()->json([
                 'status' => 400,
