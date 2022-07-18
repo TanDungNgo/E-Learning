@@ -4,7 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import TeacherCard from "../../components/MultipleItems/TeacherCard";
-import { getCourseDetailAction } from "../../redux/actions/CourseAction";
+import {
+  getAllCoursesAction,
+  getCourseDetailAction,
+} from "../../redux/actions/CourseAction";
 import {
   FolderOpenOutlined,
   UserOutlined,
@@ -43,34 +46,36 @@ const courseDetail = {
 export const CourseDetailUser = (props) => {
   const dispatch = useDispatch();
   let { id } = props.match.params;
-  const { coursesDefault } = useSelector((state) => state.CourseReducer);
+  const { courseDetail } = useSelector((state) => state.CourseReducer);
   useEffect(() => {
     dispatch(getCourseDetailAction(id));
-    console.log(coursesDefault);
   }, []);
-  const renderLessons = () => {
-    return courseDetail.listLessons.splice(0, 5).map((item, index) => {
-      return (
-        <div key={index} className="p-3 grid grid-cols-3">
-          <img
-            className="col-span-1"
-            src={courseDetail.banner}
-            alt={item.name}
-            style={{ width: 200, height: 150 }}
-          />
-          <div className="col-span-2 ">
-            <NavLink
-              to={`/courses/${courseDetail.id}/lessons/${item.id}`}
-              className="text-black font-bold"
-            >
-              {item.name}
-            </NavLink>
-            <p>{item.description}</p>
-          </div>
-        </div>
-      );
-    });
-  };
+  console.log("data", courseDetail);
+
+
+  // const renderLessons = () => {
+  //   return courseDetail.listLessons.splice(0, 5).map((item, index) => {
+  //     return (
+  //       <div key={index} className="p-3 grid grid-cols-3">
+  //         <img
+  //           className="col-span-1"
+  //           src={courseDetail.banner}
+  //           alt={item.name}
+  //           style={{ width: 200, height: 150 }}
+  //         />
+  //         <div className="col-span-2 ">
+  //           <NavLink
+  //             to={`/courses/${courseDetail.id}/lessons/${item.id}`}
+  //             className="text-black font-bold"
+  //           >
+  //             {item.name}
+  //           </NavLink>
+  //           <p>{item.description}</p>
+  //         </div>
+  //       </div>
+  //     );
+  //   });
+  // };
   return (
     <>
       <div class="grid overflow-hidden grid-cols-2 grid-rows-none gap-px bg-white drop-shadow-xl m-4 rounded-lg">
@@ -78,7 +83,6 @@ export const CourseDetailUser = (props) => {
           <div class="course-info grid overflow-hidden grid-cols-1 grid-rows-7 gap-px">
             <div class="row-span-1">
               <span className="text-4xl font-bold">
-                {/* The Complete 2022 Web Development Bootcamp */}
                 {courseDetail.course[0].name}
               </span>
             </div>

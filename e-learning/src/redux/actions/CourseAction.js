@@ -31,7 +31,7 @@ export const getCourseDetailAction = (id) => {
       // Đưa lên kho chứa (redux)
       dispatch({
         type: GET_COURSE_DETAILS,
-        value: result.course,
+        value: result,
       });
     } catch (error) {
       console.log("error>>", error);
@@ -95,7 +95,7 @@ export const getAllCoursesAction = () => {
   return async (dispatch) => {
     try {
       const result = await CourseService.getAllCourses();
-
+      console.log("alo", result);
       // Đưa lên kho chứax)
       dispatch({
         type: GET_ALL_COURSES,
