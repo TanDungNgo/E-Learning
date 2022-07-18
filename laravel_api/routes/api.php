@@ -43,6 +43,7 @@ Route::put('/approve-pending-course/{id}', [CourseController::class, 'ApprovePen
 
 // Lesson
 Route::get('/lessons/{id}', [LessonController::class, 'index']);
+Route::get('/course/{courseId}/lesson/{lessonId}', [LessonController::class, 'getOne']); //lay 1 lesson cu the
 Route::post('/add-lesson', [LessonController::class, 'store']);
 Route::delete('/delete-lesson/{id}', [LessonController::class, 'destroy']);
 Route::get('/edit-lesson/{id}', [LessonController::class, 'edit']);
