@@ -181,4 +181,16 @@ class CourseController extends Controller
             'popular_course' => $popular_course,
         ]);
     }
+    //search course by name and description
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+        $courses = Course::where('name', 'like', '%'.$search.'%')
+        ->orWhere('description', 'like', '%'.$search.'%')
+        ->get();
+        return response()->json([
+            'status' => 200,
+            'courses' => $courses,
+        ]);
+    }
 }
