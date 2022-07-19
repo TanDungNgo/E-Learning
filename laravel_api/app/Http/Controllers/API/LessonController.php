@@ -24,12 +24,21 @@ class LessonController extends Controller
     public function index($id)
     {
         $course = DB::table('courses')->join('users', 'users.id', '=', 'courses.teacher_id')
-        ->select('users.username', 'courses.*')->where('courses.id', $id)->get();
+        ->select('users.username', 'courses.*')->where('courses.id', $id)->first();
         $lessons = DB::table('lessons')->where('course_id', $id)->get();
+        $data= [
+            'username' => $course->username,
+            'name' => $course->name,
+            'description' => $course->description,
+            'banner' => $course->banner,
+            'price' => $course->price,
+            'status' => $course->status,
+            'lessons' => $lessons,
+        ];
         return response()->json([
             'status' => 200,
-            'course' => $course,
-            'lessons' => $lessons,
+            'course' => $data,
+            // 'lessons' => $lessons,
         ]);
     }
     //pending lesson for admin approve
