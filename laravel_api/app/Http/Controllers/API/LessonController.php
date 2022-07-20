@@ -16,9 +16,18 @@ class LessonController extends Controller
     public function getOne($courseId, $lessonId)
     {
         $lesson = Lesson::find($lessonId);
+        $data = [];
+        $records = DB::table('records')->where('lesson_id', '=', $lessonId)->get();
+        $data = [
+            'name' => $lesson->name,
+            'description' => $lesson->description,
+            'video_link' => $lesson->video_link,
+            'status' => $lesson->status,
+            'records'=> $records,
+        ];
         return response()->json([
             'status' => 200,
-            'lesson' => $lesson,
+            'lesson' => $data,
         ]);
     }
     public function index($id)
