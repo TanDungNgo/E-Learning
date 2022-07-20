@@ -15,16 +15,20 @@ class LessonController extends Controller
 {
     public function getOne($courseId, $lessonId)
     {
+        $course = Course::find($courseId);
         $lesson = Lesson::find($lessonId);
         $data = [];
-        $records = DB::table('records')->where('lesson_id', '=', $lessonId)->get();
+        $records = DB::table('records')
+            ->join('users', 'users.id', '=', 'records.user_id')
+            ->select('users.username', 'records.*')->where('lesson_id', '=', $lessonId)->get();
         $data = [
+            'course_name' => $course->name,
             'id' => $lesson->id,
             'name' => $lesson->name,
             'description' => $lesson->description,
             'video_link' => $lesson->video_link,
             'status' => $lesson->status,
-            'records'=> $records,
+            'records' => $records,
         ];
         return response()->json([
             'status' => 200,
@@ -34,9 +38,9 @@ class LessonController extends Controller
     public function index($id)
     {
         $course = DB::table('courses')->join('users', 'users.id', '=', 'courses.teacher_id')
-        ->select('users.username', 'courses.*')->where('courses.id', $id)->first();
+            ->select('users.username', 'courses.*')->where('courses.id', $id)->first();
         $lessons = DB::table('lessons')->where('course_id', $id)->get();
-        $data= [
+        $data = [
             'username' => $course->username,
             'name' => $course->name,
             'description' => $course->description,
