@@ -19,6 +19,7 @@ class LessonController extends Controller
         $data = [];
         $records = DB::table('records')->where('lesson_id', '=', $lessonId)->get();
         $data = [
+            'id' => $lesson->id,
             'name' => $lesson->name,
             'description' => $lesson->description,
             'video_link' => $lesson->video_link,
