@@ -96,7 +96,7 @@ export const Home = (props) => {
           </button>
         </div>
       </div>
-      <div>
+      {/* <div>
         <div className="background-record pb-20">
           <div className="flex items-center justify-center pt-20 mb-20">
             <span className="line-text text-4xl font-bold">
@@ -105,7 +105,7 @@ export const Home = (props) => {
           </div>
           <RecordListAll />
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

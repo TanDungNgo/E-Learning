@@ -22,7 +22,7 @@ export const getCourseDetailAction = (id) => {
     try {
       const result = await CourseService.getCourseDetail(id);
 
-      const courseDetail = { ...result.course[0], lessons: result.lessons };
+      const courseDetail = { ...result.course};
       dispatch({
         type: GET_COURSE_DETAILS,
         value: courseDetail,

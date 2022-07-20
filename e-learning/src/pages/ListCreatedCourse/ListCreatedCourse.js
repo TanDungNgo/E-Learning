@@ -20,7 +20,7 @@ const ListCreatedCourse = () => {
         </svg>
         Created Course
       </div>
-      <div className="grid grid-cols-3 gap-4 background-list-courses p-5 rounded-lg drop-shadow">
+      {/* <div className="grid grid-cols-3 gap-4 background-list-courses p-5 rounded-lg drop-shadow">
         <CourseCard course />
         <CourseCard course />
 
@@ -34,7 +34,7 @@ const ListCreatedCourse = () => {
         <CourseCard course />
         <CourseCard course />
         <CourseCard course />
-      </div>
+      </div> */}
     </>
   );
 };

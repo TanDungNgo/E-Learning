@@ -12,9 +12,9 @@ const MyAssignedCourse = () => {
   return (
     <>
       <TabBar />
-      <div className="mt-8 grid overflow-hidden grid-cols-3 grid-rows-none gap-5">
+      {/* <div className="mt-8 grid overflow-hidden grid-cols-3 grid-rows-none gap-5">
         {listCourses}
-      </div>
+      </div> */}
     </>
   );
 };

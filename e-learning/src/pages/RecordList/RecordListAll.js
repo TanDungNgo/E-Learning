@@ -7,7 +7,46 @@ import {
 import AudioComponent from "../../components/AudioPlayer/AudioPlayer";
 
 //this is for home (all)
-const RecordListAll = () => {
+const RecordListAll = (props) => {
+  let { lesson } = props;
+  // console.log("lesson ", lesson);
+  const renderRecords = () => {
+    return lesson.records?.map((item, index) => {
+      return (
+        <tr key = {index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+          <th
+            scope="row"
+            className="truncate py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          >
+            {lesson.course_name}
+          </th>
+          <td className="truncate py-4 px-6">{lesson.name}</td>
+          <td className="truncate py-4 px-6">
+            {item.minute}:{item.second}
+          </td>
+          <td className="py-4 px-6">
+            <div className="flex align-middle items-center">
+              <div>
+                <img
+                  className="object-cover rounded-full w-8 h-8"
+                  src="https://v1.tailwindcss.com/img/jonathan.jpg"
+                  alt="abc"
+                />
+              </div>
+              <div>
+                <span className="pl-2 text-sm font-semibold">
+                  {item.username}
+                </span>
+              </div>
+            </div>
+          </td>
+          <td className="py-4 px-6">
+            <AudioComponent record = {item}></AudioComponent>
+          </td>
+        </tr>
+      );
+    });
+  };
   return (
     <div>
       <div className="overflow-x-auto relative shadow-md sm:rounded-lg mx-20">
@@ -32,7 +71,9 @@ const RecordListAll = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+            {renderRecords()}
+
+            {/* <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
               <th
                 scope="row"
                 className="truncate py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -62,131 +103,7 @@ const RecordListAll = () => {
               <td className="py-4 px-6">
                 <AudioComponent></AudioComponent>
               </td>
-            </tr>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <th
-                scope="row"
-                className="truncate py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                Kaiwa Sieu Toc
-              </th>
-              <td className="truncate py-4 px-6">
-                Lesson 1: How to Ask Someone Out on a Date
-              </td>
-              <td className="truncate py-4 px-6">0:20</td>
-              <td className="py-4 px-6">
-                <div className="flex align-middle items-center">
-                  <div>
-                    <img
-                      className="object-cover rounded-full w-8 h-8"
-                      src="https://v1.tailwindcss.com/img/jonathan.jpg"
-                      alt="abc"
-                    />
-                  </div>
-                  <div>
-                    <span className="pl-2 text-sm font-semibold">
-                      Johny Pham
-                    </span>
-                  </div>
-                </div>
-              </td>
-              <td className="py-4 px-6">
-                <AudioComponent></AudioComponent>
-              </td>
-            </tr>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <th
-                scope="row"
-                className="truncate py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                Kaiwa Sieu Toc
-              </th>
-              <td className="truncate py-4 px-6">
-                Lesson 1: How to Ask Someone Out on a Date
-              </td>
-              <td className="truncate py-4 px-6">0:20</td>
-              <td className="py-4 px-6">
-                <div className="flex align-middle items-center">
-                  <div>
-                    <img
-                      className="object-cover rounded-full w-8 h-8"
-                      src="https://v1.tailwindcss.com/img/jonathan.jpg"
-                      alt="abc"
-                    />
-                  </div>
-                  <div>
-                    <span className="pl-2 text-sm font-semibold">
-                      Johny Pham
-                    </span>
-                  </div>
-                </div>
-              </td>
-              <td className="py-4 px-6">
-                <AudioComponent></AudioComponent>
-              </td>
-            </tr>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <th
-                scope="row"
-                className="truncate py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                Kaiwa Sieu Toc
-              </th>
-              <td className="truncate py-4 px-6">
-                Lesson 1: How to Ask Someone Out on a Date
-              </td>
-              <td className="truncate py-4 px-6">0:20</td>
-              <td className="py-4 px-6">
-                <div className="flex align-middle items-center">
-                  <div>
-                    <img
-                      className="object-cover rounded-full w-8 h-8"
-                      src="https://v1.tailwindcss.com/img/jonathan.jpg"
-                      alt="abc"
-                    />
-                  </div>
-                  <div>
-                    <span className="pl-2 text-sm font-semibold">
-                      Johny Pham
-                    </span>
-                  </div>
-                </div>
-              </td>
-              <td className="py-4 px-6">
-                <AudioComponent></AudioComponent>
-              </td>
-            </tr>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <th
-                scope="row"
-                className="truncate py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                Kaiwa Sieu Toc
-              </th>
-              <td className="truncate py-4 px-6">
-                Lesson 1: How to Ask Someone Out on a Date
-              </td>
-              <td className="truncate py-4 px-6">0:20</td>
-              <td className="py-4 px-6">
-                <div className="flex align-middle items-center">
-                  <div>
-                    <img
-                      className="object-cover rounded-full w-8 h-8"
-                      src="https://v1.tailwindcss.com/img/jonathan.jpg"
-                      alt="abc"
-                    />
-                  </div>
-                  <div>
-                    <span className="pl-2 text-sm font-semibold">
-                      Johny Pham
-                    </span>
-                  </div>
-                </div>
-              </td>
-              <td className="py-4 px-6">
-                <AudioComponent></AudioComponent>
-              </td>
-            </tr>
+            </tr> */}
           </tbody>
         </table>
       </div>

@@ -5,13 +5,20 @@ import AudioComponent from "../../components/AudioPlayer/AudioPlayer";
 import VideoPlayerUser from "../../components/VideoPlayer/VideoPlayerUser";
 import { getOneLessonByIdAction } from "../../redux/actions/LessonActions";
 import { getAllRecordsByLessonIdAction } from "../../redux/actions/RecordActions";
+import { getCourseDetailAction } from "../../redux/actions/CourseAction";
+import LessonSlider from "../Courses/LessonSlider";
 import "./LessonDetailUser.css";
-
+import RecordListAll from "../RecordList/RecordListAll";
 export const LessonDetailUser = (props) => {
   const dispatch = useDispatch();
   let { lessonId, courseId } = props.match.params;
-  console.log("lessonId & courseId get from params", lessonId, courseId);
+  // console.log("lessonId & courseId get from params", lessonId, courseId);
 
+  const { courseDetail } = useSelector((state) => state.CourseReducer);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    dispatch(getCourseDetailAction(courseId));
+  }, []);
   const { userLogin } = useSelector((state) => state.UserReducer);
 
   const { lesson } = useSelector((state) => state.LessonReducer);
@@ -22,15 +29,16 @@ export const LessonDetailUser = (props) => {
     dispatch(getOneLessonByIdAction(courseId, lessonId));
     dispatch(getAllRecordsByLessonIdAction(lessonId));
 
-    console.log("lesson", lesson);
+    // console.log("lesson", lesson);
   }, []);
   let recordsUser = recordsDefault?.filter((item) => {
-    console.log(item);
+    // console.log(item);
     return item.user_id === userLogin.id && item;
   });
-  console.log("recordGetFromState", recordsDefault);
+  // console.log("recordGetFromState", recordsDefault);
   console.log("userLogin", userLogin);
-  console.log("recordsUser", recordsUser);
+  // console.log("recordsUser", recordsUser);
+
   //   const renderAudio = () => {
   //     return recordsUser?.map((item, index) => {
   //       console.log("recordsUser-item", item);
@@ -99,7 +107,7 @@ export const LessonDetailUser = (props) => {
                     href="#"
                     className="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ml-2 dark:text-gray-400 dark:hover:text-white"
                   >
-                    Kaiwa Sieu Toc
+                    {lesson.course_name}
                   </a>
                 </div>
               </li>
@@ -285,7 +293,17 @@ export const LessonDetailUser = (props) => {
           </svg>
           Lessons in this course
         </div>
-        {/* <LessonSlider /> */}
+        <LessonSlider lessons={courseDetail.lessons} />
+      </div>
+      <div>
+        <div className="background-record pb-20">
+          <div className="flex items-center justify-center pt-20 mb-20">
+            <span className="line-text text-4xl font-bold">
+              Student Records
+            </span>
+          </div>
+          <RecordListAll lesson={lesson} />
+        </div>
       </div>
     </>
   );

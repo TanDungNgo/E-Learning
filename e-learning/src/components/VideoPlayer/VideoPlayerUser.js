@@ -32,16 +32,19 @@ const timedatasDefault = [
 
 const VideoPlayerUser = (props) => {
   let { lesson } = props;
-
+  // console.log("lesson_id", lesson.id);
   // console.log(lesson);
+  const { userLogin } = useSelector((state) => state.UserReducer);
   const videoElement = useRef(null);
 
-//   const { timedatasDefault } = useSelector((state) => state.TimedataReducer);
+  const { timedatasDefault } = useSelector((state) => state.TimedataReducer);
   const [isStart, setIsStart] = useState(false);
   const [isStop, setIsStop] = useState(false);
   const [displayHidden, setDisplayHidden] = useState("hidden");
   const [disable, setDisable] = useState(false);
   const dispatch = useDispatch();
+  const [minute, setMinute] = useState("0");
+  const [second, setSecond] = useState("0");
 
   useEffect(() => {
     dispatch(getTimedatasByLessonIdAction(lesson.id));
@@ -59,7 +62,8 @@ const VideoPlayerUser = (props) => {
       timeData.forEach((item) => {
         // console.log('min + sec:', min, second, 'compare with', item.minute, item.second);
         if (min === item.minute && second === item.second && ms < 100) {
-            
+          setMinute(item.minute);
+          setSecond(item.second);
           videoElement.current.pause();
           setDisplayHidden("");
           setIsStop(false);
@@ -100,9 +104,11 @@ const VideoPlayerUser = (props) => {
         console.log("Uploaded a blob or file!");
         //save url to database
         const data = new FormData();
+        data.append("user_id", userLogin.id);
         data.append("lesson_id", lesson.id);
         data.append("url", url);
-
+        data.append("minute", minute);
+        data.append("second", second);
         dispatch(saveRecordAction(data, lesson.id));
       });
     });
@@ -113,12 +119,19 @@ const VideoPlayerUser = (props) => {
       <video
         controls
         ref={videoElement}
-        poster={props.fixedBanner || "https://i.ytimg.com/vi/2Gg6Seob5Mg/maxresdefault.jpg"}
-        src={props.fixedUrl || lesson.video_link || "https://media.w3.org/2010/05/bunny/movie.mp4"}
+        poster={
+          props.fixedBanner ||
+          "https://i.ytimg.com/vi/2Gg6Seob5Mg/maxresdefault.jpg"
+        }
+        src={
+          props.fixedUrl ||
+          lesson.video_link ||
+          "https://media.w3.org/2010/05/bunny/movie.mp4"
+        }
         className="w-full drop-shadow-lg rounded-lg"
       >
         {/* <source src={lesson.video_link} type="video/mp4" /> */}
-         {/* <source
+        {/* <source
           src="https://media.w3.org/2010/05/bunny/movie.mp4"
           type="video/mp4"
         /> */}
@@ -127,7 +140,7 @@ const VideoPlayerUser = (props) => {
       <div className={`audio-record  ${displayHidden} text-center`}>
         {!isStop ? (
           <>
-            <p className="m-2 text-white font-bold"> Nhấn để thu âm</p>
+            <p className="m-2 text-black font-bold"> Nhấn để thu âm</p>
             <button
               onClick={() => {
                 if (!isStart) {
@@ -139,7 +152,7 @@ const VideoPlayerUser = (props) => {
               disabled={disable}
             >
               <i
-                className="fa fa-microphone  text-white "
+                className="fa fa-microphone  text-black "
                 style={{ fontSize: 40 }}
               ></i>
             </button>

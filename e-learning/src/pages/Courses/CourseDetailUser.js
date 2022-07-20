@@ -16,8 +16,8 @@ export const CourseDetailUser = (props) => {
   const dispatch = useDispatch();
   let { id } = props.match.params;
   const { courseDetail } = useSelector((state) => state.CourseReducer);
-  console.log("data", courseDetail);
-  console.log("userLogin", userLogin);
+  // console.log("data", courseDetail);
+  // console.log("userLogin", userLogin);
 
   useEffect(() => {
     window.scrollTo(0, 0);
