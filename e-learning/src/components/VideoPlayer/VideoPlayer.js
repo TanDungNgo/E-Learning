@@ -27,14 +27,14 @@ const storage = getStorage(app);
 const arrTimePause = [];
 let stt = 0;
 const username = "ngotandung";
-const lessonNumber = "1";
+const lessonNumber = "3";
 const courseName = "Course1";
 const VideoPlayer = (props) => {
   const [lesson_id, setLesson_id] = useState(lessonNumber);
   // console.log(lesson_id)
   const [lesson, setLesson] = useState([]);
   useEffect(async () => {
-    let result = await fetch(`http://127.0.0.1:8000/api/timedata/${lesson_id}`);
+    let result = await fetch(`https://benefique-monsieur-33716.herokuapp.com/api/timedata/${lesson_id}`);
     result = await result.json();
     if (result.status === 200) {
       setLesson(result.lesson);
@@ -128,12 +128,13 @@ const VideoPlayer = (props) => {
       getDownloadURL(storageRef).then(async (url) => {
         // save url to database
         const data = new FormData();
+        data.append("user_id", 2); 
         data.append("lesson_id", lesson_id); // lesson_id for call api
         data.append("url", url); // url_file_audio for call api
         data.append("minute", minute);
         data.append("second", second);
         const res = await axios.post(
-          "http://localhost:8000/api/save-audio-record",
+          "https://benefique-monsieur-33716.herokuapp.com/api/save-audio-record",
           data
         );
         if (res.status === 200) {

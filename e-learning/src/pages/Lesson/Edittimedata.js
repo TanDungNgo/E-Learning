@@ -29,7 +29,7 @@ class Edittimedata extends Component {
   async componentDidMount() {
     const lesson_id = this.props.match.params.id;
     const res = await axios.get(
-      `http://127.0.0.1:8000/api/timedata/${lesson_id}`
+      `https://benefique-monsieur-33716.herokuapp.com/api/timedata/${lesson_id}`
     );
     if (res.data.status === 200) {
       this.setState({
@@ -69,7 +69,7 @@ class Edittimedata extends Component {
   deleteTimedata = async (e, id) => {
     const thidClickedFunda = e.currentTarget;
     thidClickedFunda.innerText = "Deleting";
-    const res = await axios.delete(`http://127.0.0.1:8000/api/delete-timedata/${id}`);
+    const res = await axios.delete(`https://benefique-monsieur-33716.herokuapp.com/api/delete-timedata/${id}`);
     if (res.data.status === 200) {
       thidClickedFunda.closest("tr").remove();
       // console.log(res.data.message);

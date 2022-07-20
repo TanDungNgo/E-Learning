@@ -21,7 +21,7 @@ class Addtimedata extends Component {
     data.append("second", this.state.second);
     data.append("minute", this.state.minute);
     const res = await axios.post(
-      "http://127.0.0.1:8000/api/save-timedata",
+      "https://benefique-monsieur-33716.herokuapp.com/api/save-timedata",
       data
     );
     if (res.data.status === 200) {
@@ -107,7 +107,7 @@ class Addtimedata extends Component {
       data.append("second", second);
       data.append("minute", minute);
       const res = await axios.post(
-        "http://127.0.0.1:8000/api/save-timedata",
+        "https://benefique-monsieur-33716.herokuapp.com/api/save-timedata",
         data
       );
       if (res.data.status === 200) {
