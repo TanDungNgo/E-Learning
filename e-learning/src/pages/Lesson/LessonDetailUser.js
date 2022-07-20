@@ -36,7 +36,7 @@ export const LessonDetailUser = (props) => {
     return item.user_id === userLogin.id && item;
   });
   // console.log("recordGetFromState", recordsDefault);
-  console.log("userLogin", userLogin);
+  // console.log("userLogin", userLogin);
   // console.log("recordsUser", recordsUser);
 
   //   const renderAudio = () => {

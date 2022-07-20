@@ -32,7 +32,7 @@ const timedatasDefault = [
 
 const VideoPlayerUser = (props) => {
   let { lesson } = props;
-  // console.log("lesson_id", lesson.id);
+  console.log("lesson_id", lesson.id);
   // console.log(lesson);
   const { userLogin } = useSelector((state) => state.UserReducer);
   const videoElement = useRef(null);

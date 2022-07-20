@@ -19,7 +19,7 @@ export const getTimedatasByLessonIdAction = (lessonId) => {
   return async (dispatch) => {
     try {
       const result = await TimedataService.getTimeDatasByLessonId(lessonId);
-      console.log("alo", result);
+      console.log("alo", result.time);
       // Đưa lên kho chứa
       dispatch({
         type: GET_ALL_TIMEDATA,

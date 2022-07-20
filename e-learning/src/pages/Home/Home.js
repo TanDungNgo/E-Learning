@@ -56,6 +56,8 @@ export const Home = (props) => {
     dispatch(getAllCoursesAction());
     dispatch(getAllTeachersAction());
   }, []);
+  console.log("course: ", coursesDefault);
+  console.log("teacher: ", teachersDefault);
 
   return (
     <>
