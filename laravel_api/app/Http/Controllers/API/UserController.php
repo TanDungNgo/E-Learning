@@ -89,7 +89,6 @@ class UserController extends Controller
     public function teacherList()
     {
         $teachers = User::where('role', 'teacher')->get();
-        $teachers = User::all();
         return response()->json([
             'teachers' => $teachers,
         ]);
