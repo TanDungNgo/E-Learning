@@ -19,6 +19,9 @@ const login = (formData) => {
 const register = (formData) => {
   return Api.post("/users/register", formData);
 };
+const getStudentsInCourse = (id) => {
+  return Api.get(`/liststudent/${id}`);
+};
 
 export const UserService = {
   getAllStudents,
@@ -26,4 +29,5 @@ export const UserService = {
   login,
   register,
   requestToBecomeTeacher,
+  getStudentsInCourse,
 };

@@ -88,3 +88,18 @@ export const getAllCoursesAction = () => {
     }
   };
 };
+export const getCourseByIdTeacherAction = (id) => {
+  return async (dispatch) => {
+    try {
+      const result = await CourseService.getCoursesByIdTeacher(id);
+
+      console.log("course teacher: ", result);
+      dispatch({
+        type: GET_ALL_COURSES,
+        value: result.courses,
+      });
+    } catch (error) {
+      console.log("error>>", error);
+    }
+  };
+};

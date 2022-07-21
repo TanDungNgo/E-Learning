@@ -1,5 +1,5 @@
 import { USER_LOGIN } from "../../utils/settings/config";
-import { GET_ALL_TEACHERS, LOGIN, LOGOUT } from "../types/UserTypes";
+import { GET_ALL_STUDENTS, GET_ALL_TEACHERS, LOGIN, LOGOUT } from "../types/UserTypes";
 
 let user = {};
 if (localStorage.getItem(USER_LOGIN)) {
@@ -28,7 +28,10 @@ export const UserReducer = (state = stateDefault, action) => {
       state.teachersDefault = action.value;
       return { ...state };
     }
-
+    case GET_ALL_STUDENTS: {
+      state.studentsDefault = action.value;
+      return { ...state };
+    }
     default:
       return { ...state };
   }
