@@ -93,7 +93,22 @@ export const getCourseByIdTeacherAction = (id) => {
     try {
       const result = await CourseService.getCoursesByIdTeacher(id);
 
-      console.log("course teacher: ", result);
+      // console.log("course teacher: ", result);
+      dispatch({
+        type: GET_ALL_COURSES,
+        value: result.courses,
+      });
+    } catch (error) {
+      console.log("error>>", error);
+    }
+  };
+};
+export const getCourseEnrolledAction = (id) => {
+  return async (dispatch) => {
+    try {
+      const result = await CourseService.getCoursesEnrolled(id);
+
+      console.log("course-enrolled: ", result);
       dispatch({
         type: GET_ALL_COURSES,
         value: result.courses,

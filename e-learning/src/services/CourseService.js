@@ -25,6 +25,9 @@ const getAllCourses = () => {
 const getCoursesByIdTeacher = (id) => {
   return Api.get(`/courses-teacher/${id}`);
 };
+const getCoursesEnrolled = (id) => {
+  return Api.get(`/listcourse-enroll/${id}`);
+};
 export const CourseService = {
   getCourseById,
   createCourse,
@@ -33,4 +36,5 @@ export const CourseService = {
   updateCourseById,
   getCourseDetail,
   getCoursesByIdTeacher,
+  getCoursesEnrolled,
 };

@@ -10,6 +10,7 @@ import CourseOverView from "./CourseOverView";
 import LessonSlider from "./LessonSlider";
 import { ERROR, USER_LOGIN } from "../../utils/settings/config";
 import { openNotificationWithIcon } from "../../components/Notification/Notification";
+import { Button } from "antd";
 
 export const CourseDetailUser = (props) => {
   const userLogin = JSON.parse(localStorage.getItem(USER_LOGIN));
@@ -90,13 +91,19 @@ export const CourseDetailUser = (props) => {
             </div>
             <div className="row-span-1 flex justify-end h-20">
               <div className="w-full h-full relative">
-                <NavLink
+                {/* <NavLink
                   to="/"
                   className="py-2 px-7 enroll-button absolute right-1 top-2"
                   hidden={userLogin.role !== "user"}
                 >
                   Enroll
-                </NavLink>
+                </NavLink> */}
+                <button
+                  className="py-2 px-7 enroll-button absolute right-1 top-2"
+                  hidden={userLogin.role !== "user"}
+                >
+                  Enroll
+                </button>
               </div>
             </div>
           </div>

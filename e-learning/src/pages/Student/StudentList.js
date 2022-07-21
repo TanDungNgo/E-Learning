@@ -21,9 +21,15 @@ const StudentList = (props) => {
             scope="row"
             className="truncate py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
           >
+            {item.course_name}
+          </th>
+          <th
+            scope="row"
+            className="truncate py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          >
             {item.username}
           </th>
-          <td className="py-1 px-6">
+          <td className="py-3 px-6">
             <div className="flex align-middle items-center">
               <div>
                 <img
@@ -37,10 +43,8 @@ const StudentList = (props) => {
               </div>
             </div>
           </td>
-          <td className="truncate py-4 px-6">{item.email}</td>
-          <td className="py-4 px-6">
-            {item.join_date}
-          </td>
+          <td className="py-4 px-6">{item.email}</td>
+          <td className="py-4 px-6">{item.join_date}</td>
           <td className="py-4 flex items-center align-middle justify-center content-center">
             <button
               type="button"
@@ -88,12 +92,15 @@ const StudentList = (props) => {
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="py-3 px-6">
-                Username
+                Course
               </th>
               <th scope="col" className="py-3 px-6">
-                Avatar
+                Username
               </th>
               <th scope="col" className="w-50 py-3 px-6">
+                Avatar
+              </th>
+              <th scope="col" className="py-3 px-6">
                 Email
               </th>
               <th scope="col" className="w-20 py-3 px-6">
