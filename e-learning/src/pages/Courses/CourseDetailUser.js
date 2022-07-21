@@ -16,18 +16,21 @@ export const CourseDetailUser = (props) => {
   const dispatch = useDispatch();
   let { id } = props.match.params;
   const { courseDetail } = useSelector((state) => state.CourseReducer);
-  // console.log("data", courseDetail);
   // console.log("userLogin", userLogin);
 
   useEffect(() => {
     window.scrollTo(0, 0);
     dispatch(getCourseDetailAction(id));
   }, []);
+  // console.log("data", courseDetail);
   if (!localStorage.getItem(USER_LOGIN)) {
     openNotificationWithIcon(ERROR, "Vui lòng đăng nhập", "error");
     return <Redirect to="/login" />;
   }
-
+  const teacher = {
+    username: courseDetail.username,
+    avatar: "https://v1.tailwindcss.com/img/jonathan.jpg",
+  };
   return (
     <div className="px-16 mx-4">
       <div className="grid overflow-hidden grid-cols-2 grid-rows-none gap-px bg-white drop-shadow-xl m-4 rounded-lg">
@@ -37,7 +40,7 @@ export const CourseDetailUser = (props) => {
               <span className="text-4xl font-bold">{courseDetail.name}</span>
             </div>
             <div className="row-span-1 pb-1 border-b-2 border-gray-600">
-              <TeacherCard usernameTeacher={courseDetail.username} />
+              <TeacherCard teacher={teacher} />
             </div>
             <div className="row-span-1">
               <div className="border-b-2 border-gray-600 py-3 flex justify-between">

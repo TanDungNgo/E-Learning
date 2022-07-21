@@ -4,7 +4,7 @@ import "./TeacherCard.css";
 import { FolderOpenOutlined } from "@ant-design/icons";
 
 const TeacherCard = (props) => {
-  let {teacher} = props;
+  let { teacher } = props;
   return (
     <>
       <NavLink to="/" className="pointer-events-none">
