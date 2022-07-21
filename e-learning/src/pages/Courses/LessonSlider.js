@@ -6,7 +6,6 @@ const LessonSlider = (props) => {
   const { lessons } = props;
   const renderLessons = () => {
     return lessons?.map((item, index) => {
-      console.log(item);
       return (
         <Fragment key={index}>
           <NavLink

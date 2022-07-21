@@ -31,13 +31,10 @@ const timedatasDefault = [
 ];
 
 const VideoPlayerUser = (props) => {
-  let { lesson } = props;
-  console.log("lesson_id", lesson.id);
-  // console.log(lesson);
   const { userLogin } = useSelector((state) => state.UserReducer);
   const videoElement = useRef(null);
 
-  const { timedatasDefault } = useSelector((state) => state.TimedataReducer);
+  // const { timedatasDefault } = useSelector((state) => state.TimedataReducer);
   const [isStart, setIsStart] = useState(false);
   const [isStop, setIsStop] = useState(false);
   const [displayHidden, setDisplayHidden] = useState("hidden");
@@ -46,32 +43,34 @@ const VideoPlayerUser = (props) => {
   const [minute, setMinute] = useState("0");
   const [second, setSecond] = useState("0");
 
+  // const { lesson } = useSelector((state) => state.LessonReducer);
+  const { lesson } = props;
+  console.log("le", lesson);
   useEffect(() => {
     dispatch(getTimedatasByLessonIdAction(lesson.id));
   }, []);
   useEffect(() => {
     const timeData = timedatasDefault;
-    console.log("timeData", timeData);
     const interval = setInterval(async () => {
       const elapsed_sec = await videoElement.current.currentTime;
       // calculations
       let elapsed_ms = Math.floor(elapsed_sec * 1000);
       let ms = elapsed_ms % 1000;
       let min = Math.floor(elapsed_ms / 60000);
-      let second = Math.floor((elapsed_ms - min * 60000) / 1000);
-      timeData.forEach((item) => {
-        // console.log('min + sec:', min, second, 'compare with', item.minute, item.second);
-        if (min === item.minute && second === item.second && ms < 100) {
-          setMinute(item.minute);
-          setSecond(item.second);
+      let seconds = Math.floor((elapsed_ms - min * 60000) / 1000);
+
+      for (let index = 0; index < timeData.length; index++) {
+        const item = timeData[index];
+        if (min === item.minute && seconds === item.second && ms < 200) {
+          setMinute(min);
+          setSecond(seconds);
           videoElement.current.pause();
           setDisplayHidden("");
           setIsStop(false);
           timeData.shift();
-          console.log("Stop");
         }
-      });
-    }, 100);
+      }
+    }, 200);
 
     return () => {
       clearInterval(interval);
@@ -140,7 +139,7 @@ const VideoPlayerUser = (props) => {
       <div className={`audio-record  ${displayHidden} text-center`}>
         {!isStop ? (
           <>
-            <p className="m-2 text-black font-bold"> Nhấn để thu âm</p>
+            <p className="mx-auto text-white font-bold"> Nhấn để thu âm</p>
             <button
               onClick={() => {
                 if (!isStart) {

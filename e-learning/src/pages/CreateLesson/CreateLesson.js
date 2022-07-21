@@ -3,8 +3,6 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { Form, Progress } from "antd";
 import { LessonService } from "../../services/LessonService";
 import storageFirebase from "../../utils/settings/firebaseConfig";
-import { LessonDetail } from "../Lesson/LessonDetail";
-import { LessonDetailUser } from "../Lesson/LessonDetailUser";
 import { DemoLessonDetailUser } from "./DemoLessonDetailUser";
 
 class CreateLesson extends Component {

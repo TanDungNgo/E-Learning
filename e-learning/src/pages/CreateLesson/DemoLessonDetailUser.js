@@ -1,16 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import Button from "../../components/Button/Button";
-import AudioComponent from "../../components/AudioPlayer/AudioPlayer";
-import {
-  getAllLessonsAction,
-  getLessonByIdAction,
-  getOneLessonByIdAction,
-} from "../../redux/actions/LessonActions";
-import { getAllRecordsByLessonIdAction } from "../../redux/actions/RecordActions";
-import "../Lesson/LessonDetailUser.css";
-import LessonSlider from "../Courses/LessonSlider";
+import React from "react";
 import VideoPlayerUser from "../../components/VideoPlayer/VideoPlayerUser";
+
+import "../Lesson/LessonDetailUser.css";
+// import VideoPlayerUser from "../../components/VideoPlayer/VideoPlayerUser";
 
 export const DemoLessonDetailUser = (props) => {
   const fakeLesson = {};

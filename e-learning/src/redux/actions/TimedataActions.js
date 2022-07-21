@@ -1,4 +1,3 @@
-import { RecordService } from "../../services/RecordService";
 import { TimedataService } from "../../services/TimedataService";
 import { GET_ALL_TIMEDATA } from "../types/TimedataTypes";
 
@@ -19,8 +18,6 @@ export const getTimedatasByLessonIdAction = (lessonId) => {
   return async (dispatch) => {
     try {
       const result = await TimedataService.getTimeDatasByLessonId(lessonId);
-      console.log("alo", result.time);
-      // Đưa lên kho chứa
       dispatch({
         type: GET_ALL_TIMEDATA,
         value: result.time,

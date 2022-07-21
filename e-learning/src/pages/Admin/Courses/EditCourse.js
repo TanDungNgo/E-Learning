@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Form, Input, InputNumber } from "antd";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getCourseByIdAction,
-  updateCourseAction,
-} from "../../../redux/actions/CourseAction";
+import { getCourseDetailAction } from "../../../redux/actions/CourseAction";
 
 const courseDetail1 = {
   id: 1,
@@ -75,7 +72,7 @@ const EditCourse = (props) => {
   const dispatch = useDispatch();
   let { id } = props.match.params;
   useEffect(() => {
-    dispatch(getCourseByIdAction(id));
+    dispatch(getCourseDetailAction(id));
   }, []);
 
   const formik = useFormik({

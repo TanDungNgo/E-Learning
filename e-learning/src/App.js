@@ -11,7 +11,6 @@ import { CourseDetailUser } from "./pages/Courses/CourseDetailUser";
 import CreateCourse from "./pages/CreateCourse/CreateCourse";
 import CreateLesson from "./pages/CreateLesson/CreateLesson";
 import { Home } from "./pages/Home/Home";
-import { LessonDetail } from "./pages/Lesson/LessonDetail";
 import { LessonDetailUser } from "./pages/Lesson/LessonDetailUser";
 import ListCourse from "./pages/ListCourse/ListCourse";
 import ListCreatedCourse from "./pages/ListCreatedCourse/ListCreatedCourse";

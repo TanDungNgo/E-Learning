@@ -1,40 +1,117 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import AudioComponent from "../../components/AudioPlayer/AudioPlayer";
-import VideoPlayerUser from "../../components/VideoPlayer/VideoPlayerUser";
 import { getOneLessonByIdAction } from "../../redux/actions/LessonActions";
-import { getAllRecordsByLessonIdAction } from "../../redux/actions/RecordActions";
+import {
+  getAllRecordsByLessonIdAction,
+  saveRecordAction,
+} from "../../redux/actions/RecordActions";
 import { getCourseDetailAction } from "../../redux/actions/CourseAction";
 import LessonSlider from "../Courses/LessonSlider";
 import "./LessonDetailUser.css";
 import RecordListAll from "../RecordList/RecordListAll";
+import { USER_LOGIN } from "../../utils/settings/config";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import storageFirebase from "../../utils/settings/firebaseConfig";
+import { useReactMediaRecorder } from "react-media-recorder";
+import { getTimedatasByLessonIdAction } from "../../redux/actions/TimedataActions";
+
 export const LessonDetailUser = (props) => {
+  const userLogin = JSON.parse(localStorage.getItem(USER_LOGIN));
   const dispatch = useDispatch();
   let { lessonId, courseId } = props.match.params;
-  // console.log("lessonId & courseId get from params", lessonId, courseId);
 
   const { courseDetail } = useSelector((state) => state.CourseReducer);
+
+  const { lesson } = useSelector((state) => state.LessonReducer);
+  // const { recordsDefault } = useSelector((state) => state.RecordReducer);
+  const videoElement = useRef(null);
+
+  const { timedatasDefault } = useSelector((state) => state.TimedataReducer);
+  console.log("timedatasDefault", timedatasDefault);
+  const [isStart, setIsStart] = useState(false);
+  const [isStop, setIsStop] = useState(false);
+  const [displayHidden, setDisplayHidden] = useState("hidden");
+  const [disable, setDisable] = useState(false);
+  const [minute, setMinute] = useState("0");
+  const [second, setSecond] = useState("0");
+
   useEffect(() => {
     window.scrollTo(0, 0);
     dispatch(getCourseDetailAction(courseId));
-  }, []);
-  const { userLogin } = useSelector((state) => state.UserReducer);
-
-  const { lesson } = useSelector((state) => state.LessonReducer);
-  const { recordsDefault } = useSelector((state) => state.RecordReducer);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
     dispatch(getOneLessonByIdAction(courseId, lessonId));
     dispatch(getAllRecordsByLessonIdAction(lessonId));
-
-    // console.log("lesson", lesson);
+    dispatch(getTimedatasByLessonIdAction(lessonId));
   }, []);
-  let recordsUser = recordsDefault?.filter((item) => {
-    // console.log(item);
-    return item.user_id === userLogin.id && item;
-  });
+
+  useEffect(() => {
+    const timeData = timedatasDefault;
+    const interval = setInterval(async () => {
+      const elapsed_sec = await videoElement.current.currentTime;
+      // calculations
+      let elapsed_ms = Math.floor(elapsed_sec * 1000);
+      let ms = elapsed_ms % 1000;
+      let min = Math.floor(elapsed_ms / 60000);
+      let seconds = Math.floor((elapsed_ms - min * 60000) / 1000);
+
+      for (let index = 0; index < timeData.length; index++) {
+        const item = timeData[index];
+        if (min === item.minute && seconds === item.second && ms < 200) {
+          setMinute(min);
+          setSecond(seconds);
+          videoElement.current.pause();
+          setDisplayHidden("");
+          setIsStop(false);
+          timeData.shift();
+        }
+      }
+    }, 200);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
+  const { startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder(
+    {
+      video: false,
+      audio: true,
+    }
+  );
+
+  const stopTimer = () => {
+    setIsStart(false);
+    stopRecording();
+
+    setDisable(!disable);
+  };
+
+  const handleSave = async () => {
+    const fileName = `${new Date().getTime()}.wav`;
+    const audioBlob = await fetch(mediaBlobUrl).then((r) => r.blob());
+
+    const storageRef = ref(storageFirebase, "audio/" + fileName);
+    // 'file' comes from the Blob or File API
+    uploadBytes(storageRef, audioBlob).then((snapshot) => {
+      getDownloadURL(storageRef).then(async (url) => {
+        console.log("url record", url);
+        console.log("Uploaded a blob or file!");
+        //save url to database
+        const data = new FormData();
+        data.append("user_id", userLogin.id);
+        data.append("lesson_id", lesson.id);
+        data.append("url", url);
+        data.append("minute", minute);
+        data.append("second", second);
+        dispatch(saveRecordAction(data, lesson.id));
+      });
+    });
+  };
+  // let recordsUser = recordsDefault?.filter((item) => {
+  //   // console.log(item);
+  //   return item.user_id === userLogin.id && item;
+  // });
   // console.log("recordGetFromState", recordsDefault);
   // console.log("userLogin", userLogin);
   // console.log("recordsUser", recordsUser);
@@ -50,7 +127,7 @@ export const LessonDetailUser = (props) => {
   //     });
   //   };
 
-  const renderDescription = lesson.description
+  const renderDescription = lesson?.description
     ?.split(";")
     .map((item, index) => {
       return (
@@ -103,12 +180,12 @@ export const LessonDetailUser = (props) => {
                       clipRule="evenodd"
                     ></path>
                   </svg>
-                  <a
-                    href="#"
+                  <NavLink
+                    to={`course/${courseId}`}
                     className="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ml-2 dark:text-gray-400 dark:hover:text-white"
                   >
                     {lesson.course_name}
-                  </a>
+                  </NavLink>
                 </div>
               </li>
               <li aria-current="page">
@@ -132,9 +209,102 @@ export const LessonDetailUser = (props) => {
               </li>
             </ol>
           </nav>
+
+          {/* Thay Component VideoPlayer  */}
           <div className="mt-4">
-            <VideoPlayerUser lesson={lesson} />
+            <div className="relative">
+              <video
+                controls
+                ref={videoElement}
+                poster={courseDetail?.banner}
+                src={lesson?.video_link}
+                className="w-full drop-shadow-lg rounded-lg"
+              ></video>
+              <div className={`video-audio__overlay  ${displayHidden} `}></div>
+              <div className={`audio-record  ${displayHidden} text-center`}>
+                {!isStop ? (
+                  <>
+                    <p className="mx-auto text-black font-bold">
+                      Nhấn để thu âm
+                    </p>
+                    <button
+                      onClick={() => {
+                        if (!isStart) {
+                          startRecording();
+                        }
+                        setIsStart(!isStart);
+                        setDisable(!disable);
+                      }}
+                      disabled={disable}
+                    >
+                      <i
+                        className="fa fa-microphone  text-black "
+                        style={{ fontSize: 40 }}
+                      ></i>
+                    </button>
+                    <div className="flex gap-1 justify-center mt-2">
+                      <button
+                        className="bg-red-700 shadow-md rounded-sm p-1 text-white text-lg "
+                        style={{ width: 100 }}
+                        disabled={!disable}
+                        onClick={() => {
+                          stopRecording();
+                          setIsStart(!isStart);
+                          setDisable(!disable);
+                          setIsStop(!isStop);
+                        }}
+                      >
+                        Stop
+                      </button>
+                      <button
+                        className="bg-white shadow-md rounded-sm p-1 text-black text-lg "
+                        style={{ width: 100 }}
+                        disabled={!disable}
+                        onClick={stopTimer}
+                      >
+                        Clear
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <div>
+                    <audio
+                      src={mediaBlobUrl}
+                      controls
+                      className="inline-block"
+                    />
+
+                    <div className="mt-5">
+                      <button
+                        className="bg-blue-600 shadow-xl rounded-sm p-1 text-white text-lg  mr-2 "
+                        style={{ width: 100 }}
+                        onClick={() => {
+                          setIsStop(false);
+                          stopTimer();
+                          setDisable(false);
+                        }}
+                      >
+                        Ghi lại?
+                      </button>
+                      <button
+                        className="bg-blue-600 shadow-xl rounded-sm p-1 text-white text-lg "
+                        style={{ width: 100 }}
+                        onClick={() => {
+                          setIsStop(false);
+                          setDisplayHidden("hidden");
+                          handleSave();
+                          videoElement.current.play();
+                        }}
+                      >
+                        Tiếp tục?
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
+
           <button className="mt-4 text-base inline-flex items-center font-bold leading-sm uppercase px-3 py-1 rounded bg-white text-gray-700 border drop-shadow-lg">
             Description
           </button>
@@ -293,7 +463,7 @@ export const LessonDetailUser = (props) => {
           </svg>
           Lessons in this course
         </div>
-        <LessonSlider lessons={courseDetail.lessons} />
+        <LessonSlider lessons={courseDetail?.lessons} />
       </div>
       <div>
         <div className="background-record pb-20">

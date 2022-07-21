@@ -10,11 +10,8 @@ import CourseOverView from "./CourseOverView";
 import LessonSlider from "./LessonSlider";
 import { ERROR, USER_LOGIN } from "../../utils/settings/config";
 import { openNotificationWithIcon } from "../../components/Notification/Notification";
-import { Button } from "antd";
 import { checkEnrollAction } from "../../redux/actions/UserActions";
 import { UserService } from "../../services/UserService";
-
-
 
 export const CourseDetailUser = (props) => {
   const userLogin = JSON.parse(localStorage.getItem(USER_LOGIN));
@@ -22,11 +19,11 @@ export const CourseDetailUser = (props) => {
   let { id } = props.match.params;
   const { courseDetail } = useSelector((state) => state.CourseReducer);
   // console.log("userLogin", userLogin);
-  const { checkenroll} = useSelector((state) => state.UserReducer);
+  const { checkenroll } = useSelector((state) => state.UserReducer);
   useEffect(() => {
     window.scrollTo(0, 0);
     dispatch(getCourseDetailAction(id));
-    dispatch(checkEnrollAction(userLogin.id,id));
+    dispatch(checkEnrollAction(userLogin.id, id));
   }, []);
   // console.log("data", courseDetail);
   if (!localStorage.getItem(USER_LOGIN)) {
@@ -37,17 +34,17 @@ export const CourseDetailUser = (props) => {
     username: courseDetail.username,
     avatar: "https://v1.tailwindcss.com/img/jonathan.jpg",
   };
-  function enroll () {
-    const data = new FormData()
-    data.append('user_id',userLogin.id)
-    data.append('course_id',id)
+  function enroll() {
+    const data = new FormData();
+    data.append("user_id", userLogin.id);
+    data.append("course_id", id);
     console.log("data", data);
     UserService.enrollCourse(data);
     window.location.reload();
   }
-  function unenroll (e) {
+  function unenroll(e) {
     e.preventDefault();
-    UserService.unenrollCourse(userLogin.id,id);
+    UserService.unenrollCourse(userLogin.id, id);
     // window.location.reload();
   }
   return (
@@ -107,7 +104,10 @@ export const CourseDetailUser = (props) => {
               </h5>
               <CourseOverView description={courseDetail.description} />
             </div>
-            <div className="row-span-1 flex justify-end h-20" hidden={checkenroll !== false}>
+            <div
+              className="row-span-1 flex justify-end h-20"
+              hidden={checkenroll !== false}
+            >
               <div className="w-full h-full relative">
                 <button
                   className="py-2 px-7 enroll-button absolute right-1 top-2"
@@ -118,10 +118,19 @@ export const CourseDetailUser = (props) => {
                 </button>
               </div>
             </div>
-            <div className="row-span-1 flex justify-end h-20" hidden={checkenroll !== true}>
+            <div
+              className="row-span-1 flex justify-end h-20"
+              hidden={checkenroll !== true}
+            >
               <div className="w-full h-full relative">
                 <button
-                  className="py-2 px-7 button absolute right-1 top-2 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                  className="py-3 px-7 !text-white absolute right-1 top-2 text-lg uppercase"
+                  style={{
+                    background: "green",
+                    fontSize: 18,
+                    letterSpacing: "0.05em",
+                    border: "3px solid",
+                  }}
                   hidden={userLogin.role !== "user"}
                   onClick={unenroll}
                 >
@@ -131,9 +140,13 @@ export const CourseDetailUser = (props) => {
             </div>
           </div>
         </div>
-        <div className="">
-          <img className="w-full h-full" src={courseDetail.banner} alt="" />
-        </div>
+        <div
+          style={{
+            backgroundImage: `url(${courseDetail.banner}`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        ></div>
       </div>
 
       <div className="mt-10 mb-4 ml-4 text-base inline-flex items-center font-bold leading-sm uppercase px-3 py-1 rounded bg-white text-gray-700 border drop-shadow-lg">

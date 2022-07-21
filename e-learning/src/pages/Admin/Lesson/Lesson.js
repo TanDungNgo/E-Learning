@@ -47,28 +47,14 @@ export default function Lessons(props) {
   const courseParams = JSON.parse(localStorage.getItem("courseParams"));
   const { lessonsDefault } = useSelector((state) => state.LessonReducer);
 
+  console.log("lessonsDefault", lessonsDefault);
+
   const dispatch = useDispatch();
 
   const { courseId } = useParams();
-  console.log("courseId", courseId);
   useEffect(() => {
     dispatch(getAllLessonsAction(courseId));
   }, []);
-
-  const formik = useFormik({
-    initialValues: {
-      name: "",
-    },
-    // onSubmit: (values) => {
-    //   dispatch(
-    //     getAllcourseAction(
-    //       values.name,
-    //       values.mincourseEvaluate,
-    //       values.maxcourseEvaluate
-    //     )
-    //   );
-    // },
-  });
 
   const columns = [
     {
@@ -219,31 +205,6 @@ export default function Lessons(props) {
           Reset
         </Button>
       </div>
-
-      <Form onSubmitCapture={formik.handleSubmit}>
-        <Input
-          style={{ width: "45%" }}
-          onChange={formik.handleChange}
-          placeholder="Nhập tên giáo viên"
-        />
-        <Input
-          name="name"
-          onChange={formik.handleChange}
-          placeholder="Nhập tên bài học "
-          style={{
-            width: "45%",
-          }}
-        />
-        <button
-          style={{
-            width: "10%",
-          }}
-          className="p-1 bg-blue-500 rounded-sm"
-          type="submit"
-        >
-          Search
-        </button>
-      </Form>
 
       <Table
         columns={columns}

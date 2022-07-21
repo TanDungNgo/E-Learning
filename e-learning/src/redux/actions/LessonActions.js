@@ -77,10 +77,6 @@ export const getLessonByIdAction = (id) => {
         type: GET_LESSON_DETAILS,
         value: result.lesson,
       });
-      // dispatch({
-      //   type: GET_LESSON_DETAILS,
-      //   value: listLessons[id - 1],
-      // });
     } catch (error) {
       console.log("error>>", error);
     }
@@ -107,7 +103,7 @@ export const getAllLessonsAction = (id) => {
       const result = await LessonService.getAllLessons(id);
       dispatch({
         type: GET_ALL_LESSONS,
-        value: result.lessons,
+        value: result.course.lessons,
       });
     } catch (error) {
       console.log("error>>", error);
