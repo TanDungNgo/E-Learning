@@ -23,8 +23,10 @@ use App\Http\Controllers\API\SendNotificationController;
 Route::get('/studying-course', [StudentController::class, 'index']);
 Route::get('isStudent', [StudentController::class, 'isStudent']);
 Route::post('/students/enroll', [StudentController::class, 'EnrollCourse']);
-Route::delete('/students/unenroll', [StudentController::class, 'UnenrollCourse']);
+Route::delete('/students/unenroll/{user_id}/{course_id}', [StudentController::class, 'UnenrollCourse']);
 Route::get('/liststudent/{id}', [StudentController::class, 'StudentInCourse']);
+Route::get('/listcourse-enroll/{id}', [StudentController::class, 'GetCourseEnroll']);
+Route::get('/checkenroll/{user_id}/{course_id}', [StudentController::class, 'CheckEnroll']);
 // Course
 
 Route::get('/courses', [CourseController::class, 'index']);
