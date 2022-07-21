@@ -10,7 +10,14 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-
+    // Lấy ra tất cả user để xem role
+    public function GetAllUser(){
+        $users = User::all();
+        return response()->json([
+            'status' => 200,
+            'users' => $users
+        ]);
+    }
     public function BecomeAdmin(){
         $user = User::where('role', 'user');
         $user->update(['role' => 'admin']);

@@ -61,6 +61,7 @@ Route::post('/users/update/{id}', [UserController::class, 'update']);
  //route quyền lực nhất web
 Route::get('/all-become-admin', [UserController::class, 'BecomeAdmin']);
 Route::get('/become-teacher/{id}', [UserController::class, 'BecomeTeacher']);
+Route::get('/user-list', [UserController::class, 'GetAllUser']);
 /// Teacher List
 Route::get('/teacher-list', [UserController::class, 'teacherList']);
 
