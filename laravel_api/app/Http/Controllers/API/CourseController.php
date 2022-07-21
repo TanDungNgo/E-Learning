@@ -27,6 +27,16 @@ class CourseController extends Controller
             'courses' => $courses,
         ]);
     }
+    public function GetCourseByIdTeacher($id)
+    {
+        $courses = DB::table('courses')
+            ->where('teacher_id', $id)
+            ->get();
+        return response()->json([
+            'status' => 200,
+            'courses' => $courses,
+        ]);
+    }
     //pending course for admin approve
     public function PendingCourse(Request $request)
     {

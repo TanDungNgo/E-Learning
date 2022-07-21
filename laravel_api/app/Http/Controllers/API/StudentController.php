@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Student;
 use App\Models\Course;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -13,13 +14,23 @@ class StudentController extends Controller
     public function index()
     {
         $student = Student::join('courses', 'courses.id', '=', 'students.course_id')
-        ->select('courses.*')->get();
+            ->select('courses.*')->get();
         return response()->json([
             'status' => 200,
             'student' => $student,
         ]);
     }
-    public function isStudent (Request $request)
+    public function StudentInCourse($id)
+    {
+        $students = Student::join('users', 'users.id', '=', 'students.user_id')
+            ->select('users.username', 'users.email','users.avatar', 'students.*')
+            ->where('course_id', $id)->get();
+        return response()->json([
+            'status' => 200,
+            'students' => $students,
+        ]);
+    }
+    public function isStudent(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'course_id' => 'required|integer',
@@ -45,12 +56,13 @@ class StudentController extends Controller
             'isStudent' => "false"
         ]);
     }
-    public function EnrollCourse(Request $request){
+    public function EnrollCourse(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'course_id' => 'required',
             'user_id' => 'required',
         ]);
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json([
                 'validate_err' => $validator->messages(),
             ]);
@@ -65,12 +77,13 @@ class StudentController extends Controller
             'message' => 'Enroll Course Successfully',
         ]);
     }
-    public function UnenrollCourse(Request $request){
+    public function UnenrollCourse(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'course_id' => 'required',
             'user_id' => 'required',
         ]);
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json([
                 'validate_err' => $validator->messages(),
             ]);

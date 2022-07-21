@@ -24,7 +24,7 @@ Route::get('/studying-course', [StudentController::class, 'index']);
 Route::get('isStudent', [StudentController::class, 'isStudent']);
 Route::post('/students/enroll', [StudentController::class, 'EnrollCourse']);
 Route::delete('/students/unenroll', [StudentController::class, 'UnenrollCourse']);
-
+Route::get('/liststudent/{id}', [StudentController::class, 'StudentInCourse']);
 // Course
 
 Route::get('/courses', [CourseController::class, 'index']);
@@ -37,6 +37,7 @@ Route::put('/update-course/{id}', [CourseController::class, 'update']);
 
 Route::delete('/delete-course/{id}', [CourseController::class, 'destroy']);
 
+Route::get('/courses-teacher/{id}', [CourseController::class, 'GetCourseByIdTeacher']);
 //phê duyệt khóa học (role==admin)
 Route::get('/pending-course', [CourseController::class, 'PendingCourse']);
 Route::put('/approve-pending-course/{id}', [CourseController::class, 'ApprovePendingCourse']);
