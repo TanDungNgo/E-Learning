@@ -33,7 +33,10 @@ const MyAssignedCourse = () => {
       <div hidden={userLogin.role !== "teacher"}>
         <TabBar />
       </div>
-      <div className="bg-white rounded-lg drop-shadow-lg" hidden={userLogin.role !== "user"}>
+      <div
+        className="bg-white rounded-lg drop-shadow-lg"
+        hidden={userLogin.role !== "user"}
+      >
         <div className="flex items-center justify-center pt-5 mb-5">
           <span className="line-text text-2xl font-bold">
             All enrolled courses

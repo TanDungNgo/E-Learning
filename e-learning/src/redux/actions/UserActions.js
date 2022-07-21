@@ -2,7 +2,7 @@ import { openNotificationWithIcon } from "../../components/Notification/Notifica
 import { TeacherService } from "../../services/TeacherService";
 import { UserService } from "../../services/UserService";
 import { ERROR, SUCCESS, USER_LOGIN } from "../../utils/settings/config";
-import { GET_ALL_STUDENTS, GET_ALL_TEACHERS, LOGIN, LOGOUT } from "../types/UserTypes";
+import { CHECK_ENROLL, GET_ALL_STUDENTS, GET_ALL_TEACHERS, LOGIN, LOGOUT } from "../types/UserTypes";
 
 export const loginAction = (userLogin, propsRoute) => {
   return async (dispatch) => {
@@ -121,6 +121,21 @@ export const getStudentsInCourseAction = (id) => {
       dispatch({
         type: GET_ALL_STUDENTS,
         value: result.students,
+      });
+    } catch (error) {
+      console.log("error>>", error);
+    }
+  };
+};
+
+export const checkEnrollAction = (user_id, course_id) => {
+  return async (dispatch) => {
+    try {
+      const result = await UserService.checkenroll(user_id,course_id);
+      // console.log("check: ", result.status)
+      dispatch({
+        type: CHECK_ENROLL,
+        value: result.status,
       });
     } catch (error) {
       console.log("error>>", error);

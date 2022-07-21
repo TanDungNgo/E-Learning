@@ -23,6 +23,16 @@ const getStudentsInCourse = (id) => {
   return Api.get(`/liststudent/${id}`);
 };
 
+const checkenroll = (user_id, course_id) => {
+  return Api.get(`/checkenroll/${user_id}/${course_id}`);
+};
+const enrollCourse = (data) => {
+  return Api.post("/students/enroll", data);
+};
+
+const unenrollCourse = (user_id, course_id) => {
+  return Api.delete(`/students/unenroll/${user_id}/${course_id}`);
+};
 export const UserService = {
   getAllStudents,
   updateUser,
@@ -30,4 +40,7 @@ export const UserService = {
   register,
   requestToBecomeTeacher,
   getStudentsInCourse,
+  checkenroll,
+  enrollCourse,
+  unenrollCourse,
 };
