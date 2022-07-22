@@ -29,8 +29,9 @@ class CourseController extends Controller
     }
     public function GetCourseByIdTeacher($id)
     {
-        $courses = DB::table('courses')
-            ->where('teacher_id', $id)
+        $courses = DB::table('courses')->join('users', 'users.id', '=', 'courses.teacher_id')
+            ->select('users.username as teacher_name','courses.*')
+        ->where('teacher_id', $id)
             ->get();
         return response()->json([
             'status' => 200,
