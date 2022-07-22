@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { Form, Progress } from "antd";
 import { LessonService } from "../../services/LessonService";
@@ -7,19 +9,13 @@ import { DemoLessonDetailUser } from "./DemoLessonDetailUser";
 
 class CreateLesson extends Component {
   state = {
-    name: "Lesson 1",
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. ",
+    name: "",
+    description: "",
     course_id: this.props.match.params.id,
     url: "",
     fileVideo: "",
     // courseParams: JSON.parse(localStorage.getItem("courseParams")),
-    courseParams: {
-      name: "Course 1",
-      banner: "https://i.ytimg.com/vi/2Gg6Seob5Mg/maxresdefault.jpg",
-    },
   };
-
   handleInput = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
@@ -104,8 +100,8 @@ class CreateLesson extends Component {
         <div className="relative">
           <div className="z-50 h-screen">
             <DemoLessonDetailUser
-              courseData={this.state.courseParams}
-              lessonData={this.state}
+              course_id={this.state.course_id}
+              lesson={this.state}
             />
           </div>
           <div className="mt-12 w-full">
@@ -138,7 +134,7 @@ class CreateLesson extends Component {
                       name="name"
                       onChange={this.handleInput}
                       value={this.state.name}
-                      placeholder="100"
+                      placeholder="new name"
                     />
                   </div>
                 </div>
@@ -159,7 +155,7 @@ class CreateLesson extends Component {
                       name="description"
                       onChange={this.handleInput}
                       value={this.state.description}
-                      placeholder="100"
+                      placeholder="description"
                     />
                   </div>
                 </div>

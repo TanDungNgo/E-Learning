@@ -20,7 +20,7 @@ const MyAssignedCourse = () => {
     if (userLogin.role === "user") {
       dispatch(getCourseEnrolledAction(userLogin.id));
     } else {
-      dispatch(getCourseByIdTeacherAction(1));
+      dispatch(getCourseByIdTeacherAction(userLogin.id));
       dispatch(getStudentsInCourseAction(3));
     }
   }, []);

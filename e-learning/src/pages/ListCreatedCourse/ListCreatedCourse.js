@@ -1,8 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import CourseCard from "../../components/MultipleItems/CourseCard";
 import "../ListCourse/ListCourse.css";
+import {
+  getCourseByIdTeacherAction,
+  getCourseEnrolledAction,
+} from "../../redux/actions/CourseAction";
+import { USER_LOGIN } from "../../utils/settings/config";
 
 const ListCreatedCourse = () => {
+  const { coursesDefault } = useSelector((state) => state.CourseReducer);
+  const userLogin = JSON.parse(localStorage.getItem(USER_LOGIN));
+  const dispatch = useDispatch();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    if (userLogin.role === "user") {
+      dispatch(getCourseEnrolledAction(userLogin.id));
+    } else {
+      dispatch(getCourseByIdTeacherAction(1));
+    }
+  }, []);
+  console.log("listcourse: ", coursesDefault);
+  const listCourses = coursesDefault.map((item) => {
+    return <CourseCard key={item.id} course={item} />;
+  });
   return (
     <>
       <div className="mb-4 text-base inline-flex items-center font-bold leading-sm uppercase px-3 py-1 rounded bg-white text-gray-700 border drop-shadow-lg">
@@ -20,21 +41,9 @@ const ListCreatedCourse = () => {
         </svg>
         Created Course
       </div>
-      {/* <div className="grid grid-cols-3 gap-4 background-list-courses p-5 rounded-lg drop-shadow">
-        <CourseCard course />
-        <CourseCard course />
-
-        <CourseCard course />
-        <CourseCard course />
-        <CourseCard course />
-        <CourseCard course />
-        <CourseCard course />
-        <CourseCard course />
-        <CourseCard course />
-        <CourseCard course />
-        <CourseCard course />
-        <CourseCard course />
-      </div> */}
+      <div className="grid grid-cols-3 gap-4 background-list-courses p-5 rounded-lg drop-shadow">
+        {listCourses}
+      </div>
     </>
   );
 };

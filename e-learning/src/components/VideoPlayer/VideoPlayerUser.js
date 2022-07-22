@@ -12,22 +12,22 @@ import { saveRecordAction } from "../../redux/actions/RecordActions";
 import { getTimedatasByLessonIdAction } from "../../redux/actions/TimedataActions";
 
 const timedatasDefault = [
-  {
-    minute: 0,
-    second: 5,
-  },
-  {
-    minute: 0,
-    second: 40,
-  },
-  {
-    minute: 0,
-    second: 55,
-  },
-  {
-    minute: 1,
-    second: 15,
-  },
+  // {
+  //   minute: 0,
+  //   second: 5,
+  // },
+  // {
+  //   minute: 0,
+  //   second: 40,
+  // },
+  // {
+  //   minute: 0,
+  //   second: 55,
+  // },
+  // {
+  //   minute: 1,
+  //   second: 15,
+  // },
 ];
 
 const VideoPlayerUser = (props) => {

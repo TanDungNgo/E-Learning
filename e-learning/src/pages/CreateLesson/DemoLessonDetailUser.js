@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import VideoPlayerUser from "../../components/VideoPlayer/VideoPlayerUser";
-
+import { getCourseDetailAction } from "../../redux/actions/CourseAction";
 import "../Lesson/LessonDetailUser.css";
 // import VideoPlayerUser from "../../components/VideoPlayer/VideoPlayerUser";
 
 export const DemoLessonDetailUser = (props) => {
-  const fakeLesson = {};
-
+  const dispatch = useDispatch();
+  let { id } = props.course_id;
+  const { courseDetail } = useSelector((state) => state.CourseReducer);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    dispatch(getCourseDetailAction(id));
+  }, []);
   const demoLesson = {
     top: "-6rem",
     left: "-7rem",
@@ -57,7 +63,7 @@ export const DemoLessonDetailUser = (props) => {
                     href="#"
                     className="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ml-2 dark:text-gray-400 dark:hover:text-white"
                   >
-                    {props.courseData.name}
+                    {courseDetail.name}
                   </a>
                 </div>
               </li>
@@ -76,7 +82,7 @@ export const DemoLessonDetailUser = (props) => {
                     ></path>
                   </svg>
                   <span className="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">
-                    {props.lessonData.name}
+                  {props.lesson.name}
                   </span>
                 </div>
               </li>
@@ -84,9 +90,9 @@ export const DemoLessonDetailUser = (props) => {
           </nav>
           <div className="mt-4">
             <VideoPlayerUser
-              lesson={fakeLesson}
-              fixedBanner={props.courseData.banner}
-              fixedUrl={props.lessonData.url}
+              lesson={props.lesson}
+              fixedBanner={courseDetail.banner}
+              fixedUrl={props.lesson.url}
             />
           </div>
           <button className="mt-4 text-base inline-flex items-center font-bold leading-sm uppercase px-3 py-1 rounded bg-white text-gray-700 border drop-shadow-lg">
@@ -97,7 +103,7 @@ export const DemoLessonDetailUser = (props) => {
             className="bg-white rounded-lg border border-2 border-gray-300 accordion-collapse collapse show"
           >
             <div className="accordion-body py-4 px-5">
-              {props.lessonData.description}
+              {props.lesson.description}
             </div>
           </div>
         </div>

@@ -189,7 +189,7 @@ export const CourseDetailUser = (props) => {
             EDIT COURSE
           </NavLink>
           <NavLink
-            to="/course/1/add-new/lesson"
+            to={`/course/${id}/add-new/lesson`}
             className="mt-10 mb-4 ml-4 text-base inline-flex items-center font-bold leading-sm uppercase px-3 py-1 rounded bg-orange-200 hover:bg-orange-300 hover:text-white text-white border drop-shadow-lg"
           >
             <svg

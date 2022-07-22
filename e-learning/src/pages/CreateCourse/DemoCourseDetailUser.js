@@ -4,8 +4,9 @@ import { ShareAltOutlined, HeartOutlined } from "@ant-design/icons";
 
 import CourseOverView from "../Courses/CourseOverView";
 import TeacherCard from "../../components/MultipleItems/TeacherCard";
-
+import { USER_LOGIN } from "../../utils/settings/config";
 const DemoCourseDetailUser = (props) => {
+  const userLogin = JSON.parse(localStorage.getItem(USER_LOGIN));
   const demoCourse = {
     top: "-9rem",
     left: "-20rem",
@@ -32,7 +33,7 @@ const DemoCourseDetailUser = (props) => {
               </a>
             </div>
             <div className="row-span-1 pb-1 border-b-2 border-gray-600">
-              <TeacherCard fixedData />
+              <TeacherCard teacher = {userLogin} />
             </div>
             <div className="row-span-1">
               <div className="border-b-2 border-gray-600 py-3 flex justify-between">
