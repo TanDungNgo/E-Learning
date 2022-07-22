@@ -2,8 +2,10 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { BellFilled, SettingFilled } from "@ant-design/icons";
 import TeacherSideBar from "./TeacherSideBar";
+import { USER_LOGIN } from "../../../utils/settings/config";
 
 const SideBar = () => {
+  const userLogin = JSON.parse(localStorage.getItem(USER_LOGIN));
   return (
     <>
       <aside className="w-64 pl-2 fixed" aria-label="Sidebar">
@@ -107,7 +109,11 @@ const SideBar = () => {
           </ul>
         </div>
       </aside>
-      <TeacherSideBar />
+      {
+        (userLogin.role == 'teacher')
+        &&
+        <TeacherSideBar />
+      }
     </>
   );
 };

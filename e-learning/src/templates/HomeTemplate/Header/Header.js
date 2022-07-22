@@ -20,7 +20,7 @@ export const Header = (props) => {
         {
           key: "2",
           label: (
-            <NavLink to="/my-assigned-courses" className=" text-black">
+            <NavLink to="/enrolled-course" className=" text-black">
               My Courses
             </NavLink>
           ),

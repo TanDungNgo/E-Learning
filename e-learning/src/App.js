@@ -34,11 +34,6 @@ function App() {
       <Route path="/register" exact component={Register} />
       <ProfileTemplate path="/profile" exact Component={Profile} />
       <ProfileTemplate path="/upgrade" exact Component={Upgrade} />
-      <ProfileTemplate
-        path="/my-assigned-courses"
-        exact
-        Component={MyAssignedCourse}
-      />
       <AdminTemplate
         path="/admin/courses/:id/add-new"
         exact

@@ -36,7 +36,7 @@ const ListCourse = () => {
         </svg>
         Enrolled Course
       </div>
-      <div className="grid grid-cols-3 gap-4 background-list-courses p-5 rounded-lg drop-shadow">
+      <div className="min-h-full grid grid-cols-3 gap-4 background-list-courses p-5 rounded-lg drop-shadow" style={{minHeight: '500px'}}>
         {listCourses}
       </div>
     </>
