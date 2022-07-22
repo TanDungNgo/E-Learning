@@ -26,7 +26,7 @@ class StudentController extends Controller
         $students = Student::join('users', 'users.id', '=', 'students.user_id')
             ->join('courses', 'courses.id', '=', 'students.course_id')
             ->select('users.username', 'users.email', 'users.avatar', 'courses.name as course_name', 'students.*')
-            ->where('course_id', $id)->get();
+            ->where('courses.teacher_id', $id)->get();
         return response()->json([
             'status' => 200,
             'students' => $students,
