@@ -21,7 +21,7 @@ const MyAssignedCourse = () => {
       dispatch(getCourseEnrolledAction(userLogin.id));
     } else {
       dispatch(getCourseByIdTeacherAction(userLogin.id));
-      dispatch(getStudentsInCourseAction(3));
+      dispatch(getStudentsInCourseAction(userLogin.id));
     }
   }, []);
   console.log("listcourse: ", coursesDefault);
