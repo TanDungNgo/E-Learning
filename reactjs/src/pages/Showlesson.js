@@ -53,7 +53,7 @@ class Showlesson extends Component
     };
     async componentDidMount() {
         const lesson_id = this.props.match.params.id;
-        const res = await axios.get(`http://127.0.0.1:8000/api/records/${lesson_id}`);
+        const res = await axios.get(`https://benefique-monsieur-33716.herokuapp.com/api/records/${lesson_id}`);
         if(res.data.status === 200)
         {
             this.setState({
@@ -93,7 +93,7 @@ class Showlesson extends Component
     seeFeedback = async (e,id) => {
         const thidClickedFunda = e.currentTarget;
         console.log(id);
-        const res = await axios.get(`http://127.0.0.1:8000/api/see-feedback/${id}`);
+        const res = await axios.get(`https://benefique-monsieur-33716.herokuapp.com/api/see-feedback/${id}`);
         if(res.data.status === 200)
         {
             var feedback = [];

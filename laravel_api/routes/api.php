@@ -23,8 +23,10 @@ use App\Http\Controllers\API\SendNotificationController;
 Route::get('/studying-course', [StudentController::class, 'index']);
 Route::get('isStudent', [StudentController::class, 'isStudent']);
 Route::post('/students/enroll', [StudentController::class, 'EnrollCourse']);
-Route::delete('/students/unenroll', [StudentController::class, 'UnenrollCourse']);
-
+Route::delete('/students/unenroll/{user_id}/{course_id}', [StudentController::class, 'UnenrollCourse']);
+Route::get('/liststudent/{id}', [StudentController::class, 'StudentInCourse']);
+Route::get('/listcourse-enroll/{id}', [StudentController::class, 'GetCourseEnroll']);
+Route::get('/checkenroll/{user_id}/{course_id}', [StudentController::class, 'CheckEnroll']);
 // Course
 
 Route::get('/courses', [CourseController::class, 'index']);
@@ -37,6 +39,7 @@ Route::put('/update-course/{id}', [CourseController::class, 'update']);
 
 Route::delete('/delete-course/{id}', [CourseController::class, 'destroy']);
 
+Route::get('/courses-teacher/{id}', [CourseController::class, 'GetCourseByIdTeacher']);
 //phê duyệt khóa học (role==admin)
 Route::get('/pending-course', [CourseController::class, 'PendingCourse']);
 Route::put('/approve-pending-course/{id}', [CourseController::class, 'ApprovePendingCourse']);
@@ -60,7 +63,8 @@ Route::post('/users/register', [UserController::class, 'register']);
 Route::post('/users/update/{id}', [UserController::class, 'update']);
  //route quyền lực nhất web
 Route::get('/all-become-admin', [UserController::class, 'BecomeAdmin']);
-
+Route::get('/become-teacher/{id}', [UserController::class, 'BecomeTeacher']);
+Route::get('/user-list', [UserController::class, 'GetAllUser']);
 /// Teacher List
 Route::get('/teacher-list', [UserController::class, 'teacherList']);
 

@@ -5,21 +5,61 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Student;
 use App\Models\Course;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Validator;
+use Illuminate\Support\Facades\DB;
 
 class StudentController extends Controller
 {
     public function index()
     {
         $student = Student::join('courses', 'courses.id', '=', 'students.course_id')
-        ->select('courses.*')->get();
+            ->select('courses.*')->get();
         return response()->json([
             'status' => 200,
             'student' => $student,
         ]);
     }
-    public function isStudent (Request $request)
+    public function StudentInCourse($id)
+    {
+        $students = Student::join('users', 'users.id', '=', 'students.user_id')
+            ->join('courses', 'courses.id', '=', 'students.course_id')
+            ->select('users.username', 'users.email', 'users.avatar', 'courses.name as course_name', 'students.*')
+            ->where('course_id', $id)->get();
+        return response()->json([
+            'status' => 200,
+            'students' => $students,
+        ]);
+    }
+    public function GetCourseEnroll($id)
+    {
+        $listcourse = DB::table('students')
+            ->join('courses', 'courses.id', '=', 'students.course_id')
+            ->select('courses.*')
+            ->where('students.user_id', $id)
+            ->get();
+
+        return response()->json([
+            'status' => 200,
+            'courses' => $listcourse,
+        ]);
+    }
+    // Kiểm tra xem học viên đã đăng kí chưa
+    public function CheckEnroll($user_id, $course_id)
+    {
+        $check = DB::table('students')->where('user_id', $user_id)->where('course_id', $course_id)->count();
+        if ($check === 1) {
+            return response()->json([
+                'status' => true,
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+            ]);
+        }
+    }
+    public function isStudent(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'course_id' => 'required|integer',
@@ -45,12 +85,13 @@ class StudentController extends Controller
             'isStudent' => "false"
         ]);
     }
-    public function EnrollCourse(Request $request){
+    public function EnrollCourse(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'course_id' => 'required',
             'user_id' => 'required',
         ]);
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json([
                 'validate_err' => $validator->messages(),
             ]);
@@ -65,19 +106,20 @@ class StudentController extends Controller
             'message' => 'Enroll Course Successfully',
         ]);
     }
-    public function UnenrollCourse(Request $request){
-        $validator = Validator::make($request->all(), [
-            'course_id' => 'required',
-            'user_id' => 'required',
-        ]);
-        if($validator->fails()){
-            return response()->json([
-                'validate_err' => $validator->messages(),
-            ]);
-        }
+    public function UnenrollCourse($user_id, $course_id)
+    {
+        // $validator = Validator::make($request->all(), [
+        //     'course_id' => 'required',
+        //     'user_id' => 'required',
+        // ]);
+        // if ($validator->fails()) {
+        //     return response()->json([
+        //         'validate_err' => $validator->messages(),
+        //     ]);
+        // }
         $student = Student::where([
-            'user_id' => $request->user_id,
-            'course_id' => $request->course_id,
+            'user_id' => $user_id,
+            'course_id' => $course_id,
         ])->delete();
         return response()->json([
             'status' => 200,

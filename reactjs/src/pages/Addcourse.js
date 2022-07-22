@@ -60,7 +60,7 @@ class Addcourse extends Component
         data.append('description', this.state.description)
         data.append('banner', this.state.banner)
         data.append('url', this.state.url)
-        const res = await axios.post('http://127.0.0.1:8000/api/add-course', data);
+        const res = await axios.post('https://benefique-monsieur-33716.herokuapp.com/api/add-course', data);
         if(res.data.status === 200)
         {
             console.log(res.data.message);

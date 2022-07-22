@@ -16,21 +16,44 @@ class LessonController extends Controller
 {
     public function getOne($courseId, $lessonId)
     {
+        $course = Course::find($courseId);
         $lesson = Lesson::find($lessonId);
+        $data = [];
+        $records = DB::table('records')
+            ->join('users', 'users.id', '=', 'records.user_id')
+            ->select('users.username', 'records.*')->where('lesson_id', '=', $lessonId)->get();
+        $data = [
+            'course_name' => $course->name,
+            'id' => $lesson->id,
+            'name' => $lesson->name,
+            'description' => $lesson->description,
+            'video_link' => $lesson->video_link,
+            'status' => $lesson->status,
+            'records' => $records,
+        ];
         return response()->json([
             'status' => 200,
-            'lesson' => $lesson,
+            'lesson' => $data,
         ]);
     }
     public function index($id)
     {
         $course = DB::table('courses')->join('users', 'users.id', '=', 'courses.teacher_id')
-        ->select('users.username', 'courses.*')->where('courses.id', $id)->get();
+            ->select('users.username', 'courses.*')->where('courses.id', $id)->first();
         $lessons = DB::table('lessons')->where('course_id', $id)->get();
+        $data = [
+            'username' => $course->username,
+            'name' => $course->name,
+            'description' => $course->description,
+            'banner' => $course->banner,
+            'price' => $course->price,
+            'status' => $course->status,
+            'lessons' => $lessons,
+        ];
         return response()->json([
             'status' => 200,
-            'course' => $course,
-            'lessons' => $lessons,
+            'course' => $data,
+            // 'lessons' => $lessons,
         ]);
     }
     //pending lesson for admin approve
