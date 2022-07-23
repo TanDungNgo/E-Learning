@@ -30,7 +30,7 @@ const AllCourses = () => {
   <div class={"sidebar drop-shadow-lg rounded-r-2xl " + (showSideBar ? ' open' : '')} 
     >
        <button type="button" 
-              className='sidebar-show-button absolute text-blue-700 border border-blue-700  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 bg-white'
+              className='z- sidebar-show-button absolute text-blue-700 border border-blue-700  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 bg-white'
               onClick={(()=>{setShowSideBar(!showSideBar); console.log(showSideBar) })}
       >
               {
@@ -41,16 +41,18 @@ const AllCourses = () => {
       </button>
     <ul class="nav-list">
       <li>
-         <input type="text" placeholder="Search..." className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-gray-500'/>
+         <input type="text" 
+                placeholder="Search..." 
+                className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded  leading-tight focus:outline-none focus:border-gray-500'/>
          <span class="tooltip">Search</span>
       </li>
     <div class="container-checkbox relative">
-      <div>
+      {/* <div>
         <label>
           <input class="checkBox" type="checkbox" name="n1" id=""/>
           <span class="level-pick">N1</span>
         </label>
-      </div>
+      </div> */}
     </div>
     </ul>
   </div>

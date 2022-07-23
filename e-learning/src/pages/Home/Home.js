@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 import { MultipleCourses } from "../../components/MultipleItems/MultipleICourses";
 import { MultipleTeachers } from "../../components/MultipleItems/MultipleTeachers";
 import { getAllCoursesAction } from "../../redux/actions/CourseAction";
@@ -70,12 +71,12 @@ export const Home = (props) => {
         </div>
         <MultipleCourses listCourses={coursesDefault} />
         <div className="flex items-center w-full justify-center pt-12">
-          <button
+          <NavLink
             className="text-lg col-span-1 bg-orange-100 hover:bg-orange-300 text-orange-500 font-semibold hover:text-white py-2 px-8 border  border-orange-300 hover:border-transparent rounded-xl"
-            // onClick={() => {props.history.push({})}}
+            to='/all-courses'
           >
             View All
-          </button>
+          </NavLink>
         </div>
       </div>
       <div className="py-10 background-teacher">
@@ -89,14 +90,14 @@ export const Home = (props) => {
           history={props.history}
           location={props.location}
         />
-        <div className="flex items-center w-full justify-center pt-12">
+        {/* <div className="flex items-center w-full justify-center pt-12">
           <button
             className="text-lg col-span-1 bg-orange-100 hover:bg-orange-300 text-orange-500 font-semibold hover:text-white py-2 px-8 border  border-orange-300 hover:border-transparent rounded-xl"
             onClick={() => {}}
           >
             View All
           </button>
-        </div>
+        </div> */}
       </div>
       {/* <div>
         <div className="background-record pb-20">

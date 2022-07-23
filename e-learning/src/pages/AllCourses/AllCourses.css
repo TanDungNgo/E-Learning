@@ -277,11 +277,10 @@ body {
   position: fixed;
   left: 50;
   top: 50;
-  height: 100%;
   width: 78px;
   background: #ffffff;
   padding: 6px 14px;
-  z-index: 99;
+  z-index: 5;
   transition: all 0.5s ease;
 }
 .sidebar.open{
@@ -377,6 +376,7 @@ body {
   border: none;
   border-radius: 12px;
   transition: all 0.4s ease;
+  margin-left: -6px;
 }
 .sidebar.open input{
   padding: 0 20px 0 50px;
