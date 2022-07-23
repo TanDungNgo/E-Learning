@@ -1,14 +1,13 @@
-import { USER_LOGIN } from '../../utils/settings/config';
-import { NotifyServiece } from '../../services/NotifyService';
+import { NotifyService } from "../../services/NotifyService";
+import {NOTIFY_USER} from "../types/NotifyTypes";
 
 export const NotifyUserAction = (userID) => {
     return async (dispatch) => {
         try {
-        const result = await NotifyServiece.NotifyUser(userID);
-        console.log("result>>", result);
+        const result = await NotifyService.getUserNotifications(userID)
         dispatch({
-            type: USER_LOGIN,
-            data: result.notify,
+            type: NOTIFY_USER,
+            value: result.notify
         });
         } catch (error) {
         console.log("error>>", error);
