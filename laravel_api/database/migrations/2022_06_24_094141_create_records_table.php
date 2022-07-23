@@ -3,10 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-// Lưu ý
-// Đây là một table phụ dùng để xem user đã đăng kí các khóa học nào
-//
-class CreateStudentsTable extends Migration
+
+class CreateRecordsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,16 +13,19 @@ class CreateStudentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('students', function (Blueprint $table) {
+        Schema::create('records', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('course_id');
-            $table->foreign('course_id')->references('id')->on('courses');
+            $table->unsignedBigInteger('lesson_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->date('join_date');
+            $table->foreign('lesson_id')->references('id')->on('lessons');
+            $table->text('record_file');
+            $table->integer('minute');
+            $table->integer('second');
             $table->timestamps();
         });
     }
+
     /**
      * Reverse the migrations.
      *
@@ -32,6 +33,6 @@ class CreateStudentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('students');
+        Schema::dropIfExists('records');
     }
 }

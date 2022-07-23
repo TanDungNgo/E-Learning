@@ -25,7 +25,7 @@ import Test from "./pages/test/Test";
 import AdminTemplate from "./templates/AdminTemplate/AdminTemplate";
 import { HomeTemplate } from "./templates/HomeTemplate/HomeTemplate";
 import { ProfileTemplate } from "./templates/ProfileTemplate/SideBar/ProfileTemplate";
-
+import UserNotify from "./pages/Notification/UserNotify";
 export const history = createBrowserHistory();
 function App() {
   return (
@@ -84,6 +84,7 @@ function App() {
       />
       <AdminTemplate path="/admin/courses" exact Component={Course} />
       <HomeTemplate path="/test" exact Component={Test} />
+      <ProfileTemplate path="/my-notification" exact Component={UserNotify}/>
     </Switch>
   );
 }
