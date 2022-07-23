@@ -5,6 +5,7 @@ import { UserReducer } from "./reducers/UserReducer";
 import { CourseReducer } from "./reducers/CourseReducer";
 import { RecordReducer } from "./reducers/RecordReducer";
 import { TimedataReducer } from "./reducers/TimedataReducer";
+import { NotifyReducer } from "./reducers/NotifyReducer";
 
 const rootReducers = combineReducers({
   LessonReducer,
@@ -12,6 +13,7 @@ const rootReducers = combineReducers({
   CourseReducer,
   RecordReducer,
   TimedataReducer,
+  NotifyReducer,
 });
 
 export const store = createStore(rootReducers, applyMiddleware(thunk));

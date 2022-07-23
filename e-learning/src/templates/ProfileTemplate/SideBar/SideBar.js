@@ -1,20 +1,21 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { BellFilled, SettingFilled } from "@ant-design/icons";
-import {NotifyService} from "../../../services/NotifyService";
 import TeacherSideBar from "./TeacherSideBar";
 import { USER_LOGIN } from "../../../utils/settings/config";
 
+import { useSelector, useDispatch } from "react-redux";
+import { NotifyUserAction } from "../../../redux/actions/NotifyAction";
 const SideBar = () => {
-  // cần sửa lại bằng cách dùng dispatch để lấy dữ liệu từ redux
   const userLogin = JSON.parse(localStorage.getItem("USER_LOGIN"));
-  const [countNotify, setCountNotify] = useState(0);
-  useEffect(async ()=>{
-    const res = await NotifyService.getUserNotifications(userLogin.id).then(function(result){
-      setCountNotify(result.notify.length);
-    })
-  })
+
+  //redux 
+  const {notifyUserDefault} = useSelector((state) => state.NotifyReducer);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(NotifyUserAction(userLogin.id));
+  }, []);
   return (
     <>
       <aside className="w-64 pl-2 fixed" aria-label="Sidebar">
@@ -75,7 +76,7 @@ const SideBar = () => {
                   Notification
                 </span>
                 <span className="inline-flex justify-center items-center p-3 ml-3 w-3 h-3 text-sm font-medium text-yellow-600 bg-yellow-200 rounded-full dark:bg-blue-900 dark:text-blue-200">
-                  {countNotify}
+                  {notifyUserDefault.length}
                 </span>
               </NavLink>
             </li>
