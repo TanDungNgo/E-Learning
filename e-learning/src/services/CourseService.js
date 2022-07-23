@@ -22,6 +22,12 @@ const deleteCourseById = (id) => {
 const getAllCourses = () => {
   return Api.get(`/courses`);
 };
+const getCoursesByIdTeacher = (id) => {
+  return Api.get(`/courses-teacher/${id}`);
+};
+const getCoursesEnrolled = (id) => {
+  return Api.get(`/listcourse-enroll/${id}`);
+};
 export const CourseService = {
   getCourseById,
   createCourse,
@@ -29,4 +35,6 @@ export const CourseService = {
   deleteCourseById,
   updateCourseById,
   getCourseDetail,
+  getCoursesByIdTeacher,
+  getCoursesEnrolled,
 };

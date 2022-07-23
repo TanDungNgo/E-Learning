@@ -124,6 +124,7 @@ class AddCourse extends Component {
                 type="number"
                 onChange={this.handleInput}
                 value={this.state.teacher_id}
+                placeholder="Nhập mã giáo viên"
                 name="teacher_id"
               />
             </Form.Item>
@@ -134,6 +135,7 @@ class AddCourse extends Component {
                 onChange={this.handleInput}
                 value={this.state.price}
                 name="price"
+                placeholder="Nhập giá khóa học"
               />
             </Form.Item>
 
@@ -143,6 +145,7 @@ class AddCourse extends Component {
                 onChange={this.handleChangeFile}
                 accept="/image/*"
                 name="url"
+                placeholder="Chọn ảnh"
               />
               <br />
               <img

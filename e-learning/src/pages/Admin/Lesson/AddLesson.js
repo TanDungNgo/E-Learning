@@ -53,14 +53,6 @@ class AddLesson extends Component {
           this.setState({
             url: url,
           });
-          // const body = {
-          //   course_id: this.state.course_id,
-          //   url: this.state.url,
-          //   description: this.state.description,
-          //   name: this.state.name,
-          // };
-
-          // console.log("body", body);
         });
         const data = new FormData();
         data.append("name", this.state.name);
@@ -123,7 +115,7 @@ class AddLesson extends Component {
           </Form.Item>
           <Progress
             percent={this.state.percent}
-            style={{ marginLeft: 255, width: 600 }}
+            style={{ marginLeft: 120, width: 600 }}
           />
           <Form.Item label="Tác vụ">
             <button type="submit" className="bg-blue-300 text-white p-2">

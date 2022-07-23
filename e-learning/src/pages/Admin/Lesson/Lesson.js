@@ -1,75 +1,60 @@
 import React, { Fragment, useEffect } from "react";
-import { Button, Form, InputNumber, Table } from "antd";
+import { Button, Form, Table } from "antd";
 import { useFormik } from "formik";
 import { Input } from "antd";
 import { EditOutlined, DeleteOutlined, EyeOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import {
   deleteLessonByIdAction,
   getAllLessonsAction,
 } from "../../../redux/actions/LessonActions";
 
-const lessonsDefault1 = [
-  {
-    id: 1,
-    name: "testing lesson 1",
-    description: "nothing",
-    course_id: 1,
-    video_link:
-      "https://firebasestorage.googleapis.com/v0/b/fir-react-upload-bad49.appspot.com/o/files%2FDandelion%20-%202719.mp4?alt=media&token=7773bee0-b17e-4595-9645-3b8daf6a9cc8",
-  },
-  {
-    id: 2,
-    name: "testing lesson 2",
-    description: "nothing",
-    course_id: 1,
-    video_link: "http://media.w3.org/2010/05/bunny/movie.mp4",
-  },
-  {
-    id: 3,
-    name: "testing lesson 3",
-    description: "nothing",
-    course_id: 1,
-    video_link:
-      "https://firebasestorage.googleapis.com/v0/b/fir-react-upload-bad49.appspot.com/o/files%2FDandelion%20-%202719.mp4?alt=media&token=7773bee0-b17e-4595-9645-3b8daf6a9cc8",
-  },
-  {
-    id: 4,
-    name: "testing lesson 4",
-    description: "nothing",
-    course_id: 1,
-    video_link: "http://media.w3.org/2010/05/bunny/movie.mp4",
-  },
-];
+// const lessonsDefault1 = [
+//   {
+//     id: 1,
+//     name: "testing lesson 1",
+//     description: "nothing",
+//     course_id: 1,
+//     video_link:
+//       "https://firebasestorage.googleapis.com/v0/b/fir-react-upload-bad49.appspot.com/o/files%2FDandelion%20-%202719.mp4?alt=media&token=7773bee0-b17e-4595-9645-3b8daf6a9cc8",
+//   },
+//   {
+//     id: 2,
+//     name: "testing lesson 2",
+//     description: "nothing",
+//     course_id: 1,
+//     video_link: "http://media.w3.org/2010/05/bunny/movie.mp4",
+//   },
+//   {
+//     id: 3,
+//     name: "testing lesson 3",
+//     description: "nothing",
+//     course_id: 1,
+//     video_link:
+//       "https://firebasestorage.googleapis.com/v0/b/fir-react-upload-bad49.appspot.com/o/files%2FDandelion%20-%202719.mp4?alt=media&token=7773bee0-b17e-4595-9645-3b8daf6a9cc8",
+//   },
+//   {
+//     id: 4,
+//     name: "testing lesson 4",
+//     description: "nothing",
+//     course_id: 1,
+//     video_link: "http://media.w3.org/2010/05/bunny/movie.mp4",
+//   },
+// ];
 
 export default function Lessons(props) {
   const courseParams = JSON.parse(localStorage.getItem("courseParams"));
-  // const { lessonsDefault } = useSelector((state) => state.LessonReducer);
+  const { lessonsDefault } = useSelector((state) => state.LessonReducer);
 
-  // const dispatch = useDispatch();
+  console.log("lessonsDefault", lessonsDefault);
 
-  // useEffect(() => {
-  //   dispatch(getAllLessonsAction(courseParams.id));
-  // }, []);
+  const dispatch = useDispatch();
 
-  const formik = useFormik({
-    initialValues: {
-      name: "",
-      mincourseEvaluate: 0,
-      maxcourseEvaluate: 10,
-    },
-    // onSubmit: (values) => {
-    //   dispatch(
-    //     getAllcourseAction(
-    //       values.name,
-    //       values.mincourseEvaluate,
-    //       values.maxcourseEvaluate
-    //     )
-    //   );
-    // },
-    onReset: (values) => {},
-  });
+  const { courseId } = useParams();
+  useEffect(() => {
+    dispatch(getAllLessonsAction(courseId));
+  }, []);
 
   const columns = [
     {
@@ -180,7 +165,7 @@ export default function Lessons(props) {
                   window.confirm("Bạn có chắc muốn xoá bài học " + lesson.name)
                 ) {
                   //Gọi action
-                  // dispatch(deleteLessonByIdAction(lesson.id, courseParams.id));
+                  dispatch(deleteLessonByIdAction(lesson.id, courseParams.id));
                 }
               }}
             >
@@ -193,7 +178,7 @@ export default function Lessons(props) {
       width: "15%",
     },
   ];
-  const data = lessonsDefault1;
+  const data = lessonsDefault;
 
   return (
     <div>
@@ -220,31 +205,6 @@ export default function Lessons(props) {
           Reset
         </Button>
       </div>
-
-      <Form onSubmitCapture={formik.handleSubmit}>
-        <Input
-          style={{ width: "45%" }}
-          onChange={formik.handleChange}
-          placeholder="Nhập tên giáo viên"
-        />
-        <Input
-          name="name"
-          onChange={formik.handleChange}
-          placeholder="Nhập tên bài học "
-          style={{
-            width: "45%",
-          }}
-        />
-        <button
-          style={{
-            width: "10%",
-          }}
-          className="p-1 bg-blue-500 rounded-sm"
-          type="submit"
-        >
-          Search
-        </button>
-      </Form>
 
       <Table
         columns={columns}

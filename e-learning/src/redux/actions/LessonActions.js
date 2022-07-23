@@ -72,14 +72,10 @@ const listLessons = [
 export const getLessonByIdAction = (id) => {
   return async (dispatch) => {
     try {
-      // const result = await LessonService.getLessonById(id);
-      // dispatch({
-      //   type: GET_LESSON_DETAILS,
-      //   value: result.lesson,
-      // });
+      const result = await LessonService.getLessonById(id);
       dispatch({
         type: GET_LESSON_DETAILS,
-        value: listLessons[id - 1],
+        value: result.lesson,
       });
     } catch (error) {
       console.log("error>>", error);
@@ -107,7 +103,7 @@ export const getAllLessonsAction = (id) => {
       const result = await LessonService.getAllLessons(id);
       dispatch({
         type: GET_ALL_LESSONS,
-        value: result.lessons,
+        value: result.course.lessons,
       });
     } catch (error) {
       console.log("error>>", error);
@@ -117,7 +113,7 @@ export const getAllLessonsAction = (id) => {
 export const deleteLessonByIdAction = (lessonId, courseId) => {
   return async (dispatch) => {
     try {
-      const result = await LessonService.deleteLessonById(lessonId);
+      await LessonService.deleteLessonById(lessonId);
 
       dispatch(getAllLessonsAction(courseId));
     } catch (error) {
@@ -129,26 +125,11 @@ export const deleteLessonByIdAction = (lessonId, courseId) => {
 export const updateLessonAction = (data, lessonId, courseId) => {
   return async (dispatch) => {
     try {
-      const result = await LessonService.editLessonById(lessonId, data);
+      const re = await LessonService.editLessonById(lessonId, data);
+      console.log(re);
       dispatch(getAllLessonsAction(courseId));
     } catch (error) {
       console.log("error>>", error);
     }
   };
 };
-// export const getLessonAction = (value) => {
-//   return async (dispatch) => {
-//     try {
-//       // Gọi API
-//       // {
-//       //   todo code
-//       // }
-//       dispatch({
-//         type: GET_AUDIO,
-//         value: value,
-//       });
-//     } catch (error) {
-//       console.log("error>>", error);
-//     }
-//   };
-// };

@@ -8,7 +8,6 @@ export const RecordReducer = (state = stateDefault, action) => {
   switch (action.type) {
     case GET_ALL_RECORDS:
       state.recordsDefault = action.value;
-      console.log("GET_ALL_RECORDS: ", action.value);
       return { ...state };
 
     default:

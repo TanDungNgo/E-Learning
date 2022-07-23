@@ -14,7 +14,7 @@ const getOneLessonById = (courseId, lessonId) => {
 const editLessonById = (id, data) => {
   return Api.put(`/update-lesson/${id}`, data);
 };
-const deleteLessonById = (id) => {    
+const deleteLessonById = (id) => {
   return Api.delete(`/lessons/${id}`);
 };
 

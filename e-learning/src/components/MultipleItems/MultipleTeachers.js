@@ -26,9 +26,6 @@ function SamplePrevArrow(props) {
   );
 }
 
-// const description =
-//   "Giảng viên dạy tốt, nhiệt tình, được rất nhiều học sinh yêu mến. Có kinh nghiệm giảng dạy lâu năm, trình độ học vấn cao.";
-
 export const MultipleTeachers = (props) => {
   var settings = {
     infinite: false,
@@ -51,7 +48,7 @@ export const MultipleTeachers = (props) => {
           style={{ height: 100, width: 300 }}
           className={`${styleSlick["width-item"]} ${styleSlick["height-item"]} px-5  `}
         >
-          <TeacherCard />
+          <TeacherCard teacher = {item}/>
         </div>
       );
     });

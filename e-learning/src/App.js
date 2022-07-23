@@ -7,11 +7,11 @@ import Dashboard from "./pages/Admin/Dashboard/Dashboard";
 import AddLesson from "./pages/Admin/Lesson/AddLesson";
 import EditLesson from "./pages/Admin/Lesson/EditLesson";
 import Lessons from "./pages/Admin/Lesson/Lesson";
+import AllCourses from "./pages/AllCourses/AllCourses";
 import { CourseDetailUser } from "./pages/Courses/CourseDetailUser";
 import CreateCourse from "./pages/CreateCourse/CreateCourse";
 import CreateLesson from "./pages/CreateLesson/CreateLesson";
 import { Home } from "./pages/Home/Home";
-import { LessonDetail } from "./pages/Lesson/LessonDetail";
 import { LessonDetailUser } from "./pages/Lesson/LessonDetailUser";
 import ListCourse from "./pages/ListCourse/ListCourse";
 import ListCreatedCourse from "./pages/ListCreatedCourse/ListCreatedCourse";
@@ -35,18 +35,14 @@ function App() {
       <Route path="/register" exact component={Register} />
       <ProfileTemplate path="/profile" exact Component={Profile} />
       <ProfileTemplate path="/upgrade" exact Component={Upgrade} />
-      <ProfileTemplate
-        path="/my-assigned-courses"
-        exact
-        Component={MyAssignedCourse}
-      />
+      <HomeTemplate path="/all-courses" exact Component={AllCourses}/>
       <AdminTemplate
         path="/admin/courses/:id/add-new"
         exact
         Component={AddLesson}
       />
       <AdminTemplate
-        path="/admin/courses/:id/lessons"
+        path="/admin/courses/:courseId/lessons"
         exact
         Component={Lessons}
       />
@@ -84,7 +80,7 @@ function App() {
       <HomeTemplate
         path="/courses/:courseId/lessons/:lessonId"
         exact
-        Component={LessonDetail}
+        Component={LessonDetailUser}
       />
       <AdminTemplate path="/admin/courses" exact Component={Course} />
       <HomeTemplate path="/test" exact Component={Test} />

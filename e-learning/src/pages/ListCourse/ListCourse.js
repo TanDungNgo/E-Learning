@@ -1,22 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import CourseCard from "../../components/MultipleItems/CourseCard";
 import "./ListCourse.css";
-
-const courseFake = {
-  banner:
-    "https://firebasestorage.googleapis.com/v0/b/fir-react-upload-bad49.appspot.com/o/files%2F7-8.png?alt=media&token=8d6e9694-b128-4400-8e0c-218fdb7a7c09",
-  created_at: "2022-07-16 14:44:14",
-  description: "dasdasdas; dsadasd; asdasdasdas; asdasdasdasdas",
-  id: 1,
-  name: "mamamamamma asdasdas",
-  price: 1000,
-  status: "pending",
-  teacher_id: 1,
-  teacher_name: "Minh Bùi",
-  updated_at: "2022-07-16 14:44:14",
-};
+import { getCourseEnrolledAction } from "../../redux/actions/CourseAction";
+import { USER_LOGIN } from "../../utils/settings/config";
 
 const ListCourse = () => {
+  const { coursesDefault } = useSelector((state) => state.CourseReducer);
+  const userLogin = JSON.parse(localStorage.getItem(USER_LOGIN));
+  const dispatch = useDispatch();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    if (userLogin.role === "user") {
+      dispatch(getCourseEnrolledAction(userLogin.id));
+    }
+  }, []);
+  console.log("listcourse: ", coursesDefault);
+  const listCourses = coursesDefault.map((item) => {
+    return <CourseCard key={item.id} course={item} />;
+  });
   return (
     <>
       <div className="mb-4 text-base inline-flex items-center font-bold leading-sm uppercase px-3 py-1 rounded bg-white text-gray-700 border drop-shadow-lg">
@@ -34,19 +36,8 @@ const ListCourse = () => {
         </svg>
         Enrolled Course
       </div>
-      <div className="grid grid-cols-3 gap-4 background-list-courses p-5 rounded-lg drop-shadow">
-        <CourseCard course={courseFake} />
-        <CourseCard course={courseFake} />
-        <CourseCard course={courseFake} />
-        <CourseCard course={courseFake} />
-        <CourseCard course={courseFake} />
-        <CourseCard course={courseFake} />
-        <CourseCard course={courseFake} />
-        <CourseCard course={courseFake} />
-        <CourseCard course={courseFake} />
-        <CourseCard course={courseFake} />
-        <CourseCard course={courseFake} />
-        <CourseCard course={courseFake} />
+      <div className="min-h-full grid grid-cols-3 gap-4 background-list-courses p-5 rounded-lg drop-shadow" style={{minHeight: '500px'}}>
+        {listCourses}
       </div>
     </>
   );

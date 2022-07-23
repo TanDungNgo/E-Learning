@@ -1,16 +1,14 @@
 import React, { Component } from "react";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { Form, Input, Progress } from "antd";
+import { Form, Progress } from "antd";
 import { CourseService } from "../../services/CourseService";
 import storageFirebase from "../../utils/settings/firebaseConfig";
-import { useSelector } from "react-redux";
-import { USER_LOGIN } from "../../utils/settings/config";
-import { CourseDetailUser } from "../Courses/CourseDetailUser";
 import DemoCourseDetailUser from "./DemoCourseDetailUser";
+import { USER_LOGIN } from "../../utils/settings/config";
 // import axios from "axios";
 
 class CreateCourse extends Component {
-  userLogin = JSON.parse(localStorage.getItem("USER_LOGIN"));
+  userLogin = JSON.parse(localStorage.getItem(USER_LOGIN));
 
   state = {
     name: "",
@@ -69,7 +67,6 @@ class CreateCourse extends Component {
       };
     }
   };
-  // handleUpload = () => {};
   saveLesson = async (e) => {
     e.preventDefault();
     const storageRef = ref(
@@ -104,10 +101,8 @@ class CreateCourse extends Component {
         data.append("url", this.state.url);
         data.append("teacher_id", this.state.teacher_id);
         data.append("price", this.state.price);
-        // const res = await axios.post("/courses", data);
 
-        const result = await CourseService.createCourse(data);
-        // console.log("result", result);
+        await CourseService.createCourse(data);
       }
     );
   };
@@ -115,7 +110,7 @@ class CreateCourse extends Component {
   render() {
     return (
       <>
-        <div class="mb-4 text-base inline-flex items-center font-bold leading-sm uppercase px-3 py-1 rounded bg-white text-gray-700 border drop-shadow-lg">
+        <div className="mb-4 text-base inline-flex items-center font-bold leading-sm uppercase px-3 py-1 rounded bg-white text-gray-700 border drop-shadow-lg">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 mr-2"
@@ -157,16 +152,16 @@ class CreateCourse extends Component {
         >
           {this.state.showName && (
             <Form.Item>
-              <div class="flex flex-wrap -mx-3 mb-2">
-                <div class="w-full px-3">
+              <div className="flex flex-wrap -mx-3 mb-2">
+                <div className="w-full px-3">
                   <label
-                    class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                     for="name"
                   >
                     Link your new name
                   </label>
                   <input
-                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="name"
                     type="text"
                     name="name"
@@ -174,23 +169,23 @@ class CreateCourse extends Component {
                     value={this.state.name}
                     placeholder="Name for your new course"
                   />
-                  {/* <p class="text-gray-600 text-xs italic">We don't required a confirm password so carefull with your new one</p> */}
+                  {/* <p className="text-gray-600 text-xs italic">We don't required a confirm password so carefull with your new one</p> */}
                 </div>
               </div>
             </Form.Item>
           )}
           {this.state.showDes && (
             <Form.Item>
-              <div class="flex flex-wrap -mx-3 mb-2">
-                <div class="w-full px-3">
+              <div className="flex flex-wrap -mx-3 mb-2">
+                <div className="w-full px-3">
                   <label
-                    class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                     for="description"
                   >
                     Link your new description
                   </label>
                   <input
-                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="description"
                     type="text"
                     name="description"
@@ -198,23 +193,23 @@ class CreateCourse extends Component {
                     value={this.state.description}
                     placeholder="Something..."
                   />
-                  {/* <p class="text-gray-600 text-xs italic">We don't required a confirm password so carefull with your new one</p> */}
+                  {/* <p className="text-gray-600 text-xs italic">We don't required a confirm password so carefull with your new one</p> */}
                 </div>
               </div>
             </Form.Item>
           )}
           {false && (
             <Form.Item>
-              <div class="flex flex-wrap -mx-3 mb-2">
-                <div class="w-full px-3">
+              <div className="flex flex-wrap -mx-3 mb-2">
+                <div className="w-full px-3">
                   <label
-                    class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                     for="price"
                   >
                     Link your new price
                   </label>
                   <input
-                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="price"
                     type="number"
                     name="price"
@@ -222,7 +217,7 @@ class CreateCourse extends Component {
                     value={this.state.price}
                     placeholder="100"
                   />
-                  {/* <p class="text-gray-600 text-xs italic">We don't required a confirm password so carefull with your new one</p> */}
+                  {/* <p className="text-gray-600 text-xs italic">We don't required a confirm password so carefull with your new one</p> */}
                 </div>
               </div>
             </Form.Item>
@@ -230,8 +225,8 @@ class CreateCourse extends Component {
 
           {this.state.showImg && (
             <Form.Item>
-              <div class="flex items-center space-x-6">
-                <div class="shrink-0">
+              <div className="flex items-center space-x-6">
+                <div className="shrink-0">
                   {this.state.imgSrc ? (
                     <img
                       style={{ width: 100, height: 100 }}
@@ -246,11 +241,11 @@ class CreateCourse extends Component {
                     />
                   )}
                 </div>
-                <label class="block">
-                  <span class="sr-only">Choose profile photo</span>
+                <label className="block">
+                  <span className="sr-only">Choose profile photo</span>
                   <input
                     type="file"
-                    class="block w-full text-sm text-slate-500
+                    className="block w-full text-sm text-slate-500
                                 file:mr-4 file:py-2 file:px-4
                                 file:rounded-full file:border-0
                                 file:text-sm file:font-semibold
@@ -268,7 +263,7 @@ class CreateCourse extends Component {
           <Form.Item>
             <button
               type="submit"
-              class="text-white bg-orange-600 hover:bg-orange-700 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2"
+              className="text-white bg-orange-600 hover:bg-orange-700 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2"
             >
               Create
             </button>

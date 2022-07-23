@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import Button from "../../../components/Button/Button";
-import { USER_LOGIN } from "../../../utils/settings/config";
+import { logoE_Learning, USER_LOGIN } from "../../../utils/settings/config";
 import { Dropdown, Menu, Space } from "antd";
 
 export const Header = (props) => {
@@ -20,7 +20,7 @@ export const Header = (props) => {
         {
           key: "2",
           label: (
-            <NavLink to="/my-assigned-courses" className=" text-black">
+            <NavLink to="/enrolled-course" className=" text-black">
               My Courses
             </NavLink>
           ),
@@ -64,15 +64,16 @@ export const Header = (props) => {
   );
 
   return (
-    <div className={"mb-12 px-24 py-6 bg-transparent z-50 w-full drop-shadow-2xl " + ( props.absolute ? "absolute" : "")}>
+    <div
+      className={
+        "mb-6 px-24 py-6 bg-transparent z-50 w-full drop-shadow-2xl " +
+        (props.absolute ? "absolute" : "")
+      }
+    >
       <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800">
         <div className="px-4 flex flex-wrap justify-between items-center mx-auto">
           <NavLink to="/" className="flex items-center">
-            <img
-              src="https://i.ibb.co/xzv4QsC/e-learningkaiwalogo.png"
-              className="mr-3 h-6 sm:h-9"
-              alt="Flowbite Logo"
-            />
+            <img src={logoE_Learning} className="mr-3 h-6 sm:h-9" alt="Logo" />
           </NavLink>
           <button
             data-collapse-toggle="mobile-menu"
@@ -136,7 +137,7 @@ export const Header = (props) => {
 
               <li>
                 <NavLink
-                  to="/courses"
+                  to="/all-courses"
                   className="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
                   aria-current="page"
                 >

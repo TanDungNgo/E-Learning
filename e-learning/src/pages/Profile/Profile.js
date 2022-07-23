@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import { EditFilled, ContactsTwoTone } from "@ant-design/icons";
 
 import "./Profile.css";
@@ -7,7 +7,8 @@ import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import { updateUserAction } from "../../redux/actions/UserActions";
 import { Form } from "antd";
-import { USER_LOGIN } from "../../utils/settings/config";
+import { ERROR, USER_LOGIN } from "../../utils/settings/config";
+import { openNotificationWithIcon } from "../../components/Notification/Notification";
 
 const Profile = (props) => {
   const userLogin = JSON.parse(localStorage.getItem(USER_LOGIN));
@@ -21,6 +22,11 @@ const Profile = (props) => {
       dispatch(updateUserAction(values, props));
     },
   });
+
+  if (!localStorage.getItem(USER_LOGIN)) {
+    openNotificationWithIcon(ERROR, "Vui lòng đăng nhập", "error");
+    return <Redirect to="/login" />;
+  }
 
   return (
     <>
@@ -273,7 +279,7 @@ const Profile = (props) => {
               <div className="relative">
                 <button
                   type="submit"
-                  className="absolute right-0 text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                  className="absolute right-0 text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center bottom-4"
                 >
                   Save
                 </button>

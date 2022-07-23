@@ -178,14 +178,14 @@ const courseDefault1 = [
 ];
 
 export default function Course(props) {
-  // const { coursesDefault } = useSelector((state) => state.CourseReducer);
+  const { coursesDefault } = useSelector((state) => state.CourseReducer);
 
-  // console.log("coursesDefault", coursesDefault);
-  // const dispatch = useDispatch();
+  console.log("coursesDefault", coursesDefault);
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(getAllCoursesAction());
-  // }, []);
+  useEffect(() => {
+    dispatch(getAllCoursesAction());
+  }, []);
 
   const formik = useFormik({
     initialValues: {
@@ -313,7 +313,7 @@ export default function Course(props) {
       width: "25%",
     },
   ];
-  const data = courseDefault1;
+  const data = coursesDefault;
 
   return (
     <div>

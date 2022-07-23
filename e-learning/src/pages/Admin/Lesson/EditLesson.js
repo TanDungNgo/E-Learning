@@ -10,12 +10,13 @@ import {
 
 const EditLesson = (props) => {
   const lessonParams = JSON.parse(localStorage.getItem("lessonParams"));
-  // const { lesson } = useSelector((state) => state.LessonReducer);
-  // const dispatch = useDispatch();
+  const { lesson } = useSelector((state) => state.LessonReducer);
+  console.log("lesson", lesson);
+  const dispatch = useDispatch();
   let { lessonId, courseId } = props.match.params;
-  // useEffect(() => {
-  //   dispatch(getLessonByIdAction(lessonId));
-  // }, []);
+  useEffect(() => {
+    dispatch(getLessonByIdAction(lessonId));
+  }, []);
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -26,8 +27,8 @@ const EditLesson = (props) => {
     // },
 
     initialValues: {
-      name: lessonParams.name,
-      description: lessonParams.description,
+      name: lesson.name,
+      description: lesson.description,
       course_id: courseId,
     },
 
@@ -38,8 +39,7 @@ const EditLesson = (props) => {
         course_id: courseId,
       };
 
-      alert("name : " + body.name);
-      // dispatch(updateLessonAction(body, lessonId, courseId));
+      dispatch(updateLessonAction(body, lessonId, courseId));
     },
   });
 

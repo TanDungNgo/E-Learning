@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { logoE_Learning } from "../../../utils/settings/config";
 
 export const Footer = () => {
   return (
@@ -7,11 +8,7 @@ export const Footer = () => {
       <div className="container grid grid-cols-5 py-10 mx-auto space-y-8 lg:flex-row lg:space-y-0">
         <div className="col-span-2">
           <NavLink to="/" className="flex space-x-3 ">
-            <img
-              src="https://i.ibb.co/xzv4QsC/e-learningkaiwalogo.png"
-              alt="logo"
-              style={{ height: 120 }}
-            />
+            <img src={logoE_Learning} alt="logo" style={{ height: 120 }} />
           </NavLink>
         </div>
         <div className=" text-sm col-span-3 grid grid-cols-3">
