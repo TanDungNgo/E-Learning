@@ -1,10 +1,10 @@
 import React from "react";
-import AudioComponent from "../../components/AudioPlayer/AudioPlayer";
 import {
   FolderOpenOutlined,
   UserOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
+import { AudioComponent } from "../../components/AudioPlayer/AudioPlayer";
 
 //this is for user profile
 const RecordList = () => {

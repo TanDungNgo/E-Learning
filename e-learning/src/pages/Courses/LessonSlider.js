@@ -1,8 +1,11 @@
 import React, { Fragment } from "react";
 import { FieldTimeOutlined, AudioOutlined } from "@ant-design/icons";
 import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { getTimedatasByLessonIdAction } from "../../redux/actions/TimedataActions";
 
 const LessonSlider = (props) => {
+  const dispatch = useDispatch();
   const { lessons } = props;
   const renderLessons = () => {
     return lessons?.map((item, index) => {
@@ -11,6 +14,9 @@ const LessonSlider = (props) => {
           <NavLink
             to={`/course/${item.course_id}/lesson/${item.id}`}
             className="flex items-center justify-center bg-inherit media-element py-3"
+            onClick={() => {
+              dispatch(getTimedatasByLessonIdAction(item.id));
+            }}
           >
             <div className="lesson-card-content relative max-w-sm overflow-hidden rounded-xl bg-white shadow-md duration-200 hover:scale-105 hover:shadow-xl">
               <img
@@ -23,11 +29,11 @@ const LessonSlider = (props) => {
                   Lesson : {item.name}
                 </h6>
 
-                <p className="h-8 mb-3 text-sm font-normal text-gray-700 dark:text-gray-400 description-text tracking-tighter truncate">
+                <p className="h-8 mb-2 text-sm font-normal text-gray-700 dark:text-gray-400 description-text tracking-tighter truncate">
                   {item.description}
                 </p>
 
-                <div className="absolute bottom-2 right-3 w-11/12">
+                <div className="absolute bottom-5 right-3 w-11/12 ">
                   <div className="flex justify-between align-bottom">
                     <div className="flex">
                       <FieldTimeOutlined className="folder-icon" />

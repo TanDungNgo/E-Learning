@@ -6,12 +6,12 @@ const getAllStudents = () => {
 
 const updateUser = (id, formData) => {
   return Api.post(`/users/update/${id}`, formData);
-}
+};
 
 const requestToBecomeTeacher = (formData) => {
   console.log(formData);
-  return Api.post(`/request-to-become-teacher`,formData);
-}
+  return Api.post(`/request-to-become-teacher`, formData);
+};
 
 const login = (formData) => {
   return Api.post("/users/login", formData);

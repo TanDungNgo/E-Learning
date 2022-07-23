@@ -4,49 +4,53 @@ import {
   UserOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
-import AudioComponent from "../../components/AudioPlayer/AudioPlayer";
+import { AudioComponent } from "../../components/AudioPlayer/AudioPlayer";
 
 //this is for home (all)
 const RecordListAll = (props) => {
   let { lesson } = props;
+  console.log(lesson);
   // console.log("lesson ", lesson);
-  const renderRecords = () => {
-    return lesson.records?.map((item, index) => {
-      return (
-        <tr key = {index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-          <th
-            scope="row"
-            className="truncate py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-          >
-            {lesson.course_name}
-          </th>
-          <td className="truncate py-4 px-6">{lesson.name}</td>
-          <td className="truncate py-4 px-6">
-            {item.minute}:{item.second}
-          </td>
-          <td className="py-4 px-6">
-            <div className="flex align-middle items-center">
-              <div>
-                <img
-                  className="object-cover rounded-full w-8 h-8"
-                  src="https://v1.tailwindcss.com/img/jonathan.jpg"
-                  alt="abc"
-                />
-              </div>
-              <div>
-                <span className="pl-2 text-sm font-semibold">
-                  {item.username}
-                </span>
-              </div>
-            </div>
-          </td>
-          <td className="py-4 px-6">
-            <AudioComponent record = {item}></AudioComponent>
-          </td>
-        </tr>
-      );
-    });
-  };
+  // const renderRecords = () => {
+  //   return lesson.records?.map((item, index) => {
+  //     return (
+  //       <tr
+  //         key={index}
+  //         className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+  //       >
+  //         <th
+  //           scope="row"
+  //           className="truncate py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+  //         >
+  //           {lesson.course_name}
+  //         </th>
+  //         <td className="truncate py-4 px-6">{lesson.name}</td>
+  //         <td className="truncate py-4 px-6">
+  //           {item.minute}:{item.second}
+  //         </td>
+  //         <td className="py-4 px-6">
+  //           <div className="flex align-middle items-center">
+  //             <div>
+  //               <img
+  //                 className="object-cover rounded-full w-8 h-8"
+  //                 src="https://v1.tailwindcss.com/img/jonathan.jpg"
+  //                 alt="abc"
+  //               />
+  //             </div>
+  //             <div>
+  //               <span className="pl-2 text-sm font-semibold">
+  //                 {item.username}
+  //               </span>
+  //             </div>
+  //           </div>
+  //         </td>
+  //         <td className="py-4 px-6">
+  //           <AudioComponent record={item} />
+  //         </td>
+  //       </tr>
+  //     );
+  //   });
+  // };
   return (
     <div>
       <div className="overflow-x-auto relative shadow-md sm:rounded-lg mx-20">
@@ -71,7 +75,7 @@ const RecordListAll = (props) => {
             </tr>
           </thead>
           <tbody>
-            {renderRecords()}
+            {/* {renderRecords()} */}
 
             {/* <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
               <th
