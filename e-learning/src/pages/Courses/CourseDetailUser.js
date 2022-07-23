@@ -14,18 +14,16 @@ import { checkEnrollAction } from "../../redux/actions/UserActions";
 import { UserService } from "../../services/UserService";
 
 export const CourseDetailUser = (props) => {
-  const userLogin = JSON.parse(localStorage.getItem(USER_LOGIN));
+  const { userLogin } = useSelector((state) => state.UserReducer);
   const dispatch = useDispatch();
   let { id } = props.match.params;
   const { courseDetail } = useSelector((state) => state.CourseReducer);
-  // console.log("userLogin", userLogin);
   const { checkenroll } = useSelector((state) => state.UserReducer);
   useEffect(() => {
-    window.scrollTo(0, 0);
     dispatch(getCourseDetailAction(id));
     dispatch(checkEnrollAction(userLogin.id, id));
   }, []);
-  // console.log("data", courseDetail);
+
   if (!localStorage.getItem(USER_LOGIN)) {
     openNotificationWithIcon(ERROR, "Vui lòng đăng nhập", "error");
     return <Redirect to="/login" />;
@@ -34,20 +32,18 @@ export const CourseDetailUser = (props) => {
     username: courseDetail.username,
     avatar: "https://v1.tailwindcss.com/img/jonathan.jpg",
   };
-  function enroll() {
+  const enroll = async () => {
     const data = new FormData();
     data.append("user_id", userLogin.id);
     data.append("course_id", id);
-    console.log("data", data);
-    UserService.enrollCourse(data);
-    window.location.reload();
-  }
-  function unenroll(e) {
-    e.preventDefault();
-    UserService.unenrollCourse(userLogin.id, id);
-    // window.location.reload();
-  }
-  return (
+    await UserService.enrollCourse(data);
+    dispatch(checkEnrollAction(userLogin.id, id));
+  };
+  const unenroll = async () => {
+    await UserService.unenrollCourse(userLogin.id, id);
+    dispatch(checkEnrollAction(userLogin.id, id));
+  };
+  return userLogin ? (
     <div className="px-16 mx-4">
       <div className="grid overflow-hidden grid-cols-2 grid-rows-none gap-px bg-white drop-shadow-xl m-4 rounded-lg">
         <div className="pl-16 pr-10 pt-10">
@@ -110,8 +106,9 @@ export const CourseDetailUser = (props) => {
             >
               <div className="w-full h-full relative">
                 <button
-                  className="py-2 px-7 enroll-button absolute right-1 top-2"
+                  className="py-3 px-7 enroll-button absolute right-1 top-2"
                   hidden={userLogin.role !== "user"}
+                  style={{ width: 200 }}
                   onClick={enroll}
                 >
                   Enroll
@@ -124,12 +121,10 @@ export const CourseDetailUser = (props) => {
             >
               <div className="w-full h-full relative">
                 <button
-                  className="py-3 px-7 !text-white absolute right-1 top-2 text-lg uppercase"
+                  className="py-3 px-7 text-green-700 absolute right-1 top-2 text-lg uppercase font-bold hover:bg-green-700 border-green-700 hover:text-white duration-500 "
                   style={{
-                    background: "green",
-                    fontSize: 18,
-                    letterSpacing: "0.05em",
                     border: "3px solid",
+                    width: 200,
                   }}
                   hidden={userLogin.role !== "user"}
                   onClick={unenroll}
@@ -212,5 +207,7 @@ export const CourseDetailUser = (props) => {
       )}
       <LessonSlider lessons={courseDetail.lessons} />
     </div>
+  ) : (
+    <Redirect to="/login" />
   );
 };

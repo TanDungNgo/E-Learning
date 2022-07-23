@@ -1,72 +1,75 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import AudioComponent from "../../components/AudioPlayer/AudioPlayer";
 import { getOneLessonByIdAction } from "../../redux/actions/LessonActions";
 import {
-  getAllRecordsByLessonIdAction,
+  getAllRecordsOfUserByLessonIdAction,
   saveRecordAction,
 } from "../../redux/actions/RecordActions";
 import { getCourseDetailAction } from "../../redux/actions/CourseAction";
 import LessonSlider from "../Courses/LessonSlider";
 import "./LessonDetailUser.css";
 import RecordListAll from "../RecordList/RecordListAll";
-import { USER_LOGIN } from "../../utils/settings/config";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import storageFirebase from "../../utils/settings/firebaseConfig";
 import { useReactMediaRecorder } from "react-media-recorder";
 import { getTimedatasByLessonIdAction } from "../../redux/actions/TimedataActions";
+import { AudioComponent } from "../../components/AudioPlayer/AudioPlayer";
+
+let timesData = [];
 
 export const LessonDetailUser = (props) => {
-  const userLogin = JSON.parse(localStorage.getItem(USER_LOGIN));
+  const { userLogin } = useSelector((state) => state.UserReducer);
   const dispatch = useDispatch();
   let { lessonId, courseId } = props.match.params;
 
   const { courseDetail } = useSelector((state) => state.CourseReducer);
 
   const { lesson } = useSelector((state) => state.LessonReducer);
-  // const { recordsDefault } = useSelector((state) => state.RecordReducer);
-  const videoElement = useRef(null);
+  const { userRecords } = useSelector((state) => state.RecordReducer);
 
+  const videoElement = useRef(null);
   const { timedatasDefault } = useSelector((state) => state.TimedataReducer);
-  console.log("timedatasDefault", timedatasDefault);
   const [isStart, setIsStart] = useState(false);
   const [isStop, setIsStop] = useState(false);
   const [displayHidden, setDisplayHidden] = useState("hidden");
   const [disable, setDisable] = useState(false);
   const [minute, setMinute] = useState("0");
   const [second, setSecond] = useState("0");
-
+  timesData = timedatasDefault;
   useEffect(() => {
-    window.scrollTo(0, 0);
-    dispatch(getCourseDetailAction(courseId));
-    dispatch(getOneLessonByIdAction(courseId, lessonId));
-    dispatch(getAllRecordsByLessonIdAction(lessonId));
     dispatch(getTimedatasByLessonIdAction(lessonId));
+  }, []);
+  useEffect(() => {
+    dispatch(getCourseDetailAction(courseId));
   }, []);
 
   useEffect(() => {
-    const timeData = timedatasDefault;
+    dispatch(getOneLessonByIdAction(courseId, lessonId));
+  }, []);
+  useEffect(() => {
+    dispatch(getAllRecordsOfUserByLessonIdAction(lessonId, userLogin.id));
+  }, []);
+
+  useEffect(() => {
     const interval = setInterval(async () => {
       const elapsed_sec = await videoElement.current.currentTime;
-      // calculations
       let elapsed_ms = Math.floor(elapsed_sec * 1000);
       let ms = elapsed_ms % 1000;
       let min = Math.floor(elapsed_ms / 60000);
       let seconds = Math.floor((elapsed_ms - min * 60000) / 1000);
-
-      for (let index = 0; index < timeData.length; index++) {
-        const item = timeData[index];
-        if (min === item.minute && seconds === item.second && ms < 200) {
+      for (let index = 0; index < timesData.length; index++) {
+        const item = timesData[index];
+        if (min === item.minute && seconds === item.second && ms < 100) {
           setMinute(min);
           setSecond(seconds);
           videoElement.current.pause();
           setDisplayHidden("");
           setIsStop(false);
-          timeData.shift();
+          timesData.shift();
         }
       }
-    }, 200);
+    }, 100);
 
     return () => {
       clearInterval(interval);
@@ -108,22 +111,13 @@ export const LessonDetailUser = (props) => {
       });
     });
   };
-  const { listAudio } = useSelector((state) => state.LessonReducer);
-  useEffect(() => {}, [listAudio]);
-  let listAudioTemp = listAudio;
-  let recordsUser = listAudioTemp?.filter((item) => {
-    // console.log(item);
-    return item.user_id === userLogin.id && item;
-  });
-
 
   const renderAudio = () => {
-    return recordsUser?.map((item, index) => {
-      console.log("recordsUser-item", item);
+    return userRecords?.map((item, index) => {
       return (
-        <>
+        <Fragment key={index}>
           <AudioComponent record={item} />
-        </>
+        </Fragment>
       );
     });
   };
@@ -219,7 +213,8 @@ export const LessonDetailUser = (props) => {
                 ref={videoElement}
                 poster={courseDetail?.banner}
                 src={lesson?.video_link}
-                className="w-full drop-shadow-lg rounded-lg"
+                style={{ width: 835, height: 465, borderRadius: 15 }}
+                className=" drop-shadow-lg"
               ></video>
               <div className={`video-audio__overlay  ${displayHidden} `}></div>
               <div className={`audio-record  ${displayHidden} text-center`}>
@@ -334,15 +329,15 @@ export const LessonDetailUser = (props) => {
                   </svg>
                 </span>
                 <img
-                  src="https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144"
-                  alt=""
+                  src={userLogin.avatar}
+                  alt={userLogin.username}
                   className="w-5 sm:w-8 h-5 sm:h-8 rounded-full"
                 />
               </div>
               <div className="flex flex-col leading-tight">
                 <div className="text-lg mt-1 flex items-center">
                   <span className="font-bold text-gray-700 mr-3">
-                    Anderson Vanhron
+                    Your Records Here
                   </span>
                 </div>
               </div>
@@ -352,37 +347,7 @@ export const LessonDetailUser = (props) => {
             id="messages"
             className="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch"
           >
-          {renderAudio()}
-            {/* <div className="chat-message">
-              <div className="flex items-end">
-                <div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
-                  <div>
-                    <span className="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">
-                      Can be verified on any platform using docker
-                    </span>
-                  </div>
-                </div>
-                <img
-                  src="https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144"
-                  alt="My profile"
-                  className="w-6 h-6 rounded-full order-1"
-                />
-              </div>
-            </div>
-            <div className="chat-message">
-              <div className="flex items-end justify-end">
-                <div className="flex flex-col text-xs max-w-xs mx-2">
-                  <div>
-                    <AudioComponent />
-                  </div>
-                </div>
-                <img
-                  src="https://images.unsplash.com/photo-1590031905470-a1a1feacbb0b?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144"
-                  alt="My profile"
-                  className="w-6 h-6 rounded-full order-2"
-                />
-              </div>
-            </div> */}
+            {renderAudio()}
           </div>
         </div>
       </div>

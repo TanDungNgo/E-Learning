@@ -50,15 +50,12 @@ import RecordListAll from "../RecordList/RecordListAll";
 export const Home = (props) => {
   const { coursesDefault } = useSelector((state) => state.CourseReducer);
   const { teachersDefault } = useSelector((state) => state.UserReducer);
-
   const dispatch = useDispatch();
   useEffect(() => {
     window.scrollTo(0, 0);
     dispatch(getAllCoursesAction());
     dispatch(getAllTeachersAction());
   }, []);
-  // console.log("course: ", coursesDefault);
-  // console.log("teacher: ", teachersDefault);
 
   return (
     <>
@@ -73,7 +70,7 @@ export const Home = (props) => {
         <div className="flex items-center w-full justify-center pt-12">
           <NavLink
             className="text-lg col-span-1 bg-orange-100 hover:bg-orange-300 text-orange-500 font-semibold hover:text-white py-2 px-8 border  border-orange-300 hover:border-transparent rounded-xl"
-            to='/all-courses'
+            to="/all-courses"
           >
             View All
           </NavLink>
@@ -99,16 +96,16 @@ export const Home = (props) => {
           </button>
         </div> */}
       </div>
-      {/* <div>
+      <div>
         <div className="background-record pb-20">
           <div className="flex items-center justify-center pt-20 mb-20">
             <span className="line-text text-4xl font-bold">
               Student Records
             </span>
           </div>
-          <RecordListAll />
+          {/* <RecordListAll /> */}
         </div>
-      </div> */}
+      </div>
     </>
   );
 };

@@ -80,6 +80,7 @@ export const getCourseEnrolledAction = (id) => {
   return async (dispatch) => {
     try {
       const result = await CourseService.getCoursesEnrolled(id);
+      console.log("abc", result);
       dispatch({
         type: GET_ALL_COURSES,
         value: result.courses,
