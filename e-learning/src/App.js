@@ -7,6 +7,7 @@ import Dashboard from "./pages/Admin/Dashboard/Dashboard";
 import AddLesson from "./pages/Admin/Lesson/AddLesson";
 import EditLesson from "./pages/Admin/Lesson/EditLesson";
 import Lessons from "./pages/Admin/Lesson/Lesson";
+import AllCourses from "./pages/AllCourses/AllCourses";
 import { CourseDetailUser } from "./pages/Courses/CourseDetailUser";
 import CreateCourse from "./pages/CreateCourse/CreateCourse";
 import CreateLesson from "./pages/CreateLesson/CreateLesson";
@@ -34,6 +35,7 @@ function App() {
       <Route path="/register" exact component={Register} />
       <ProfileTemplate path="/profile" exact Component={Profile} />
       <ProfileTemplate path="/upgrade" exact Component={Upgrade} />
+      <HomeTemplate path="/all-courses" exact Component={AllCourses}/>
       <AdminTemplate
         path="/admin/courses/:id/add-new"
         exact

@@ -12,10 +12,10 @@ const CourseCard = (props) => {
         <div className="flex align-center relative">
           <span className="dot absolute"></span>
           <span
-            className="pl-8 text-medium font-medium tracking-tight"
+            className="pl-8 text-medium font-medium tracking-tight truncate"
             title={item}
           >
-            {item.length > 20 ? item.substr(0, 20) + " ..." : item}
+            {item}
           </span>
         </div>
       </li>
@@ -34,9 +34,7 @@ const CourseCard = (props) => {
           <div className="p-3">
             <h6 className="mb-2 text-base font-bold tracking-tight text-gray-800 dark:text-white truncate">
               <span title={course.name}>
-                {course.name.length > 25
-                  ? course.name.substr(0, 25) + " ..."
-                  : course.name}
+                {course.name}
               </span>
             </h6>
             <ul className=" mb-2 text-base font-bold tracking-tight text-gray-800 dark:text-white">
