@@ -13,13 +13,30 @@ use App\Notifications\SendNotification;
 
 class UserController extends Controller
 {
-    
+    // Lấy ra tất cả user để xem role
+    public function GetAllUser(){
+        $users = User::all();
+        return response()->json([
+            'status' => 200,
+            'users' => $users
+        ]);
+    }
     public function BecomeAdmin(){
         $user = User::where('role', 'user');
         $user->update(['role' => 'admin']);
         return response()->json([
             'status' => 200,
             'message' => 'All normal users are now an admin',
+        ]);
+    }
+    public function BecomeTeacher($id){
+        $user = User::find($id);
+        $user->role = "teacher";
+        $user->update();
+        return response()->json([
+            'status' => 200,
+            'user' => $user,
+            'message' => 'users are now an teacher',
         ]);
     }
     public function onLogin(Request $request)

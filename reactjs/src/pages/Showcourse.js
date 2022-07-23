@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import axios from 'axios';
 import swal from 'sweetalert';
 import ReactPlayer from 'react-player';
-class Editcourse extends Component
+class Showcourse extends Component
 {
     state = {
         name: '',
@@ -16,7 +16,7 @@ class Editcourse extends Component
     deleteLesson = async (e, id) => {
         const thidClickedFunda = e.currentTarget;
         thidClickedFunda.innerText = "Deleting"
-        const res = await axios.delete(`http://127.0.0.1:8000/api/delete-lesson/${id}`);
+        const res = await axios.delete(`https://benefique-monsieur-33716.herokuapp.com/api/delete-lesson/${id}`);
         if(res.data.status === 200)
         {
             thidClickedFunda.closest("tr").remove();
@@ -31,13 +31,13 @@ class Editcourse extends Component
     }
     async componentDidMount() {
         const course_id = this.props.match.params.id;
-        const res = await axios.get(`http://127.0.0.1:8000/api/lessons/${course_id}`);
+        const res = await axios.get(`https://benefique-monsieur-33716.herokuapp.com/api/lessons/${course_id}`);
         if(res.data.status === 200)
         {
             this.setState({
                 name: res.data.course.name,
                 description: res.data.course.description,
-                lessons: res.data.lessons,
+                lessons: res.data.course.lessons,
                 loading: false,
             });
         }
@@ -138,4 +138,4 @@ class Editcourse extends Component
         )
     }
 }
-export default Editcourse;
+export default Showcourse;

@@ -19,28 +19,41 @@ class CourseController extends Controller
     public function index()
     {
         $courses = DB::table('courses')->join('users', 'users.id', '=', 'courses.teacher_id')
-        ->select(DB::raw("concat (users.firstname,' ',users.lastname) as teacher_name"),'courses.*')
-        // ->where('status', 'accepted')
-        ->get();
+            ->select(DB::raw("concat (users.firstname,' ',users.lastname) as teacher_name"), 'courses.*')
+            // ->where('status', 'accepted')
+            ->get();
+        return response()->json([
+            'status' => 200,
+            'courses' => $courses,
+        ]);
+    }
+    public function GetCourseByIdTeacher($id)
+    {
+        $courses = DB::table('courses')->join('users', 'users.id', '=', 'courses.teacher_id')
+            ->select('users.username as teacher_name','courses.*')
+        ->where('teacher_id', $id)
+            ->get();
         return response()->json([
             'status' => 200,
             'courses' => $courses,
         ]);
     }
     //pending course for admin approve
-    public function PendingCourse(Request $request){
+    public function PendingCourse(Request $request)
+    {
         //dùng cho role admin
         $course = Course::join('courses', 'users.id', '=', 'courses.teacher_id')
-        ->select(DB::raw("concat (users.firstname,' ',users.lastname) as teacher_name"),'courses.*')
-        ->where('status', 'pending')->get();
+            ->select(DB::raw("concat (users.firstname,' ',users.lastname) as teacher_name"), 'courses.*')
+            ->where('status', 'pending')->get();
         return response()->json([
             'course' => $course,
         ]);
     }
-    public function ApprovePendingCourse(Request $request){
+    public function ApprovePendingCourse(Request $request)
+    {
         $status = $request->input('status');
         $course = Course::find($request->id);
-        if($status == 'accepted'){
+        if ($status == 'accepted') {
             $course->status = 'accepted';
             $course->save();
             $teacher = User::find($course->teacher_id);
@@ -53,8 +66,7 @@ class CourseController extends Controller
                 'status' => 200,
                 'message' => 'Course Approved Successfully',
             ]);
-        }
-        else{
+        } else {
             $course->status = 'rejected';
             $course->save();
             $teacher = User::find($course->teacher_id);
@@ -81,9 +93,7 @@ class CourseController extends Controller
             return response()->json([
                 'validate_err' => $validator->messages(),
             ]);
-        }
-        else
-        {
+        } else {
             $course = new Course;
             $course->name = $request->input('name');
             $course->description = $request->input('description');
@@ -92,8 +102,8 @@ class CourseController extends Controller
             // $file-> move(public_path('Image'), $filename);
             // $course->banner = $filename;
             $course->banner = $request->input('url');
-            $course->teacher_id = '1';
-            $course->price = 1000;
+            $course->teacher_id = $request->input('teacher_id');
+            $course->price = $request->input('price');
             $course->save();
 
             return response()->json([
@@ -169,8 +179,7 @@ class CourseController extends Controller
     {
         $courses = Course::all();
         $popular_course = [];
-        foreach($courses as $course)
-        {
+        foreach ($courses as $course) {
             $popular_course[] = $course->students();
         }
         $max = max($popular_course);
