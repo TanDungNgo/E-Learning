@@ -5,21 +5,20 @@ import {
   DeleteOutlined,
 } from "@ant-design/icons";
 import { USER_LOGIN } from "../../utils/settings/config";
-import {NotifyService} from "../../services/NotifyService";
-import { useEffect, useState } from "react";
-/*
-    cần thay đổi sử dụng dispatch để lấy dữ liệu từ redux
-*/
+import { useEffect } from "react";
+
+import { useSelector, useDispatch } from "react-redux";
+import { NotifyUserAction } from "../../redux/actions/NotifyAction";
+
 const UserNotify = () => {
-    const [notifications, setNotifications] = useState([]);
-    useEffect(async() => {
-        const userLogin = JSON.parse(localStorage.getItem("USER_LOGIN"));
-        const userNotifications = await NotifyService.getUserNotifications(userLogin.id).then(function(response){
-            setNotifications(response.notify);
-            console.log(response.notify);
-        })
-    }
-    , []);
+    const userLogin = JSON.parse(localStorage.getItem("USER_LOGIN"));
+
+    //redux 
+    const {notifyUserDefault} = useSelector((state) => state.NotifyReducer);
+    const dispatch = useDispatch();
+    useEffect(() => {
+      dispatch(NotifyUserAction(userLogin.id));
+    }, []);
     return (
         <>
             <div className="overflow-x-auto relative shadow-md sm:rounded-lg mx-20">
@@ -32,7 +31,7 @@ const UserNotify = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {notifications.map((notification) => (
+                        {notifyUserDefault.map((notification) => (
                             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                 <th className="truncate py-2 px-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     <span>
