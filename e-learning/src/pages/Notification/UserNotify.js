@@ -7,6 +7,9 @@ import {
 import { USER_LOGIN } from "../../utils/settings/config";
 import {NotifyService} from "../../services/NotifyService";
 import { useEffect, useState } from "react";
+/*
+    cần thay đổi sử dụng dispatch để lấy dữ liệu từ redux
+*/
 const UserNotify = () => {
     const [notifications, setNotifications] = useState([]);
     useEffect(async() => {

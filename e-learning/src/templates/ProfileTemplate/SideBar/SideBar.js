@@ -6,6 +6,7 @@ import {NotifyService} from "../../../services/NotifyService";
 import TeacherSideBar from "./TeacherSideBar";
 import { USER_LOGIN } from "../../../utils/settings/config";
 const SideBar = () => {
+  // cần sửa lại bằng cách dùng dispatch để lấy dữ liệu từ redux
   const userLogin = JSON.parse(localStorage.getItem("USER_LOGIN"));
   const [countNotify, setCountNotify] = useState(0);
   useEffect(async ()=>{
