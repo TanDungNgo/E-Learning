@@ -1,18 +1,27 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CourseCard from "../../components/MultipleItems/CourseCard";
-import "./ListCourse.css";
-import { getCourseEnrolledAction } from "../../redux/actions/CourseAction";
+import TabBar from "../../components/TabBar/TabBar";
+import {
+  getCourseByIdTeacherAction,
+  getCourseEnrolledAction,
+} from "../../redux/actions/CourseAction";
+import { getStudentsInCourseAction } from "../../redux/actions/UserActions";
+import StudentList from "../Student/StudentList";
 import { USER_LOGIN } from "../../utils/settings/config";
 
 const ListCourse = () => {
   const { coursesDefault } = useSelector((state) => state.CourseReducer);
+  const { studentsDefault } = useSelector((state) => state.UserReducer);
   const userLogin = JSON.parse(localStorage.getItem(USER_LOGIN));
   const dispatch = useDispatch();
   useEffect(() => {
     window.scrollTo(0, 0);
     if (userLogin.role === "user") {
       dispatch(getCourseEnrolledAction(userLogin.id));
+    } else {
+      dispatch(getCourseByIdTeacherAction(userLogin.id));
+      dispatch(getStudentsInCourseAction(userLogin.id));
     }
   }, []);
   console.log("listcourse: ", coursesDefault);
@@ -21,23 +30,31 @@ const ListCourse = () => {
   });
   return (
     <>
-      <div className="mb-4 text-base inline-flex items-center font-bold leading-sm uppercase px-3 py-1 rounded bg-white text-gray-700 border drop-shadow-lg">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5 mr-2"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path
-            fillRule="evenodd"
-            d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
-            clipRule="evenodd"
-          />
-        </svg>
-        Enrolled Course
+      <div hidden={userLogin.role !== "teacher"}>
+        <TabBar />
       </div>
-      <div className="min-h-full grid grid-cols-3 gap-4 background-list-courses p-5 rounded-lg drop-shadow" style={{minHeight: '500px'}}>
+      <div
+        className="bg-white rounded-lg drop-shadow-lg"
+        hidden={userLogin.role !== "user"}
+      >
+        <div className="flex items-center justify-center pt-5 mb-5">
+          <span className="line-text text-2xl font-bold">
+            All enrolled courses
+          </span>
+        </div>
+      </div>
+      <div className="mt-8 grid overflow-hidden grid-cols-3 grid-rows-none gap-5">
         {listCourses}
+      </div>
+      <div hidden={userLogin.role !== "teacher"}>
+        <div className="background-record pb-5">
+          <div className="flex items-center justify-center pt-5 mb-5">
+            <span className="line-text text-4xl font-bold">
+              All student in course
+            </span>
+          </div>
+          <StudentList liststudent={studentsDefault} />
+        </div>
       </div>
     </>
   );

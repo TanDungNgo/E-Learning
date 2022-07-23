@@ -103,7 +103,7 @@ export const Home = (props) => {
               Student Records
             </span>
           </div>
-          {/* <RecordListAll /> */}
+          {/* <RecordListAll lesson={lesson} /> */}
         </div>
       </div>
     </>

@@ -59,11 +59,11 @@ const CourseCard = (props) => {
             <hr className="mb-4 mt-2 line" />
             <div className="flex justify-between">
               <div className="flex items-center">
-                {/* <img
+                <img
                   className="w-8 h-8 rounded-full mr-2"
                   src={course.avatar}
                   alt="Avatar of Jonathan Reinink"
-                /> */}
+                />
                 <div className="text-sm">
                   <span className="text-gray-800 font-bold leading-none flex items-center">
                     {course.teacher_name}

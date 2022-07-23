@@ -108,12 +108,15 @@ export const LessonDetailUser = (props) => {
         data.append("minute", minute);
         data.append("second", second);
         dispatch(saveRecordAction(data, lesson.id));
+    dispatch(getAllRecordsOfUserByLessonIdAction(lessonId, userLogin.id));
+
       });
     });
   };
 
   const renderAudio = () => {
     return userRecords?.map((item, index) => {
+      console.log('AudioComponentProps',item);
       return (
         <Fragment key={index}>
           <AudioComponent record={item} />
@@ -176,7 +179,7 @@ export const LessonDetailUser = (props) => {
                     ></path>
                   </svg>
                   <NavLink
-                    to={`course/${courseId}`}
+                    to={`/course/${courseId}`}
                     className="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ml-2 dark:text-gray-400 dark:hover:text-white"
                   >
                     {lesson.course_name}
