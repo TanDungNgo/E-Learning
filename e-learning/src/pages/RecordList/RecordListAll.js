@@ -76,38 +76,6 @@ const RecordListAll = (props) => {
           </thead>
           <tbody>
             {renderRecords()}
-
-            {/* <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <th
-                scope="row"
-                className="truncate py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                Kaiwa Sieu Toc
-              </th>
-              <td className="truncate py-4 px-6">
-                Lesson 1: How to Ask Someone Out on a Date
-              </td>
-              <td className="truncate py-4 px-6">0:20</td>
-              <td className="py-4 px-6">
-                <div className="flex align-middle items-center">
-                  <div>
-                    <img
-                      className="object-cover rounded-full w-8 h-8"
-                      src="https://v1.tailwindcss.com/img/jonathan.jpg"
-                      alt="abc"
-                    />
-                  </div>
-                  <div>
-                    <span className="pl-2 text-sm font-semibold">
-                      Johny Pham
-                    </span>
-                  </div>
-                </div>
-              </td>
-              <td className="py-4 px-6">
-                <AudioComponent></AudioComponent>
-              </td>
-            </tr> */}
           </tbody>
         </table>
       </div>
