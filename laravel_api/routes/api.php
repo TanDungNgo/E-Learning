@@ -42,7 +42,8 @@ Route::delete('/delete-course/{id}', [CourseController::class, 'destroy']);
 Route::get('/courses-teacher/{id}', [CourseController::class, 'GetCourseByIdTeacher']);
 //phê duyệt khóa học (role==admin)
 Route::get('/pending-course', [CourseController::class, 'PendingCourse']);
-Route::put('/approve-pending-course/{id}', [CourseController::class, 'ApprovePendingCourse']);
+Route::post('/accept-course/{id}', [CourseController::class, 'AcceptCourse']);
+Route::post('/reject-course/{id}', [CourseController::class, 'RejectCourse']);
 
 // Lesson
 Route::get('/lessons/{id}', [LessonController::class, 'index']);
