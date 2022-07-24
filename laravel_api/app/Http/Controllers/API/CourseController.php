@@ -19,7 +19,7 @@ class CourseController extends Controller
     public function index()
     {
         $courses = DB::table('courses')->join('users', 'users.id', '=', 'courses.teacher_id')
-            ->select(DB::raw("concat (users.firstname,' ',users.lastname) as teacher_name"), 'courses.*')
+            ->select(DB::raw("concat (users.firstname,' ',users.lastname) as teacher_name"),'users.avatar', 'courses.*')
             // ->where('status', 'accepted')
             ->get();
         return response()->json([
