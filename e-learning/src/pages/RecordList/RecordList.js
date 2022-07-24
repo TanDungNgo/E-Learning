@@ -33,11 +33,11 @@ const RecordList = (props) => {
               <th scope="col" className=" py-3 px-6">
                 User
               </th>
-              <th scope="col" className="w-96 py-3 px-6">
-                <span className="">Record</span>
+              <th scope="col" className="w-96 py-3 px-6 text-center">
+                Record
               </th>
               <th scope="col" className="py-3 px-6">
-                <span className="">Edit</span>
+                <span className="mx-auto">Actions</span>
               </th>
             </tr>
           </thead>

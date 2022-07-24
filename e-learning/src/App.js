@@ -35,7 +35,7 @@ function App() {
       <Route path="/register" exact component={Register} />
       <ProfileTemplate path="/profile" exact Component={Profile} />
       <ProfileTemplate path="/upgrade" exact Component={Upgrade} />
-      <HomeTemplate path="/all-courses" exact Component={AllCourses}/>
+      <HomeTemplate path="/all-courses" exact Component={AllCourses} />
       <AdminTemplate
         path="/admin/courses/:id/add-new"
         exact
@@ -84,7 +84,7 @@ function App() {
       />
       <AdminTemplate path="/admin/courses" exact Component={Course} />
       <HomeTemplate path="/test" exact Component={Test} />
-      <ProfileTemplate path="/my-notification" exact Component={UserNotify}/>
+      <ProfileTemplate path="/my-notification" exact Component={UserNotify} />
     </Switch>
   );
 }

@@ -3,8 +3,12 @@ import { AudioComponent } from "../../components/AudioPlayer/AudioPlayer";
 import { Form } from "antd";
 import { useFormik } from "formik";
 import { Fragment } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { sendFeedbackAction } from "../../redux/actions/FeedbackAcions";
 
 const RecordHasFeedBack = (props) => {
+  const dispatch = useDispatch();
+  const { userLogin } = useSelector((state) => state.UserReducer);
   const [showFeedBack, setShowFeedBack] = useState(false);
   const { lesson, item } = props;
   const formik = useFormik({
@@ -12,7 +16,13 @@ const RecordHasFeedBack = (props) => {
       feedback: "",
     },
     onSubmit: (values) => {
-      console.log("values", values);
+      const feedbackForm = {
+        student_id: item.user_id,
+        teacher_id: userLogin.id,
+        record_id: item.id,
+        body: values.feedback,
+      };
+      dispatch(sendFeedbackAction(feedbackForm));
     },
   });
   return (
@@ -56,14 +66,16 @@ const RecordHasFeedBack = (props) => {
                   span: 30,
                 }}
                 layout="horizontal"
-                onSubmitCapture={formik.handleSubmit}
+                onSubmitCapture={() => {
+                  formik.handleSubmit();
+                }}
               >
                 <div style={{ border: "" }} className="w-full flex">
                   <Form.Item onChange={formik.handleChange}>
                     <div className="flex flex-wrap">
-                      <div className="w-full px-3">
-                        <input
-                          className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                      <div className="w-full">
+                        <textarea
+                          className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded-sm py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                           id="feedback"
                           type="text"
                           name="feedback"
@@ -75,9 +87,9 @@ const RecordHasFeedBack = (props) => {
                   <Form.Item>
                     <button
                       type="submit"
-                      className=" text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                      className=" text-white bg-gradient-to-r ml-2 from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-4 py-2 text-center"
                     >
-                      Send
+                      <i className="fa fa-paper-plane " />
                     </button>
                   </Form.Item>
                 </div>

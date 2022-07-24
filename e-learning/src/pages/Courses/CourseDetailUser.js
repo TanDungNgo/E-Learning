@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, Redirect } from "react-router-dom";
+import { NavLink, Redirect, useHistory } from "react-router-dom";
 import TeacherCard from "../../components/MultipleItems/TeacherCard";
 import { getCourseDetailAction } from "../../redux/actions/CourseAction";
 import { ShareAltOutlined, HeartOutlined } from "@ant-design/icons";
@@ -14,20 +14,23 @@ import { checkEnrollAction } from "../../redux/actions/UserActions";
 import { UserService } from "../../services/UserService";
 
 export const CourseDetailUser = (props) => {
-  const { userLogin } = useSelector((state) => state.UserReducer);
+  const userLogin = JSON.parse(localStorage.getItem(USER_LOGIN));
   const dispatch = useDispatch();
   let { id } = props.match.params;
   const { courseDetail } = useSelector((state) => state.CourseReducer);
   const { checkenroll } = useSelector((state) => state.UserReducer);
+  const history = useHistory();
   useEffect(() => {
-    dispatch(getCourseDetailAction(id));
-    dispatch(checkEnrollAction(userLogin.id, id));
+    if (userLogin !== null) {
+      window.scrollTo(0, 0);
+      dispatch(getCourseDetailAction(id));
+      dispatch(checkEnrollAction(userLogin.id, id));
+    } else {
+      openNotificationWithIcon(ERROR, "Please login", "error");
+      history.push("/");
+    }
   }, []);
 
-  if (!localStorage.getItem(USER_LOGIN)) {
-    openNotificationWithIcon(ERROR, "Vui lòng đăng nhập", "error");
-    return <Redirect to="/login" />;
-  }
   const teacher = {
     username: courseDetail.username,
     avatar: "https://v1.tailwindcss.com/img/jonathan.jpg",

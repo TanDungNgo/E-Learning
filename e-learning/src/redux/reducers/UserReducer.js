@@ -1,5 +1,11 @@
 import { USER_LOGIN } from "../../utils/settings/config";
-import { CHECK_ENROLL, GET_ALL_STUDENTS, GET_ALL_TEACHERS, LOGIN, LOGOUT } from "../types/UserTypes";
+import {
+  CHECK_ENROLL,
+  GET_ALL_STUDENTS,
+  GET_ALL_TEACHERS,
+  LOGIN,
+  LOGOUT,
+} from "../types/UserTypes";
 
 let user = {};
 if (localStorage.getItem(USER_LOGIN)) {
@@ -9,7 +15,7 @@ if (localStorage.getItem(USER_LOGIN)) {
 const stateDefault = {
   userLogin: user,
   teachersDefault: [],
-  checkenroll: false
+  checkenroll: false,
 };
 
 export const UserReducer = (state = stateDefault, action) => {
@@ -17,11 +23,9 @@ export const UserReducer = (state = stateDefault, action) => {
     case LOGIN:
       state.userLogin = action.value;
       localStorage.setItem(USER_LOGIN, JSON.stringify(state.userLogin));
-      // localStorage.setItem(TOKEN, action.value.accessToken);
       return { ...state };
     case LOGOUT: {
       localStorage.removeItem(USER_LOGIN);
-      // localStorage.removeItem(TOKEN);
       state.userLogin = action.value;
       return { ...state };
     }

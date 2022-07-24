@@ -1,15 +1,8 @@
 import React from "react";
-import AudioComponent from "../../components/AudioPlayer/AudioPlayer";
-import {
-  FolderOpenOutlined,
-  UserOutlined,
-  DeleteOutlined,
-} from "@ant-design/icons";
 
 //this is for user profile
 const StudentList = (props) => {
   let { liststudent } = props;
-  console.log("liststudent ", liststudent);
   const renderStudents = () => {
     return liststudent?.map((item, index) => {
       return (

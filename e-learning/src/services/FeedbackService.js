@@ -5,11 +5,11 @@ const getFeedbacks = (id) => {
 const getFeedbacksById = (id) => {
   return Api.get(`/see-feedback/${id}`);
 };
-const saveFeedBack = (body) => {
-  return Api.post(body);
+const sendFeedBack = (body) => {
+  return Api.post("/save-feedback", body);
 };
 export const FeedbackService = {
   getFeedbacks,
-  saveFeedBack,
+  sendFeedBack,
   getFeedbacksById,
 };

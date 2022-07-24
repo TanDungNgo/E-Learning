@@ -1,4 +1,4 @@
-import { NavLink, Redirect } from "react-router-dom";
+import { NavLink, Redirect, useHistory } from "react-router-dom";
 import { EditFilled, ContactsTwoTone } from "@ant-design/icons";
 
 import "./Profile.css";
@@ -7,13 +7,13 @@ import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import { updateUserAction } from "../../redux/actions/UserActions";
 import { Form } from "antd";
-import { ERROR, USER_LOGIN } from "../../utils/settings/config";
-import { openNotificationWithIcon } from "../../components/Notification/Notification";
+import { USER_LOGIN } from "../../utils/settings/config";
 
 const Profile = (props) => {
   const userLogin = JSON.parse(localStorage.getItem(USER_LOGIN));
   const [showEditAvatar, setShowEditAvatar] = useState(false);
   const dispatch = useDispatch();
+
   const formik = useFormik({
     initialValues: {
       ...userLogin,
@@ -23,12 +23,9 @@ const Profile = (props) => {
     },
   });
 
-  if (!localStorage.getItem(USER_LOGIN)) {
-    openNotificationWithIcon(ERROR, "Vui lòng đăng nhập", "error");
-    return <Redirect to="/login" />;
-  }
-
-  return (
+  return !userLogin ? (
+    <Redirect to="/" />
+  ) : (
     <>
       <div className="inline-block px-20 w-full bg-white bg-profile border-2 border-gray-300 rounded-lg">
         <Form
@@ -271,7 +268,6 @@ const Profile = (props) => {
                     placeholder="+84..."
                     defaultValue={userLogin.phone_number}
                   />
-                  {/* <p className="text-gray-600 text-xs italic">We don't required a confirm password so carefull with your new one</p> */}
                 </div>
               </div>
             </Form.Item>
