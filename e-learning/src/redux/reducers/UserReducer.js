@@ -3,6 +3,7 @@ import {
   CHECK_ENROLL,
   GET_ALL_STUDENTS,
   GET_ALL_TEACHERS,
+  GET_ALL_USER,
   LOGIN,
   LOGOUT,
 } from "../types/UserTypes";
@@ -15,6 +16,7 @@ if (localStorage.getItem(USER_LOGIN)) {
 const stateDefault = {
   userLogin: user,
   teachersDefault: [],
+  allUser : [],
   checkenroll: false,
 };
 
@@ -41,6 +43,10 @@ export const UserReducer = (state = stateDefault, action) => {
       state.checkenroll = action.value;
       return { ...state };
     }
+    case GET_ALL_USER: {
+      state.allUser = action.value;
+      return { ...state };
+    };
     default:
       return { ...state };
   }
