@@ -333,7 +333,7 @@ export const LessonDetailUser = (props) => {
                 </svg>
                 Stop Time
               </div>
-              <TimePicker />
+              <TimePicker lessonId = {lessonId}/>
             </div>
           </>
         ) : (
