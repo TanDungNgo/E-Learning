@@ -24,7 +24,7 @@ const TimePicker = (props) => {
     data.append("minute", minute);
     data.append("second", second);
     await TimedataService.createTimedata(data);
-    window.alert("Thêm timedata thành công");
+    window.alert("Add timedata successfully");
     dispatch(getTimedatasByLessonIdAction(lessonId));
   };
 
