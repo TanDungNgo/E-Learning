@@ -7,38 +7,43 @@ import {
   getCourseEnrolledAction,
 } from "../../redux/actions/CourseAction";
 import TabBar from "../../components/TabBar/TabBar";
-
 import { getStudentsInCourseAction } from "../../redux/actions/UserActions";
 import StudentList from "../Student/StudentList";
-
+import { USER_LOGIN } from "../../utils/settings/config";
+import { useHistory } from "react-router-dom";
 let courses = [];
 const ListCourse = () => {
+  const userLogin = JSON.parse(localStorage.getItem(USER_LOGIN));
   const { coursesDefault } = useSelector((state) => state.CourseReducer);
-  const { userLogin } = useSelector((state) => state.UserReducer);
   const { studentsDefault } = useSelector((state) => state.UserReducer);
   const dispatch = useDispatch();
+  const history = useHistory();
   useEffect(() => {
-    window.scrollTo(0, 0);
-    if (userLogin.role === "user") {
-      dispatch(getCourseEnrolledAction(userLogin.id));
+    if (userLogin !== null) {
+      window.scrollTo(0, 0);
+      if (userLogin.role === "user") {
+        dispatch(getCourseEnrolledAction(userLogin.id));
+      } else {
+        dispatch(getCourseByIdTeacherAction(userLogin.id));
+        dispatch(getStudentsInCourseAction(userLogin.id));
+      }
     } else {
-      dispatch(getCourseByIdTeacherAction(userLogin.id));
-      dispatch(getStudentsInCourseAction(userLogin.id));
+      history.push("/");
     }
   }, []);
-  // courses = coursesDefault?.filter((item) => item.id === userLogin.id);
+
   const listCourses = coursesDefault?.map((item) => {
     return <CourseCard key={item.id} course={item} />;
   });
   return (
     <>
-      <div hidden={userLogin.role !== "teacher"}>
+      <div hidden={userLogin?.role !== "teacher"}>
         <TabBar />
       </div>
       <div
         className="min-h-full grid grid-cols-3 gap-4 background-list-courses p-5 rounded-lg drop-shadow"
         style={{ minHeight: "500px" }}
-        hidden={userLogin.role !== "user"}
+        hidden={userLogin?.role !== "user"}
       >
         <div className="flex items-center justify-center pt-5 mb-5">
           <span className="line-text text-2xl font-bold">
@@ -49,7 +54,7 @@ const ListCourse = () => {
       <div className="mt-8 grid overflow-hidden grid-cols-3 grid-rows-none gap-5">
         {listCourses}
       </div>
-      <div hidden={userLogin.role !== "teacher"}>
+      <div hidden={userLogin?.role !== "teacher"}>
         <div className="pb-5 border-t-2 border-gray-400 mt-20">
           <div className="flex items-center justify-center pt-5 mb-5">
             <span className="line-text text-4xl font-bold">

@@ -30,8 +30,6 @@ export const LessonDetailUser = (props) => {
 
   const { lesson } = useSelector((state) => state.LessonReducer);
   const { userRecords } = useSelector((state) => state.RecordReducer);
-
-  console.log("lesson", lesson);
   const videoElement = useRef(null);
   const { timedatasDefault } = useSelector((state) => state.TimedataReducer);
   const [isStart, setIsStart] = useState(false);
@@ -102,9 +100,6 @@ export const LessonDetailUser = (props) => {
     // 'file' comes from the Blob or File API
     uploadBytes(storageRef, audioBlob).then((snapshot) => {
       getDownloadURL(storageRef).then(async (url) => {
-        console.log("url record", url);
-        console.log("Uploaded a blob or file!");
-        //save url to database
         const data = new FormData();
         data.append("user_id", userLogin.id);
         data.append("lesson_id", lesson.id);
@@ -125,7 +120,6 @@ export const LessonDetailUser = (props) => {
 
   const renderAudio = () => {
     return userRecords?.map((item, index) => {
-      console.log("AudioComponentProps", item);
       return (
         <Fragment key={index}>
           <AudioComponent record={item} />
@@ -262,7 +256,7 @@ export const LessonDetailUser = (props) => {
                 poster={courseDetail?.banner}
                 src={lesson?.video_link}
                 style={{ width: 835, height: 465, borderRadius: 15 }}
-                className=" drop-shadow-lg"
+                className="drop-shadow-lg"
               ></video>
               <div className={`video-audio__overlay  ${displayHidden} `}></div>
               <div className={`audio-record  ${displayHidden} text-center`}>
@@ -364,10 +358,7 @@ export const LessonDetailUser = (props) => {
           </div>
         </div>
 
-        {/* <div className="col-span-1 bg-green-400 mt-10">
-        {renderAudio()}
-        </div> */}
-        {userLogin.role == "teacher" ? (
+        {userLogin.role === "teacher" ? (
           <>
             <div className="mt-28 mr-8 col-span-2 flex-1 p:2 sm:p-6 justify-between flex flex-col h-120 bg-white h-fit rounded-2xl drop-shadow-xl">
               <div className="mb-4 text-base inline-flex items-center font-bold leading-sm uppercase px-3 py-1 rounded bg-white text-gray-700 border drop-shadow-lg">
@@ -457,15 +448,16 @@ export const LessonDetailUser = (props) => {
         <LessonSlider lessons={courseDetail?.lessons} />
       </div>
       <div>
-        <div className="background-record pb-20">
-          <div className="flex items-center justify-center pt-20 mb-20">
+        <div className="background-record pb-20 ">
+          <div className="flex items-center justify-center py-10 ">
             <span className="line-text text-4xl font-bold">
               Student Records
             </span>
           </div>
+
           {
             //RecordList: Co nut feedback va xoa.
-            userLogin.role == "user" ? (
+            userLogin.role === "user" ? (
               <RecordListAll lesson={lesson} />
             ) : (
               <RecordList lesson={lesson} />

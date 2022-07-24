@@ -1,10 +1,18 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { logoE_Learning, USER_LOGIN } from "../../../utils/settings/config";
+import {
+  ERROR,
+  logoE_Learning,
+  USER_LOGIN,
+} from "../../../utils/settings/config";
 import { Dropdown, Menu, Space } from "antd";
+import { useDispatch } from "react-redux";
+import { logoutAction } from "../../../redux/actions/UserActions";
+import { openNotificationWithIcon } from "../../../components/Notification/Notification";
 
 export const Header = (props) => {
   const userLogin = JSON.parse(localStorage.getItem(USER_LOGIN));
+  const dispatch = -useDispatch();
   const menuDropdown = (
     <Menu
       items={[
@@ -27,7 +35,17 @@ export const Header = (props) => {
         {
           key: "3",
           label: (
-            <NavLink to="/settings" className=" text-black">
+            <NavLink
+              to="/"
+              className=" text-black"
+              onClick={() => {
+                openNotificationWithIcon(
+                  ERROR,
+                  "Sorry this feature is being updated!!",
+                  "error"
+                );
+              }}
+            >
               Settings
             </NavLink>
           ),
@@ -39,8 +57,8 @@ export const Header = (props) => {
             <button
               className="font-bold "
               onClick={() => {
-                localStorage.removeItem(USER_LOGIN);
-                props.history.push("/login");
+                dispatch(logoutAction());
+                props.history.push("/");
               }}
             >
               LOGOUT
@@ -126,9 +144,16 @@ export const Header = (props) => {
 
               <li>
                 <NavLink
-                  to="/teacher"
+                  to="/"
                   className="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
                   aria-current="page"
+                  onClick={() => {
+                    openNotificationWithIcon(
+                      ERROR,
+                      "Sorry this feature is being updated!!",
+                      "error"
+                    );
+                  }}
                 >
                   Teacher
                 </NavLink>
@@ -146,9 +171,16 @@ export const Header = (props) => {
 
               <li>
                 <NavLink
-                  to="/support"
+                  to="/"
                   className="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
                   aria-current="page"
+                  onClick={() => {
+                    openNotificationWithIcon(
+                      ERROR,
+                      "Sorry this feature is being updated!!",
+                      "error"
+                    );
+                  }}
                 >
                   Support
                 </NavLink>
@@ -169,7 +201,7 @@ export const Header = (props) => {
                   className="absolute"
                 ></hr>
                 <button
-                  className="w-full !rounded-none col-span-1"
+                  className="w-full !rounded-none col-span-1 font-semibold "
                   onClick={() => {
                     props.history.push("/login");
                   }}
@@ -177,7 +209,8 @@ export const Header = (props) => {
                   Login
                 </button>
                 <button
-                  className="w-full col-span-1 bg-orange-100 hover:bg-orange-300 text-orange-700 font-semibold hover:text-white py-1 px-4 border  border-orange-300 hover:border-transparent rounded"
+                  // className="text-lg col-span-1 bg-orange-100 uppercase text-orange-500 font-semibold  py-2 px-8 border border-orange-300 hover:border-transparent rounded-sm duration-500 hover:bg-orange-300 hover:!text-white"
+                  className="w-full col-span-1 bg-orange-100 hover:bg-orange-300 text-orange-700 font-semibold hover:text-white py-1 px-4 border  border-orange-300 hover:border-transparent rounded-sm duration-500"
                   onClick={() => {
                     props.history.push("/register");
                   }}
@@ -190,75 +223,5 @@ export const Header = (props) => {
         </div>
       </nav>
     </div>
-    // <header className="bg-white sticky w-full z-20">
-    //   <div className="container flex justify-between h-16 mx-auto text-black">
-    //     <NavLink
-    //       to="/"
-    //       aria-label="Back to homepage"
-    //       className="flex items-center p-2"
-    //     >
-    //       <img
-    //         src="https://i.ibb.co/xzv4QsC/e-learningkaiwalogo.png"
-    //         alt="logo"
-    //         style={{ height: 50 }}
-    //       />
-    //     </NavLink>
-    //     <ul className="items-stretch hidden space-x-3 lg:flex">
-    //       <li className="flex">
-    //         <NavLink
-    //           to="/"
-    //           className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent dark:text-violet-400 dark:border-violet-400
-    //           text-black"
-    //         >
-    //           Home
-    //         </NavLink>
-    //       </li>
-    //       <li className="flex">
-    //         <NavLink
-    //           to="/teachers"
-    //           className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent text-black"
-    //         >
-    //           Teacher
-    //         </NavLink>
-    //       </li>
-    //       <li className="flex">
-    //         <NavLink
-    //           to="/courses"
-    //           className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent text-black"
-    //         >
-    //           All Courses
-    //         </NavLink>
-    //       </li>
-    //       <li className="flex">
-    //         <NavLink
-    //           to="/support"
-    //           className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent text-black"
-    //         >
-    //           Support
-    //         </NavLink>
-    //       </li>
-    //     </ul>
-    //     {userLogin ? (
-    //       dropdownHeader()
-    //     ) : (
-    //       <div className="items-center flex-shrink-0 grid grid-cols-2 gap-2">
-    //         <Button
-    //           textContent="Login"
-    //           className="w-full !rounded-none col-span-1"
-    //           onClick={() => {
-    //             props.history.push("/login");
-    //           }}
-    //         ></Button>
-    //         <Button
-    //           textContent="Register"
-    //           className="w-full !rounded-none col-span-1"
-    //           onClick={() => {
-    //             props.history.push("/register");
-    //           }}
-    //         ></Button>
-    //       </div>
-    //     )}
-    //   </div>
-    // </header>
   );
 };

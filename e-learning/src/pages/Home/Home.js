@@ -12,7 +12,6 @@ import RecordListAll from "../RecordList/RecordListAll";
 export const Home = (props) => {
   const { coursesDefault } = useSelector((state) => state.CourseReducer);
   const { teachersDefault } = useSelector((state) => state.UserReducer);
-
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllCoursesAction());

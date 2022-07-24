@@ -1,21 +1,28 @@
 import React from "react";
 import { useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { BellFilled, SettingFilled } from "@ant-design/icons";
 import TeacherSideBar from "./TeacherSideBar";
-import { USER_LOGIN } from "../../../utils/settings/config";
 
 import { useSelector, useDispatch } from "react-redux";
 import { NotifyUserAction } from "../../../redux/actions/NotifyAction";
+import { logoutAction } from "../../../redux/actions/UserActions";
+import { openNotificationWithIcon } from "../../../components/Notification/Notification";
+import { ERROR } from "../../../utils/settings/config";
 const SideBar = () => {
   const userLogin = JSON.parse(localStorage.getItem("USER_LOGIN"));
-
-  //redux 
-  const {notifyUserDefault} = useSelector((state) => state.NotifyReducer);
+  const { notifyUserDefault } = useSelector((state) => state.NotifyReducer);
   const dispatch = useDispatch();
+  const history = useHistory();
   useEffect(() => {
-    dispatch(NotifyUserAction(userLogin.id));
+    if (userLogin !== null) {
+      dispatch(NotifyUserAction(userLogin.id));
+    } else {
+      openNotificationWithIcon(ERROR, "Please login", "error");
+      history.push("/");
+    }
   }, []);
+
   return (
     <>
       <aside className="w-64 pl-2 fixed" aria-label="Sidebar">
@@ -40,9 +47,11 @@ const SideBar = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink
-                to="/my-record"
+              <button
+                // <button
+                // to="/my-record"
                 className=" flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                disabled
               >
                 <svg
                   className="absolute w-6 h-6 text-red-500"
@@ -61,7 +70,7 @@ const SideBar = () => {
                 <span className="pl-6 font-semibold tracking-tighter text-red-600 flex-1 ml-3 whitespace-nowrap">
                   My Record
                 </span>
-              </NavLink>
+              </button>
             </li>
             <li>
               <NavLink
@@ -81,9 +90,9 @@ const SideBar = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink
-                to="#"
+              <button
                 className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                disabled
               >
                 <SettingFilled
                   className="absolute text-xl mr-1"
@@ -92,12 +101,15 @@ const SideBar = () => {
                 <span className="pl-6 font-semibold tracking-tighter text-gray-800 flex-1 ml-3 whitespace-nowrap">
                   Setting
                 </span>
-              </NavLink>
+              </button>
             </li>
             <li>
-              <NavLink
-                to="#"
+              <button
                 className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                onClick={() => {
+                  dispatch(logoutAction());
+                  history.push("/");
+                }}
               >
                 <svg
                   className="absolute flex-shrink-0 w-6 h-6 text-red-500 transition duration-75 dark:text-red-400 group-hover:text-red-900 dark:group-hover:text-white"
@@ -114,16 +126,12 @@ const SideBar = () => {
                 <span className="pl-6 font-semibold tracking-tighter flex-1 ml-3 whitespace-nowrap text-red-500">
                   Logout
                 </span>
-              </NavLink>
+              </button>
             </li>
           </ul>
         </div>
       </aside>
-      {
-        (userLogin.role == 'teacher')
-        &&
-        <TeacherSideBar />
-      }
+      {/* {userLogin?.role === "teacher" && <TeacherSideBar />} */}
     </>
   );
 };

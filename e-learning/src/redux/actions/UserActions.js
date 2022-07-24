@@ -58,6 +58,7 @@ export const registerAction = (userRegister, propsRoute) => {
 };
 export const logoutAction = () => {
   return (dispatch) => {
+    localStorage.removeItem(USER_LOGIN);
     dispatch({
       type: LOGOUT,
       value: {},

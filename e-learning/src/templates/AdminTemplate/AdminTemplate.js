@@ -6,7 +6,6 @@ import { FileOutlined, UserOutlined } from "@ant-design/icons";
 import { NavLink } from "react-router-dom";
 import { logoE_Learning, logoE_LearningVuong, USER_LOGIN } from "../../utils/settings/config";
 import { logoutAction } from "../../redux/actions/UserActions";
-// import _ from "lodash";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
