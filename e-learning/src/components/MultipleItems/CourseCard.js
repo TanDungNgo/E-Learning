@@ -6,26 +6,33 @@ import { FolderOpenOutlined } from "@ant-design/icons";
 const CourseCard = (props) => {
   const { course } = props;
 
-  const renderOverView = course.description?.split(";").map((item, index) => {
-    return (
-      <li className="my-1 truncate" style={{ maxInlineSize: "none" }} key={index}>
-        <div className="flex align-center relative">
-          <span className="dot absolute"></span>
-          <span
-            className="pl-8 text-medium font-medium tracking-tight truncate"
-            title={item}
-          >
-            {item}
-          </span>
-        </div>
-      </li>
-    );
-  });
+  const renderOverView = course.description
+    ?.split(";")
+    .slice(0, 1)
+    .map((item, index) => {
+      return (
+        <li
+          className="my-1 truncate"
+          style={{ maxInlineSize: "none" }}
+          key={index}
+        >
+          <div className="flex align-center relative">
+            <span className="dot absolute"></span>
+            <span
+              className="pl-8 text-medium font-medium tracking-tight truncate"
+              title={item}
+            >
+              {item}
+            </span>
+          </div>
+        </li>
+      );
+    });
 
   return (
     <>
       <NavLink to={`/course/${course.id}`}>
-        <div className="max-w-sm bg-white rounded-lg border-8 border-white shadow-md dark:bg-gray-800 dark:border-gray-700">
+        <div className=" bg-white rounded-lg border-8 border-white shadow-md dark:bg-gray-800 dark:border-gray-700">
           <img
             className="banned-img rounded-t-lg"
             src={props.course.banner}
@@ -33,9 +40,7 @@ const CourseCard = (props) => {
           />
           <div className="p-3">
             <h6 className="mb-2 text-base font-bold tracking-tight text-gray-800 dark:text-white truncate">
-              <span title={course.name}>
-                {course.name}
-              </span>
+              <span title={course.name}>{course.name}</span>
             </h6>
             <ul className=" mb-2 text-base font-bold tracking-tight text-gray-800 dark:text-white">
               {renderOverView}
@@ -59,11 +64,11 @@ const CourseCard = (props) => {
             <hr className="mb-4 mt-2 line" />
             <div className="flex justify-between">
               <div className="flex items-center">
-                {/* <img
+                <img
                   className="w-8 h-8 rounded-full mr-2"
                   src={course.avatar}
-                  alt="Avatar of Jonathan Reinink"
-                /> */}
+                  alt={course.name}
+                />
                 <div className="text-sm">
                   <span className="text-gray-800 font-bold leading-none flex items-center">
                     {course.teacher_name}

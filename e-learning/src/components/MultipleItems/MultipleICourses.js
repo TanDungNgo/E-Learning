@@ -28,7 +28,7 @@ function SamplePrevArrow(props) {
 
 export const MultipleCourses = (props) => {
   var settings = {
-    infinite: true,
+    infinite: false,
     slidesToShow: 3,
     slidesToScroll: 1,
     autoplay: true,

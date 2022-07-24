@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import CourseCard from "../../components/MultipleItems/CourseCard";
 import "./ListCourse.css";
 import { getCourseEnrolledAction } from "../../redux/actions/CourseAction";
-import { USER_LOGIN } from "../../utils/settings/config";
 
+let courses = [];
 const ListCourse = () => {
   const { coursesDefault } = useSelector((state) => state.CourseReducer);
-  const userLogin = JSON.parse(localStorage.getItem(USER_LOGIN));
+  const { userLogin } = useSelector((state) => state.UserReducer);
   const dispatch = useDispatch();
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -15,8 +15,8 @@ const ListCourse = () => {
       dispatch(getCourseEnrolledAction(userLogin.id));
     }
   }, []);
-  console.log("listcourse: ", coursesDefault);
-  const listCourses = coursesDefault.map((item) => {
+  courses = coursesDefault?.filter((item) => item.id === userLogin.id);
+  const listCourses = courses?.map((item) => {
     return <CourseCard key={item.id} course={item} />;
   });
   return (
@@ -36,7 +36,10 @@ const ListCourse = () => {
         </svg>
         Enrolled Course
       </div>
-      <div className="min-h-full grid grid-cols-3 gap-4 background-list-courses p-5 rounded-lg drop-shadow" style={{minHeight: '500px'}}>
+      <div
+        className="min-h-full grid grid-cols-3 gap-4 background-list-courses p-5 rounded-lg drop-shadow"
+        style={{ minHeight: "500px" }}
+      >
         {listCourses}
       </div>
     </>

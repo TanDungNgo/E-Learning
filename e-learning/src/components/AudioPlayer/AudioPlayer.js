@@ -35,7 +35,7 @@ import "./AudioPlayer.css";
 
 export const AudioComponent = (props) => {
   const videoElement = useRef(null);
-  console.log(videoElement);
+  // console.log(videoElement);
   const { item } = props;
   return (
     <div className="audio-player w-full">

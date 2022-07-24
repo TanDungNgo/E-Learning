@@ -8,14 +8,14 @@ const TeacherCard = (props) => {
   return (
     <>
       <NavLink to="/" className="pointer-events-none">
-        <div className="flex bg-white items-center rounded-lg px-2">
+        <div className="flex bg-white items-center rounded-lg px-2 ">
           <img
             className="avatar-img object-cover rounded-lg md:h-auto md:w-48"
             src={teacher.avatar}
-            alt=""
+            alt={teacher.username}
           />
           <div className="flex w-full flex-col p-4 leading-normal">
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+            <h5 className="mb-2  font-semibold tracking-tight text-gray-900 ">
               {teacher.username}
             </h5>
             <div className="flex w-full justify-between">

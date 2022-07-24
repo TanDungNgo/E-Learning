@@ -48,7 +48,7 @@ export const MultipleTeachers = (props) => {
           style={{ height: 100, width: 300 }}
           className={`${styleSlick["width-item"]} ${styleSlick["height-item"]} px-5  `}
         >
-          <TeacherCard teacher = {item}/>
+          <TeacherCard teacher={item} />
         </div>
       );
     });
