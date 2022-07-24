@@ -26,8 +26,8 @@ const ListCourse = () => {
       dispatch(getStudentsInCourseAction(userLogin.id));
     }
   }, []);
-  courses = coursesDefault?.filter((item) => item.id === userLogin.id);
-  const listCourses = courses?.map((item) => {
+  // courses = coursesDefault?.filter((item) => item.id === userLogin.id);
+  const listCourses = coursesDefault?.map((item) => {
     return <CourseCard key={item.id} course={item} />;
   });
   return (
