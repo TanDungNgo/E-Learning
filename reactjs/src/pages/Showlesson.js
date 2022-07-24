@@ -61,6 +61,7 @@ class Showlesson extends Component
                 users: res.data.users,
                 loading: false,
             })
+            console.log(this.state.users);
         }
     }
     refresh = () => {
@@ -123,7 +124,7 @@ class Showlesson extends Component
         else
         {
             record_HTMLTABLE = 
-            this.state.users.map( (item) =>{
+            this.state.users[0].record.map( (item) =>{
                 return (
                     <tr key={item.id}>
                         <td>
