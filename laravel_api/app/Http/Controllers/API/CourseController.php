@@ -30,8 +30,8 @@ class CourseController extends Controller
     public function GetCourseByIdTeacher($id)
     {
         $courses = DB::table('courses')->join('users', 'users.id', '=', 'courses.teacher_id')
-            ->select('users.username as teacher_name','users.avatar','courses.*')
-        ->where('teacher_id', $id)
+            ->select('users.username as teacher_name', 'users.avatar', 'courses.*')
+            ->where('teacher_id', $id)
             ->get();
         return response()->json([
             'status' => 200,
@@ -192,9 +192,10 @@ class CourseController extends Controller
     public function search(Request $request)
     {
         $search = $request->input('searchTerm');
-        $courses = Course::where('name', 'like', '%'.$search.'%')
-        ->orWhere('description', 'like', '%'.$search.'%')
-        ->get();
+        $courses = DB::table('courses')->join('users', 'users.id', '=', 'courses.teacher_id')
+            ->select(DB::raw("concat (users.firstname,' ',users.lastname) as teacher_name"), 'users.avatar', 'courses.*')->where('name', 'like', '%' . $search . '%')
+            ->orWhere('description', 'like', '%' . $search . '%')
+            ->get();
         return response()->json([
             'status' => 200,
             'courses' => $courses,

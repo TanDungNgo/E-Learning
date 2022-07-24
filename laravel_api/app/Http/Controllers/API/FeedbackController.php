@@ -46,7 +46,7 @@ class FeedbackController extends Controller
     }
     public function see_feedback($id)
     {
-        // $feedback = DB::table('feedback')->where('record_id',$id)->get();
+        // $feedback = DB::table('feedbacks')->where('record_id',$id)->get();
         $feedback = Feedback::where('record_id',$id)->get();
         $count = count($feedback);
         if($count > 0)
