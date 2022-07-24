@@ -1,5 +1,5 @@
 import React from "react";
-
+import "./StudentList.css" 
 //this is for user profile
 const StudentList = (props) => {
   let { liststudent } = props;
@@ -90,24 +90,24 @@ const StudentList = (props) => {
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               {!studentcontrol && (
-                <th scope="col" className="py-3 px-6">
+                <th scope="col" className="py-3 px-6 title-table">
                   Course
                 </th>
               )}
-              <th scope="col" className="py-3 px-6">
+              <th scope="col" className="py-3 px-6 title-table">
                 Username
               </th>
-              <th scope="col" className="w-20 py-3 px-6">
+              <th scope="col" className="w-20 py-3 px-6 title-table">
                 Avatar
               </th>
-              <th scope="col" className="w-40 py-3 px-6">
+              <th scope="col" className="w-40 py-3 px-6 title-table">
                 Email
               </th>
-              <th scope="col" className="w-32 py-3 px-6">
+              <th scope="col" className="w-32 py-3 px-6 title-table">
                 Join_date
               </th>
               {studentcontrol && (
-                <th scope="col" className="py-3 px-6">
+                <th scope="col" className="py-3 px-6 title-table">
                   <span className="">Edit</span>
                 </th>
               )}

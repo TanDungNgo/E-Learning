@@ -27,8 +27,8 @@ import { HomeTemplate } from "./templates/HomeTemplate/HomeTemplate";
 import { ProfileTemplate } from "./templates/ProfileTemplate/SideBar/ProfileTemplate";
 import UserNotify from "./pages/Notification/UserNotify";
 import Users from "./pages/Admin/Users/Users";
-import StudentRequestList from "./pages/Admin/UserRequests/StudentRequestList";
 import StudentList from "./pages/Student/StudentList";
+import UpgradeTeacher from "./pages/Admin/UserRequests/UpgradeTeacher";
 export const history = createBrowserHistory();
 function App() {
   return (
@@ -62,7 +62,7 @@ function App() {
       />
       <AdminTemplate path="/admin" exact Component={Dashboard} />
       <AdminTemplate path="/admin/users" exact Component={Users} />
-      <AdminTemplate path="/admin/user-request" exact Component={StudentRequestList} />
+      <AdminTemplate path="/admin/user-request" exact Component={UpgradeTeacher} />
 
       <ProfileTemplate path="/add-new/course" exact Component={CreateCourse} />
       <ProfileTemplate path="/enrolled-course" exact Component={ListCourse} />
