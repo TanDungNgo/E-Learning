@@ -89,15 +89,26 @@ const RecordHasFeedBack = (props) => {
                         </Form.Item>
                     </div>
                 {/* Feedback Box: Can phai doi thanh thong tin o day la cua giao vien, gom avatar giao vien, ten giao vien, loi nhan feedback */}
+                {/* Neu da co feed back, hien thi feedback, neu chua co thi hien thi default */}
+                {
+                  (1+1==3) 
+                  ?
                 <div class="max-w-sm mx-auto flex p-3 bg-white rounded-lg border border-gray-300"> 
-                <div class="flex-shrink-0">
-                    <img class="h-12 w-12" src="https://v1.tailwindcss.com/img/jonathan.jpg" alt="ChitChat Logo"/>
+                  <div class="flex-shrink-0">
+                      <img class="h-12 w-12" src="https://v1.tailwindcss.com/img/jonathan.jpg" alt="ChitChat Logo"/>
+                  </div>
+                  <div class="ml-6 pt-1">
+                      <h4 class="text-xl text-gray-900 leading-tight">{item.username}</h4>
+                      <p class="text-base text-gray-600 leading-normal">You have a new message!</p>
                 </div>
-                <div class="ml-6 pt-1">
-                    <h4 class="text-xl text-gray-900 leading-tight">{item.username}</h4>
-                    <p class="text-base text-gray-600 leading-normal">You have a new message!</p>
                 </div>
+                  :
+                <div class="max-w-sm mx-auto flex p-3 bg-white rounded-lg border border-gray-300"> 
+                  <div class="ml-6 pt-1">
+                      <p class="text-base text-gray-600 leading-normal">Nothing here!</p>
+                  </div>
                 </div>
+                }
                     </Form>
                 </div>
               }
