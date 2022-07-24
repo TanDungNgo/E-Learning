@@ -7,11 +7,10 @@ import {
   getLessonByIdAction,
   updateLessonAction,
 } from "../../../redux/actions/LessonActions";
+import { NavLink } from "react-router-dom";
 
 const EditLesson = (props) => {
-  const lessonParams = JSON.parse(localStorage.getItem("lessonParams"));
   const { lesson } = useSelector((state) => state.LessonReducer);
-  console.log("lesson", lesson);
   const dispatch = useDispatch();
   let { lessonId, courseId } = props.match.params;
   useEffect(() => {
@@ -20,11 +19,6 @@ const EditLesson = (props) => {
 
   const formik = useFormik({
     enableReinitialize: true,
-    // initialValues: {
-    //   name: lesson.name,
-    //   description: lesson.description,
-    //   course_id: courseId,
-    // },
 
     initialValues: {
       name: lesson.name,
@@ -45,6 +39,9 @@ const EditLesson = (props) => {
 
   return (
     <>
+      <NavLink to={`/admin/courses/${courseId}/lessons`}>
+        <span className="!text-blue-400 ">back</span>
+      </NavLink>
       <Form
         onSubmitCapture={formik.handleSubmit}
         labelCol={{
@@ -59,26 +56,26 @@ const EditLesson = (props) => {
         }}
         size="default"
       >
-        <h3>Cập nhật thông tin bài học </h3>
-        <Form.Item label="Tên bài học">
+        <h3 className="text-4xl font-semibold mx-auto my-5">Update Lesson</h3>
+        <Form.Item label="Lesson's Name">
           <Input
             name="name"
             onChange={formik.handleChange}
             value={formik.values.name}
+            placeholder="Input lesson's name"
           />
         </Form.Item>
-
-        <Form.Item label="Mô tả">
+        <Form.Item label="Lesson's Description">
           <Input
             name="description"
             onChange={formik.handleChange}
             value={formik.values.description}
+            placeholder="Input lesson's description"
           />
         </Form.Item>
-
-        <Form.Item label="Button">
-          <button type="submit" className="bg-blue-300 text-white p-2">
-            Cập nhật
+        <Form.Item wrapperCol={{ offset: 4, span: 14 }}>
+          <button type="submit" className="bg-blue-700 text-white py-2 px-6">
+            Update Lesson
           </button>
         </Form.Item>
       </Form>

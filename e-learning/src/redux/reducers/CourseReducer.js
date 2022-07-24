@@ -2,7 +2,7 @@ import { GET_ALL_COURSES, GET_COURSE_DETAILS } from "../types/CourseTypes";
 
 const stateDefault = {
   coursesDefault: [],
-  courseDetail: [],
+  courseDetail: {},
 };
 
 export const CourseReducer = (state = stateDefault, action) => {

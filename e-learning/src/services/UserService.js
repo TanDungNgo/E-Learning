@@ -9,7 +9,6 @@ const updateUser = (id, formData) => {
 };
 
 const requestToBecomeTeacher = (formData) => {
-  console.log(formData);
   return Api.post(`/request-to-become-teacher`, formData);
 };
 
@@ -36,7 +35,7 @@ const unenrollCourse = (user_id, course_id) => {
 
 const getAllUser = () => {
   return Api.get("/user-list");
-}
+};
 export const UserService = {
   getAllStudents,
   updateUser,

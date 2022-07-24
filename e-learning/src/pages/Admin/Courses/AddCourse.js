@@ -3,8 +3,8 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { Form, Input, Progress } from "antd";
 import storageFirebase from "../../../utils/settings/firebaseConfig";
 import { CourseService } from "../../../services/CourseService";
+import { NavLink } from "react-router-dom";
 // import axios from "axios";
-
 class AddCourse extends Component {
   state = {
     name: "",
@@ -79,13 +79,15 @@ class AddCourse extends Component {
         // const res = await axios.post("/courses", data);
 
         const result = await CourseService.createCourse(data);
-        // console.log("result", result);
       }
     );
   };
   render() {
     return (
       <div>
+        <NavLink to="/admin/courses">
+          <span className="!text-blue-400 ">back</span>
+        </NavLink>
         <>
           <Form
             onSubmitCapture={this.saveLesson}
@@ -100,67 +102,76 @@ class AddCourse extends Component {
             }}
             size="default"
           >
-            <h1>Thêm khóa học mới </h1>
+            <h3 className="text-4xl font-semibold mx-auto my-5">
+              Create New Course
+            </h3>
 
-            <Form.Item label="Tên khóa học">
+            <Form.Item label="Course's Name">
               <Input
                 name="name"
                 onChange={this.handleInput}
                 value={this.state.name}
-                placeholder="Nhập tên khóa học"
+                placeholder="Input course' name"
               />
             </Form.Item>
-            <Form.Item label="Mô tả khóa học">
+            <Form.Item label="Course's Description">
               <Input
                 name="description"
                 onChange={this.handleInput}
                 value={this.state.description}
-                placeholder="Nhập mô tả khóa học"
+                placeholder="Input course' description"
               />
             </Form.Item>
 
-            <Form.Item label="Giáo viên dạy">
+            <Form.Item label="Teacher">
               <Input
                 type="number"
                 onChange={this.handleInput}
                 value={this.state.teacher_id}
-                placeholder="Nhập mã giáo viên"
+                placeholder="Input teacher's code"
                 name="teacher_id"
               />
             </Form.Item>
 
-            <Form.Item label="Giá khóa học">
+            <Form.Item label="Course's Price">
               <Input
                 type="number"
                 onChange={this.handleInput}
                 value={this.state.price}
                 name="price"
-                placeholder="Nhập giá khóa học"
+                placeholder="Input course' price"
               />
             </Form.Item>
 
-            <Form.Item label="Banner khóa học">
+            <Form.Item label="Course's Banner ">
               <input
                 type="file"
                 onChange={this.handleChangeFile}
                 accept="image/*"
                 name="url"
-                placeholder="Chọn ảnh"
+                placeholder="Choose file"
               />
               <br />
-              <img
-                style={{ width: 250, height: 200 }}
-                src={this.state.imgSrc}
-                alt="..."
-              />
+              {this.state.imgSrc ? (
+                <img
+                  style={{ width: 250, height: 200 }}
+                  src={this.state.imgSrc}
+                  alt="..."
+                />
+              ) : (
+                <></>
+              )}
             </Form.Item>
             <Progress
               percent={this.state.percent}
               style={{ marginLeft: 205, width: 600 }}
             />
-            <Form.Item label="Tác vụ">
-              <button type="submit" className="bg-blue-300 text-white p-2">
-                Thêm khóa học
+            <Form.Item wrapperCol={{ offset: 4, span: 14 }}>
+              <button
+                type="submit"
+                className="bg-blue-700 text-white py-2 px-6"
+              >
+                Create new course
               </button>
             </Form.Item>
           </Form>

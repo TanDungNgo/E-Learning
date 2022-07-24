@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect } from "react";
-import { Button, Form, InputNumber, Table } from "antd";
+import { Button, Form, Table, Input } from "antd";
 import { useFormik } from "formik";
-import { Input } from "antd";
 import {
   EditOutlined,
   DeleteOutlined,
@@ -13,174 +12,11 @@ import {
   deleteCourseByIdAction,
   getAllCoursesAction,
 } from "../../../redux/actions/CourseAction";
-
-const courseDefault1 = [
-  {
-    id: 1,
-    name: "Làm chủ tiếng nhật trong 1 ngày",
-    description:
-      "Khóa học tạo ra nhằm giúp các bạn học sinh, sinh viên có thêm môi trường rèn luyện tiếng nhật. Học viên sẽ được học hỏi kinh nghiệm từ các sensei hàng đầu Việt Nam. Kết thúc khóa học sẽ đạt kết quả cao blabla...",
-    banner:
-      "https://riki.edu.vn/library-n3-online/images/hoc-tieng-nhat-n3-online-2.png",
-    teacher_id: 1,
-    price: "1.000.000",
-  },
-  {
-    id: 2,
-    name: "Làm chủ tiếng nhật trong 2 ngày",
-    description:
-      "Khóa học tạo ra nhằm giúp các bạn học sinh, sinh viên có thêm môi trường rèn luyện tiếng nhật. Học viên sẽ được học hỏi kinh nghiệm từ các sensei hàng đầu Việt Nam. Kết thúc khóa học sẽ đạt kết quả cao blabla...",
-    banner:
-      "https://riki.edu.vn/library-n3-online/images/hoc-tieng-nhat-n3-online-2.png",
-    teacher_id: 2,
-    price: "2.000.000",
-  },
-  {
-    id: 3,
-    name: "Làm chủ tiếng nhật trong 3 ngày",
-    description:
-      "Khóa học tạo ra nhằm giúp các bạn học sinh, sinh viên có thêm môi trường rèn luyện tiếng nhật. Học viên sẽ được học hỏi kinh nghiệm từ các sensei hàng đầu Việt Nam. Kết thúc khóa học sẽ đạt kết quả cao blabla...",
-    banner:
-      "https://riki.edu.vn/library-n3-online/images/hoc-tieng-nhat-n3-online-2.png",
-    teacher_id: 3,
-    price: "3.000.000",
-  },
-  {
-    id: 4,
-    name: "Làm chủ tiếng nhật trong 4 ngày",
-    description:
-      "Khóa học tạo ra nhằm giúp các bạn học sinh, sinh viên có thêm môi trường rèn luyện tiếng nhật. Học viên sẽ được học hỏi kinh nghiệm từ các sensei hàng đầu Việt Nam. Kết thúc khóa học sẽ đạt kết quả cao blabla...",
-    banner:
-      "https://riki.edu.vn/library-n3-online/images/hoc-tieng-nhat-n3-online-2.png",
-    teacher_id: 4,
-    price: "4.000.000",
-  },
-  {
-    id: 5,
-    name: "Làm chủ tiếng nhật trong 1 tuần",
-    description:
-      "Khóa học tạo ra nhằm giúp các bạn học sinh, sinh viên có thêm môi trường rèn luyện tiếng nhật. Học viên sẽ được học hỏi kinh nghiệm từ các sensei hàng đầu Việt Nam. Kết thúc khóa học sẽ đạt kết quả cao blabla...",
-    banner:
-      "https://riki.edu.vn/library-n3-online/images/hoc-tieng-nhat-n3-online-2.png",
-    teacher_id: 5,
-    price: "1.000.000",
-  },
-  {
-    id: 6,
-    name: "Kaiwa cùng giáo viên bản xứ",
-    description:
-      "Khóa học tạo ra nhằm giúp các bạn học sinh, sinh viên có thêm môi trường rèn luyện tiếng nhật. Học viên sẽ được học hỏi kinh nghiệm từ các sensei hàng đầu Việt Nam. Kết thúc khóa học sẽ đạt kết quả cao blabla...",
-    banner:
-      "https://riki.edu.vn/library-n3-online/images/hoc-tieng-nhat-n3-online-2.png",
-    teacher_id: 2,
-    price: "1.000.000",
-  },
-  {
-    id: 7,
-    name: "Làm chủ tiếng nhật trong 2 tuần",
-    description:
-      "Khóa học tạo ra nhằm giúp các bạn học sinh, sinh viên có thêm môi trường rèn luyện tiếng nhật. Học viên sẽ được học hỏi kinh nghiệm từ các sensei hàng đầu Việt Nam. Kết thúc khóa học sẽ đạt kết quả cao blabla...",
-    banner:
-      "https://riki.edu.vn/library-n3-online/images/hoc-tieng-nhat-n3-online-2.png",
-    teacher_id: 1,
-    price: "1.000.000",
-  },
-  {
-    id: 8,
-    name: "N3 full options",
-    description:
-      "Khóa học tạo ra nhằm giúp các bạn học sinh, sinh viên có thêm môi trường rèn luyện tiếng nhật. Học viên sẽ được học hỏi kinh nghiệm từ các sensei hàng đầu Việt Nam. Kết thúc khóa học sẽ đạt kết quả cao blabla...",
-    banner:
-      "https://riki.edu.vn/library-n3-online/images/hoc-tieng-nhat-n3-online-2.png",
-    teacher_id: 1,
-    price: "1.000.000",
-  },
-  {
-    id: 9,
-    name: "Làm chủ tiếng nhật trong 1 ngày(part 2)",
-    description:
-      "Khóa học tạo ra nhằm giúp các bạn học sinh, sinh viên có thêm môi trường rèn luyện tiếng nhật. Học viên sẽ được học hỏi kinh nghiệm từ các sensei hàng đầu Việt Nam. Kết thúc khóa học sẽ đạt kết quả cao blabla...",
-    banner:
-      "https://riki.edu.vn/library-n3-online/images/hoc-tieng-nhat-n3-online-2.png",
-    teacher_id: 1,
-    price: "1.000.000",
-  },
-  {
-    id: 10,
-    name: "Làm chủ tiếng nhật trong 2 ngày(part 2)",
-    description:
-      "Khóa học tạo ra nhằm giúp các bạn học sinh, sinh viên có thêm môi trường rèn luyện tiếng nhật. Học viên sẽ được học hỏi kinh nghiệm từ các sensei hàng đầu Việt Nam. Kết thúc khóa học sẽ đạt kết quả cao blabla...",
-    banner:
-      "https://riki.edu.vn/library-n3-online/images/hoc-tieng-nhat-n3-online-2.png",
-    teacher_id: 2,
-    price: "2.000.000",
-  },
-  {
-    id: 11,
-    name: "Làm chủ tiếng nhật trong 3 ngày(part 2)",
-    description:
-      "Khóa học tạo ra nhằm giúp các bạn học sinh, sinh viên có thêm môi trường rèn luyện tiếng nhật. Học viên sẽ được học hỏi kinh nghiệm từ các sensei hàng đầu Việt Nam. Kết thúc khóa học sẽ đạt kết quả cao blabla...",
-    banner:
-      "https://riki.edu.vn/library-n3-online/images/hoc-tieng-nhat-n3-online-2.png",
-    teacher_id: 3,
-    price: "3.000.000",
-  },
-  {
-    id: 12,
-    name: "Làm chủ tiếng nhật trong 4 ngày(part 2)",
-    description:
-      "Khóa học tạo ra nhằm giúp các bạn học sinh, sinh viên có thêm môi trường rèn luyện tiếng nhật. Học viên sẽ được học hỏi kinh nghiệm từ các sensei hàng đầu Việt Nam. Kết thúc khóa học sẽ đạt kết quả cao blabla...",
-    banner:
-      "https://riki.edu.vn/library-n3-online/images/hoc-tieng-nhat-n3-online-2.png",
-    teacher_id: 4,
-    price: "4.000.000",
-  },
-  {
-    id: 13,
-    name: "Làm chủ tiếng nhật trong 1 tuần(part 2)",
-    description:
-      "Khóa học tạo ra nhằm giúp các bạn học sinh, sinh viên có thêm môi trường rèn luyện tiếng nhật. Học viên sẽ được học hỏi kinh nghiệm từ các sensei hàng đầu Việt Nam. Kết thúc khóa học sẽ đạt kết quả cao blabla...",
-    banner:
-      "https://riki.edu.vn/library-n3-online/images/hoc-tieng-nhat-n3-online-2.png",
-    teacher_id: 5,
-    price: "1.000.000",
-  },
-  {
-    id: 14,
-    name: "Kaiwa cùng giáo viên bản xứ(part 2)",
-    description:
-      "Khóa học tạo ra nhằm giúp các bạn học sinh, sinh viên có thêm môi trường rèn luyện tiếng nhật. Học viên sẽ được học hỏi kinh nghiệm từ các sensei hàng đầu Việt Nam. Kết thúc khóa học sẽ đạt kết quả cao blabla...",
-    banner:
-      "https://riki.edu.vn/library-n3-online/images/hoc-tieng-nhat-n3-online-2.png",
-    teacher_id: 2,
-    price: "1.000.000",
-  },
-  {
-    id: 15,
-    name: "Làm chủ tiếng nhật trong 2 tuần(part 2)",
-    description:
-      "Khóa học tạo ra nhằm giúp các bạn học sinh, sinh viên có thêm môi trường rèn luyện tiếng nhật. Học viên sẽ được học hỏi kinh nghiệm từ các sensei hàng đầu Việt Nam. Kết thúc khóa học sẽ đạt kết quả cao blabla...",
-    banner:
-      "https://riki.edu.vn/library-n3-online/images/hoc-tieng-nhat-n3-online-2.png",
-    teacher_id: 1,
-    price: "1.000.000",
-  },
-  {
-    id: 16,
-    name: "N3 full options (part 2)",
-    description:
-      "Khóa học tạo ra nhằm giúp các bạn học sinh, sinh viên có thêm môi trường rèn luyện tiếng nhật. Học viên sẽ được học hỏi kinh nghiệm từ các sensei hàng đầu Việt Nam. Kết thúc khóa học sẽ đạt kết quả cao blabla...",
-    banner:
-      "https://riki.edu.vn/library-n3-online/images/hoc-tieng-nhat-n3-online-2.png",
-    teacher_id: 1,
-    price: "1.000.000",
-  },
-];
+import { searchCourseAction } from "../../../redux/actions/SearchAction";
 
 export default function Course(props) {
   const { coursesDefault } = useSelector((state) => state.CourseReducer);
-
-  console.log("coursesDefault", coursesDefault);
+  const { Search } = Input;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -189,25 +25,17 @@ export default function Course(props) {
 
   const formik = useFormik({
     initialValues: {
-      name: "",
-      mincourseEvaluate: 0,
-      maxcourseEvaluate: 10,
+      searchTerm: "",
     },
-    // onSubmit: (values) => {
-    //   dispatch(
-    //     getAllcourseAction(
-    //       values.name,
-    //       values.mincourseEvaluate,
-    //       values.maxcourseEvaluate
-    //     )
-    //   );
-    // },
-    onReset: (values) => {},
+
+    onSubmit: (values) => {
+      dispatch(searchCourseAction(values.searchTerm));
+    },
   });
 
   const columns = [
     {
-      title: "Mã khóa học",
+      title: "Course's ID",
       dataIndex: "id",
       sorter: (a, b) => a.id - b.id,
       sortDirections: ["descend", "ascend"],
@@ -234,7 +62,7 @@ export default function Course(props) {
       width: "15%",
     },
     {
-      title: "Tên khóa học",
+      title: "Course's Name",
       dataIndex: "name",
       sorter: (a, b) => {
         let nameA = a.name.toLowerCase().trim();
@@ -248,7 +76,7 @@ export default function Course(props) {
       width: "25%",
     },
     {
-      title: "Mô tả",
+      title: "Course's Description",
       dataIndex: "description",
 
       render: (text, course) => {
@@ -264,7 +92,7 @@ export default function Course(props) {
       width: "25%",
     },
     {
-      title: "Hành động",
+      title: "Actions",
       dataIndex: "id",
       render: (text, course) => {
         return (
@@ -286,10 +114,10 @@ export default function Course(props) {
               onClick={() => {
                 //Gọi action xoá
                 if (
-                  window.confirm("Bạn có chắc muốn xoá khóa học " + course.name)
+                  window.confirm("Are you sure you want to delete this course?")
                 ) {
                   //Gọi action
-                  // dispatch(deleteCourseByIdAction(course.id));
+                  dispatch(deleteCourseByIdAction(course.id));
                 }
               }}
             >
@@ -317,7 +145,7 @@ export default function Course(props) {
 
   return (
     <div>
-      <h3 className="text-4xl">Quản lý khóa học</h3>
+      <h3 className="text-4xl">Courses Management</h3>
       <div className="flex justify-between">
         <Button
           className="mb-5"
@@ -325,12 +153,12 @@ export default function Course(props) {
             props.history.push("/admin/courses/add-new");
           }}
         >
-          Thêm khóa học
+          Create New Course
         </Button>
         <Button
           className="mb-5"
           onClick={() => {
-            // dispatch(getAllCoursesAction());
+            dispatch(getAllCoursesAction());
           }}
         >
           Reset
@@ -338,28 +166,14 @@ export default function Course(props) {
       </div>
 
       <Form onSubmitCapture={formik.handleSubmit}>
-        <Input
-          style={{ width: "45%" }}
+        <Search
+          placeholder="Input course'name"
+          enterButton="Search"
+          size="large"
+          name="searchTerm"
           onChange={formik.handleChange}
-          placeholder="Nhập tên giáo viên"
+          onSearch={formik.handleSubmit}
         />
-        <Input
-          name="name"
-          onChange={formik.handleChange}
-          placeholder="Nhập tên khóa học "
-          style={{
-            width: "45%",
-          }}
-        />
-        <button
-          style={{
-            width: "10%",
-          }}
-          className="p-1 bg-blue-500 rounded-sm"
-          type="submit"
-        >
-          Search
-        </button>
       </Form>
 
       <Table

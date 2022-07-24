@@ -50,7 +50,7 @@ function App() {
         Component={Lessons}
       />
       <AdminTemplate
-        path="/admin/courses/:courseId/lessons/:lessonId/edit"
+        path="/admin/course/:courseId/lesson/:lessonId/edit"
         exact
         Component={EditLesson}
       />
@@ -62,7 +62,11 @@ function App() {
       />
       <AdminTemplate path="/admin" exact Component={Dashboard} />
       <AdminTemplate path="/admin/users" exact Component={Users} />
-      <AdminTemplate path="/admin/user-request" exact Component={UpgradeTeacher} />
+      <AdminTemplate
+        path="/admin/user-request"
+        exact
+        Component={UpgradeTeacher}
+      />
 
       <ProfileTemplate path="/add-new/course" exact Component={CreateCourse} />
       <ProfileTemplate path="/enrolled-course" exact Component={ListCourse} />
@@ -83,11 +87,6 @@ function App() {
         Component={AddCourse}
       />
       <AdminTemplate path="/admin/courses/:id" exact Component={EditCourse} />
-      <HomeTemplate
-        path="/courses/:courseId/lessons/:lessonId"
-        exact
-        Component={LessonDetailUser}
-      />
       <AdminTemplate path="/admin/courses" exact Component={Course} />
       <HomeTemplate path="/test" exact Component={Test} />
       <ProfileTemplate path="/my-notification" exact Component={UserNotify} />

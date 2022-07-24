@@ -13,6 +13,7 @@ const Profile = (props) => {
   const userLogin = JSON.parse(localStorage.getItem(USER_LOGIN));
   const [showEditAvatar, setShowEditAvatar] = useState(false);
   const dispatch = useDispatch();
+  console.log("userLogin", userLogin);
 
   const formik = useFormik({
     initialValues: {

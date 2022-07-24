@@ -31,7 +31,6 @@ const UserNotify = () => {
         >
           <th className="truncate py-2 px-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
             <span>
-              {console.log(notification)}
               <h3>{notification.data.name}</h3>
               <p>{notification.data.description}</p>
               <span>

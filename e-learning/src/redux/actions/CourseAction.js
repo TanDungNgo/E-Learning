@@ -1,4 +1,6 @@
+import { openNotificationWithIcon } from "../../components/Notification/Notification";
 import { CourseService } from "../../services/CourseService";
+import { ERROR, SUCCESS } from "../../utils/settings/config";
 import { GET_ALL_COURSES, GET_COURSE_DETAILS } from "../types/CourseTypes";
 
 export const getCourseDetailAction = (id) => {
@@ -19,9 +21,14 @@ export const createCourseAction = (data) => {
   return async (dispatch) => {
     try {
       await CourseService.createCourse(data);
-
+      openNotificationWithIcon(
+        SUCCESS,
+        "Successfully created a new course",
+        "success"
+      );
       dispatch(getAllCoursesAction());
     } catch (error) {
+      openNotificationWithIcon(ERROR, "Sorry, something went wrong", "error");
       console.log("error>>", error);
     }
   };
@@ -31,9 +38,14 @@ export const updateCourseAction = (data, id) => {
   return async (dispatch) => {
     try {
       await CourseService.updateCourseById(id, data);
-
+      openNotificationWithIcon(
+        SUCCESS,
+        "Successfully updated the course",
+        "success"
+      );
       dispatch(getAllCoursesAction());
     } catch (error) {
+      openNotificationWithIcon(ERROR, "Sorry, something went wrong", "error");
       console.log("error>>", error);
     }
   };
@@ -42,8 +54,14 @@ export const deleteCourseByIdAction = (id) => {
   return async (dispatch) => {
     try {
       await CourseService.deleteCourseById(id);
+      openNotificationWithIcon(
+        SUCCESS,
+        "Successfully deleted the course",
+        "success"
+      );
       dispatch(getAllCoursesAction());
     } catch (error) {
+      openNotificationWithIcon(ERROR, "Sorry, something went wrong", "error");
       console.log("error>>", error);
     }
   };
@@ -53,7 +71,6 @@ export const getAllCoursesAction = () => {
   return async (dispatch) => {
     try {
       const result = await CourseService.getAllCourses();
-
       dispatch({
         type: GET_ALL_COURSES,
         value: result.courses,
@@ -80,7 +97,6 @@ export const getCourseEnrolledAction = (id) => {
   return async (dispatch) => {
     try {
       const result = await CourseService.getCoursesEnrolled(id);
-      console.log("abc", result);
       dispatch({
         type: GET_ALL_COURSES,
         value: result.courses,

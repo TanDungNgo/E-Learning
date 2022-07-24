@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect } from "react";
-import { Button, Form, Table } from "antd";
+import { Button, Form, Table, Input } from "antd";
 import { useFormik } from "formik";
-import { Input } from "antd";
 import { EditOutlined, DeleteOutlined, EyeOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
@@ -9,56 +8,24 @@ import {
   deleteLessonByIdAction,
   getAllLessonsAction,
 } from "../../../redux/actions/LessonActions";
-
-// const lessonsDefault1 = [
-//   {
-//     id: 1,
-//     name: "testing lesson 1",
-//     description: "nothing",
-//     course_id: 1,
-//     video_link:
-//       "https://firebasestorage.googleapis.com/v0/b/fir-react-upload-bad49.appspot.com/o/files%2FDandelion%20-%202719.mp4?alt=media&token=7773bee0-b17e-4595-9645-3b8daf6a9cc8",
-//   },
-//   {
-//     id: 2,
-//     name: "testing lesson 2",
-//     description: "nothing",
-//     course_id: 1,
-//     video_link: "http://media.w3.org/2010/05/bunny/movie.mp4",
-//   },
-//   {
-//     id: 3,
-//     name: "testing lesson 3",
-//     description: "nothing",
-//     course_id: 1,
-//     video_link:
-//       "https://firebasestorage.googleapis.com/v0/b/fir-react-upload-bad49.appspot.com/o/files%2FDandelion%20-%202719.mp4?alt=media&token=7773bee0-b17e-4595-9645-3b8daf6a9cc8",
-//   },
-//   {
-//     id: 4,
-//     name: "testing lesson 4",
-//     description: "nothing",
-//     course_id: 1,
-//     video_link: "http://media.w3.org/2010/05/bunny/movie.mp4",
-//   },
-// ];
+import { getCourseDetailAction } from "../../../redux/actions/CourseAction";
 
 export default function Lessons(props) {
-  const courseParams = JSON.parse(localStorage.getItem("courseParams"));
   const { lessonsDefault } = useSelector((state) => state.LessonReducer);
-
-  console.log("lessonsDefault", lessonsDefault);
+  const { courseDetail } = useSelector((state) => state.CourseReducer);
+  console.log("courseDetail", courseDetail);
 
   const dispatch = useDispatch();
 
   const { courseId } = useParams();
   useEffect(() => {
+    dispatch(getCourseDetailAction(courseId));
     dispatch(getAllLessonsAction(courseId));
   }, []);
 
   const columns = [
     {
-      title: "Mã bài học",
+      title: "Lesson's ID",
       dataIndex: "id",
       sorter: (a, b) => a.id - b.id,
       sortDirections: ["descend", "ascend"],
@@ -71,8 +38,8 @@ export default function Lessons(props) {
         return (
           <Fragment>
             <img
-              src={courseParams.banner}
-              alt={courseParams.banner}
+              src={courseDetail.banner}
+              alt={courseDetail.banner}
               style={{ width: 100, height: 80 }}
               onError={(e) => {
                 e.target.onError = null;
@@ -85,7 +52,7 @@ export default function Lessons(props) {
       width: "15%",
     },
     {
-      title: "Tên bài học",
+      title: "Lesson's Name",
       dataIndex: "name",
       sorter: (a, b) => {
         let nameA = a.name.toLowerCase().trim();
@@ -100,7 +67,7 @@ export default function Lessons(props) {
     },
 
     {
-      title: "Video bài học",
+      title: "Lesson's Video",
       dataIndex: "video_link",
       render: (text, lesson) => {
         return (
@@ -114,7 +81,7 @@ export default function Lessons(props) {
       width: "20%",
     },
     {
-      title: "Mô tả",
+      title: "Lesson's Description",
       dataIndex: "description",
 
       render: (text, course) => {
@@ -130,7 +97,7 @@ export default function Lessons(props) {
       width: "20%",
     },
     {
-      title: "Hành động",
+      title: "Action",
       dataIndex: "id",
       render: (text, lesson) => {
         return (
@@ -138,7 +105,7 @@ export default function Lessons(props) {
             <NavLink
               key={1}
               className=" mr-2  text-2xl"
-              to={`/admin/courses/${courseParams.id}/lessons/${lesson.id}/edit`}
+              to={`/admin/course/${courseId}/lesson/${lesson.id}/edit`}
               onClick={() => {
                 localStorage.setItem("lessonParams", JSON.stringify(lesson));
               }}
@@ -148,10 +115,7 @@ export default function Lessons(props) {
             <NavLink
               key={2}
               className=" mr-2  text-2xl"
-              to={`/courses/${courseParams.id}/lessons/${lesson.id}`}
-              onClick={() => {
-                localStorage.setItem("lessonParams", JSON.stringify(lesson));
-              }}
+              to={`/course/${courseId}/lesson/${lesson.id}`}
             >
               <EyeOutlined style={{ color: "green" }} />
             </NavLink>
@@ -162,10 +126,10 @@ export default function Lessons(props) {
               onClick={() => {
                 //Gọi action xoá
                 if (
-                  window.confirm("Bạn có chắc muốn xoá bài học " + lesson.name)
+                  window.confirm("Are you sure you want to delete this lesson?")
                 ) {
                   //Gọi action
-                  dispatch(deleteLessonByIdAction(lesson.id, courseParams.id));
+                  dispatch(deleteLessonByIdAction(lesson.id, courseDetail.id));
                 }
               }}
             >
@@ -183,23 +147,23 @@ export default function Lessons(props) {
   return (
     <div>
       <h1 className="gap-4 text-4xl">
-        <span>Khóa học: </span>
-        <span className="text-green-600 ">{courseParams.name}</span>
+        <span>Course: </span>
+        <span className="text-green-600 ">{courseDetail.name}</span>
       </h1>
-      <h3 className="text-4xl">Quản lý bài học</h3>
+      <h3 className="text-4xl">Lessons Management</h3>
       <div className="flex justify-between">
         <Button
           className="mb-5"
           onClick={() => {
-            props.history.push(`/admin/courses/${courseParams.id}/add-new`);
+            props.history.push(`/admin/course/${courseId}/add-new`);
           }}
         >
-          Thêm bài học
+          Create New Lesson
         </Button>
         <Button
           className="mb-5"
           onClick={() => {
-            // dispatch(getAllLessonAction());
+            dispatch(getAllLessonsAction(courseId));
           }}
         >
           Reset

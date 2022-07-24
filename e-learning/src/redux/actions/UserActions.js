@@ -25,12 +25,20 @@ export const loginAction = (userLogin, propsRoute) => {
           : propsRoute.history.push(
               propsRoute.location.state ? propsRoute.location.state.from : "/"
             );
-        openNotificationWithIcon(SUCCESS, "Login thành công", "success");
+        openNotificationWithIcon(SUCCESS, "Login successfully", "success");
       } else {
-        openNotificationWithIcon(ERROR, "Login thất bại", "error");
+        openNotificationWithIcon(
+          ERROR,
+          "Login failed, please check the information again",
+          "error"
+        );
       }
     } catch (error) {
-      openNotificationWithIcon(ERROR, "Login thất bại", "error");
+      openNotificationWithIcon(
+        ERROR,
+        "Login failed, please check the information again",
+        "error"
+      );
       console.log("error>>", error);
     }
   };
@@ -41,18 +49,14 @@ export const registerAction = (userRegister, propsRoute) => {
       const result = await UserService.register(userRegister);
 
       if (result.status === 200) {
-        openNotificationWithIcon(
-          SUCCESS,
-          "Tạo tài khoản thành công",
-          "success"
-        );
-        // dispatch(getAllUsers())
+        openNotificationWithIcon(SUCCESS, "Sign Up Success", "success");
+        // dispatch(getAllUsers());
         propsRoute.history.push("/login");
       } else {
-        openNotificationWithIcon(ERROR, "Tạo tài khoản thất bại", "error");
+        openNotificationWithIcon(ERROR, "Registration failed", "error");
       }
     } catch (error) {
-      openNotificationWithIcon(ERROR, "Tạo tài khoản thất bại", "error");
+      openNotificationWithIcon(ERROR, "Registration failed", "error");
       console.log("error>>", error);
     }
   };
@@ -64,7 +68,7 @@ export const logoutAction = () => {
       type: LOGOUT,
       value: {},
     });
-    openNotificationWithIcon(SUCCESS, "Logout thành công", "success");
+    openNotificationWithIcon(SUCCESS, "Logout successfully", "success");
   };
 };
 
@@ -72,16 +76,18 @@ export const updateUserAction = (userEdit, propsRoute) => {
   return async (dispatch) => {
     try {
       const result = await UserService.updateUser(userEdit.id, userEdit);
-      console.log("updateUser", result);
-
       if (result.status === 200) {
         const oldData = JSON.parse(localStorage.getItem(USER_LOGIN));
         const newData = JSON.stringify({ ...oldData, ...userEdit });
         localStorage.setItem(USER_LOGIN, newData);
         propsRoute.history.push("/profile");
-        openNotificationWithIcon(SUCCESS, "Cập nhật thành công", "success");
+        openNotificationWithIcon(
+          SUCCESS,
+          "Successfully updated information",
+          "success"
+        );
       } else {
-        openNotificationWithIcon(ERROR, "Cập nhật thất bại", "error");
+        openNotificationWithIcon(ERROR, "Update failed information", "error");
       }
     } catch (error) {
       console.log("error>>", error);
@@ -93,8 +99,6 @@ export const requestToBecomeTeacher = (userEdit, propsRoute) => {
   return async (dispatch) => {
     try {
       const result = await UserService.requestToBecomeTeacher(userEdit);
-      console.log("updateUser", result);
-
       if (result.status === 200) {
         propsRoute.history.push("/profile");
         openNotificationWithIcon(SUCCESS, "Nâng cấp thành công", "success");
@@ -161,5 +165,5 @@ export const getAllUser = () => {
     } catch (error) {
       console.log("error>>", error);
     }
-  }
-}
+  };
+};
