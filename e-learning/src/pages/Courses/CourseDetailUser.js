@@ -19,6 +19,7 @@ export const CourseDetailUser = (props) => {
   let { id } = props.match.params;
   const { courseDetail } = useSelector((state) => state.CourseReducer);
   const { checkenroll } = useSelector((state) => state.UserReducer);
+
   const history = useHistory();
   useEffect(() => {
     if (userLogin !== null) {

@@ -1,11 +1,12 @@
-import api from './baseApi'
+import api from "./baseApi";
 
 const searchCourse = (searchTerm) => {
-    return api.get(`/search-course`,{
-        'searchTerm': searchTerm
-    })
-}
+  const searchParams = {
+    searchTerm: searchTerm,
+  };
+  return api.get(`/search-course`, { params: searchParams });
+};
 
 export const SearchService = {
-    searchCourse
-}
+  searchCourse,
+};
