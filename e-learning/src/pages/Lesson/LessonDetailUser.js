@@ -17,6 +17,7 @@ import { getTimedatasByLessonIdAction } from "../../redux/actions/TimedataAction
 import { AudioComponent } from "../../components/AudioPlayer/AudioPlayer";
 import RecordList from "../RecordList/RecordList";
 import TimePicker from "../../components/TimePicker/TimePicker";
+import { TimedataService } from "../../services/TimedataService";
 
 let timesData = [];
 
@@ -116,6 +117,12 @@ export const LessonDetailUser = (props) => {
     });
   };
 
+  const deleteTime = async (e, id) => {
+    await TimedataService.deleteTimedata(id);
+    window.alert("Xóa timedata thành công");
+    dispatch(getTimedatasByLessonIdAction(lessonId));
+  };
+
   const renderAudio = () => {
     return userRecords?.map((item, index) => {
       console.log("AudioComponentProps", item);
@@ -123,6 +130,42 @@ export const LessonDetailUser = (props) => {
         <Fragment key={index}>
           <AudioComponent record={item} />
         </Fragment>
+      );
+    });
+  };
+
+  const renderTime = () => {
+    console.log("time", timedatasDefault);
+    return timedatasDefault?.map((item, index) => {
+      return (
+        <tr
+          key={index}
+          className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+        >
+          <td className="truncate py-4 px-6">
+            {item.minute}:{item.second}
+          </td>
+          <td className="py-4 flex align-middle pl-6">
+            <button
+              type="button"
+              onClick={(e) => deleteTime(e, item.id)}
+              className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+            >
+              <svg
+                className="w-4 h-4"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                />
+              </svg>
+            </button>
+          </td>
+        </tr>
       );
     });
   };
@@ -342,7 +385,20 @@ export const LessonDetailUser = (props) => {
                 </svg>
                 Stop Time
               </div>
-              <TimePicker lessonId = {lessonId}/>
+              <TimePicker lessonId={lessonId} />
+              <table className="table-fixed w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                  <tr>
+                    <th scope="col" className="py-3 px-6">
+                      Time
+                    </th>
+                    <th scope="col" className="py-3 px-6">
+                      Delete
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>{renderTime()}</tbody>
+              </table>
             </div>
           </>
         ) : (

@@ -1,8 +1,11 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { TimedataService } from "../../services/TimedataService";
+import { getTimedatasByLessonIdAction } from "../../redux/actions/TimedataActions";
 
 const TimePicker = (props) => {
-  let {lessonId} = props
+  let { lessonId } = props;
+  const dispatch = useDispatch();
   const seconds = [];
   for (var i = 0; i <= 60; i++) {
     seconds.push(
@@ -25,11 +28,12 @@ const TimePicker = (props) => {
     let e2 = document.getElementById("seconds");
     let second = e2.options[e2.selectedIndex].text;
     const data = new FormData();
-    data.append("lesson_id", lessonId)
+    data.append("lesson_id", lessonId);
     data.append("minute", minute);
     data.append("second", second);
     await TimedataService.createTimedata(data);
     window.alert("Thêm timedata thành công");
+    dispatch(getTimedatasByLessonIdAction(lessonId));
   };
 
   const timePickers = [];
