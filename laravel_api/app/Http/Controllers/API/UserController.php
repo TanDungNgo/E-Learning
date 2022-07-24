@@ -33,14 +33,8 @@ class UserController extends Controller
     }
     public function BecomeAdmin($id)
     {
-        // $user = User::where('role', 'user');
-        // $user->update(['role' => 'admin']);
-        // return response()->json([
-        //     'status' => 200,
-        //     'message' => 'All normal users are now an admin',
-        // ]);
         $user = User::find($id);
-        $user->role = "teacher";
+        $user->role = "user";
         $user->update();
         return response()->json([
             'status' => 200,
