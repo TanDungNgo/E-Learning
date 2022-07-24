@@ -2,6 +2,8 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { TimedataService } from "../../services/TimedataService";
 import { getTimedatasByLessonIdAction } from "../../redux/actions/TimedataActions";
+import { SUCCESS } from "../../utils/settings/config";
+import { openNotificationWithIcon } from "../Notification/Notification";
 
 const TimePicker = (props) => {
   let { lessonId } = props;
@@ -23,9 +25,18 @@ const TimePicker = (props) => {
     data.append("lesson_id", lessonId);
     data.append("minute", minute);
     data.append("second", second);
-    await TimedataService.createTimedata(data);
-    window.alert("Add timedata successfully");
-    dispatch(getTimedatasByLessonIdAction(lessonId));
+    try {
+      await TimedataService.createTimedata(data);
+      // window.alert("Add timedata successfully");
+      openNotificationWithIcon(
+        SUCCESS,
+        "Add timedata successfully",
+        "success"
+      );
+      dispatch(getTimedatasByLessonIdAction(lessonId));
+    } catch (error) {
+      console.log("error>>", error);
+    }
   };
 
   const timePickers = [];
