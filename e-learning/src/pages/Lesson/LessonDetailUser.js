@@ -18,6 +18,8 @@ import { AudioComponent } from "../../components/AudioPlayer/AudioPlayer";
 import RecordList from "../RecordList/RecordList";
 import TimePicker from "../../components/TimePicker/TimePicker";
 import { TimedataService } from "../../services/TimedataService";
+import { SUCCESS } from "../../utils/settings/config";
+import { openNotificationWithIcon } from "../../components/Notification/Notification";
 let timesData = [];
 
 export const LessonDetailUser = (props) => {
@@ -112,9 +114,17 @@ export const LessonDetailUser = (props) => {
   };
 
   const deleteTime = async (e, id) => {
-    await TimedataService.deleteTimedata(id);
-    window.alert("Deleted timedata successfully");
-    dispatch(getTimedatasByLessonIdAction(lessonId));
+    try {
+      await TimedataService.deleteTimedata(id);
+      openNotificationWithIcon(
+        SUCCESS,
+        "Deleted timedata successfully",
+        "success"
+      );
+      dispatch(getTimedatasByLessonIdAction(lessonId));
+    } catch (error) {
+      console.log("error>>", error);
+    }
   };
 
   const renderAudio = () => {

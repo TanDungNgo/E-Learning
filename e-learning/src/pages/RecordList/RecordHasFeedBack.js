@@ -6,9 +6,9 @@ import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { sendFeedbackAction } from "../../redux/actions/FeedbackAcions";
 import { RecordService } from "../../services/RecordService";
-import {
-  getAllRecordsOfUserByLessonIdAction,
-} from "../../redux/actions/RecordActions";
+import { getAllRecordsOfUserByLessonIdAction } from "../../redux/actions/RecordActions";
+import { openNotificationWithIcon } from "../../components/Notification/Notification";
+import { SUCCESS } from "../../utils/settings/config";
 const RecordHasFeedBack = (props) => {
   const dispatch = useDispatch();
   const { userLogin } = useSelector((state) => state.UserReducer);
@@ -29,9 +29,17 @@ const RecordHasFeedBack = (props) => {
     },
   });
   const deleterecord = async (e, id) => {
-    await RecordService.deleteRecord(id);
-    window.alert("Deleted record successfully");
-    dispatch(getAllRecordsOfUserByLessonIdAction(lesson.id, userLogin.id));
+    try {
+      await RecordService.deleteRecord(id);
+      openNotificationWithIcon(
+        SUCCESS,
+        "Deleted record successfully",
+        "success"
+      );
+      dispatch(getAllRecordsOfUserByLessonIdAction(lesson.id, userLogin.id));
+    } catch (error) {
+      console.log("error>>", error);
+    }
   };
   return (
     <Fragment>
