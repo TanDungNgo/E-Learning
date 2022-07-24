@@ -1,7 +1,12 @@
 import { openNotificationWithIcon } from "../../components/Notification/Notification";
 import { CourseService } from "../../services/CourseService";
 import { ERROR, SUCCESS } from "../../utils/settings/config";
-import { GET_ALL_COURSES, GET_COURSE_DETAILS } from "../types/CourseTypes";
+
+import {
+  GET_ALL_COURSES,
+  GET_COURSE_DETAILS,
+  GET_PENDING_COURSES,
+} from "../types/CourseTypes";
 
 export const getCourseDetailAction = (id) => {
   return async (dispatch) => {
@@ -100,6 +105,20 @@ export const getCourseEnrolledAction = (id) => {
       dispatch({
         type: GET_ALL_COURSES,
         value: result.courses,
+      });
+    } catch (error) {
+      console.log("error>>", error);
+    }
+  };
+};
+
+export const getPendingCourseAction = () => {
+  return async (dispatch) => {
+    try {
+      const result = await CourseService.getPedingCourse();
+      dispatch({
+        type: GET_PENDING_COURSES,
+        value: result.course,
       });
     } catch (error) {
       console.log("error>>", error);

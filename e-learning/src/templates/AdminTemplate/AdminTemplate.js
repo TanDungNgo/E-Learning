@@ -129,6 +129,9 @@ const AdminTemplate = (props) => {
                     <Menu.Item key="11" icon={<FileOutlined />}>
                       <NavLink to="/admin/courses/add-new">Add new</NavLink>
                     </Menu.Item>
+                    <Menu.Item key="12" icon={<FileOutlined />}>
+                      <NavLink to="/admin/pending-courses">Pending Course</NavLink>
+                    </Menu.Item>
                   </SubMenu>
                 </Menu>
               </Sider>
