@@ -158,7 +158,7 @@ class CreateCourse extends Component {
                     className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                     for="name"
                   >
-                    Link your new name
+                    Course Name
                   </label>
                   <input
                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -182,7 +182,7 @@ class CreateCourse extends Component {
                     className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                     for="description"
                   >
-                    Link your new description
+                    Some description about your course
                   </label>
                   <input
                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -191,7 +191,7 @@ class CreateCourse extends Component {
                     name="description"
                     onChange={this.handleInput}
                     value={this.state.description}
-                    placeholder="Something..."
+                    placeholder="description 1; description 2; description 3..."
                   />
                   {/* <p className="text-gray-600 text-xs italic">We don't required a confirm password so carefull with your new one</p> */}
                 </div>
@@ -206,7 +206,7 @@ class CreateCourse extends Component {
                     className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                     for="price"
                   >
-                    Link your new price
+                    Price of the course
                   </label>
                   <input
                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -252,7 +252,7 @@ class CreateCourse extends Component {
                                 file:bg-violet-50 file:text-violet-700
                                 hover:file:bg-violet-100"
                     onChange={this.handleChangeFile}
-                    accept="/image/*"
+                    accept="image/*"
                     name="url"
                   />
                 </label>

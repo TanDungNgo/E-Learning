@@ -143,7 +143,7 @@ class AddCourse extends Component {
               <input
                 type="file"
                 onChange={this.handleChangeFile}
-                accept="/image/*"
+                accept="image/*"
                 name="url"
                 placeholder="Chọn ảnh"
               />
