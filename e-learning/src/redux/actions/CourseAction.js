@@ -1,5 +1,9 @@
 import { CourseService } from "../../services/CourseService";
-import { GET_ALL_COURSES, GET_COURSE_DETAILS } from "../types/CourseTypes";
+import { 
+  GET_ALL_COURSES,
+  GET_COURSE_DETAILS,
+  GET_PENDING_COURSES,
+} from "../types/CourseTypes";
 
 export const getCourseDetailAction = (id) => {
   return async (dispatch) => {
@@ -90,3 +94,17 @@ export const getCourseEnrolledAction = (id) => {
     }
   };
 };
+
+export const getPendingCourseAction = () => {
+  return async (dispatch) => {
+    try {
+      const result = await CourseService.getPedingCourse();
+      dispatch({
+        type: GET_PENDING_COURSES,
+        value: result.course,
+      });
+    } catch (error) {
+      console.log("error>>", error);
+    }
+  };
+}

@@ -4,6 +4,7 @@ import "./StudentList.css"
 const StudentList = (props) => {
   let { liststudent } = props;
   let { studentcontrol } = props;
+  let { usercontrol } = props;
   const renderStudents = () => {
     return liststudent?.map((item, index) => {
       return (
@@ -40,7 +41,7 @@ const StudentList = (props) => {
             </div>
           </td>
           <td className="py-4 px-6 truncate">{item.email}</td>
-          <td className="py-4 px-6">{item.join_date}</td>
+          <td className="py-4 px-6">{item.created_at}</td>
           {studentcontrol && (
             <td className="py-4 flex items-center align-middle justify-center content-center">
               <button
@@ -79,6 +80,19 @@ const StudentList = (props) => {
               </button>
             </td>
           )}
+          {
+            usercontrol && (
+              <th>
+              <td className="py-4 flex items-center align-middle justify-center content-center">
+                  <select>
+                    <option value="admin">admin</option>
+                    <option value="user">user</option>
+                    <option value="teacher">teacher</option>
+                  </select>
+                </td>
+              </th>
+            )
+          }
         </tr>
       );
     });
@@ -110,6 +124,11 @@ const StudentList = (props) => {
                 <th scope="col" className="py-3 px-6 title-table">
                   <span className="">Edit</span>
                 </th>
+              )}
+              {usercontrol && (
+                <th scope="col" className="py-3 px-6 title-table">
+                  <span className="">Role</span>
+                  </th>
               )}
             </tr>
           </thead>

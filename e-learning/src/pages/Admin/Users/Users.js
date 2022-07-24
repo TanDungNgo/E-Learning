@@ -12,7 +12,7 @@ const Users = () => {
   const users = useSelector((state) => state.UserReducer.allUser)
   return (
     <>
-        <StudentList studentcontrol={true} liststudent={users}/>
+        <StudentList studentcontrol={true} liststudent={users} usercontrol={true}/>
     </>
   )
 }
