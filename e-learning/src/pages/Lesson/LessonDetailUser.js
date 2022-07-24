@@ -18,7 +18,6 @@ import { AudioComponent } from "../../components/AudioPlayer/AudioPlayer";
 import RecordList from "../RecordList/RecordList";
 import TimePicker from "../../components/TimePicker/TimePicker";
 import { TimedataService } from "../../services/TimedataService";
-
 let timesData = [];
 
 export const LessonDetailUser = (props) => {
@@ -114,7 +113,7 @@ export const LessonDetailUser = (props) => {
 
   const deleteTime = async (e, id) => {
     await TimedataService.deleteTimedata(id);
-    window.alert("Xóa timedata thành công");
+    window.alert("Deleted timedata successfully");
     dispatch(getTimedatasByLessonIdAction(lessonId));
   };
 
