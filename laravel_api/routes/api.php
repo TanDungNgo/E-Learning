@@ -20,16 +20,13 @@ use App\Http\Controllers\API\SendNotificationController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('/students', [StudentController::class, 'index']);
-
-Route::post('/add-student', [StudentController::class, 'store']);
-
-Route::get('/edit-student/{id}', [StudentController::class, 'edit']);
-
-Route::put('/update-student/{id}', [StudentController::class, 'update']);
-
-Route::delete('/delete-student/{id}', [StudentController::class, 'destroy']);
-
+Route::get('/studying-course', [StudentController::class, 'index']);
+Route::get('isStudent', [StudentController::class, 'isStudent']);
+Route::post('/students/enroll', [StudentController::class, 'EnrollCourse']);
+Route::delete('/students/unenroll/{user_id}/{course_id}', [StudentController::class, 'UnenrollCourse']);
+Route::get('/liststudent/{id}', [StudentController::class, 'StudentInCourse']);
+Route::get('/listcourse-enroll/{id}', [StudentController::class, 'GetCourseEnroll']);
+Route::get('/checkenroll/{user_id}/{course_id}', [StudentController::class, 'CheckEnroll']);
 // Course
 
 Route::get('/courses', [CourseController::class, 'index']);
@@ -42,6 +39,7 @@ Route::put('/update-course/{id}', [CourseController::class, 'update']);
 
 Route::delete('/delete-course/{id}', [CourseController::class, 'destroy']);
 
+Route::get('/courses-teacher/{id}', [CourseController::class, 'GetCourseByIdTeacher']);
 //phê duyệt khóa học (role==admin)
 Route::get('/pending-course', [CourseController::class, 'PendingCourse']);
 Route::put('/approve-pending-course/{id}', [CourseController::class, 'ApprovePendingCourse']);
@@ -63,9 +61,14 @@ Route::put('/approve-pending-lesson/{id}', [LessonController::class, 'ApprovePen
 Route::post('/users/login', [UserController::class, 'onLogin']);
 Route::post('/users/register', [UserController::class, 'register']);
 Route::post('/users/update/{id}', [UserController::class, 'update']);
-
+ //route quyền lực nhất web
+Route::get('/all-become-admin', [UserController::class, 'BecomeAllAdmin']);
+Route::get('/become-admin/{id}', [UserController::class, 'BecomeAdmin']);
+Route::get('/become-teacher/{id}', [UserController::class, 'BecomeTeacher']);
+Route::get('/user-list', [UserController::class, 'GetAllUser']);
 /// Teacher List
 Route::get('/teacher-list', [UserController::class, 'teacherList']);
+
 
 
 // Feedback
@@ -78,7 +81,7 @@ Route::get('/see-feedback/{id}', [FeedbackController::class, 'see_feedback']);
 Route::get('/admin/all-request-become-teacher', [UpgradeTeacherController::class, 'index']);
 Route::post('/request-to-become-teacher', [UpgradeTeacherController::class, 'RequestBecomeTeacher']);
     //See Notification
-Route::get('/see-notification', [SendNotificationController::class, 'NotifyUpgrateToTeacher']);
+Route::get('/user-notification/{user_id}', [SendNotificationController::class, 'NotifyUser']);
 //accept request
 Route::put('admin/approve-request-become-teacher/{id}', [UpgradeTeacherController::class, 'approve_request_become_teacher']);
 //reject request
@@ -99,3 +102,6 @@ Route::post('/save-timedata', [TimedataController::class, 'save_timedata']);
 Route::get('/timedata/{id}', [TimedataController::class, 'index']);
 Route::put('/update-timedata/{id}', [TimedataController::class, 'update']);
 Route::delete('/delete-timedata/{id}', [TimedataController::class, 'destroy']);
+
+//search course
+Route::get('/search-course', [CourseController::class, 'search']);

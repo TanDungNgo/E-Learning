@@ -61,7 +61,7 @@ class Addlesson extends Component
         data.append('description', this.state.description)
         data.append('course_id', this.state.course_id)
         data.append('url', this.state.url)
-        const res = await axios.post('http://127.0.0.1:8000/api/add-lesson', data);
+        const res = await axios.post('https://benefique-monsieur-33716.herokuapp.com/api/add-lesson', data);
         if(res.data.status === 200)
         {
             // console.log(res.data.message);
