@@ -1,7 +1,9 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useFormik } from "formik";
 import CourseCard from "../../components/MultipleItems/CourseCard";
 import { getAllCoursesAction } from "../../redux/actions/CourseAction";
+import { searchCourseAction } from "../../redux/actions/SearchAction";
 import { getAllTeachersAction } from "../../redux/actions/UserActions";
 import "./AllCourses.css";
 
@@ -13,6 +15,15 @@ const AllCourses = () => {
     dispatch(getAllCoursesAction());
     dispatch(getAllTeachersAction());
   }, []);
+
+  const formik = useFormik({
+    initialValues: {
+      searchTerm: "",
+    },
+    onSubmit: (values) => {
+      dispatch(searchCourseAction(values.searchTerm));
+    },
+  });
   const listCourses = () => {
     return coursesDefault?.map((item, index) => {
       return (
@@ -36,16 +47,15 @@ const AllCourses = () => {
       >
         <button
           type="button"
-          className="z- sidebar-show-button absolute text-blue-700 border border-blue-700  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 bg-white"
+          className=" sidebar-show-button absolute text-blue-700 border border-blue-700  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 bg-white"
           onClick={() => {
             setShowSideBar(!showSideBar);
-            console.log(showSideBar);
           }}
         >
           {showSideBar ? (
             <svg
-              className="w-4 h-4"
-              viewBox="0 0 24 24"
+              className="w-4 h-4 mr-2"
+              viewBox="0 0 10 24"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
@@ -57,8 +67,8 @@ const AllCourses = () => {
             </svg>
           ) : (
             <svg
-              className="w-4 h-4"
-              viewBox="0 0 24 24"
+              className="w-4 h-4 mr-2"
+              viewBox="0 0 10 24"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
@@ -72,11 +82,15 @@ const AllCourses = () => {
         </button>
         <ul className="nav-list">
           <li>
-            <input
-              type="text"
-              placeholder="Search..."
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded  leading-tight focus:outline-none focus:border-gray-500"
-            />
+            <form onSubmit={formik.handleSubmit}>
+              <input
+                type="text"
+                name="searchTerm"
+                onChange={formik.handleChange}
+                placeholder="Search Course"
+                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded leading-3 focus:outline-none focus:border-gray-500"
+              />
+            </form>
             <span className="tooltip">Search</span>
           </li>
           <div className="container-checkbox relative"></div>
