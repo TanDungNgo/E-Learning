@@ -10,8 +10,11 @@ const TimePicker = () => {
     minutes.push(<option className='p-2' key={i} value={i}>{i}</option>);
   }
   
-  return (
-    <>
+
+  const timePickers = [];
+
+  // Minh se dua vao push de day them input vao
+  timePickers.push(
 <div class="mt-2 p-3 w-full bg-white rounded-lg border-2 border-orange-400">
   <div class="flex">
     {/* <label for="minutes" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">minute</label> */}
@@ -24,6 +27,13 @@ const TimePicker = () => {
     </select>
   </div>
 </div>
+  )
+  return (
+    <>
+      {timePickers}
+<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full w-fit">
+  Add
+</button>
     </>
   )
 }
