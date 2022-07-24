@@ -34,7 +34,7 @@ class UserController extends Controller
     public function BecomeAdmin($id)
     {
         $user = User::find($id);
-        $user->role = "user";
+        $user->role = "admin";
         $user->update();
         return response()->json([
             'status' => 200,
