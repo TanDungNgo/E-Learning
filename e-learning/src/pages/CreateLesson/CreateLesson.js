@@ -125,7 +125,7 @@ class CreateLesson extends Component {
                       className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                       htmlFor="name"
                     >
-                      Link your new name
+                      Lesson Name
                     </label>
                     <input
                       className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -146,7 +146,7 @@ class CreateLesson extends Component {
                       className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                       htmlFor="description"
                     >
-                      Link your new description
+                      Some description about your lesson
                     </label>
                     <input
                       className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -155,7 +155,7 @@ class CreateLesson extends Component {
                       name="description"
                       onChange={this.handleInput}
                       value={this.state.description}
-                      placeholder="description"
+                      placeholder="description 1; description 2; description 3..."
                     />
                   </div>
                 </div>
@@ -168,7 +168,7 @@ class CreateLesson extends Component {
                       className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                       htmlFor="url"
                     >
-                      Link your new url
+                      Upload your video lesson
                     </label>
                     <input
                       className="block w-full text-sm text-slate-500
@@ -182,6 +182,7 @@ class CreateLesson extends Component {
                       name="url"
                       onChange={this.handleChangeFile}
                       placeholder="100"
+                      accept="video/*"
                     />
                   </div>
                 </div>

@@ -115,9 +115,14 @@ const AdminTemplate = (props) => {
                   <img src={logoE_Learning} alt="logo" />
                 </div>
                 <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
-                  <Menu.Item key="1" icon={<UserOutlined />}>
-                    <NavLink to="/admin/users">Users</NavLink>
-                  </Menu.Item>
+                  <SubMenu key='sub0' icon={<UserOutlined />} title="User">
+                    <Menu.Item key="1" icon={<UserOutlined />}>
+                      <NavLink to="/admin/users">Users</NavLink>
+                    </Menu.Item>
+                    <Menu.Item key="2" icon={<UserOutlined />}>
+                      <NavLink to="/admin/user-request">Teacher Request</NavLink>
+                    </Menu.Item>
+                  </SubMenu>
                   <SubMenu key="sub1" icon={<FileOutlined />} title="Course">
                     <Menu.Item key="10" icon={<FileOutlined />}>
                       <NavLink to="/admin/courses">Course</NavLink>

@@ -15,6 +15,8 @@ import storageFirebase from "../../utils/settings/firebaseConfig";
 import { useReactMediaRecorder } from "react-media-recorder";
 import { getTimedatasByLessonIdAction } from "../../redux/actions/TimedataActions";
 import { AudioComponent } from "../../components/AudioPlayer/AudioPlayer";
+import RecordList from "../RecordList/RecordList";
+import TimePicker from "../../components/TimePicker/TimePicker";
 
 let timesData = [];
 
@@ -109,12 +111,14 @@ export const LessonDetailUser = (props) => {
         data.append("minute", minute);
         data.append("second", second);
         dispatch(saveRecordAction(data, lesson.id));
+        dispatch(getAllRecordsOfUserByLessonIdAction(lessonId, userLogin.id));
       });
     });
   };
 
   const renderAudio = () => {
     return userRecords?.map((item, index) => {
+      console.log("AudioComponentProps", item);
       return (
         <Fragment key={index}>
           <AudioComponent record={item} />
@@ -320,37 +324,60 @@ export const LessonDetailUser = (props) => {
         {/* <div className="col-span-1 bg-green-400 mt-10">
         {renderAudio()}
         </div> */}
-        <div className="mt-28 col-span-2 flex-1 p:2 sm:p-6 justify-between flex flex-col h-120 bg-white h-fit rounded-2xl drop-shadow-xl">
-          <div className="flex sm:items-center justify-between py-3 border-b-2 border-gray-200">
-            <div className="relative flex items-center space-x-4">
-              <div className="relative">
-                <span className="absolute text-green-500 right-0 bottom-0">
-                  <svg width="10" height="10">
-                    <circle cx="4" cy="4" r="4" fill="currentColor"></circle>
-                  </svg>
-                </span>
-                <img
-                  src={userLogin.avatar}
-                  alt={userLogin.username}
-                  className="w-5 sm:w-8 h-5 sm:h-8 rounded-full"
-                />
+        {userLogin.role == "teacher" ? (
+          <>
+            <div className="mt-28 mr-8 col-span-2 flex-1 p:2 sm:p-6 justify-between flex flex-col h-120 bg-white h-fit rounded-2xl drop-shadow-xl">
+              <div className="mb-4 text-base inline-flex items-center font-bold leading-sm uppercase px-3 py-1 rounded bg-white text-gray-700 border drop-shadow-lg">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 mr-2"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+                Stop Time
               </div>
-              <div className="flex flex-col leading-tight">
-                <div className="text-lg mt-1 flex items-center">
-                  <span className="font-bold text-gray-700 mr-3">
-                    Your Records Here
+              <TimePicker />
+            </div>
+          </>
+        ) : (
+          <div className="mt-28 mr-8 col-span-2 flex-1 p:2 sm:p-6 justify-between flex flex-col h-120 bg-white h-fit rounded-2xl drop-shadow-xl">
+            <div className="flex sm:items-center justify-between py-3 border-b-3 border-gray-200">
+              <div className="relative flex items-center space-x-4">
+                <div className="relative">
+                  <span className="absolute text-green-500 right-0 bottom-0">
+                    <svg width="10" height="10">
+                      <circle cx="4" cy="4" r="4" fill="currentColor"></circle>
+                    </svg>
                   </span>
+                  <img
+                    src={userLogin.avatar}
+                    alt={userLogin.username}
+                    className="w-5 sm:w-8 h-5 sm:h-8 rounded-full"
+                  />
+                </div>
+                <div className="flex flex-col leading-tight">
+                  <div className="text-lg mt-1 flex items-center">
+                    <span className="font-bold text-gray-700 mr-3">
+                      Your Records Here
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
+            <div
+              id="messages"
+              className="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch"
+            >
+              {renderAudio()}
+            </div>
           </div>
-          <div
-            id="messages"
-            className="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch"
-          >
-            {renderAudio()}
-          </div>
-        </div>
+        )}
       </div>
       <div className="mx-16">
         <div className="mt-10 mb-4 ml-4 text-base inline-flex items-center font-bold leading-sm uppercase px-3 py-1 rounded bg-white text-gray-700 border drop-shadow-lg">
@@ -380,7 +407,14 @@ export const LessonDetailUser = (props) => {
               Student Records
             </span>
           </div>
-          <RecordListAll lesson={lesson} />
+          {
+            //RecordList: Co nut feedback va xoa.
+            userLogin.role == "user" ? (
+              <RecordListAll lesson={lesson} />
+            ) : (
+              <RecordList lesson={lesson} />
+            )
+          }
         </div>
       </div>
     </>

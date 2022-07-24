@@ -35,8 +35,7 @@ import "./AudioPlayer.css";
 
 export const AudioComponent = (props) => {
   const videoElement = useRef(null);
-  // console.log(videoElement);
-  const { item } = props;
+  const { record } = props;
   return (
     <div className="audio-player w-full">
       <AudioPlayer
@@ -45,7 +44,7 @@ export const AudioComponent = (props) => {
         autoPlay={false}
         layout="horizontal-reverse"
         customAdditionalControls={[]}
-        src={item?.record_file}
+        src={record?.record_file}
         customVolumeControls={[]}
         showSkipControls={false}
         showJumpControls={false}
