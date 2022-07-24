@@ -29,15 +29,15 @@ const getCoursesEnrolled = (id) => {
   return Api.get(`/listcourse-enroll/${id}`);
 };
 
-const getPedingCourse = () => {
+const getPendingCourse = () => {
   return Api.get(`/pending-course`);
-}
+};
 const AcceptCourse = (id) => {
-  return Api.post (`/accept-course/${id}`);
-}
+  return Api.post(`/accept-course/${id}`);
+};
 const RejectCourse = (id) => {
-  return Api.post (`/reject-course/${id}`);
-}
+  return Api.post(`/reject-course/${id}`);
+};
 export const CourseService = {
   getCourseById,
   createCourse,
@@ -47,7 +47,7 @@ export const CourseService = {
   getCourseDetail,
   getCoursesByIdTeacher,
   getCoursesEnrolled,
-  getPedingCourse,
+  getPendingCourse,
   AcceptCourse,
-  RejectCourse
+  RejectCourse,
 };

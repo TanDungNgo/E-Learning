@@ -26,12 +26,18 @@ export const Header = (props) => {
         },
         {
           key: "2",
-          label: (
-            <NavLink to="/enrolled-course" className=" text-black">
-              My Courses
-            </NavLink>
-          ),
+          label:
+            userLogin?.role === "admin" ? (
+              <NavLink to="/admin" className=" text-black">
+                Admin Management
+              </NavLink>
+            ) : (
+              <NavLink to="/enrolled-course" className=" text-black">
+                My Courses
+              </NavLink>
+            ),
         },
+
         {
           key: "3",
           label: (
@@ -51,7 +57,7 @@ export const Header = (props) => {
           ),
         },
         {
-          key: "4",
+          key: "5",
           danger: true,
           label: (
             <button

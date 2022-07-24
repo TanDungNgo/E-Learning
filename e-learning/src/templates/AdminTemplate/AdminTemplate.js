@@ -4,7 +4,7 @@ import { Redirect, Route } from "react-router";
 import { Layout, Menu, Breadcrumb, Dropdown, Space } from "antd";
 import { FileOutlined, UserOutlined } from "@ant-design/icons";
 import { NavLink } from "react-router-dom";
-import { logoE_Learning, logoE_LearningVuong, USER_LOGIN } from "../../utils/settings/config";
+import { logoE_LearningVuong, USER_LOGIN } from "../../utils/settings/config";
 import { logoutAction } from "../../redux/actions/UserActions";
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -26,12 +26,12 @@ const AdminTemplate = (props) => {
   });
 
   if (!localStorage.getItem(USER_LOGIN)) {
-    alert("Bạn không có quyền truy cập vào trang này !");
+    alert("Please Login !");
     return <Redirect to="/" />;
   }
 
   if (userLogin.role !== "admin") {
-    alert("Bạn không có quyền truy cập vào trang này !");
+    alert("You can not access this page!");
     return <Redirect to="/" />;
   }
 
@@ -57,12 +57,6 @@ const AdminTemplate = (props) => {
       2
     ),
     getItem(
-      <NavLink to="/settings" className=" text-black">
-        Settings
-      </NavLink>,
-      3
-    ),
-    getItem(
       <NavLink
         className="font-bold hover:!text-red-600 duration-500"
         to="/login"
@@ -72,7 +66,7 @@ const AdminTemplate = (props) => {
       >
         LOGOUT
       </NavLink>,
-      4
+      3
     ),
   ];
 
@@ -114,12 +108,14 @@ const AdminTemplate = (props) => {
                   <img src={logoE_LearningVuong} alt="logo" />
                 </div>
                 <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
-                  <SubMenu key='sub0' icon={<UserOutlined />} title="User">
+                  <SubMenu key="sub0" icon={<UserOutlined />} title="User">
                     <Menu.Item key="1" icon={<UserOutlined />}>
                       <NavLink to="/admin/users">Users</NavLink>
                     </Menu.Item>
                     <Menu.Item key="2" icon={<UserOutlined />}>
-                      <NavLink to="/admin/user-request">Teacher Request</NavLink>
+                      <NavLink to="/admin/user-request">
+                        Teacher Request
+                      </NavLink>
                     </Menu.Item>
                   </SubMenu>
                   <SubMenu key="sub1" icon={<FileOutlined />} title="Course">
@@ -130,7 +126,9 @@ const AdminTemplate = (props) => {
                       <NavLink to="/admin/courses/add-new">Add new</NavLink>
                     </Menu.Item>
                     <Menu.Item key="12" icon={<FileOutlined />}>
-                      <NavLink to="/admin/pending-courses">Pending Course</NavLink>
+                      <NavLink to="/admin/pending-courses">
+                        Pending Course
+                      </NavLink>
                     </Menu.Item>
                   </SubMenu>
                 </Menu>

@@ -115,9 +115,9 @@ export const getCourseEnrolledAction = (id) => {
 export const getPendingCourseAction = () => {
   return async (dispatch) => {
     try {
-      const result = await CourseService.getPedingCourse();
+      const result = await CourseService.getPendingCourse();
       dispatch({
-        type: GET_PENDING_COURSES,
+        type: GET_ALL_COURSES,
         value: result.course,
       });
     } catch (error) {

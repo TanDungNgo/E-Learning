@@ -4,6 +4,8 @@ import { Form, Input, Progress } from "antd";
 import storageFirebase from "../../../utils/settings/firebaseConfig";
 import { CourseService } from "../../../services/CourseService";
 import { NavLink } from "react-router-dom";
+import { openNotificationWithIcon } from "../../../components/Notification/Notification";
+import { ERROR, SUCCESS } from "../../../utils/settings/config";
 // import axios from "axios";
 class AddCourse extends Component {
   state = {
@@ -76,9 +78,22 @@ class AddCourse extends Component {
         data.append("url", this.state.url);
         data.append("teacher_id", this.state.teacher_id);
         data.append("price", this.state.price);
-        // const res = await axios.post("/courses", data);
 
-        const result = await CourseService.createCourse(data);
+        try {
+          await CourseService.createCourse(data);
+          openNotificationWithIcon(
+            SUCCESS,
+            "Successfully created a new course",
+            "success"
+          );
+        } catch (error) {
+          openNotificationWithIcon(
+            ERROR,
+            "Sorry, something went wrong",
+            "error"
+          );
+          console.log("error>>", error);
+        }
       }
     );
   };

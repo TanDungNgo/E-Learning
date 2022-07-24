@@ -1,8 +1,4 @@
-import { 
-  GET_ALL_COURSES, 
-  GET_COURSE_DETAILS,
-  GET_PENDING_COURSES
-} from "../types/CourseTypes";
+import { GET_ALL_COURSES, GET_COURSE_DETAILS } from "../types/CourseTypes";
 
 const stateDefault = {
   coursesDefault: [],
@@ -19,10 +15,7 @@ export const CourseReducer = (state = stateDefault, action) => {
       state.courseDetail = action.value;
       return { ...state };
     }
-    case GET_PENDING_COURSES: {
-      state.coursesDefault = action.value;
-      return { ...state };
-    }
+
     default:
       return { ...state };
   }

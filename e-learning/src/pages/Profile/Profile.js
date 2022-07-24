@@ -119,13 +119,15 @@ const Profile = (props) => {
                   </p>
                 </div>
               </>
-            ) : (
+            ) : userLogin.role !== "admin" ? (
               <>
                 <p className="text-gray-600 text-xs italic">
                   Want to be a teacher?{" "}
                   <NavLink to="/upgrade">Request now!</NavLink>
                 </p>
               </>
+            ) : (
+              <></>
             )}
             <Form.Item
               rules={[

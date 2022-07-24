@@ -11,7 +11,6 @@ import { getStudentsInCourseAction } from "../../redux/actions/UserActions";
 import StudentList from "../Student/StudentList";
 import { USER_LOGIN } from "../../utils/settings/config";
 import { useHistory } from "react-router-dom";
-let courses = [];
 const ListCourse = () => {
   const userLogin = JSON.parse(localStorage.getItem(USER_LOGIN));
   const { coursesDefault } = useSelector((state) => state.CourseReducer);

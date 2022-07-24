@@ -1,11 +1,8 @@
 import React, { Fragment, useEffect } from "react";
-import { Button, Form, InputNumber, Table } from "antd";
+import { Button, Form, Table } from "antd";
 import { useFormik } from "formik";
 import { Input } from "antd";
-import {
-  CheckCircleFilled,
-  CloseCircleFilled
-} from "@ant-design/icons";
+import { CheckCircleFilled, CloseCircleFilled } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import {
@@ -14,11 +11,11 @@ import {
 } from "../../../redux/actions/CourseAction";
 
 import { CourseService } from "../../../services/CourseService";
+import { searchCourseAction } from "../../../redux/actions/SearchAction";
 
 export default function PendingCourse(props) {
   const { coursesDefault } = useSelector((state) => state.CourseReducer);
-
-  console.log("coursesDefault", coursesDefault);
+  const { Search } = Input;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,20 +24,11 @@ export default function PendingCourse(props) {
 
   const formik = useFormik({
     initialValues: {
-      name: "",
-      mincourseEvaluate: 0,
-      maxcourseEvaluate: 10,
+      searchTerm: "",
     },
-    // onSubmit: (values) => {
-    //   dispatch(
-    //     getAllcourseAction(
-    //       values.name,
-    //       values.mincourseEvaluate,
-    //       values.maxcourseEvaluate
-    //     )
-    //   );
-    // },
-    onReset: (values) => {},
+    onSubmit: (values) => {
+      dispatch(searchCourseAction(values.searchTerm));
+    },
   });
   const Accept = async (id) => {
     try {
@@ -51,7 +39,7 @@ export default function PendingCourse(props) {
     } catch (error) {
       console.log("error>>", error);
     }
-  }
+  };
   const Reject = async (id) => {
     try {
       const res = await CourseService.RejectCourse(id).then((res) => {
@@ -61,15 +49,15 @@ export default function PendingCourse(props) {
     } catch (error) {
       console.log("error>>", error);
     }
-  }
+  };
 
   const columns = [
     {
-      title: "ID",
+      title: "Course's ID",
       dataIndex: "id",
       sorter: (a, b) => a.id - b.id,
       sortDirections: ["descend", "ascend"],
-      width: "5%",
+      width: "10%",
     },
     {
       title: "Banner",
@@ -92,7 +80,7 @@ export default function PendingCourse(props) {
       width: "15%",
     },
     {
-      title: "Tên khóa học",
+      title: "Course's Name",
       dataIndex: "name",
       sorter: (a, b) => {
         let nameA = a.name.toLowerCase().trim();
@@ -103,22 +91,18 @@ export default function PendingCourse(props) {
         return -1;
       },
       sortDirections: ["descend", "ascend"],
-      width: "25%",
+      width: "20%",
     },
     {
       title: "Teacher Name",
       dataIndex: "teacher_name",
       render: (text, course) => {
-        return (
-          <Fragment>
-              {course.teacher_name}
-          </Fragment>
-        );
+        return <Fragment>{course.teacher_name}</Fragment>;
       },
       width: "15%",
     },
     {
-      title: "Mô tả",
+      title: "Course's Description",
       dataIndex: "description",
 
       render: (text, course) => {
@@ -131,10 +115,10 @@ export default function PendingCourse(props) {
         );
       },
       sortDirections: ["descend", "ascend"],
-      width: "25%",
+      width: "30%",
     },
     {
-      title: "Phê duyệt",
+      title: "Action",
       dataIndex: "id",
       render: (text, course) => {
         return (
@@ -146,7 +130,7 @@ export default function PendingCourse(props) {
                 Accept(course.id);
               }}
             >
-              <CheckCircleFilled style={{color: "green"}}/>
+              <CheckCircleFilled style={{ color: "green" }} />
             </span>
             <span
               style={{ cursor: "pointer" }}
@@ -156,13 +140,12 @@ export default function PendingCourse(props) {
                 Reject(course.id);
               }}
             >
-              <CloseCircleFilled style={{ color: "red" }}/>
+              <CloseCircleFilled style={{ color: "red" }} />
             </span>
           </Fragment>
         );
       },
-      sortDirections: ["descend", "ascend"],
-      width: "25%",
+      width: "10%",
     },
   ];
   const data = coursesDefault;
@@ -177,7 +160,7 @@ export default function PendingCourse(props) {
             props.history.push("/admin/courses/add-new");
           }}
         >
-          Thêm khóa học
+          Create New Course
         </Button>
         <Button
           className="mb-5"
@@ -198,28 +181,14 @@ export default function PendingCourse(props) {
       </div>
 
       <Form onSubmitCapture={formik.handleSubmit}>
-        <Input
-          style={{ width: "45%" }}
+        <Search
+          placeholder="Input course'name"
+          enterButton="Search"
+          size="large"
+          name="searchTerm"
           onChange={formik.handleChange}
-          placeholder="Nhập tên giáo viên"
+          onSearch={formik.handleSubmit}
         />
-        <Input
-          name="name"
-          onChange={formik.handleChange}
-          placeholder="Nhập tên khóa học "
-          style={{
-            width: "45%",
-          }}
-        />
-        <button
-          style={{
-            width: "10%",
-          }}
-          className="p-1 bg-blue-500 rounded-sm"
-          type="submit"
-        >
-          Search
-        </button>
       </Form>
 
       <Table
@@ -231,4 +200,3 @@ export default function PendingCourse(props) {
     </div>
   );
 }
-
