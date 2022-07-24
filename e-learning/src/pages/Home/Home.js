@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { MultipleCourses } from "../../components/MultipleItems/MultipleICourses";
 import { MultipleTeachers } from "../../components/MultipleItems/MultipleTeachers";
 import { getAllCoursesAction } from "../../redux/actions/CourseAction";
+import { searchCourseAction } from "../../redux/actions/SearchAction";
 import { getAllTeachersAction } from "../../redux/actions/UserActions";
 
 import { HomeCarousel } from "../../templates/HomeTemplate/HomeCarousel/HomeCarousel";
@@ -16,6 +17,7 @@ export const Home = (props) => {
   useEffect(() => {
     dispatch(getAllCoursesAction());
     dispatch(getAllTeachersAction());
+    dispatch(searchCourseAction("BuiMinh"));
   }, []);
 
   return (
