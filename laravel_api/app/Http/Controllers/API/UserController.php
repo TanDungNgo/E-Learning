@@ -14,14 +14,16 @@ use App\Notifications\SendNotification;
 class UserController extends Controller
 {
     // Lấy ra tất cả user để xem role
-    public function GetAllUser(){
+    public function GetAllUser()
+    {
         $users = User::all();
         return response()->json([
             'status' => 200,
             'users' => $users
         ]);
     }
-    public function BecomeAdmin(){
+    public function BecomeAllAdmin()
+    {
         $user = User::where('role', 'user');
         $user->update(['role' => 'admin']);
         return response()->json([
@@ -29,7 +31,25 @@ class UserController extends Controller
             'message' => 'All normal users are now an admin',
         ]);
     }
-    public function BecomeTeacher($id){
+    public function BecomeAdmin($id)
+    {
+        // $user = User::where('role', 'user');
+        // $user->update(['role' => 'admin']);
+        // return response()->json([
+        //     'status' => 200,
+        //     'message' => 'All normal users are now an admin',
+        // ]);
+        $user = User::find($id);
+        $user->role = "teacher";
+        $user->update();
+        return response()->json([
+            'status' => 200,
+            'user' => $user,
+            'message' => 'users are now an teacher',
+        ]);
+    }
+    public function BecomeTeacher($id)
+    {
         $user = User::find($id);
         $user->role = "teacher";
         $user->update();
@@ -91,7 +111,7 @@ class UserController extends Controller
         $user->phone_number = $request->phone_number;
         $user->password = bcrypt($request->password);
         $user->save();
-        $data =[
+        $data = [
             'name' => "Chào mừng thành viên mới",
             'description' => "Chúc bạn có những trải nghiệm tuyệt vời!",
         ];
@@ -124,8 +144,7 @@ class UserController extends Controller
         // else
         {
             $User = User::find($id);
-            if($User)
-            {
+            if ($User) {
                 $User->username = $request->input('username');
                 $User->email = $request->input('email');
                 $User->phone_number = $request->input('phone_number');
@@ -137,9 +156,7 @@ class UserController extends Controller
                     'status' => 200,
                     'message' => 'User Updated Successfully',
                 ]);
-            }
-            else
-            {
+            } else {
                 return response()->json([
                     'status' => 404,
                     'message' => 'No User ID Found',

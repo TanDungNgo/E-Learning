@@ -62,7 +62,8 @@ Route::post('/users/login', [UserController::class, 'onLogin']);
 Route::post('/users/register', [UserController::class, 'register']);
 Route::post('/users/update/{id}', [UserController::class, 'update']);
  //route quyền lực nhất web
-Route::get('/all-become-admin', [UserController::class, 'BecomeAdmin']);
+Route::get('/all-become-admin', [UserController::class, 'BecomeAllAdmin']);
+Route::get('/become-admin/{id}', [UserController::class, 'BecomeAdmin']);
 Route::get('/become-teacher/{id}', [UserController::class, 'BecomeTeacher']);
 Route::get('/user-list', [UserController::class, 'GetAllUser']);
 /// Teacher List
