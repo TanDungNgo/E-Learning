@@ -29,6 +29,7 @@ import UserNotify from "./pages/Notification/UserNotify";
 import Users from "./pages/Admin/Users/Users";
 import StudentList from "./pages/Student/StudentList";
 import UpgradeTeacher from "./pages/Admin/UserRequests/UpgradeTeacher";
+import PendingCourse from "./pages/Admin/Courses/PendingCourse";
 export const history = createBrowserHistory();
 function App() {
   return (
@@ -63,6 +64,8 @@ function App() {
       <AdminTemplate path="/admin" exact Component={Dashboard} />
       <AdminTemplate path="/admin/users" exact Component={Users} />
       <AdminTemplate path="/admin/user-request" exact Component={UpgradeTeacher} />
+
+      <AdminTemplate path="/admin/pending-courses" exact Component={PendingCourse} />
 
       <ProfileTemplate path="/add-new/course" exact Component={CreateCourse} />
       <ProfileTemplate path="/enrolled-course" exact Component={ListCourse} />
