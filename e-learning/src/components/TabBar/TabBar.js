@@ -8,18 +8,11 @@ const TabBar = () => {
         <ul className="flex flex-wrap -mb-px pl-4">
           <li className="mr-2">
             <NavLink
-              to="/"
-              className="border-b-2 border-blue-600 active text-medium text-blue-600 dark:text-blue-500 dark:border-blue-500 inline-block p-3 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
-            >
-              Assigned Course
-            </NavLink>
-          </li>
-          <li className="mr-2">
-            <NavLink
               to="/add-new/course"
               className="text-medium text-blue-600 dark:text-blue-500 dark:border-blue-500 inline-block p-3 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+              title="Create New Course"
             >
-              Created Course
+              Create New Course
             </NavLink>
           </li>
         </ul>

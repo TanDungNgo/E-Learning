@@ -1,32 +1,32 @@
 import React from "react";
-import "./StudentList.css" 
+import "./StudentList.css";
 //this is for user profile
 const StudentList = (props) => {
-  let { liststudent } = props;
-  let { studentcontrol } = props;
-  let { usercontrol } = props;
+  let { listStudents } = props;
+  let { studentControl } = props;
+  let { userControl } = props;
   const renderStudents = () => {
-    return liststudent?.map((item, index) => {
+    return listStudents?.map((item, index) => {
       return (
         <tr
           key={index}
           className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
         >
-          {!studentcontrol && (
+          {!studentControl && (
             <th
               scope="row"
-              className="truncate py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+              className="truncate py-4 px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
             >
               {item.course_name}
             </th>
           )}
           <th
             scope="row"
-            className="truncate py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            className="truncate py-4 px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
           >
             {item.username}
           </th>
-          <td className="py-3 px-6">
+          <td className="py-3 px-2">
             <div className="flex align-middle items-center">
               <div>
                 <img
@@ -40,9 +40,9 @@ const StudentList = (props) => {
               </div>
             </div>
           </td>
-          <td className="py-4 px-6 truncate">{item.email}</td>
-          <td className="py-4 px-6">{item.created_at}</td>
-          {studentcontrol && (
+          <td className="py-4 px-2 truncate">{item.email}</td>
+          <td className="py-4 px-2">{item.created_at}</td>
+          {studentControl && (
             <td className="py-4 flex items-center align-middle justify-center content-center">
               <button
                 type="button"
@@ -80,19 +80,17 @@ const StudentList = (props) => {
               </button>
             </td>
           )}
-          {
-            usercontrol && (
-              <th>
+          {userControl && (
+            <th>
               <td className="py-4 flex items-center align-middle justify-center content-center">
-                  <select>
-                    <option value="admin">admin</option>
-                    <option value="user">user</option>
-                    <option value="teacher">teacher</option>
-                  </select>
-                </td>
-              </th>
-            )
-          }
+                <select>
+                  <option value="admin">admin</option>
+                  <option value="user">user</option>
+                  <option value="teacher">teacher</option>
+                </select>
+              </td>
+            </th>
+          )}
         </tr>
       );
     });
@@ -103,32 +101,32 @@ const StudentList = (props) => {
         <table className="table-fixed w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-              {!studentcontrol && (
-                <th scope="col" className="py-3 px-6 title-table">
+              {!studentControl && (
+                <th scope="col" className="py-3 px-2 title-table w-60">
                   Course
                 </th>
               )}
-              <th scope="col" className="py-3 px-6 title-table">
+              <th scope="col" className="py-3 px-2 title-table w-60">
                 Username
               </th>
-              <th scope="col" className="w-20 py-3 px-6 title-table">
+              <th scope="col" className="w-20 py-3 px-2 title-table">
                 Avatar
               </th>
-              <th scope="col" className="w-40 py-3 px-6 title-table">
+              <th scope="col" className="w-40 py-3 px-2 title-table">
                 Email
               </th>
-              <th scope="col" className="w-32 py-3 px-6 title-table">
+              <th scope="col" className="w-32 py-3 px-2 title-table">
                 Join_date
               </th>
-              {studentcontrol && (
-                <th scope="col" className="py-3 px-6 title-table">
+              {studentControl && (
+                <th scope="col" className="py-3 px-2 title-table">
                   <span className="">Edit</span>
                 </th>
               )}
-              {usercontrol && (
-                <th scope="col" className="py-3 px-6 title-table">
+              {userControl && (
+                <th scope="col" className="py-3 px-2 title-table">
                   <span className="">Role</span>
-                  </th>
+                </th>
               )}
             </tr>
           </thead>

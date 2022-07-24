@@ -12,6 +12,8 @@ import {
 
 import { CourseService } from "../../../services/CourseService";
 import { searchCourseAction } from "../../../redux/actions/SearchAction";
+import { ERROR, SUCCESS, WARNING } from "../../../utils/settings/config";
+import { openNotificationWithIcon } from "../../../components/Notification/Notification";
 
 export default function PendingCourse(props) {
   const { coursesDefault } = useSelector((state) => state.CourseReducer);
@@ -32,21 +34,25 @@ export default function PendingCourse(props) {
   });
   const Accept = async (id) => {
     try {
-      const res = await CourseService.AcceptCourse(id).then((res) => {
-        console.log("res", res);
-      });
+      await CourseService.AcceptCourse(id);
+      openNotificationWithIcon(SUCCESS, "  Approved course", "success");
       dispatch(getPendingCourseAction());
     } catch (error) {
+      openNotificationWithIcon(ERROR, "Sorry, something went wrong", "error");
       console.log("error>>", error);
     }
   };
   const Reject = async (id) => {
     try {
-      const res = await CourseService.RejectCourse(id).then((res) => {
-        console.log("res", res);
-      });
+      await CourseService.RejectCourse(id);
+      openNotificationWithIcon(
+        WARNING,
+        "The course is not suitable and has been deleted",
+        "warning"
+      );
       dispatch(getPendingCourseAction());
     } catch (error) {
+      openNotificationWithIcon(ERROR, "Sorry, something went wrong", "error");
       console.log("error>>", error);
     }
   };
@@ -137,7 +143,12 @@ export default function PendingCourse(props) {
               key={2}
               className="text-2xl"
               onClick={() => {
-                Reject(course.id);
+                if (
+                  window.confirm("Are you sure you want to delete this course?")
+                ) {
+                  //Gọi action
+                  Reject(course.id);
+                }
               }}
             >
               <CloseCircleFilled style={{ color: "red" }} />

@@ -59,7 +59,7 @@ const ListCourse = () => {
               All student in course
             </span>
           </div>
-          <StudentList liststudent={studentsDefault} />
+          <StudentList listStudents={studentsDefault} />
         </div>
       </div>
     </>

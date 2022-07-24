@@ -129,7 +129,6 @@ export const getStudentsInCourseAction = (id) => {
   return async (dispatch) => {
     try {
       const result = await UserService.getStudentsInCourse(id);
-      // console.log("student: ", result.students)
       dispatch({
         type: GET_ALL_STUDENTS,
         value: result.students,

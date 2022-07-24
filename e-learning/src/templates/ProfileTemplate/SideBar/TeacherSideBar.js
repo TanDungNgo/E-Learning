@@ -1,5 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { openNotificationWithIcon } from "../../../components/Notification/Notification";
+import { ERROR } from "../../../utils/settings/config";
 
 const TeacherSideBar = () => {
   return (
@@ -62,7 +64,16 @@ const TeacherSideBar = () => {
               </NavLink>
             </div>
             <div>
-              <NavLink to="/">
+              <NavLink
+                to="/"
+                onClick={() => {
+                  openNotificationWithIcon(
+                    ERROR,
+                    "Sorry this feature is being updated!!",
+                    "error"
+                  );
+                }}
+              >
                 <svg
                   className="w-6 h-6 text-orange-400"
                   fill="none"
@@ -80,7 +91,16 @@ const TeacherSideBar = () => {
               </NavLink>
             </div>
             <div>
-              <NavLink to="/">
+              <NavLink
+                to="/"
+                onClick={() => {
+                  openNotificationWithIcon(
+                    ERROR,
+                    "Sorry this feature is being updated!!",
+                    "error"
+                  );
+                }}
+              >
                 <svg
                   className="w-6 h-6 text-orange-400"
                   fill="none"

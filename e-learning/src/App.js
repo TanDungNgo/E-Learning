@@ -21,13 +21,11 @@ import Profile from "./pages/Profile/Profile";
 import Upgrade from "./pages/Profile/Upgrade";
 import RecordList from "./pages/RecordList/RecordList";
 import Register from "./pages/Register/Register";
-import Test from "./pages/test/Test";
 import AdminTemplate from "./templates/AdminTemplate/AdminTemplate";
 import { HomeTemplate } from "./templates/HomeTemplate/HomeTemplate";
 import { ProfileTemplate } from "./templates/ProfileTemplate/SideBar/ProfileTemplate";
 import UserNotify from "./pages/Notification/UserNotify";
 import Users from "./pages/Admin/Users/Users";
-import StudentList from "./pages/Student/StudentList";
 import UpgradeTeacher from "./pages/Admin/UserRequests/UpgradeTeacher";
 import PendingCourse from "./pages/Admin/Courses/PendingCourse";
 export const history = createBrowserHistory();
@@ -69,7 +67,11 @@ function App() {
         Component={UpgradeTeacher}
       />
 
-      <AdminTemplate path="/admin/pending-courses" exact Component={PendingCourse} />
+      <AdminTemplate
+        path="/admin/pending-courses"
+        exact
+        Component={PendingCourse}
+      />
 
       <ProfileTemplate path="/add-new/course" exact Component={CreateCourse} />
       <ProfileTemplate path="/enrolled-course" exact Component={ListCourse} />
@@ -91,7 +93,6 @@ function App() {
       />
       <AdminTemplate path="/admin/courses/:id" exact Component={EditCourse} />
       <AdminTemplate path="/admin/courses" exact Component={Course} />
-      <HomeTemplate path="/test" exact Component={Test} />
       <ProfileTemplate path="/my-notification" exact Component={UserNotify} />
     </Switch>
   );
