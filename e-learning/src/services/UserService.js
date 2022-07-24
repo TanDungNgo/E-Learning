@@ -33,6 +33,10 @@ const enrollCourse = (data) => {
 const unenrollCourse = (user_id, course_id) => {
   return Api.delete(`/students/unenroll/${user_id}/${course_id}`);
 };
+
+const getAllUser = () => {
+  return Api.get("/user-list");
+}
 export const UserService = {
   getAllStudents,
   updateUser,
@@ -43,4 +47,5 @@ export const UserService = {
   checkenroll,
   enrollCourse,
   unenrollCourse,
+  getAllUser,
 };

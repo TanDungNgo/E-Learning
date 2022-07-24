@@ -6,6 +6,7 @@ import {
   CHECK_ENROLL,
   GET_ALL_STUDENTS,
   GET_ALL_TEACHERS,
+  GET_ALL_USER,
   LOGIN,
   LOGOUT,
 } from "../types/UserTypes";
@@ -148,3 +149,17 @@ export const checkEnrollAction = (user_id, course_id) => {
     }
   };
 };
+
+export const getAllUser = () => {
+  return async (dispatch) => {
+    try {
+      const result = await UserService.getAllUser();
+      dispatch({
+        type: GET_ALL_USER,
+        value: result.users,
+      });
+    } catch (error) {
+      console.log("error>>", error);
+    }
+  }
+}
