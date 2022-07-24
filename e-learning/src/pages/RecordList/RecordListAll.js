@@ -1,16 +1,10 @@
 import React from "react";
-import {
-  FolderOpenOutlined,
-  UserOutlined,
-  DeleteOutlined,
-} from "@ant-design/icons";
+
 import { AudioComponent } from "../../components/AudioPlayer/AudioPlayer";
 
-//this is for home (all)
 const RecordListAll = (props) => {
   let { lesson } = props;
-  console.log('lessonprop',lesson);
-  // console.log("lesson ", lesson);
+  console.log("lesson", lesson);
   const renderRecords = () => {
     return lesson.records?.map((item, index) => {
       return (
@@ -74,9 +68,7 @@ const RecordListAll = (props) => {
               </th>
             </tr>
           </thead>
-          <tbody>
-            {renderRecords()}
-          </tbody>
+          <tbody>{renderRecords()}</tbody>
         </table>
       </div>
     </div>

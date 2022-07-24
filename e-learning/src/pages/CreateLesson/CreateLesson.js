@@ -14,7 +14,6 @@ class CreateLesson extends Component {
     course_id: this.props.match.params.id,
     url: "",
     fileVideo: "",
-    // courseParams: JSON.parse(localStorage.getItem("courseParams")),
   };
   handleInput = (e) => {
     this.setState({
