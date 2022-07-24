@@ -27,10 +27,10 @@ class SendNotificationController extends Controller
     }
     public function NotifyUser(Request $request)
     {
-        $user = User::find($request->$user_id);
+        $user = User::find($request->user_id);
         $notify = $user->notifications()->get();
         return response()->json([
-            'notify' => $notify,
+            'notify' => $notify
         ]);
     }
 }

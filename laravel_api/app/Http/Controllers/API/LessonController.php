@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Lesson;
 use App\Models\Course;
 use App\Models\User;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Notifications\SendNotification;
@@ -120,7 +121,17 @@ class LessonController extends Controller
             $lesson->course_id = $request->input('course_id');
             $lesson->video_link = $request->input('url');
             $lesson->save();
-
+            $courseName = Course::where('id', $request->input('course_id'))->get('name');
+            $courseName = $courseName[0]->name;
+            $student = Student::where('course_id', $request->input('course_id'))->get('user_id');
+            foreach ($student as $key => $value) {
+                $user = User::find($value->user_id);
+                $data = [
+                    'name' => "Có bài học mới tại $courseName",
+                    'description' => 'Vào học ngay thôi',
+                ];
+                $user->notify(new SendNotification($data));
+            }
             return response()->json([
                 'status' => 200,
                 'message' => 'Lesson Added Successfully',
