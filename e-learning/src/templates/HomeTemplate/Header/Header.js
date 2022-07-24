@@ -12,7 +12,7 @@ import { openNotificationWithIcon } from "../../../components/Notification/Notif
 
 export const Header = (props) => {
   const userLogin = JSON.parse(localStorage.getItem(USER_LOGIN));
-  const dispatch = -useDispatch();
+  const dispatch = useDispatch();
   const menuDropdown = (
     <Menu
       items={[
