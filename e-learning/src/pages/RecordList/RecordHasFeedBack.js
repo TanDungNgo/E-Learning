@@ -5,7 +5,10 @@ import { useFormik } from "formik";
 import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { sendFeedbackAction } from "../../redux/actions/FeedbackAcions";
-
+import { RecordService } from "../../services/RecordService";
+import {
+  getAllRecordsOfUserByLessonIdAction,
+} from "../../redux/actions/RecordActions";
 const RecordHasFeedBack = (props) => {
   const dispatch = useDispatch();
   const { userLogin } = useSelector((state) => state.UserReducer);
@@ -25,6 +28,11 @@ const RecordHasFeedBack = (props) => {
       dispatch(sendFeedbackAction(feedbackForm));
     },
   });
+  const deleterecord = async (e, id) => {
+    await RecordService.deleteRecord(id);
+    window.alert("Deleted record successfully");
+    dispatch(getAllRecordsOfUserByLessonIdAction(lesson.id, userLogin.id));
+  };
   return (
     <Fragment>
       <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -150,6 +158,7 @@ const RecordHasFeedBack = (props) => {
           </button>
           <button
             type="button"
+            onClick={(e) => deleterecord(e, item.id)}
             className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
           >
             <svg

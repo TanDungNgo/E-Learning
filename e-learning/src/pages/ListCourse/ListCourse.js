@@ -41,9 +41,8 @@ const ListCourse = () => {
         <TabBar />
       </div>
       <div
-        className="min-h-full grid grid-cols-3 gap-4 background-list-courses p-5 rounded-lg drop-shadow"
-        style={{ minHeight: "500px" }}
-        hidden={userLogin?.role !== "user"}
+        className="bg-white rounded-lg drop-shadow-lg"
+        hidden={userLogin.role !== "user"}
       >
         <div className="flex items-center justify-center pt-5 mb-5">
           <span className="line-text text-2xl font-bold">
