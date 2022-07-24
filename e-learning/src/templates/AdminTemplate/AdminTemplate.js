@@ -4,7 +4,7 @@ import { Redirect, Route } from "react-router";
 import { Layout, Menu, Breadcrumb, Dropdown, Space } from "antd";
 import { FileOutlined, UserOutlined } from "@ant-design/icons";
 import { NavLink } from "react-router-dom";
-import { logoE_Learning, USER_LOGIN } from "../../utils/settings/config";
+import { logoE_Learning, logoE_LearningVuong, USER_LOGIN } from "../../utils/settings/config";
 import { logoutAction } from "../../redux/actions/UserActions";
 // import _ from "lodash";
 
@@ -112,7 +112,7 @@ const AdminTemplate = (props) => {
                     propsRoute.history.push("/");
                   }}
                 >
-                  <img src={logoE_Learning} alt="logo" />
+                  <img src={logoE_LearningVuong} alt="logo" />
                 </div>
                 <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
                   <SubMenu key='sub0' icon={<UserOutlined />} title="User">

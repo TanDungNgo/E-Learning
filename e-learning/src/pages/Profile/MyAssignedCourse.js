@@ -47,7 +47,7 @@ const MyAssignedCourse = () => {
         {listCourses}
       </div>
       <div hidden={userLogin.role !== "teacher"}>
-        <div className="background-record pb-5">
+        <div className="pb-5">
           <div className="flex items-center justify-center pt-5 mb-5">
             <span className="line-text text-4xl font-bold">
               All student in course

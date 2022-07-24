@@ -26,6 +26,9 @@ import AdminTemplate from "./templates/AdminTemplate/AdminTemplate";
 import { HomeTemplate } from "./templates/HomeTemplate/HomeTemplate";
 import { ProfileTemplate } from "./templates/ProfileTemplate/SideBar/ProfileTemplate";
 import UserNotify from "./pages/Notification/UserNotify";
+import Users from "./pages/Admin/Users/Users";
+import StudentRequestList from "./pages/Admin/UserRequests/StudentRequestList";
+import StudentList from "./pages/Student/StudentList";
 export const history = createBrowserHistory();
 function App() {
   return (
@@ -58,6 +61,9 @@ function App() {
         Component={LessonDetailUser}
       />
       <AdminTemplate path="/admin" exact Component={Dashboard} />
+      <AdminTemplate path="/admin/users" exact Component={Users} />
+      <AdminTemplate path="/admin/user-request" exact Component={StudentRequestList} />
+
       <ProfileTemplate path="/add-new/course" exact Component={CreateCourse} />
       <ProfileTemplate path="/enrolled-course" exact Component={ListCourse} />
       <ProfileTemplate
