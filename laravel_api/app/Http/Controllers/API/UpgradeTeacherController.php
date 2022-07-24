@@ -19,7 +19,10 @@ class UpgradeTeacherController extends Controller
     public function index()
     {
         //dùng riêng cho role admin
-        $requests = UpgradeTeacher::all();
+        $requests = UpgradeTeacher::join('users', 'users.id', '=', 'upgrade_teachers.user_id')
+            ->where('status', '=', 'pending')
+            ->select('upgrade_teachers.*', 'users.username', 'users.email')
+            ->get();
         return response()->json([
             'status' => 200,
             'requests' => $requests,
