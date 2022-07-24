@@ -37,7 +37,7 @@ class StudentController extends Controller
         $listcourse = DB::table('students')
             ->join('courses', 'courses.id', '=', 'students.course_id')
             ->join('users', 'users.id', '=', 'courses.teacher_id')
-            ->select('users.username as teacher_name','courses.*')
+            ->select('users.username as teacher_name', 'users.avatar','courses.*')
             ->where('students.user_id', $id)
             ->get();
         return response()->json([
