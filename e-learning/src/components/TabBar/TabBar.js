@@ -16,7 +16,7 @@ const TabBar = () => {
           </li>
           <li className="mr-2">
             <NavLink
-              to="/"
+              to="/add-new/course"
               className="text-medium text-blue-600 dark:text-blue-500 dark:border-blue-500 inline-block p-3 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
             >
               Created Course
