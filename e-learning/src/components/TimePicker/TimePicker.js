@@ -5,10 +5,7 @@ import { getTimedatasByLessonIdAction } from "../../redux/actions/TimedataAction
 
 const TimePicker = (props) => {
   let { lessonId } = props;
-<<<<<<< HEAD
   const dispatch = useDispatch();
-=======
->>>>>>> a4f48d28b15fc6cdff33df8469103b6dceb52bdd
   const seconds = [];
   for (let i = 0; i <= 59; i++) {
     seconds.push(i);
