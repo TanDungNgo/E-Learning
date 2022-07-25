@@ -55,11 +55,12 @@ class CourseController extends Controller
             $course->status = 'accepted';
             $course->save();
             $teacher = User::find($course->teacher_id);
+            $courseName = $course->name;
             $data = [
                 'title' => 'Course Accepted',
                 'type' =>  'accepted course',
-                'course_name' => $course->name,
-                'description' => 'Your course has been accepted',
+                'course_id' => $course->id,
+                'description' => 'Your '. $courseName. ' course has been accepted',
             ];
             $teacher->notify(new SendNotification($data));
             return response()->json([
@@ -76,7 +77,7 @@ class CourseController extends Controller
             'title' => 'Course Rejected',
             'type' =>  'rejected course',
             'course_name' => $course->name,
-            'description' => 'Khóa học của bạn đã bị từ chối',
+            'description' => 'Your '. $course->name .' course has been rejected due to dont not meet the our requirement',
         ];
         $teacher->notify(new SendNotification($data));
         return response()->json([

@@ -78,7 +78,7 @@ class UpgradeTeacherController extends Controller
             'type' =>  'request accepted',
             'name' => 'Request To Become Teacher Accepted',
             'status' => 'accepted',
-            'description' => 'Xin chúc mừng, Bạn đã trở thành giáo viên!',
+            'description' => 'Congratulations! Your request to become a teacher has been accepted',
         ];
         $user->notify(new SendNotification ($data));
         
@@ -99,7 +99,7 @@ class UpgradeTeacherController extends Controller
             'type' =>  'request rejected',
             'name' => 'Request To Be Teacher Rejected',
             'status' => 'rejected',
-            'description' => 'Thật đáng tiếc, bạn không đủ điều kiện để trở thành giáo viên!',
+            'description' => 'Sorry, Your request to become teacher has been rejected',
         ];
         $user = User::find($req->user_id);
         $user->notify(new SendNotification ($data));

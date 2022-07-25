@@ -77,9 +77,8 @@ class LessonController extends Controller
             $lesson->status = 'accepted';
             $lesson->save();
             $data = [
-
                 'lesson_name' => $lesson->name,
-                'description' => 'Bài học của bạn đã được chấp nhận',
+                'description' => 'Your lesson has been approved',
             ];
             $user->notify(new SendNotification($data));
             return response()->json([
@@ -91,7 +90,7 @@ class LessonController extends Controller
             $lesson->save();
             $data = [
                 'lesson_name' => $lesson->name,
-                'description' => 'Bài học của bạn đã bị từ chối',
+                'description' => 'Your lesson has been rejected',
             ];
             $user->notify(new SendNotification($data));
             return response()->json([
@@ -131,8 +130,8 @@ class LessonController extends Controller
                     'title' => 'New Lesson',
                     'type' => 'new_lesson',
                     'name' => "New Lesson At $courseName", 
-                    'course_name' => $courseName,
-                    'description' => '勉強しましょう',
+                    'course_id' => $request->input('course_id'),
+                    'description' => "Let's study!",
                 ];
                 $user->notify(new SendNotification($data));
             }
