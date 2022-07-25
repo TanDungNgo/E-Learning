@@ -51,6 +51,7 @@ const UpgradeRequestList = (props) => {
             <a href={item.video_link}>{item.video_link}</a>
           </td>
           <td className="py-4 px-6">{item.created_at}</td>
+
           {requestcontrol && (
             <td className="py-4 flex items-center align-middle justify-center content-center">
               <button
@@ -91,6 +92,7 @@ const UpgradeRequestList = (props) => {
               </button>
             </td>
           )}
+
         </tr>
       );
     });

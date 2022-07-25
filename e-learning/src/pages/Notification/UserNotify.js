@@ -11,6 +11,7 @@ import { ERROR } from "../../utils/settings/config";
 const UserNotify = () => {
   const userLogin = JSON.parse(localStorage.getItem("USER_LOGIN"));
   const { notifyUserDefault } = useSelector((state) => state.NotifyReducer);
+  console.log("notifyUserDefault", notifyUserDefault);
   const dispatch = useDispatch();
   const history = useHistory();
   useEffect(() => {
@@ -21,7 +22,6 @@ const UserNotify = () => {
       history.push("/");
     }
   }, []);
-
   const renderNotifyCation = () => {
     return notifyUserDefault?.map((notification, index) => {
       return (
@@ -33,6 +33,15 @@ const UserNotify = () => {
             <span>
               <h3>{notification.data.name}</h3>
               <p>{notification.data.description}</p>
+              {
+                notification.data.type == 'feedback' &&(
+                  <span>
+                     <audio controls>
+                      <source src={notification.data.url} type="audio/wav" />
+                     </audio>
+                    </span>
+                ) 
+              }
               <span>
                 <h5>{notification.created_at}</h5>
               </span>
