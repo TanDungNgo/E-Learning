@@ -48,12 +48,13 @@ const UpgradeRequestList = (props) => {
           <td className="py-4 px-6">{item.email}</td>
           <td className="py-4 px-6 truncate">{item.video_link}</td>
           <td className="py-4 px-6">{item.created_at}</td>
+
           {requestcontrol && (
             <td className="py-4 flex items-center align-middle justify-center content-center">
               <button
                 type="button"
                 className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-                onClick={() => handleAccept(item.id)}
+                onClick={() => handleReject(item.id)}
               >
                 <svg
                   className="w-4 h-4"
@@ -71,7 +72,7 @@ const UpgradeRequestList = (props) => {
               <button
                 type="button"
                 className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-                onClick={() => handleReject(item.id)}
+                onClick={() => handleAccept(item.id)}
               >
                 <svg
                   className="w-4 h-4"
@@ -88,6 +89,7 @@ const UpgradeRequestList = (props) => {
               </button>
             </td>
           )}
+
         </tr>
       );
     });
