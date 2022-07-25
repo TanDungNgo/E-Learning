@@ -77,6 +77,7 @@ class LessonController extends Controller
             $lesson->status = 'accepted';
             $lesson->save();
             $data = [
+
                 'lesson_name' => $lesson->name,
                 'description' => 'Bài học của bạn đã được chấp nhận',
             ];
@@ -127,8 +128,11 @@ class LessonController extends Controller
             foreach ($student as $key => $value) {
                 $user = User::find($value->user_id);
                 $data = [
-                    'name' => "Có bài học mới tại $courseName",
-                    'description' => 'Vào học ngay thôi',
+                    'title' => 'New Lesson',
+                    'type' => 'new_lesson',
+                    'name' => "New Lesson At $courseName", 
+                    'course_name' => $courseName,
+                    'description' => '勉強しましょう',
                 ];
                 $user->notify(new SendNotification($data));
             }

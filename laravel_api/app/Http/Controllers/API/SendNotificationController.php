@@ -12,19 +12,6 @@ use App\Models\Lesson;
 
 class SendNotificationController extends Controller
 {
-    public function StoreUpgrateToTeacher(Request $request)
-    {
-        $data = $request->all();
-        $data['name'] = "Upgrade To Teacher";
-        if ($data['status'] == 'accepted'){
-            $data['description'] = 'Xin chúc mừng, Bạn đã trở thành giáo viên';
-        }
-        else {
-            $data['description'] = 'Thật đáng tiếc, bạn không đủ điều kiện để trở thành giáo viên';
-        }
-        $user = User::find($data['user_id']);
-        $user->notify(new SendNotification ($data));
-    }
     public function NotifyUser(Request $request, $user_id)
     {
         $user = User::where('id', $user_id)->first();

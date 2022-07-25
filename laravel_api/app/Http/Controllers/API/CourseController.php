@@ -56,8 +56,10 @@ class CourseController extends Controller
             $course->save();
             $teacher = User::find($course->teacher_id);
             $data = [
+                'title' => 'Course Accepted',
+                'type' =>  'accepted course',
                 'course_name' => $course->name,
-                'description' => 'Khóa học của bạn đã được chấp nhận',
+                'description' => 'Your course has been accepted',
             ];
             $teacher->notify(new SendNotification($data));
             return response()->json([
@@ -71,6 +73,8 @@ class CourseController extends Controller
         $course->save();
         $teacher = User::find($course->teacher_id);
         $data = [
+            'title' => 'Course Rejected',
+            'type' =>  'rejected course',
             'course_name' => $course->name,
             'description' => 'Khóa học của bạn đã bị từ chối',
         ];

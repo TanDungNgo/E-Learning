@@ -29,14 +29,18 @@ class FeedbackController extends Controller
         $feedback->body = $request->input('body');
         $feedback->record_id = $request->input('record_id');
         $feedback->save();
+        $url = Record::find($request->input('record_id'))->record_file;
         //notify student
         $user = User::where('id', $request->input('student_id'))->first();
         $lessonID = Record::where('id', $request->input('record_id'))->first()->lesson_id;
         $lesson = Lesson::where('id', $lessonID)->get('name');
         $lesson = $lesson[0]->name;
         $data = [
-            'name' => "Feedback Record",
-            'description' => 'Ghi âm của bạn ở bài học: ' . $lesson . ' đã được giáo viên nhận xét!',
+            'title' => 'Feedback',
+            'type' =>  'feedback',
+            'name' => "Feedback Record: ". $lesson,
+            'url' => $url,
+            'description' => $request->input('body'),
         ];
         $user->notify(new SendNotification($data));
         return response()->json([
