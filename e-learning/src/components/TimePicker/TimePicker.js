@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { TimedataService } from "../../services/TimedataService";
 import { getTimedatasByLessonIdAction } from "../../redux/actions/TimedataActions";
-import { SUCCESS } from "../../utils/settings/config";
+import { ERROR, SUCCESS } from "../../utils/settings/config";
 import { openNotificationWithIcon } from "../Notification/Notification";
 
 const TimePicker = (props) => {
@@ -27,14 +27,14 @@ const TimePicker = (props) => {
     data.append("second", second);
     try {
       await TimedataService.createTimedata(data);
-      // window.alert("Add timedata successfully");
       openNotificationWithIcon(
         SUCCESS,
-        "Add timedata successfully",
+        "Add time data successfully",
         "success"
       );
       dispatch(getTimedatasByLessonIdAction(lessonId));
     } catch (error) {
+      openNotificationWithIcon(ERROR, "Sorry, something went wrong", "error");
       console.log("error>>", error);
     }
   };

@@ -39,7 +39,7 @@ function App() {
       <ProfileTemplate path="/upgrade" exact Component={Upgrade} />
       <HomeTemplate path="/all-courses" exact Component={AllCourses} />
       <AdminTemplate
-        path="/admin/courses/:id/add-new"
+        path="/admin/course/:id/add-new"
         exact
         Component={AddLesson}
       />

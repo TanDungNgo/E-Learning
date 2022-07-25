@@ -90,6 +90,7 @@ export const updateUserAction = (userEdit, propsRoute) => {
         openNotificationWithIcon(ERROR, "Update failed information", "error");
       }
     } catch (error) {
+      openNotificationWithIcon(ERROR, "Update failed information", "error");
       console.log("error>>", error);
     }
   };
@@ -101,11 +102,12 @@ export const requestToBecomeTeacher = (userEdit, propsRoute) => {
       const result = await UserService.requestToBecomeTeacher(userEdit);
       if (result.status === 200) {
         propsRoute.history.push("/profile");
-        openNotificationWithIcon(SUCCESS, "Nâng cấp thành công", "success");
+        openNotificationWithIcon(SUCCESS, "Upgrade success", "success");
       } else {
-        openNotificationWithIcon(ERROR, "Nâng cấp thất bại", "error");
+        openNotificationWithIcon(ERROR, "Upgrade fail", "error");
       }
     } catch (error) {
+      openNotificationWithIcon(ERROR, "Sorry, something went wrong", "error");
       console.log("error>>", error);
     }
   };
@@ -120,6 +122,7 @@ export const getAllTeachersAction = () => {
         value: result.teachers,
       });
     } catch (error) {
+      openNotificationWithIcon(ERROR, "Sorry, something went wrong", "error");
       console.log("error>>", error);
     }
   };
@@ -134,6 +137,7 @@ export const getStudentsInCourseAction = (id) => {
         value: result.students,
       });
     } catch (error) {
+      openNotificationWithIcon(ERROR, "Sorry, something went wrong", "error");
       console.log("error>>", error);
     }
   };
@@ -148,6 +152,7 @@ export const checkEnrollAction = (user_id, course_id) => {
         value: result.status,
       });
     } catch (error) {
+      openNotificationWithIcon(ERROR, "Sorry, something went wrong", "error");
       console.log("error>>", error);
     }
   };
@@ -162,6 +167,7 @@ export const getAllUser = () => {
         value: result.users,
       });
     } catch (error) {
+      openNotificationWithIcon(ERROR, "Sorry, something went wrong", "error");
       console.log("error>>", error);
     }
   };

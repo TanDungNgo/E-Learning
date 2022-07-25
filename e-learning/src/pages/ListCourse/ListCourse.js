@@ -9,8 +9,9 @@ import {
 import TabBar from "../../components/TabBar/TabBar";
 import { getStudentsInCourseAction } from "../../redux/actions/UserActions";
 import StudentList from "../Student/StudentList";
-import { USER_LOGIN } from "../../utils/settings/config";
+import { ERROR, USER_LOGIN } from "../../utils/settings/config";
 import { useHistory } from "react-router-dom";
+import { openNotificationWithIcon } from "../../components/Notification/Notification";
 const ListCourse = () => {
   const userLogin = JSON.parse(localStorage.getItem(USER_LOGIN));
   const { coursesDefault } = useSelector((state) => state.CourseReducer);
@@ -22,6 +23,9 @@ const ListCourse = () => {
       window.scrollTo(0, 0);
       if (userLogin.role === "user") {
         dispatch(getCourseEnrolledAction(userLogin.id));
+      } else if (userLogin.role === "admin") {
+        openNotificationWithIcon(ERROR, "You cannot access this page", "error");
+        history.push("/");
       } else {
         dispatch(getCourseByIdTeacherAction(userLogin.id));
         dispatch(getStudentsInCourseAction(userLogin.id));

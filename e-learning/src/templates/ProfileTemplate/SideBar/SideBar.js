@@ -30,7 +30,7 @@ const SideBar = () => {
           <ul className="space-y-2">
             <li>
               <NavLink
-                hidden={userLogin.role !== "user"}
+                hidden={userLogin.role === "user" ? false : true}
                 to="/enrolled-course"
                 className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
@@ -47,7 +47,7 @@ const SideBar = () => {
                 </span>
               </NavLink>
               <NavLink
-                hidden={userLogin.role === "user"}
+                hidden={userLogin.role === "teacher" ? false : true}
                 to="/enrolled-course"
                 className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
@@ -117,9 +117,16 @@ const SideBar = () => {
               </NavLink>
             </li>
             <li>
-              <button
+              <NavLink
+                to="/"
                 className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                disabled
+                onClick={() => {
+                  openNotificationWithIcon(
+                    ERROR,
+                    "Sorry this feature is being updated!!",
+                    "error"
+                  );
+                }}
               >
                 <SettingFilled
                   className="absolute text-xl mr-1"
@@ -128,7 +135,7 @@ const SideBar = () => {
                 <span className="pl-6 font-semibold tracking-tighter text-gray-800 flex-1 ml-3 whitespace-nowrap">
                   Setting
                 </span>
-              </button>
+              </NavLink>
             </li>
             <li>
               <button

@@ -97,7 +97,6 @@ export const SpecialHomeCarousel = () => {
                     placeholder="Search Mockups, Logos..."
                     name="searchTerm"
                     onChange={formik.handleChange}
-                    required
                   />
                   <button
                     type="submit"

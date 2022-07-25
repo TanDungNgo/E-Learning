@@ -35,7 +35,7 @@ export default function PendingCourse(props) {
   const Accept = async (id) => {
     try {
       await CourseService.AcceptCourse(id);
-      openNotificationWithIcon(SUCCESS, "  Approved course", "success");
+      openNotificationWithIcon(SUCCESS, " Approved course", "success");
       dispatch(getPendingCourseAction());
     } catch (error) {
       openNotificationWithIcon(ERROR, "Sorry, something went wrong", "error");
