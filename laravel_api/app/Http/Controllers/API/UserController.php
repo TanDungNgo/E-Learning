@@ -106,8 +106,10 @@ class UserController extends Controller
         $user->password = bcrypt($request->password);
         $user->save();
         $data = [
-            'name' => "Chào mừng thành viên mới",
-            'description' => "Chúc bạn có những trải nghiệm tuyệt vời!",
+            'title' => 'Welcome Message',
+            'type' => 'welcome',
+            'name' => "Welcome New User",
+            'description' => "Have a nice experience in our website!",
         ];
         $user->notify(new SendNotification($data));
         return response()->json([

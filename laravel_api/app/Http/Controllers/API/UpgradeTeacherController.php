@@ -74,7 +74,9 @@ class UpgradeTeacherController extends Controller
         //send notification to user
         $data = [
             'user_id' => $user->id,
-            'name' => 'Yêu cầu trở thành giáo viên được phê duyệt',
+            'title' => 'Request Accepted',
+            'type' =>  'request accepted',
+            'name' => 'Request To Become Teacher Accepted',
             'status' => 'accepted',
             'description' => 'Xin chúc mừng, Bạn đã trở thành giáo viên!',
         ];
@@ -93,7 +95,9 @@ class UpgradeTeacherController extends Controller
         //send notification to user
         $data = [
             'user_id' => $req->user_id,
-            'name' => 'Yêu cầu trở thành giáo viên đã bị từ chối',
+            'title' => 'Request Rejected',
+            'type' =>  'request rejected',
+            'name' => 'Request To Be Teacher Rejected',
             'status' => 'rejected',
             'description' => 'Thật đáng tiếc, bạn không đủ điều kiện để trở thành giáo viên!',
         ];
