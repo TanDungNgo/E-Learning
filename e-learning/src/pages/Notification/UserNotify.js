@@ -1,5 +1,6 @@
 import React from "react";
 import { useEffect } from "react";
+import moment from "moment";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { openNotificationWithIcon } from "../../components/Notification/Notification";
@@ -47,7 +48,11 @@ const UserNotify = () => {
                 </span>
               )}
               <span>
-                <h5>{notification.created_at}</h5>
+                <h5>
+                  {moment(notification.created_at).format(
+                    "YYYY-MM-DD HH:mm:ss"
+                  )}
+                </h5>
               </span>
             </span>
           </th>

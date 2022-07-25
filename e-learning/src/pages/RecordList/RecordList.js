@@ -1,10 +1,12 @@
 import React from "react";
 import { Fragment } from "react";
+import { useDispatch } from "react-redux";
 
 import RecordHasFeedBack from "./RecordHasFeedBack";
 
 const RecordList = (props) => {
   let { lesson } = props;
+
   const renderRecords = () => {
     return lesson.records?.map((item, index) => {
       return (

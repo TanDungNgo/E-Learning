@@ -56,6 +56,7 @@ export const LessonDetailUser = (props) => {
   check();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     dispatch(getTimedatasByLessonIdAction(lessonId));
   }, []);
 

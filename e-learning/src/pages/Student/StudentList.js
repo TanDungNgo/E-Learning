@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 import "./StudentList.css";
 const StudentList = (props) => {
   let { listStudents } = props;
@@ -39,8 +40,11 @@ const StudentList = (props) => {
               </div>
             </div>
           </td>
+
           <td className="py-4 px-2 truncate">{item.email}</td>
-          <td className="py-4 px-2">{item.created_at}</td>
+          <td className="py-4 px-2">
+            {moment(item.created_at).format("YYYY-MM-DD HH:mm:ss")}
+          </td>
           {studentControl && (
             <td className="py-4 flex items-center align-middle justify-center content-center">
               <button
