@@ -144,7 +144,7 @@ export default function Lessons(props) {
 
   return (
     <div>
-      <h1 className="gap-4 text-4xl">
+      <h1 className="gap-4 text-4xl flex ">
         <span>Course: </span>
         <span className="text-green-600 ">{courseDetail.name}</span>
       </h1>
@@ -153,7 +153,8 @@ export default function Lessons(props) {
         <Button
           className="mb-5"
           onClick={() => {
-            props.history.push(`/admin/course/${courseId}/add-new/lesson`);
+            localStorage.setItem("courseParams", JSON.stringify(courseDetail));
+            props.history.push(`/admin/course/${courseId}/add-new`);
           }}
         >
           Create New Lesson

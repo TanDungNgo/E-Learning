@@ -4,7 +4,6 @@ import { AudioComponent } from "../../components/AudioPlayer/AudioPlayer";
 
 const RecordListAll = (props) => {
   let { lesson } = props;
-  console.log("lesson", lesson);
   const renderRecords = () => {
     return lesson.records?.map((item, index) => {
       return (

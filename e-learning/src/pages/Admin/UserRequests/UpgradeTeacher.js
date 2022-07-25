@@ -1,22 +1,23 @@
-import React from 'react'
-import UpgradeRequestList from './UpgradeRequestList'
+import React from "react";
+import UpgradeRequestList from "./UpgradeRequestList";
 
-import {useSelector, useDispatch} from "react-redux";
-import {getPendingRequestTeacherAction} from "../../../redux/actions/UpgradeTeacherActions";
-import {useEffect} from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getPendingRequestTeacherAction } from "../../../redux/actions/UpgradeTeacherActions";
+import { useEffect } from "react";
 
 const UpgradeTeacher = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getPendingRequestTeacherAction());
   }, []);
-  const pendingRequests = useSelector((state) => state.UpgradeTeacherReducer.pendingRequests);
-  console.log("pendingRequests ", pendingRequests);
+  const pendingRequests = useSelector(
+    (state) => state.UpgradeTeacherReducer.pendingRequests
+  );
   return (
     <>
-      <UpgradeRequestList requestlist={pendingRequests} requestcontrol={true}/>
+      <UpgradeRequestList requestlist={pendingRequests} requestcontrol={true} />
     </>
-  )
-}
+  );
+};
 
-export default UpgradeTeacher
+export default UpgradeTeacher;

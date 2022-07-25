@@ -8,7 +8,12 @@ import { ShareAltOutlined, HeartOutlined } from "@ant-design/icons";
 import "./CoursesDetailUser.css";
 import CourseOverView from "./CourseOverView";
 import LessonSlider from "./LessonSlider";
-import { ERROR, SUCCESS, USER_LOGIN } from "../../utils/settings/config";
+import {
+  ERROR,
+  SUCCESS,
+  USER_LOGIN,
+  WARNING,
+} from "../../utils/settings/config";
 import { openNotificationWithIcon } from "../../components/Notification/Notification";
 import { checkEnrollAction } from "../../redux/actions/UserActions";
 import { UserService } from "../../services/UserService";
@@ -41,12 +46,32 @@ export const CourseDetailUser = (props) => {
     const data = new FormData();
     data.append("user_id", userLogin.id);
     data.append("course_id", id);
-    await UserService.enrollCourse(data);
-    dispatch(checkEnrollAction(userLogin.id, id));
+    try {
+      await UserService.enrollCourse(data);
+      dispatch(checkEnrollAction(userLogin.id, id));
+      openNotificationWithIcon(
+        SUCCESS,
+        "You have successfully attended the course",
+        "success"
+      );
+    } catch (error) {
+      openNotificationWithIcon(ERROR, "Sorry, something went wrong", "error");
+      console.log("error>>", error);
+    }
   };
   const unenroll = async () => {
-    await UserService.unenrollCourse(userLogin.id, id);
-    dispatch(checkEnrollAction(userLogin.id, id));
+    try {
+      await UserService.unenrollCourse(userLogin.id, id);
+      dispatch(checkEnrollAction(userLogin.id, id));
+      openNotificationWithIcon(
+        WARNING,
+        "You have left the course list",
+        "warning"
+      );
+    } catch (error) {
+      openNotificationWithIcon(ERROR, "Sorry, something went wrong", "error");
+      console.log("error>>", error);
+    }
   };
   const deleteCourse = async (e, id) => {
     try {

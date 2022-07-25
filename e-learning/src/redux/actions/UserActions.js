@@ -15,11 +15,11 @@ export const loginAction = (userLogin, propsRoute) => {
   return async (dispatch) => {
     try {
       const result = await UserService.login(userLogin);
-      dispatch({
-        type: LOGIN,
-        value: result.user,
-      });
       if (result.status === 200) {
+        dispatch({
+          type: LOGIN,
+          value: result.user,
+        });
         result.user.role === "admin"
           ? propsRoute.history.push("/admin")
           : propsRoute.history.push(

@@ -1,15 +1,8 @@
 import React from "react";
-import {
-  FolderOpenOutlined,
-  UserOutlined,
-  DeleteOutlined,
-} from "@ant-design/icons";
 import "./PendingRequestList.css";
 import { TeacherService } from "../../../services/TeacherService";
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
 import { getPendingRequestTeacherAction } from "../../../redux/actions/UpgradeTeacherActions";
-import { NavLink } from "react-router-dom";
 const UpgradeRequestList = (props) => {
   let { requestlist } = props;
   let { requestcontrol } = props;
@@ -46,7 +39,7 @@ const UpgradeRequestList = (props) => {
             {item.username}
           </th>
           <td className="py-3 px-6">{item.status}</td>
-          <td className="py-4 px-6">{item.email.substr(0,15)+"..."}</td>
+          <td className="py-4 px-6">{item.email.substr(0, 15) + "..."}</td>
           <td className="py-4 px-6 truncate">
             <a href={item.video_link}>{item.video_link}</a>
           </td>
@@ -92,7 +85,6 @@ const UpgradeRequestList = (props) => {
               </button>
             </td>
           )}
-
         </tr>
       );
     });

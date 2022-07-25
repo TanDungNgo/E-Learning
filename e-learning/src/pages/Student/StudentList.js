@@ -1,6 +1,5 @@
 import React from "react";
 import "./StudentList.css";
-//this is for user profile
 const StudentList = (props) => {
   let { listStudents } = props;
   let { studentControl } = props;
@@ -83,7 +82,7 @@ const StudentList = (props) => {
           {userControl && (
             <th>
               <td className="py-4 flex items-center align-middle justify-center content-center">
-                <select>
+                <select defaultValue={item.role}>
                   <option value="admin">admin</option>
                   <option value="user">user</option>
                   <option value="teacher">teacher</option>
@@ -116,7 +115,7 @@ const StudentList = (props) => {
                 Email
               </th>
               <th scope="col" className="w-32 py-3 px-2 title-table">
-                Join_date
+                Join Date
               </th>
               {studentControl && (
                 <th scope="col" className="py-3 px-2 title-table">

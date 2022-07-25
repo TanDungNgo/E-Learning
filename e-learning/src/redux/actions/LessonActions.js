@@ -1,4 +1,6 @@
+import { openNotificationWithIcon } from "../../components/Notification/Notification";
 import { LessonService } from "../../services/LessonService";
+import { ERROR, SUCCESS } from "../../utils/settings/config";
 import {
   GET_ALL_LESSONS,
   GET_LESSON_DETAILS,
@@ -63,9 +65,10 @@ export const deleteLessonByIdAction = (lessonId, courseId) => {
   return async (dispatch) => {
     try {
       await LessonService.deleteLessonById(lessonId);
-
       dispatch(getAllLessonsAction(courseId));
+      openNotificationWithIcon(SUCCESS, "Lesson has been deleted", "success");
     } catch (error) {
+      openNotificationWithIcon(ERROR, "Sorry, something went wrong", "error");
       console.log("error>>", error);
     }
   };
@@ -77,7 +80,13 @@ export const updateLessonAction = (data, lessonId, courseId) => {
       const re = await LessonService.editLessonById(lessonId, data);
       console.log(re);
       dispatch(getAllLessonsAction(courseId));
+      openNotificationWithIcon(
+        SUCCESS,
+        "Lesson has been updated again",
+        "success"
+      );
     } catch (error) {
+      openNotificationWithIcon(ERROR, "Sorry, something went wrong", "error");
       console.log("error>>", error);
     }
   };

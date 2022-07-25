@@ -3,6 +3,7 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { Form, Input, Progress } from "antd";
 import storageFirebase from "../../../utils/settings/firebaseConfig";
 import { LessonService } from "../../../services/LessonService";
+import { NavLink } from "react-router-dom";
 
 class AddLesson extends Component {
   state = {
@@ -68,15 +69,15 @@ class AddLesson extends Component {
     return (
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="font-bold text-lg">Thêm bài học mới </h1>
+          <h1 className="font-bold text-lg">Create New Lesson </h1>
           <h1 className="flex justify-between items-center">
-            <span>Khóa học:</span>
+            <span>Course:</span>
             <span className="font-bold">{this.state.courseParams.name}</span>
           </h1>
           <img
             src={this.state.courseParams.banner}
             alt={this.state.courseParams.name}
-            style={{ width: 600, height: 450 }}
+            style={{ width: 500, height: 350 }}
           />
         </div>
         <Form
@@ -92,24 +93,24 @@ class AddLesson extends Component {
           }}
           size="default"
         >
-          <Form.Item label="Tên bài học">
+          <Form.Item label="Lesson's Name">
             <Input
               name="name"
               onChange={this.handleInput}
               value={this.state.name}
-              placeholder="Nhập tên bài học"
+              placeholder="Input lesson's name"
             />
           </Form.Item>
-          <Form.Item label="Mô tả bài học">
+          <Form.Item label="Lesson's Description">
             <Input
               name="description"
               onChange={this.handleInput}
               value={this.state.description}
-              placeholder="Nhập mô tả bài học"
+              placeholder="Input lesson's description"
             />
           </Form.Item>
 
-          <Form.Item label="Video bài học">
+          <Form.Item label="Lesson's Video">
             <input type="file" onChange={this.handleChangeFile} name="url" />
             <br />
           </Form.Item>
@@ -117,9 +118,9 @@ class AddLesson extends Component {
             percent={this.state.percent}
             style={{ marginLeft: 120, width: 600 }}
           />
-          <Form.Item label="Tác vụ">
-            <button type="submit" className="bg-blue-300 text-white p-2">
-              Thêm bài học
+          <Form.Item wrapperCol={{ offset: 4, span: 14 }}>
+            <button type="submit" className="bg-blue-700 text-white py-2 px-6">
+              Create New Course
             </button>
           </Form.Item>
         </Form>

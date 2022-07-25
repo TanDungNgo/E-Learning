@@ -16,7 +16,6 @@ import { LessonDetailUser } from "./pages/Lesson/LessonDetailUser";
 import ListCourse from "./pages/ListCourse/ListCourse";
 import ListCreatedCourse from "./pages/ListCreatedCourse/ListCreatedCourse";
 import { Login } from "./pages/Login/Login";
-import MyAssignedCourse from "./pages/Profile/MyAssignedCourse";
 import Profile from "./pages/Profile/Profile";
 import Upgrade from "./pages/Profile/Upgrade";
 import RecordList from "./pages/RecordList/RecordList";

@@ -1,4 +1,4 @@
-import { NavLink, Redirect, useHistory } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import { EditFilled, ContactsTwoTone } from "@ant-design/icons";
 
 import "./Profile.css";
@@ -13,7 +13,6 @@ const Profile = (props) => {
   const userLogin = JSON.parse(localStorage.getItem(USER_LOGIN));
   const [showEditAvatar, setShowEditAvatar] = useState(false);
   const dispatch = useDispatch();
-  console.log("userLogin", userLogin);
 
   const formik = useFormik({
     initialValues: {

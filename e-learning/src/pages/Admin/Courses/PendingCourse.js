@@ -4,11 +4,7 @@ import { useFormik } from "formik";
 import { Input } from "antd";
 import { CheckCircleFilled, CloseCircleFilled } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
-import {
-  deleteCourseByIdAction,
-  getPendingCourseAction,
-} from "../../../redux/actions/CourseAction";
+import { getPendingCourseAction } from "../../../redux/actions/CourseAction";
 
 import { CourseService } from "../../../services/CourseService";
 import { searchCourseAction } from "../../../redux/actions/SearchAction";
@@ -172,22 +168,6 @@ export default function PendingCourse(props) {
           }}
         >
           Create New Course
-        </Button>
-        <Button
-          className="mb-5"
-          onClick={() => {
-            // dispatch(getAllCoursesAction());
-          }}
-        >
-          Accept All
-        </Button>
-        <Button
-          className="mb-5"
-          onClick={() => {
-            // dispatch(getAllCoursesAction());
-          }}
-        >
-          Reject All
         </Button>
       </div>
 

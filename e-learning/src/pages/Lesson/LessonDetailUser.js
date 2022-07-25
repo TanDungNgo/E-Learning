@@ -18,17 +18,16 @@ import { AudioComponent } from "../../components/AudioPlayer/AudioPlayer";
 import RecordList from "../RecordList/RecordList";
 import TimePicker from "../../components/TimePicker/TimePicker";
 import { TimedataService } from "../../services/TimedataService";
-import { ERROR, SUCCESS } from "../../utils/settings/config";
+import { ERROR, SUCCESS, WARNING } from "../../utils/settings/config";
 import { openNotificationWithIcon } from "../../components/Notification/Notification";
+import { UserService } from "../../services/UserService";
 let timesData = [];
 
 export const LessonDetailUser = (props) => {
   const { userLogin } = useSelector((state) => state.UserReducer);
   const dispatch = useDispatch();
   let { lessonId, courseId } = props.match.params;
-
   const { courseDetail } = useSelector((state) => state.CourseReducer);
-
   const { lesson } = useSelector((state) => state.LessonReducer);
   const { userRecords } = useSelector((state) => state.RecordReducer);
   const videoElement = useRef(null);
@@ -39,10 +38,27 @@ export const LessonDetailUser = (props) => {
   const [disable, setDisable] = useState(false);
   const [minute, setMinute] = useState("0");
   const [second, setSecond] = useState("0");
+
   timesData = timedatasDefault;
+  const check = async () => {
+    if (userLogin.role === "user") {
+      let check = await UserService.checkenroll(userLogin.id, courseId);
+      if (!check.status) {
+        openNotificationWithIcon(
+          WARNING,
+          "Please join the course to watch the video",
+          "warning"
+        );
+        props.history.push(`/course/${courseId}`);
+      }
+    }
+  };
+  check();
+
   useEffect(() => {
     dispatch(getTimedatasByLessonIdAction(lessonId));
   }, []);
+
   useEffect(() => {
     dispatch(getCourseDetailAction(courseId));
   }, []);
@@ -139,7 +155,6 @@ export const LessonDetailUser = (props) => {
   };
 
   const renderTime = () => {
-    console.log("time", timedatasDefault);
     return timedatasDefault?.map((item, index) => {
       return (
         <tr
@@ -188,6 +203,7 @@ export const LessonDetailUser = (props) => {
         </li>
       );
     });
+
   return (
     <>
       <div className="background-lesson grid grid-cols-6 border border-gray-200 rounded-2xl mx-16">

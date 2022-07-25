@@ -52,9 +52,9 @@ const Register = (props) => {
             borderRadius: 6,
           }}
         >
-          <h1 className="mx-auto text-5xl text-center my-5">
-            Thông tin đăng ký
-          </h1>
+          <p className="mx-auto text-5xl text-center my-5">
+            Registration Information
+          </p>
           <Form
             labelCol={{
               span: 4,
@@ -276,7 +276,9 @@ const Register = (props) => {
                   Register
                 </button>
                 <NavLink to="/login" className="text-xs">
-                  Bạn đã có tài khoản?
+                  <span className="text-blue-600">
+                    You already have an account, Login now?
+                  </span>
                 </NavLink>
               </Form.Item>
             </div>
