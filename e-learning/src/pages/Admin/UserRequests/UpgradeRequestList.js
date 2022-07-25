@@ -46,7 +46,7 @@ const UpgradeRequestList = (props) => {
             {item.username}
           </th>
           <td className="py-3 px-6">{item.status}</td>
-          <td className="py-4 px-6">{item.email}</td>
+          <td className="py-4 px-6">{item.email.sub(0,15)+"..."}</td>
           <td className="py-4 px-6 truncate">
             <a href={item.video_link}>{item.video_link}</a>
           </td>
@@ -113,7 +113,7 @@ const UpgradeRequestList = (props) => {
                 Email
               </th>
               <th scope="col" className="w-40 py-3 px-6 title-table">
-                Video Link
+                Introduction Video
               </th>
               <th scope="col" className="w-32 py-3 px-6 title-table">
                 Date
