@@ -16,7 +16,7 @@ const createCourse = (data) => {
 };
 
 const deleteCourseById = (id) => {
-  return Api.delete(`/courses/${id}`);
+  return Api.delete(`/delete-course/${id}`);
 };
 
 const getAllCourses = () => {

@@ -8,10 +8,11 @@ import { ShareAltOutlined, HeartOutlined } from "@ant-design/icons";
 import "./CoursesDetailUser.css";
 import CourseOverView from "./CourseOverView";
 import LessonSlider from "./LessonSlider";
-import { ERROR, USER_LOGIN } from "../../utils/settings/config";
+import { ERROR, SUCCESS, USER_LOGIN } from "../../utils/settings/config";
 import { openNotificationWithIcon } from "../../components/Notification/Notification";
 import { checkEnrollAction } from "../../redux/actions/UserActions";
 import { UserService } from "../../services/UserService";
+import { CourseService } from "../../services/CourseService";
 
 export const CourseDetailUser = (props) => {
   const userLogin = JSON.parse(localStorage.getItem(USER_LOGIN));
@@ -46,6 +47,19 @@ export const CourseDetailUser = (props) => {
   const unenroll = async () => {
     await UserService.unenrollCourse(userLogin.id, id);
     dispatch(checkEnrollAction(userLogin.id, id));
+  };
+  const deleteCourse = async (e, id) => {
+    try {
+      await CourseService.deleteCourseById(id);
+      openNotificationWithIcon(
+        SUCCESS,
+        "Deleted course successfully",
+        "success"
+      );
+      history.push("/");
+    } catch (error) {
+      console.log("error>>", error);
+    }
   };
   return userLogin ? (
     <div className="px-16 mx-4">
@@ -205,6 +219,24 @@ export const CourseDetailUser = (props) => {
             </svg>
             Add
           </NavLink>
+          <button
+            onClick={(e) => deleteCourse(e, id)}
+            className="mt-10 mb-4 ml-4 text-base inline-flex items-center font-bold leading-sm uppercase px-3 py-1 rounded bg-orange-200 hover:bg-orange-300 hover:text-black text-black border drop-shadow-lg"
+          >
+            <svg
+              className="w-4 h-4"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+              />
+            </svg>
+            DELETE COURSE
+          </button>
         </>
       ) : (
         <></>
