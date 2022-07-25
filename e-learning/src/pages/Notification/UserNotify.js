@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 import { openNotificationWithIcon } from "../../components/Notification/Notification";
 import { NotifyUserAction } from "../../redux/actions/NotifyAction";
 import { ERROR } from "../../utils/settings/config";
-
+import { NavLink } from "react-router-dom";
 const UserNotify = () => {
   const userLogin = JSON.parse(localStorage.getItem("USER_LOGIN"));
   const { notifyUserDefault } = useSelector((state) => state.NotifyReducer);
@@ -32,7 +32,15 @@ const UserNotify = () => {
           <th className="truncate py-2 px-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
             <span>
               <h3>{notification.data.name}</h3>
-              <p>{notification.data.description}</p>
+              {
+                notification.data.type == 'new_lesson' ? (
+                  <NavLink to={`/course/${notification.data.course_id}`}>
+                    <p>{notification.data.description} {notification.data.course_name}</p>
+                  </NavLink>
+                ) : (
+                  <p>{notification.data.description}</p>
+                )
+              }
               {
                 notification.data.type == 'feedback' &&(
                   <span>
