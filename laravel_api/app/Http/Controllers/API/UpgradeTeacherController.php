@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Models\User;
-use App\Models\UpgradeTeacher;
+use App\Models\Upgradeteacher;
 
 use App\Http\Requests\SendNotificationRequest;
 use App\Notifications\SendNotification;
