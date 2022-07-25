@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect } from "react";
-import { Button, Form, Table, Input } from "antd";
-import { useFormik } from "formik";
+import { Button, Table } from "antd";
 import { EditOutlined, DeleteOutlined, EyeOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
@@ -13,7 +12,6 @@ import { getCourseDetailAction } from "../../../redux/actions/CourseAction";
 export default function Lessons(props) {
   const { lessonsDefault } = useSelector((state) => state.LessonReducer);
   const { courseDetail } = useSelector((state) => state.CourseReducer);
-  console.log("courseDetail", courseDetail);
 
   const dispatch = useDispatch();
 
@@ -155,7 +153,7 @@ export default function Lessons(props) {
         <Button
           className="mb-5"
           onClick={() => {
-            props.history.push(`/admin/course/${courseId}/add-new`);
+            props.history.push(`/admin/course/${courseId}/add-new/lesson`);
           }}
         >
           Create New Lesson

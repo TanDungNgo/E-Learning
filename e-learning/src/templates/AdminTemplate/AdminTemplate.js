@@ -50,12 +50,7 @@ const AdminTemplate = (props) => {
       </NavLink>,
       1
     ),
-    getItem(
-      <NavLink to="/my-assigned-courses" className=" text-black">
-        My Courses
-      </NavLink>,
-      2
-    ),
+
     getItem(
       <NavLink
         className="font-bold hover:!text-red-600 duration-500"
@@ -66,7 +61,7 @@ const AdminTemplate = (props) => {
       >
         LOGOUT
       </NavLink>,
-      3
+      2
     ),
   ];
 

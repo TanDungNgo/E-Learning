@@ -2,13 +2,18 @@ import { Checkbox, Form, Input } from "antd";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { openNotificationWithIcon } from "../../components/Notification/Notification";
 import { registerAction } from "../../redux/actions/UserActions";
+import { USER_LOGIN, WARNING } from "../../utils/settings/config";
 import { Footer } from "./../../templates/HomeTemplate/Footer/Footer";
 
-const bgAuth =
-  "https://luanvanviet.com/wp-content/uploads/2020/03/hinh-anh-quan-ly-giao-duc-la-gi-2.jpg";
+const bgAuth = "/img/bgElearning.jpg";
 
 const Register = (props) => {
+  if (localStorage.getItem(USER_LOGIN)) {
+    openNotificationWithIcon(WARNING, "Please logout", "warning");
+    props.history.push("/");
+  }
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {

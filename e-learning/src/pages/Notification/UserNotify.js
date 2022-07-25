@@ -1,7 +1,5 @@
 import React from "react";
-
 import { useEffect } from "react";
-
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { openNotificationWithIcon } from "../../components/Notification/Notification";
@@ -11,7 +9,6 @@ import { NavLink } from "react-router-dom";
 const UserNotify = () => {
   const userLogin = JSON.parse(localStorage.getItem("USER_LOGIN"));
   const { notifyUserDefault } = useSelector((state) => state.NotifyReducer);
-  console.log("notifyUserDefault", notifyUserDefault);
   const dispatch = useDispatch();
   const history = useHistory();
   useEffect(() => {
@@ -32,24 +29,23 @@ const UserNotify = () => {
           <th className="truncate py-2 px-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
             <span>
               <h3>{notification.data.name}</h3>
-              {
-                notification.data.type == 'new_lesson' ? (
-                  <NavLink to={`/course/${notification.data.course_id}`}>
-                    <p>{notification.data.description} {notification.data.course_name}</p>
-                  </NavLink>
-                ) : (
-                  <p>{notification.data.description}</p>
-                )
-              }
-              {
-                notification.data.type == 'feedback' &&(
-                  <span>
-                     <audio controls>
-                      <source src={notification.data.url} type="audio/wav" />
-                     </audio>
-                    </span>
-                ) 
-              }
+              {notification.data.type === "new_lesson" ? (
+                <NavLink to={`/course/${notification.data.course_id}`}>
+                  <p>
+                    {notification.data.description}{" "}
+                    {notification.data.course_name}
+                  </p>
+                </NavLink>
+              ) : (
+                <p>{notification.data.description}</p>
+              )}
+              {notification.data.type === "feedback" && (
+                <span>
+                  <audio controls>
+                    <source src={notification.data.url} type="audio/wav" />
+                  </audio>
+                </span>
+              )}
               <span>
                 <h5>{notification.created_at}</h5>
               </span>

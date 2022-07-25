@@ -3,11 +3,15 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import * as Yup from "yup";
+import { openNotificationWithIcon } from "../../components/Notification/Notification";
 import { loginAction } from "../../redux/actions/UserActions";
-import { USER_LOGIN } from "../../utils/settings/config";
+import { USER_LOGIN, WARNING } from "../../utils/settings/config";
 
 export const Login = (props) => {
-  // const dispatch = useDispatch();
+  if (localStorage.getItem(USER_LOGIN)) {
+    openNotificationWithIcon(WARNING, "You are logged in", "warning");
+    props.history.push("/");
+  }
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {

@@ -18,7 +18,7 @@ import { AudioComponent } from "../../components/AudioPlayer/AudioPlayer";
 import RecordList from "../RecordList/RecordList";
 import TimePicker from "../../components/TimePicker/TimePicker";
 import { TimedataService } from "../../services/TimedataService";
-import { SUCCESS } from "../../utils/settings/config";
+import { ERROR, SUCCESS } from "../../utils/settings/config";
 import { openNotificationWithIcon } from "../../components/Notification/Notification";
 let timesData = [];
 
@@ -118,11 +118,12 @@ export const LessonDetailUser = (props) => {
       await TimedataService.deleteTimedata(id);
       openNotificationWithIcon(
         SUCCESS,
-        "Deleted timedata successfully",
+        "Deleted time data successfully",
         "success"
       );
       dispatch(getTimedatasByLessonIdAction(lessonId));
     } catch (error) {
+      openNotificationWithIcon(ERROR, "Sorry, something went wrong", "error");
       console.log("error>>", error);
     }
   };
