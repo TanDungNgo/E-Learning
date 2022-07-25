@@ -9,6 +9,7 @@ import { TeacherService } from "../../../services/TeacherService";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getPendingRequestTeacherAction } from "../../../redux/actions/UpgradeTeacherActions";
+import { NavLink } from "react-router-dom";
 const UpgradeRequestList = (props) => {
   let { requestlist } = props;
   let { requestcontrol } = props;
@@ -36,7 +37,7 @@ const UpgradeRequestList = (props) => {
       return (
         <tr
           key={index}
-          className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+          className="overflow-auto bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
         >
           <th
             scope="row"
@@ -46,7 +47,9 @@ const UpgradeRequestList = (props) => {
           </th>
           <td className="py-3 px-6">{item.status}</td>
           <td className="py-4 px-6">{item.email}</td>
-          <td className="py-4 px-6 truncate">{item.video_link}</td>
+          <td className="py-4 px-6 truncate">
+            <a href={item.video_link}>{item.video_link}</a>
+          </td>
           <td className="py-4 px-6">{item.created_at}</td>
           {requestcontrol && (
             <td className="py-4 flex items-center align-middle justify-center content-center">
